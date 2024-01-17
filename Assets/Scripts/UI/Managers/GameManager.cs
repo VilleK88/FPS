@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     public int skillPoints;
 
     public int cash;
+    public int[] cashIDs;
 
     public void Save()
     {
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
         data.skillPoints = skillPoints;
 
         data.cash = cash;
+        data.cashIDs = cashIDs;
 
         // Serialisoidaan GameData objekti, joka tallennetaan samalla tiedostoon.
         bf.Serialize(file, data);
@@ -80,7 +82,7 @@ public class GameManager : MonoBehaviour
             skillPoints = data.skillPoints;
 
             cash = data.cash;
-
+            cashIDs = data.cashIDs;
 
         }
     }
@@ -99,4 +101,5 @@ class GameData
     public int skillPoints;
 
     public int cash;
+    public int[] cashIDs;
 }
