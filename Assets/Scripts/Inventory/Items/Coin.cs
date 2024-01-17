@@ -13,10 +13,17 @@ public class Coin : MonoBehaviour
         if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             GameManager.instance.cash += value;
+            CollectCoin();
             AddToCashIDsArray(coinID);
             AudioManager.instance.PlaySound(collectSound);
             gameObject.SetActive(false);
         }
+    }
+
+    void CollectCoin()
+    {
+        GameEventsManager.instance.coinEvents.CoinGained(value);
+        GameEventsManager.instance.miscEvents.CoinCollected();
     }
 
     void AddToCashIDsArray(int newCoinID)
