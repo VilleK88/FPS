@@ -5,7 +5,7 @@ using UnityEngine;
 public class Coin : MonoBehaviour
 {
     public int value;
-    [SerializeField] int coinID;
+    public int coinID;
     [SerializeField] AudioClip collectSound;
 
     private void OnTriggerEnter(Collider other)

@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour
     public int cash;
     public int[] cashIDs;
 
+    public int savedSceneID;
+
     public void Save()
     {
         Debug.Log("Game Saved!");
@@ -52,6 +54,8 @@ public class GameManager : MonoBehaviour
 
         data.cash = cash;
         data.cashIDs = cashIDs;
+
+        data.savedSceneID = savedSceneID;
 
         // Serialisoidaan GameData objekti, joka tallennetaan samalla tiedostoon.
         bf.Serialize(file, data);
@@ -84,6 +88,7 @@ public class GameManager : MonoBehaviour
             cash = data.cash;
             cashIDs = data.cashIDs;
 
+            savedSceneID = data.savedSceneID;
         }
     }
 }
@@ -102,4 +107,6 @@ class GameData
 
     public int cash;
     public int[] cashIDs;
+
+    public int savedSceneID;
 }

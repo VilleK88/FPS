@@ -351,6 +351,7 @@ MonoBehaviour:
   currentLevel: 0
   skillPoints: 0
   cash: 0
+  cashIDs: 
 --- !u!1001 &4809346560822668973
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -405,6 +406,10 @@ PrefabInstance:
     - target: {fileID: 4809346560339244099, guid: 6f7b50a76ea32814095e35b9f11409fd, type: 3}
       propertyPath: m_Name
       value: NextScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 4809346560339244125, guid: 6f7b50a76ea32814095e35b9f11409fd, type: 3}
+      propertyPath: sceneName
+      value: 1 - Menu
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f7b50a76ea32814095e35b9f11409fd, type: 3}

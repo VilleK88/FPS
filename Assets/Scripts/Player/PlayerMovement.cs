@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Jumping")]
     Vector3 velocity;
-    float gravity = -9.81f;
+    float gravity = -19.62f;
     [SerializeField] Transform groundCheck;
     float groundDistance = 0.4f;
     public LayerMask groundMask;
