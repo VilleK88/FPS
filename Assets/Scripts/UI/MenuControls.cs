@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class MenuControls : MonoBehaviour
 
     public void StartGame()
     {
+        GameManager.instance.cashIDs = new int[0]; // clear collected currency IDs
         SceneManager.LoadScene("TestScene");
     }
 
