@@ -16,13 +16,15 @@ public class MenuControls : MonoBehaviour
     public void StartGame()
     {
         GameManager.instance.cashIDs = new int[0]; // clear collected currency IDs
+        GameManager.instance.loadPlayerPosition = false;
         SceneManager.LoadScene("TestScene");
     }
 
     public void LoadGame()
     {
-        LoadSceneID();
+        GameManager.instance.loadPlayerPosition = true;
         GameManager.instance.Load();
+        LoadSceneID();
     }
 
     public void LoadSceneID()
@@ -30,6 +32,10 @@ public class MenuControls : MonoBehaviour
         if (GameManager.instance.savedSceneID == 0)
         {
             SceneManager.LoadScene("TestScene");
+        }
+        if (GameManager.instance.savedSceneID == 1)
+        {
+            SceneManager.LoadScene("TestScene2");
         }
     }
 

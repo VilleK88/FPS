@@ -35,7 +35,12 @@ public class GameManager : MonoBehaviour
     public int cash;
     public int[] cashIDs;
 
+    public float x;
+    public float y;
+    public float z;
+
     public int savedSceneID;
+    public bool loadPlayerPosition = false;
 
     public void Save()
     {
@@ -55,7 +60,12 @@ public class GameManager : MonoBehaviour
         data.cash = cash;
         data.cashIDs = cashIDs;
 
+        data.x = x;
+        data.y = y;
+        data.z = z;
+
         data.savedSceneID = savedSceneID;
+        data.loadPlayerPosition = false;
 
         // Serialisoidaan GameData objekti, joka tallennetaan samalla tiedostoon.
         bf.Serialize(file, data);
@@ -88,7 +98,12 @@ public class GameManager : MonoBehaviour
             cash = data.cash;
             cashIDs = data.cashIDs;
 
+            x = data.x;
+            y = data.y;
+            z = data.z;
+
             savedSceneID = data.savedSceneID;
+            loadPlayerPosition = true;
         }
     }
 }
@@ -108,5 +123,10 @@ class GameData
     public int cash;
     public int[] cashIDs;
 
+    public float x;
+    public float y;
+    public float z;
+
     public int savedSceneID;
+    public bool loadPlayerPosition = false;
 }

@@ -11,7 +11,7 @@ public class InGameMenuControls : MonoBehaviour
     public delegate void ToggleMenuDelegate(bool isActive);
     public static event ToggleMenuDelegate OnToggleMenuStatic;
     Scene currentScene;
-    [HideInInspector] public GameObject player;
+    public Player player;
 
     private void Start()
     {
@@ -19,7 +19,7 @@ public class InGameMenuControls : MonoBehaviour
         {
             menuButtons.SetActive(false);
         }
-        player = PlayerManager.instance.GetPlayer();
+        player.GetComponent<Player>();
         //currentScene = SceneManager.GetActiveScene();
     }
 
@@ -66,13 +66,17 @@ public class InGameMenuControls : MonoBehaviour
     public void SaveGame()
     {
         SaveSceneID();
+        player.GetComponent<Player>().SavePlayerTransformPosition();
+        //PlayerManager.instance.SavePlayerTransformPosition();
         GameManager.instance.Save();
     }
 
     public void LoadGame()
     {
-        LoadSceneID();
         GameManager.instance.Load();
+        LoadSceneID();
+        //GameManager.instance.loadPlayerPosition = true;
+        //PlayerManager.instance.LoadPlayerTransformPosition();
     }
 
     public void SaveSceneID()
@@ -81,6 +85,10 @@ public class InGameMenuControls : MonoBehaviour
         {
             GameManager.instance.savedSceneID = 0;
         }
+        if (currentScene.name == "TestScene2")
+        {
+            GameManager.instance.savedSceneID = 1;
+        }
     }
 
     public void LoadSceneID()
@@ -88,6 +96,10 @@ public class InGameMenuControls : MonoBehaviour
         if(GameManager.instance.savedSceneID == 0)
         {
             SceneManager.LoadScene("TestScene");
+        }
+        if (GameManager.instance.savedSceneID == 1)
+        {
+            SceneManager.LoadScene("TestScene2");
         }
     }
 

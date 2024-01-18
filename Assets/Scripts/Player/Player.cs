@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] CharacterController characterController;
+
     [Header("Plater Interaction Info")]
     [SerializeField] Camera cam;
     public Interactable focus;
@@ -11,10 +13,21 @@ public class Player : MonoBehaviour
     RaycastHit hit;
     Vector3 cursorPosition;
     [SerializeField] LayerMask groundLayer;
+    public VectorValue startingPosition;
 
     private void Start()
     {
-        
+        if (GameManager.instance.loadPlayerPosition)
+        {
+            LoadPlayerTransformPosition();
+            Debug.Log("PlayerManagerin LoadPlayerTransformPosition debuggaa");
+            GameManager.instance.loadPlayerPosition = false;
+        }
+        else
+        {
+            transform.position = startingPosition.initialValue;
+            Debug.Log("PlayerManagerin startingPosition.initialValue debuggaa");
+        }
     }
 
     private void Update()
@@ -72,5 +85,17 @@ public class Player : MonoBehaviour
         }
 
         focus = null;
+    }
+
+    public void SavePlayerTransformPosition()
+    {
+        GameManager.instance.x = transform.position.x;
+        GameManager.instance.y = 4;
+        GameManager.instance.z = transform.position.z;
+    }
+
+    public void LoadPlayerTransformPosition()
+    {
+        transform.position = new Vector3(GameManager.instance.x, GameManager.instance.y, GameManager.instance.z);
     }
 }
