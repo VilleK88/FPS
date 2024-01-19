@@ -629,7 +629,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneToLoad: TestScene
   playerPosition: {x: -16.68, y: 2, z: -3.68}
+  xPosition: 0
+  yPosition: 0
+  zPosition: 0
   playerSpawnPosition: {fileID: 11400000, guid: 1d53bbfa6e9197a4c9b3a9bab7972c2d, type: 2}
+  x: {fileID: 11400000, guid: 1d53bbfa6e9197a4c9b3a9bab7972c2d, type: 2}
+  y: {fileID: 11400000, guid: 1d53bbfa6e9197a4c9b3a9bab7972c2d, type: 2}
+  z: {fileID: 11400000, guid: 1d53bbfa6e9197a4c9b3a9bab7972c2d, type: 2}
 --- !u!65 &539161475
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1301,7 +1307,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1054643515}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1340,12 +1346,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b46da92b7e230846aa648856003e8cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterController: {fileID: 1054643516}
   cam: {fileID: 963194227}
   focus: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   startingPosition: {fileID: 11400000, guid: 1d53bbfa6e9197a4c9b3a9bab7972c2d, type: 2}
+  startingX: {fileID: 11400000, guid: 1d53bbfa6e9197a4c9b3a9bab7972c2d, type: 2}
+  startingY: {fileID: 11400000, guid: 1d53bbfa6e9197a4c9b3a9bab7972c2d, type: 2}
+  startingZ: {fileID: 11400000, guid: 1d53bbfa6e9197a4c9b3a9bab7972c2d, type: 2}
 --- !u!1 &1062800056
 GameObject:
   m_ObjectHideFlags: 0

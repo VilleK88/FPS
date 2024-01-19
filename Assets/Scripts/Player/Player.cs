@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -13,7 +14,9 @@ public class Player : MonoBehaviour
     RaycastHit hit;
     Vector3 cursorPosition;
     [SerializeField] LayerMask groundLayer;
+
     public VectorValue startingPosition;
+
 
     private void Start()
     {
@@ -25,8 +28,12 @@ public class Player : MonoBehaviour
         }
         else
         {
-            transform.position = startingPosition.initialValue;
-            Debug.Log("PlayerManagerin startingPosition.initialValue debuggaa");
+            if(characterController != null)
+            {
+                characterController.enabled = false;
+                characterController.transform.position = startingPosition.initialValue;
+                characterController.enabled = true;
+            }
         }
     }
 
@@ -96,6 +103,9 @@ public class Player : MonoBehaviour
 
     public void LoadPlayerTransformPosition()
     {
-        transform.position = new Vector3(GameManager.instance.x, GameManager.instance.y, GameManager.instance.z);
+        //transform.position = new Vector3(GameManager.instance.x, GameManager.instance.y, GameManager.instance.z);
+        characterController.enabled = false;
+        characterController.transform.position = new Vector3(GameManager.instance.x, GameManager.instance.y, GameManager.instance.z);
+        characterController.enabled = true;
     }
 }
