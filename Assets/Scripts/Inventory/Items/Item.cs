@@ -2,38 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
-public class Item : ScriptableObject
+public class Item : MonoBehaviour
 {
-    new public string name = "New Item";
-    public int itemID;
-    public bool isDefaultItem = false;
+    public ItemObject item;
 
-    [Header("Only gameplay")]
-    public ItemType type;
-    public Vector2Int range = new Vector2Int(5, 4);
-    public int cashValue;
-    public int damageOutput;
-
-    [Header("Only UI")]
-    public bool stackable = true;
-
-    [Header("Both")]
-    public Sprite icon = null;
-
-    [TextArea]
-    public string description;
-
-    public virtual void Use()
+    private void OnTriggerEnter(Collider other)
     {
-        // Use the item
-        // Something might happen
-
-        //Debug.Log("Using " + name);
+        if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            InventoryManager.instance.inventory.AddItem(item, 1);
+            gameObject.SetActive(false);
+        }
     }
-}
-
-public enum ItemType
-{
-    cash, healthPack, armor, pistol, rifle, shotgun,
 }

@@ -8,20 +8,36 @@ public class ItemPickup : Interactable
     public string itemName;
     public int pickUpItemID;
 
+    [SerializeField] bool collectOnTouch;
+
     public override void Interact()
     {
-        base.Interact();
-        PickUp();
+        if(!collectOnTouch)
+        {
+            base.Interact();
+            PickUp();
+        }
     }
 
     void PickUp()
     {
-        InventoryManager.instance.AddItem(item);
-        gameObject.SetActive(false);
+        //InventoryManager.instance.AddItem(item);
+        //gameObject.SetActive(false);
     }
 
     public void GenerateID()
     {
         pickUpItemID = UnityEngine.Random.Range(0, 1000000);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(collectOnTouch)
+        {
+            if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+            {
+                PickUp();
+            }
+        }
     }
 }

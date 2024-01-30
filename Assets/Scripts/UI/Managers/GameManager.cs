@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
 
     public int savedSceneID;
     public bool loadPlayerPosition = false;
+    public bool loadInventory = false;
 
     public void Save()
     {
@@ -66,6 +67,8 @@ public class GameManager : MonoBehaviour
 
         data.savedSceneID = savedSceneID;
         data.loadPlayerPosition = false;
+
+        InventoryManager.instance.inventory.Save();
 
         // Serialisoidaan GameData objekti, joka tallennetaan samalla tiedostoon.
         bf.Serialize(file, data);
@@ -104,6 +107,7 @@ public class GameManager : MonoBehaviour
 
             savedSceneID = data.savedSceneID;
             loadPlayerPosition = true;
+            loadInventory = true;
         }
     }
 }

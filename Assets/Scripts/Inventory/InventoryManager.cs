@@ -20,11 +20,27 @@ public class InventoryManager : MonoBehaviour
     }
     #endregion
 
-    public List<Item> items = new List<Item>();
+    public InventoryObject inventory;
+
+    private void Start()
+    {
+        if(GameManager.instance.loadInventory)
+        {
+            inventory.Load();
+            GameManager.instance.loadInventory = false;
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        inventory.Container.Clear();
+    }
+
+    /*public List<Item> items = new List<Item>();
 
     public bool AddItem(Item item)
     {
         items.Add(item);
         return true;
-    }
+    }*/
 }

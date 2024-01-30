@@ -103,7 +103,6 @@ public class Player : MonoBehaviour
 
     public void LoadPlayerTransformPosition()
     {
-        //transform.position = new Vector3(GameManager.instance.x, GameManager.instance.y, GameManager.instance.z);
         characterController.enabled = false;
         characterController.transform.position = new Vector3(GameManager.instance.x, GameManager.instance.y, GameManager.instance.z);
         characterController.enabled = true;
