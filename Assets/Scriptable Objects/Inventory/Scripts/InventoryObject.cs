@@ -18,7 +18,7 @@ public class InventoryObject : ScriptableObject
     {
         for(int i = 0; i < Container.Items.Count; i++)
         {
-            if (Container.Items[i].item == _item)
+            if (Container.Items[i].item.Id == _item.Id)
             {
                 Container.Items[i].AddAmount(_amount);
                 return;

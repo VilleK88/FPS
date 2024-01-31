@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 101a1c8e75d23c042b0e6a5bae622478, type: 3}
   m_Name: Small_Medpack
   m_EditorClassIdentifier: 
-  Id: 2
+  Id: 10
   uiDisplay: {fileID: 21300000, guid: e52ea25af699fd445b7046374f81a5b9, type: 3}
   type: 1
   description: Small medpack
