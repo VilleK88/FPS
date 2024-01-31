@@ -33,7 +33,7 @@ public class InventoryManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        inventory.Container.Clear();
+        inventory.Container.Items.Clear();
     }
 
     /*public List<Item> items = new List<Item>();

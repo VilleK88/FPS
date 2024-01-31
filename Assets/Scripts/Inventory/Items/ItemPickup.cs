@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemPickup : Interactable
 {
-    public Item item;
+    //public Item item;
     public string itemName;
     public int pickUpItemID;
 

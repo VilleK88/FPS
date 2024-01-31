@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69574298c6853ff419b04dba31940829, type: 3}
   m_Name: Shotgun
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1467622807121177683, guid: 492c19607f6fde04aa7180989554b5d6, type: 3}
+  Id: 5
+  uiDisplay: {fileID: 21300012, guid: 71a7f8669de848e45ba57bda95f3a58e, type: 3}
   type: 2
   description: Shotgun
   atkBonus: 20
