@@ -16,5 +16,8 @@ MonoBehaviour:
   uiDisplay: {fileID: 21300012, guid: 71a7f8669de848e45ba57bda95f3a58e, type: 3}
   type: 2
   description: Shotgun
-  atkBonus: 20
-  armorBonus: 0
+  buffs:
+  - attribute: 4
+    value: 0
+    min: 50
+    max: 100
