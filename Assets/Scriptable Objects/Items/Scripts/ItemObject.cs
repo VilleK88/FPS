@@ -20,7 +20,7 @@ public enum Attributes
     Stamina,
     Strength,
     Damage,
-    Armor
+    Armor,
 }
 public abstract class ItemObject : ScriptableObject
 {
@@ -44,7 +44,6 @@ public class Item
     public string Name;
     public int Id;
     public ItemBuff[] buffs;
-
     public Item(ItemObject item)
     {
         Name = item.name;
@@ -65,14 +64,12 @@ public class ItemBuff
     public int value;
     public int min;
     public int max;
-
     public ItemBuff(int _min, int _max)
     {
         min = _min;
         max = _max;
         GenerateValue();
     }
-
     public void GenerateValue()
     {
         value = UnityEngine.Random.Range(min, max);
