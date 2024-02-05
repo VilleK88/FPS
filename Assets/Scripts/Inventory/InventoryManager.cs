@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UserInterface;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class InventoryManager : MonoBehaviour
     #endregion
 
     public InventoryObject inventory;
+    public MouseItem mouseItem = new MouseItem();
 
     private void Start()
     {
@@ -36,12 +38,4 @@ public class InventoryManager : MonoBehaviour
         //inventory.Container.Items.Clear();
         inventory.Container.Items = new InventorySlot[20];
     }
-
-    /*public List<Item> items = new List<Item>();
-
-    public bool AddItem(Item item)
-    {
-        items.Add(item);
-        return true;
-    }*/
 }

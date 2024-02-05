@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 2
   uiDisplay: {fileID: 21300000, guid: 172774604c1bee84185a69041576525b, type: 3}
-  type: 2
+  type: 3
   description: Axe
   buffs:
   - attribute: 3

@@ -33,23 +33,6 @@ public class InventoryObject : ScriptableObject
             }
         }
         SetEmptySlot(_item, _amount);
-
-        // This code can be deleted.
-        /*if(_item.buffs.Length > 0)
-        {
-            Container.Items.Add(new InventorySlot(_item.Id, _item, _amount));
-            return;
-        }
-
-        for(int i = 0; i < Container.Items.Count; i++)
-        {
-            if (Container.Items[i].item.Id == _item.Id)
-            {
-                Container.Items[i].AddAmount(_amount);
-                return;
-            }
-        }
-        Container.Items.Add(new InventorySlot(_item.Id, _item, _amount));*/
     }
 
     public InventorySlot SetEmptySlot(Item _item, int _amount)
@@ -111,20 +94,28 @@ public class InventoryObject : ScriptableObject
     [ContextMenu("Clear")]
     public void Clear()
     {
-        Container = new Inventory();
+        Container.Clear();
     }
 }
 
 [System.Serializable]
 public class Inventory
 {
-    //public List<InventorySlot> Items = new List<InventorySlot>();
     public InventorySlot[] Items = new InventorySlot[20];
+    public void Clear()
+    {
+        for(int i = 0; i < Items.Length; i++)
+        {
+            Items[i].UpdateSlot(-1, new Item(), 0);
+        }
+    }
 }
 
 [System.Serializable]
 public class InventorySlot
 {
+    public ItemType[] AllowedItems = new ItemType[0];
+    public UserInterface parent;
     public int ID = -1;
     public Item item;
     public int amount;
@@ -149,5 +140,21 @@ public class InventorySlot
     public void AddAmount(int value)
     {
         amount += value;
+    }
+
+    public bool CanPlaceInSlot(ItemObject _item)
+    {
+        if(AllowedItems.Length <= 0)
+        {
+            return true;
+        }
+        for(int i = 0; i < AllowedItems.Length; i++)
+        {
+            if(_item.type == AllowedItems[i])
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
