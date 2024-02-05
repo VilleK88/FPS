@@ -65,6 +65,23 @@ public class InventoryObject : ScriptableObject
         return null;
     }
 
+    public void MoveItem(InventorySlot item1, InventorySlot item2)
+    {
+        InventorySlot temp = new InventorySlot(item2.ID, item2.item, item2.amount);
+        item2.UpdateSlot(item1.ID, item1.item, item1.amount);
+        item1.UpdateSlot(temp.ID, temp.item, temp.amount);
+    }
+
+    public void RemoveItem(Item _item)
+    {
+        for (int i = 0; i < Container.Items.Length; i++)
+        {
+            if (Container.Items[i].item == _item)
+            {
+                Container.Items[i].UpdateSlot(-1, null, 0);
+            }
+        }
+    }
 
     [ContextMenu("Save")]
     public void Save()
