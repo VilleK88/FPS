@@ -22,7 +22,6 @@ public class InventoryManager : MonoBehaviour
     #endregion
 
     public InventoryObject inventory;
-    public MouseItem mouseItem = new MouseItem();
 
     private void Start()
     {
