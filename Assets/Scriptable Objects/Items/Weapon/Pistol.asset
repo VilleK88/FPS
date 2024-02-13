@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69574298c6853ff419b04dba31940829, type: 3}
+  m_Script: {fileID: 11500000, guid: 16d7337cb71f19c409c8b0f595f5d2d6, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
-  Id: 3
-  uiDisplay: {fileID: 21300022, guid: 71a7f8669de848e45ba57bda95f3a58e, type: 3}
+  Id: 4
+  uiDisplay: {fileID: 21300022, guid: 5acb27b603af6d44ea6113c4b7b15385, type: 3}
   type: 3
   description: Pistol
   buffs:
   - attribute: 4
     value: 0
     min: 5
-    max: 50
+    max: 10
