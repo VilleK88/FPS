@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16d7337cb71f19c409c8b0f595f5d2d6, type: 3}
   m_Name: Rifle
   m_EditorClassIdentifier: 
-  Id: 5
   uiDisplay: {fileID: 21300030, guid: 5acb27b603af6d44ea6113c4b7b15385, type: 3}
   type: 3
   description: Rifle
-  buffs:
-  - attribute: 4
-    value: 0
-    min: 30
-    max: 35
+  data:
+    Name: 
+    Id: 5
+    buffs:
+    - attribute: 4
+      value: 0
+      min: 30
+      max: 35
