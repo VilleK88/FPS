@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Small_Medpack
   m_EditorClassIdentifier: 
   uiDisplay: {fileID: 21300050, guid: 2f84b5c8ce2b18549a175522847db7d6, type: 3}
+  stackable: 1
   type: 1
   description: Small medpack
   data:
