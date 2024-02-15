@@ -28,8 +28,8 @@ public class InventoryManager : MonoBehaviour
     {
         if(GameManager.instance.loadInventory)
         {
-            inventory.Load();
-            equipment.Load();
+            inventory.Load("inventorySave.txt");
+            equipment.Load("equipmentSave.txt");
             GameManager.instance.loadInventory = false;
         }
     }

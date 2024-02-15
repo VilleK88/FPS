@@ -6,6 +6,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Linq;
 using UnityEngine.UIElements;
+using System;
 
 [CreateAssetMenu(fileName = "New Inventory", menuName = "Inventory System/Inventory")]
 public class InventoryObject : ScriptableObject
@@ -94,18 +95,55 @@ public class InventoryObject : ScriptableObject
     }
 
     [ContextMenu("Save")]
-    public void Save()
+    /*public void Save()
     {
         IFormatter formatter = new BinaryFormatter();
         Stream stream = new FileStream(string.Concat(Application.persistentDataPath, savePath), FileMode.Create, FileAccess.Write);
         formatter.Serialize(stream, Container);
         stream.Close();
+    }*/
+
+    public void Save(string newSavePath)
+    {
+        try
+        {
+            IFormatter formatter = new BinaryFormatter();
+            string filePath = Path.Combine(Application.persistentDataPath, newSavePath);
+
+            using (Stream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+            {
+                formatter.Serialize(stream, Container);
+            }
+        }
+        catch(UnauthorizedAccessException ex)
+        {
+            Debug.LogError($"UnauthorizedAccessException: {ex.Message}");
+        }
+        catch(Exception ex)
+        {
+            Debug.LogError($"Exception: {ex.Message}");
+        }
     }
 
     [ContextMenu("Load")]
-    public void Load()
+    /*public void Load()
     {
         if(File.Exists(string.Concat(Application.persistentDataPath, savePath)))
+        {
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream(string.Concat(Application.persistentDataPath, savePath), FileMode.Open, FileAccess.Read);
+            Inventory newContainer = (Inventory)formatter.Deserialize(stream);
+            for (int i = 0; i < Container.Items.Length; i++)
+            {
+                Container.Items[i].UpdateSlot(newContainer.Items[i].item, newContainer.Items[i].amount);
+            }
+            stream.Close();
+        }
+    }*/
+
+    public void Load(string savePath)
+    {
+        if (File.Exists(string.Concat(Application.persistentDataPath, savePath)))
         {
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream(string.Concat(Application.persistentDataPath, savePath), FileMode.Open, FileAccess.Read);
