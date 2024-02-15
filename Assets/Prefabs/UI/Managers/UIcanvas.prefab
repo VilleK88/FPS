@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1109650378}
   - component: {fileID: 1109650377}
   - component: {fileID: 5454511260769297924}
+  - component: {fileID: 2865743842161424835}
   m_Layer: 5
   m_Name: EquipmentScreen
   m_TagString: Untagged
@@ -102,6 +103,19 @@ MonoBehaviour:
   - {fileID: 6494115814819372994}
   - {fileID: 6494115815542279384}
   - {fileID: 6494115816371302506}
+--- !u!114 &2865743842161424835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109650373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &1510388674
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,6 +129,7 @@ GameObject:
   - component: {fileID: 1510388676}
   - component: {fileID: 86830749}
   - component: {fileID: 3068284387711587389}
+  - component: {fileID: 3068284387711587390}
   m_Layer: 5
   m_Name: InventoryScreen
   m_TagString: Untagged
@@ -219,6 +234,19 @@ MonoBehaviour:
   inventoryManager: {fileID: 3068284386962771329}
   inventory: {fileID: 11400000, guid: 47367f036f65a2547ba255465909da51, type: 2}
   inventoryPrefab: {fileID: 8109583843272619525, guid: 9e92f5916be2835439937d957d46641a, type: 3}
+--- !u!114 &3068284387711587390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1510388674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &3068284386039993364
 GameObject:
   m_ObjectHideFlags: 0
@@ -1382,6 +1410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: 47367f036f65a2547ba255465909da51, type: 2}
+  equipment: {fileID: 11400000, guid: 0fe605f0a7322dc458e3c5d57003d258, type: 2}
 --- !u!1 &3068284387000138125
 GameObject:
   m_ObjectHideFlags: 0

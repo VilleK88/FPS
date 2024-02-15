@@ -22,19 +22,21 @@ public class InventoryManager : MonoBehaviour
     #endregion
 
     public InventoryObject inventory;
+    public InventoryObject equipment;
 
     private void Start()
     {
         if(GameManager.instance.loadInventory)
         {
             inventory.Load();
+            equipment.Load();
             GameManager.instance.loadInventory = false;
         }
     }
 
     private void OnApplicationQuit()
     {
-        //inventory.Container.Items.Clear();
-        inventory.Container.Items = new InventorySlot[20];
+        inventory.Container.Clear();
+        equipment.Container.Clear();
     }
 }

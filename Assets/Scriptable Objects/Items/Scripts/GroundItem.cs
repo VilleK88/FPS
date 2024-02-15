@@ -10,8 +10,10 @@ public class GroundItem : MonoBehaviour
     {
         if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            InventoryManager.instance.inventory.AddItem(new Item(item), 1);
-            gameObject.SetActive(false);
+            if(InventoryManager.instance.inventory.AddItem(new Item(item), 1))
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 }
