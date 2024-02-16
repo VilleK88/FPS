@@ -95,15 +95,16 @@ public class InventoryObject : ScriptableObject
     }
 
     [ContextMenu("Save")]
-    /*public void Save()
+    public void Save()
     {
         IFormatter formatter = new BinaryFormatter();
-        Stream stream = new FileStream(string.Concat(Application.persistentDataPath, savePath), FileMode.Create, FileAccess.Write);
+        //Stream stream = new FileStream(string.Concat(Application.persistentDataPath, savePath), FileMode.Create, FileAccess.Write);
+        Stream stream = new FileStream(string.Concat(Application.persistentDataPath + "/gameInventory.dat"), FileMode.Create, FileAccess.Write);
         formatter.Serialize(stream, Container);
         stream.Close();
-    }*/
+    }
 
-    public void Save(string newSavePath)
+    /*public void Save(string newSavePath)
     {
         try
         {
@@ -123,10 +124,10 @@ public class InventoryObject : ScriptableObject
         {
             Debug.LogError($"Exception: {ex.Message}");
         }
-    }
+    }*/
 
     [ContextMenu("Load")]
-    /*public void Load()
+    public void Load()
     {
         if(File.Exists(string.Concat(Application.persistentDataPath, savePath)))
         {
@@ -139,9 +140,9 @@ public class InventoryObject : ScriptableObject
             }
             stream.Close();
         }
-    }*/
+    }
 
-    public void Load(string savePath)
+    /*public void Load(string savePath)
     {
         if (File.Exists(string.Concat(Application.persistentDataPath, savePath)))
         {
@@ -154,7 +155,7 @@ public class InventoryObject : ScriptableObject
             }
             stream.Close();
         }
-    }
+    }*/
 
     [ContextMenu("Clear")]
     public void Clear()
