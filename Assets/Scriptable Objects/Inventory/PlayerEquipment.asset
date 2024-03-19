@@ -15,7 +15,7 @@ MonoBehaviour:
   savePath: /equipment.Save
   database: {fileID: 11400000, guid: 386f732c2f8e77b4b88e075634a502c2, type: 2}
   Container:
-    Slots:
+    Items:
     - AllowedItems: 02000000
       item:
         Name: 

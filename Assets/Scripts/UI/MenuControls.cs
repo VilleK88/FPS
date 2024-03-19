@@ -10,9 +10,6 @@ public class MenuControls : MonoBehaviour
     public InventoryObject inventory;
     public InventoryObject equipment;
 
-    const string gameStartedKey = "GameStarted";
-    bool clearInventory = false;
-
     private void Start()
     {
         //currentScene = SceneManager.GetActiveScene();
@@ -24,21 +21,12 @@ public class MenuControls : MonoBehaviour
         GameManager.instance.loadPlayerPosition = false;
         SceneManager.LoadScene("TestScene");
 
-        clearInventory = PlayerPrefs.GetInt(gameStartedKey, 0) == 1;
-        if(clearInventory)
-        {
-            inventory.Container.Clear();
-            equipment.Container.Clear();
-        }
-        //inventory.Container.Clear();
-        //equipment.Container.Clear();
-
-        PlayerPrefs.SetInt(gameStartedKey, 1);
+        inventory.Container.Clear();
+        equipment.Container.Clear();
     }
 
     public void LoadGame()
     {
-        PlayerPrefs.SetInt(gameStartedKey, 1);
         GameManager.instance.loadPlayerPosition = true;
         GameManager.instance.Load();
         LoadSceneID();
