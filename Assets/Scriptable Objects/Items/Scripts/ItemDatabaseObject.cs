@@ -6,7 +6,6 @@ using UnityEngine;
 public class ItemDatabaseObject : ScriptableObject, ISerializationCallbackReceiver
 {
     public ItemObject[] items;
-    //public Dictionary<int, ItemObject> GetItem = new Dictionary<int, ItemObject>();
 
     [ContextMenu("Update ID's")]
     public void UpdateID()
@@ -25,6 +24,5 @@ public class ItemDatabaseObject : ScriptableObject, ISerializationCallbackReceiv
 
     public void OnBeforeSerialize()
     {
-        //GetItem = new Dictionary<int, ItemObject>();
     }
 }

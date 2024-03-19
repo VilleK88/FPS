@@ -11,7 +11,8 @@ using System;
 [CreateAssetMenu(fileName = "New Inventory", menuName = "Inventory System/Inventory")]
 public class InventoryObject : ScriptableObject
 {
-    public string savePath;
+    //public string savePath;
+    public string savePath = "/gameInventory.dat";
     public ItemDatabaseObject database;
     public Inventory Container;
 
@@ -98,8 +99,8 @@ public class InventoryObject : ScriptableObject
     public void Save()
     {
         IFormatter formatter = new BinaryFormatter();
-        //Stream stream = new FileStream(string.Concat(Application.persistentDataPath, savePath), FileMode.Create, FileAccess.Write);
-        Stream stream = new FileStream(string.Concat(Application.persistentDataPath + "/gameInventory.dat"), FileMode.Create, FileAccess.Write);
+        Stream stream = new FileStream(string.Concat(Application.persistentDataPath, savePath), FileMode.Create, FileAccess.Write);
+        //Stream stream = new FileStream(string.Concat(Application.persistentDataPath + "/gameInventory.dat"), FileMode.Create, FileAccess.Write);
         formatter.Serialize(stream, Container);
         stream.Close();
     }
