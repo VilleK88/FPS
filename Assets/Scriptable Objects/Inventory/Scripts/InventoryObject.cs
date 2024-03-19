@@ -104,28 +104,6 @@ public class InventoryObject : ScriptableObject
         stream.Close();
     }
 
-    /*public void Save(string newSavePath)
-    {
-        try
-        {
-            IFormatter formatter = new BinaryFormatter();
-            string filePath = Path.Combine(Application.persistentDataPath, newSavePath);
-
-            using (Stream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
-            {
-                formatter.Serialize(stream, Container);
-            }
-        }
-        catch(UnauthorizedAccessException ex)
-        {
-            Debug.LogError($"UnauthorizedAccessException: {ex.Message}");
-        }
-        catch(Exception ex)
-        {
-            Debug.LogError($"Exception: {ex.Message}");
-        }
-    }*/
-
     [ContextMenu("Load")]
     public void Load()
     {
@@ -141,21 +119,6 @@ public class InventoryObject : ScriptableObject
             stream.Close();
         }
     }
-
-    /*public void Load(string savePath)
-    {
-        if (File.Exists(string.Concat(Application.persistentDataPath, savePath)))
-        {
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream(string.Concat(Application.persistentDataPath, savePath), FileMode.Open, FileAccess.Read);
-            Inventory newContainer = (Inventory)formatter.Deserialize(stream);
-            for (int i = 0; i < Container.Items.Length; i++)
-            {
-                Container.Items[i].UpdateSlot(newContainer.Items[i].item, newContainer.Items[i].amount);
-            }
-            stream.Close();
-        }
-    }*/
 
     [ContextMenu("Clear")]
     public void Clear()
