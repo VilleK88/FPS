@@ -14,9 +14,9 @@ public abstract class UserInterface : MonoBehaviour
 
     private void Start()
     {
-        for(int i = 0; i < inventory.Container.Items.Length; i++)
+        for(int i = 0; i < inventory.Container.Slots.Length; i++)
         {
-            inventory.Container.Items[i].parent = this;
+            inventory.Container.Slots[i].parent = this;
         }
         CreateSlots();
         AddEvent(gameObject, EventTriggerType.PointerEnter, delegate { OnEnterInterface(gameObject); });
