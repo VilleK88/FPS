@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class MenuControls : MonoBehaviour
 {
     Scene currentScene;
+    public InventoryObject inventory;
+    public InventoryObject equipment;
 
     private void Start()
     {
@@ -18,6 +20,9 @@ public class MenuControls : MonoBehaviour
         GameManager.instance.cashIDs = new int[0]; // clear collected currency IDs
         GameManager.instance.loadPlayerPosition = false;
         SceneManager.LoadScene("TestScene");
+
+        inventory.Container.Clear();
+        equipment.Container.Clear();
     }
 
     public void LoadGame()
