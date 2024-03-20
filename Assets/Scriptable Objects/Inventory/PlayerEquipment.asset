@@ -16,31 +16,31 @@ MonoBehaviour:
   database: {fileID: 11400000, guid: 386f732c2f8e77b4b88e075634a502c2, type: 2}
   Container:
     Slots:
-    - AllowedItems: 
+    - AllowedItems: 02000000
       item:
         Name: 
         Id: -1
         buffs: []
       amount: 0
-    - AllowedItems: 
+    - AllowedItems: 03000000
       item:
         Name: 
         Id: -1
         buffs: []
       amount: 0
-    - AllowedItems: 
+    - AllowedItems: 03000000
       item:
         Name: 
         Id: -1
         buffs: []
       amount: 0
-    - AllowedItems: 
+    - AllowedItems: 03000000
       item:
         Name: 
         Id: -1
         buffs: []
       amount: 0
-    - AllowedItems: 
+    - AllowedItems: 03000000
       item:
         Name: 
         Id: -1

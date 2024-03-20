@@ -23,6 +23,9 @@ public class InventoryManager : MonoBehaviour
 
     public InventoryObject inventory;
     public InventoryObject equipment;
+    [SerializeField] Animator inventoryAnim; // inventory screen
+    [SerializeField] Animator equipmentAnim; // equipment screen
+    public bool closed = true;
 
     private void Start()
     {
@@ -38,5 +41,34 @@ public class InventoryManager : MonoBehaviour
     {
         inventory.Container.Clear();
         equipment.Container.Clear();
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            if (closed)
+            {
+                OpenInventory();
+            }
+            else
+            {
+                CloseInventory();
+            }
+        }
+    }
+
+    public void OpenInventory()
+    {
+        inventoryAnim.GetComponent<Animator>().SetBool("InventoryOn", true);
+        equipmentAnim.GetComponent<Animator>().SetBool("EquipmentScreenOn", true);
+        closed = false;
+    }
+
+    public void CloseInventory()
+    {
+        inventoryAnim.GetComponent<Animator>().SetBool("InventoryOn", false);
+        equipmentAnim.GetComponent<Animator>().SetBool("EquipmentScreenOn", false);
+        closed = true;
     }
 }

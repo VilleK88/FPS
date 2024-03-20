@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   uiDisplay: {fileID: 21300022, guid: 5acb27b603af6d44ea6113c4b7b15385, type: 3}
+  stackable: 0
   type: 3
   description: Pistol
   data:
     Name: 
-    Id: 4
+    Id: 3
     buffs:
     - attribute: 4
       value: 0

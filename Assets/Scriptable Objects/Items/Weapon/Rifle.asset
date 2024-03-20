@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Rifle
   m_EditorClassIdentifier: 
   uiDisplay: {fileID: 21300030, guid: 5acb27b603af6d44ea6113c4b7b15385, type: 3}
+  stackable: 0
   type: 3
   description: Rifle
   data:
     Name: 
-    Id: 5
+    Id: 4
     buffs:
     - attribute: 4
       value: 0
