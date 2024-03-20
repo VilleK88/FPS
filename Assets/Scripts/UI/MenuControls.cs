@@ -21,8 +21,8 @@ public class MenuControls : MonoBehaviour
         GameManager.instance.loadPlayerPosition = false;
         SceneManager.LoadScene("TestScene");
 
-        inventory.Container.Clear();
-        equipment.Container.Clear();
+        //inventory.Container.Clear();
+        //equipment.Container.Clear();
     }
 
     public void LoadGame()
