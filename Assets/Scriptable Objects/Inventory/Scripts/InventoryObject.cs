@@ -12,6 +12,7 @@ using System;
 public class InventoryObject : ScriptableObject
 {
     public string savePath = "/gameInventory.dat";
+    public string secondSavePath = "/gameEquipment.dat";
     public ItemDatabaseObject database;
     public Inventory Container;
     public InventorySlot[] GetSlots { get { return Container.Slots; } }
@@ -105,6 +106,15 @@ public class InventoryObject : ScriptableObject
         stream.Close();
     }
 
+    public void SaveEquipment()
+    {
+        IFormatter formatter = new BinaryFormatter();
+        Stream stream = new FileStream(string.Concat(Application.persistentDataPath, secondSavePath), FileMode.Create, FileAccess.Write);
+        //Stream stream = new FileStream(string.Concat(Application.persistentDataPath + "/gameInventory.dat"), FileMode.Create, FileAccess.Write);
+        formatter.Serialize(stream, Container);
+        stream.Close();
+    }
+
     [ContextMenu("Load")]
     public void Load()
     {
@@ -112,6 +122,21 @@ public class InventoryObject : ScriptableObject
         {
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream(string.Concat(Application.persistentDataPath, savePath), FileMode.Open, FileAccess.Read);
+            Inventory newContainer = (Inventory)formatter.Deserialize(stream);
+            for (int i = 0; i < GetSlots.Length; i++)
+            {
+                GetSlots[i].UpdateSlot(newContainer.Slots[i].item, newContainer.Slots[i].amount);
+            }
+            stream.Close();
+        }
+    }
+
+    public void LoadEquipment()
+    {
+        if (File.Exists(string.Concat(Application.persistentDataPath, savePath)))
+        {
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream(string.Concat(Application.persistentDataPath, secondSavePath), FileMode.Open, FileAccess.Read);
             Inventory newContainer = (Inventory)formatter.Deserialize(stream);
             for (int i = 0; i < GetSlots.Length; i++)
             {
