@@ -35,6 +35,12 @@ public class InventoryManager : MonoBehaviour
             equipment.Load();
             GameManager.instance.loadInventory = false;
         }
+        else
+        {
+            inventory.Container.Clear();
+            equipment.Container.Clear();
+            Debug.Log("Clear inventory");
+        }
     }
 
     private void OnApplicationQuit()
@@ -55,6 +61,12 @@ public class InventoryManager : MonoBehaviour
             {
                 CloseInventory();
             }
+        }
+
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            inventory.Container.Clear();
+            equipment.Container.Clear();
         }
     }
 

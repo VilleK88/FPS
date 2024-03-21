@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 public class MenuControls : MonoBehaviour
 {
     Scene currentScene;
-    public InventoryObject inventory;
-    public InventoryObject equipment;
+    //public InventoryObject inventory;
+    //public InventoryObject equipment;
 
     private void Start()
     {
