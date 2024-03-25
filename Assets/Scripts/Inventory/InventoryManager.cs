@@ -27,6 +27,7 @@ public class InventoryManager : MonoBehaviour
 
     public Item[] items;
     public InventorySlot slotPrefab;
+    public InventoryItem inventoryItem;
     public Transform inventoryTransform; // where the slotPrefabs are instantiated.
     public InventorySlot[] inventorySlotsUI; // table where the slotPrefabs are put.
 
@@ -91,10 +92,12 @@ public class InventoryManager : MonoBehaviour
         {
             if(inventorySlotsUI[i].itemId == newItem.itemID && inventorySlotsUI[i].stackable == true)
             {
-                if(inventorySlotsUI[i].maxStack > inventorySlotsUI[i].count)
+                InventoryItem itemInSlot = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
+                if(newItem.stackMax > inventorySlotsUI[i].count)
                 {
                     inventorySlotsUI[i].count++;
-                    inventorySlotsUI[i].RefreshCount();
+                    itemInSlot.count++;
+                    itemInSlot.RefreshCount();
                     return true;
                 }
             }
@@ -104,14 +107,13 @@ public class InventoryManager : MonoBehaviour
         {
             if (inventorySlotsUI[i].itemId == -1)
             {
-                inventorySlotsUI[i].item = newItem;
-                inventorySlotsUI[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = newItem.icon;
-                inventorySlotsUI[i].transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
                 inventorySlotsUI[i].itemId = newItem.itemID;
-                inventorySlotsUI[i].itemType = newItem.itemType;
                 inventorySlotsUI[i].stackable = newItem.stackable;
-                inventorySlotsUI[i].maxStack = newItem.stackMax;
                 inventorySlotsUI[i].count += 1;
+
+                InventoryItem newInventoryItem = Instantiate(inventoryItem, inventorySlotsUI[i].transform);
+                inventoryItem.GetComponent<InventoryItem>();
+                inventoryItem.InitializeItem(newItem);
                 return true;
             }
         }

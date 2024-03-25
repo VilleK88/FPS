@@ -6,7 +6,7 @@ public class ItemPickup : Interactable
 {
     public Item item;
     public string itemName;
-    public int pickUpItemID;
+    //public int pickUpItemID;
 
     [SerializeField] bool collectOnTouch;
 
@@ -31,7 +31,7 @@ public class ItemPickup : Interactable
 
     public void GenerateID()
     {
-        pickUpItemID = UnityEngine.Random.Range(0, 1000000);
+        //pickUpItemID = UnityEngine.Random.Range(0, 1000000);
     }
 
     private void OnTriggerEnter(Collider other)

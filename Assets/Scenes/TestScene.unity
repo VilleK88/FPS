@@ -493,6 +493,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   slotPrefab: {fileID: -5775219928166392110, guid: 9e92f5916be2835439937d957d46641a, type: 3}
+  inventoryItem: {fileID: -6960829208771506430, guid: 98da79b8cd847be4fb826cd6299c9d6b, type: 3}
   inventoryTransform: {fileID: 669205949}
   inventorySlotsUI: []
   inventoryAnim: {fileID: 669205950}
