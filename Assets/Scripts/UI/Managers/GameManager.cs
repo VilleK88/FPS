@@ -70,8 +70,8 @@ public class GameManager : MonoBehaviour
         data.savedSceneID = savedSceneID;
         data.loadPlayerPosition = false;
 
-        InventoryManager.instance.inventory.Save();
-        InventoryManager.instance.equipment.Save();
+        //InventoryManager.instance.inventory.Save();
+        //InventoryManager.instance.equipment.Save();
 
         // Serialisoidaan GameData objekti, joka tallennetaan samalla tiedostoon.
         bf.Serialize(file, data);

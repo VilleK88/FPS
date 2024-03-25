@@ -1752,7 +1752,6 @@ GameObject:
   - component: {fileID: 6378716177388220500}
   - component: {fileID: 6378716177388220501}
   - component: {fileID: 6378716176702860556}
-  - component: {fileID: 8219488190816884652}
   - component: {fileID: 8219488190816884655}
   - component: {fileID: 5406414410777699016}
   m_Layer: 5
@@ -1844,21 +1843,6 @@ MonoBehaviour:
   m_Spacing: {x: -37.6, y: -37.22}
   m_Constraint: 0
   m_ConstraintCount: 2
---- !u!114 &8219488190816884652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6378716177388220499}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5411b946adcd6e4cb9e4eb72320d041, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventoryManager: {fileID: 8219488189397503504}
-  inventory: {fileID: 11400000, guid: 47367f036f65a2547ba255465909da51, type: 2}
-  inventoryPrefab: {fileID: 8109583843272619525, guid: 9e92f5916be2835439937d957d46641a, type: 3}
 --- !u!114 &8219488190816884655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1904,7 +1888,6 @@ GameObject:
   - component: {fileID: 6378716177793181783}
   - component: {fileID: 6378716177793181787}
   - component: {fileID: 6378716177793181784}
-  - component: {fileID: 1384735418234185109}
   - component: {fileID: 9169586429021321810}
   - component: {fileID: 3236802437656529918}
   m_Layer: 5
@@ -1977,26 +1960,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1384735418234185109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6378716177793181780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce76cf16e5b58c34080e5b9a6a3a68dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventoryManager: {fileID: 8219488189397503504}
-  inventory: {fileID: 11400000, guid: 0fe605f0a7322dc458e3c5d57003d258, type: 2}
-  slots:
-  - {fileID: 187598109140285245}
-  - {fileID: 187598107285584974}
-  - {fileID: 187598108048989267}
-  - {fileID: 187598108436287305}
-  - {fileID: 187598108661330939}
 --- !u!114 &9169586429021321810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2210,7 +2173,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8219488189397503505}
-  - component: {fileID: 8219488189397503504}
   m_Layer: 5
   m_Name: InventoryManager
   m_TagString: Untagged
@@ -2240,20 +2202,3 @@ RectTransform:
   m_AnchoredPosition: {x: -169.93161, y: 0}
   m_SizeDelta: {x: 289.0336, y: 355.4258}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8219488189397503504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8219488189397503506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cf52ae93dedd8849b2c36743113f4db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventory: {fileID: 11400000, guid: 47367f036f65a2547ba255465909da51, type: 2}
-  equipment: {fileID: 11400000, guid: 0fe605f0a7322dc458e3c5d57003d258, type: 2}
-  inventoryAnim: {fileID: 5406414410777699016}
-  equipmentAnim: {fileID: 3236802437656529918}
-  closed: 1

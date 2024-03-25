@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemPickup : Interactable
 {
-    //public Item item;
+    public Item item;
     public string itemName;
     public int pickUpItemID;
 
@@ -22,7 +22,11 @@ public class ItemPickup : Interactable
     void PickUp()
     {
         //InventoryManager.instance.AddItem(item);
-        //gameObject.SetActive(false);
+        bool wasPickedUp = InventoryManager.instance.AddInventoryItem(item);
+        if(wasPickedUp)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     public void GenerateID()

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1692678929937321855}
   - component: {fileID: 1692678929937321848}
   - component: {fileID: 1692678929937321849}
-  - component: {fileID: 1692678929937321852}
+  - component: {fileID: 768637413091988551}
   m_Layer: 0
   m_Name: Small_Medpack
   m_TagString: Untagged
@@ -115,7 +115,7 @@ MonoBehaviour:
   speedX: 0
   speedY: 0.5
   speedZ: 0
---- !u!114 &1692678929937321852
+--- !u!114 &768637413091988551
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,10 +124,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1692678929937321850}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d31af97bee749964cbb00573d533a222, type: 3}
+  m_Script: {fileID: 11500000, guid: b75b00048c977db4f80a2ba7ddecd786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: c230d0925a228fe4c8486d769ad13cb9, type: 2}
+  interactionTransform: {fileID: 1692678929937321853}
+  item: {fileID: 11400000, guid: 7f4f7cf331cc5c5479ab8a6add836928, type: 2}
+  itemName: Small_Medpack
+  pickUpItemID: 0
+  collectOnTouch: 1
 --- !u!1001 &1692678930882690155
 PrefabInstance:
   m_ObjectHideFlags: 0

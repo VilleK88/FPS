@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 8109583843272619520}
   - component: {fileID: 8109583843272619527}
   - component: {fileID: 3294968453448918865}
-  - component: {fileID: 7304345517466945519}
+  - component: {fileID: -5775219928166392110}
   m_Layer: 5
   m_Name: SlotPrefab
   m_TagString: Untagged
@@ -335,7 +335,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7304345517466945519
+--- !u!114 &-5775219928166392110
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -344,7 +344,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 8109583843272619525}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ce78339b2d6f2c47a628d3a93596ddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Delegates: []
+  item: {fileID: 0}
+  itemId: -1
+  icon: {fileID: 0}
+  itemType: 0
+  itemName: 
+  stackable: 0
+  maxStack: 0
+  value: 0
+  valueText: {fileID: 8109583842429626089}

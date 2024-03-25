@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 657106808292517706}
   - component: {fileID: 657106808292517709}
   - component: {fileID: 657106808292517708}
-  - component: {fileID: 657106808292517711}
+  - component: {fileID: 5766339342047581307}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -114,7 +114,7 @@ MonoBehaviour:
   speedX: 0
   speedY: 0.5
   speedZ: 0
---- !u!114 &657106808292517711
+--- !u!114 &5766339342047581307
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,7 +123,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 657106808292517710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d31af97bee749964cbb00573d533a222, type: 3}
+  m_Script: {fileID: 11500000, guid: b75b00048c977db4f80a2ba7ddecd786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 26403a030345f754db9d2e126723cb71, type: 2}
+  interactionTransform: {fileID: 657106808292517704}
+  item: {fileID: 11400000, guid: 326608d8205c5474381ef4b40e7d5bf7, type: 2}
+  itemName: Pistol
+  pickUpItemID: 0
+  collectOnTouch: 1

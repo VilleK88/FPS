@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UserInterface;
+using UnityEngine.UI;
+using TMPro;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -21,37 +22,28 @@ public class InventoryManager : MonoBehaviour
     }
     #endregion
 
-    public InventoryObject inventory;
-    public InventoryObject equipment;
+    public Item[] items;
+    public InventorySlot slotPrefab;
+    public Transform inventoryTransform; // where the slotPrefabs are instantiated.
+    public InventorySlot[] inventorySlotsUI; // table where the slotPrefabs are put.
+
     [SerializeField] Animator inventoryAnim; // inventory screen
     [SerializeField] Animator equipmentAnim; // equipment screen
     public bool closed = true;
 
     private void Start()
     {
-        if(GameManager.instance.loadInventory)
+        inventorySlotsUI = new InventorySlot[20];
+        for(int i = 0; i < 20; i++)
         {
-            inventory.Load();
-            equipment.Load();
-            GameManager.instance.loadInventory = false;
+            InventorySlot slot = Instantiate(slotPrefab, inventoryTransform);
+            inventorySlotsUI[i] = slot;
         }
-        else
-        {
-            inventory.Container.Clear();
-            equipment.Container.Clear();
-            Debug.Log("Clear inventory");
-        }
-    }
-
-    private void OnApplicationQuit()
-    {
-        inventory.Container.Clear();
-        equipment.Container.Clear();
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I))
         {
             if (closed)
             {
@@ -61,12 +53,6 @@ public class InventoryManager : MonoBehaviour
             {
                 CloseInventory();
             }
-        }
-
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            inventory.Container.Clear();
-            equipment.Container.Clear();
         }
     }
 
@@ -82,5 +68,61 @@ public class InventoryManager : MonoBehaviour
         inventoryAnim.GetComponent<Animator>().SetBool("InventoryOn", false);
         equipmentAnim.GetComponent<Animator>().SetBool("EquipmentScreenOn", false);
         closed = true;
+    }
+
+    public void AddItem(Item item)
+    {
+        for(int i = 0; i < items.Length; i++)
+        {
+            if(items[i] == null)
+            {
+                items[i] = item;
+                break;
+            }
+        }
+    }
+
+    public bool AddInventoryItem(Item newItem)
+    {
+        for(int i = 0; i < inventorySlotsUI.Length; i++)
+        {
+            if(inventorySlotsUI[i].itemId == newItem.itemID && inventorySlotsUI[i].stackable == true)
+            {
+                if(inventorySlotsUI[i].maxStack > inventorySlotsUI[i].count)
+                {
+                    inventorySlotsUI[i].count++;
+                    inventorySlotsUI[i].RefreshCount();
+                    return true;
+                }
+            }
+        }
+
+        for (int i = 0; i < inventorySlotsUI.Length; i++)
+        {
+            if (inventorySlotsUI[i].itemId == -1)
+            {
+                inventorySlotsUI[i].item = newItem;
+                inventorySlotsUI[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = newItem.icon;
+                inventorySlotsUI[i].transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
+                inventorySlotsUI[i].itemId = newItem.itemID;
+                inventorySlotsUI[i].itemType = newItem.itemType;
+                inventorySlotsUI[i].stackable = newItem.stackable;
+                inventorySlotsUI[i].maxStack = newItem.stackMax;
+                inventorySlotsUI[i].count += 1;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void AddInventoryItemToEmptySlot(Item newItem)
+    {
+
+    }
+
+    public void AddInventoryItemToStack(Item newItem)
+    {
+
     }
 }
