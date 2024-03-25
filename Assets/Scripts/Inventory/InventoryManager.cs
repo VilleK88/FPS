@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
+using UnityEngine.Events;
+using Unity.VisualScripting;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -114,15 +117,5 @@ public class InventoryManager : MonoBehaviour
         }
 
         return false;
-    }
-
-    public void AddInventoryItemToEmptySlot(Item newItem)
-    {
-
-    }
-
-    public void AddInventoryItemToStack(Item newItem)
-    {
-
     }
 }

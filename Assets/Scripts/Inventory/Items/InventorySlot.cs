@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
+using Unity.VisualScripting;
 
 public class InventorySlot : MonoBehaviour, IPointerClickHandler
 {
@@ -18,10 +20,12 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
     TextMeshProUGUI countText;
 
     bool dragging = false;
+    [HideInInspector] public Transform parentAfterDrag;
+
+    RectTransform rectTransform;
 
     private void Start()
     {
-
         countText = GetComponentInChildren<TextMeshProUGUI>();
     }
 
