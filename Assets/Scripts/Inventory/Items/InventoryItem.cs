@@ -57,6 +57,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
                 if (stackable)
                 {
                     count--;
+                    GetComponentInParent<InventorySlot>().count--;
                     RefreshCount();
                     DestroyItem();
                 }
