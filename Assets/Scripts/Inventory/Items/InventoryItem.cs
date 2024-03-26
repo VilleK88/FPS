@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class InventoryItem : MonoBehaviour, IPointerClickHandler
+public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public Item item;
     public int itemId;
@@ -17,6 +17,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     public int count;
     public TextMeshProUGUI countText;
 
+    [HideInInspector] public Transform parentAfterDrag;
     bool dragging = false;
 
     /*private void Start()
@@ -78,9 +79,30 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
             slot.itemId = -1;
             slot.itemType = ItemType.Default;
             slot.stackable = false;
+            slot.stackMax = 0;
             slot.count = 0;
             Destroy(gameObject);
         }
+    }
+
+    void CleanSlot()
+    {
+        InventorySlot slot = GetComponentInParent<InventorySlot>();
+        slot.itemId = -1;
+        slot.itemType = ItemType.Default;
+        slot.stackable = false;
+        slot.stackMax = 0;
+        slot.count = 0;
+    }
+
+    void InitializeSlot()
+    {
+        InventorySlot slot = GetComponentInParent<InventorySlot>();
+        slot.itemId = itemId;
+        slot.itemType = itemType;
+        slot.stackable = stackable;
+        slot.stackMax = maxStack;
+        slot.count = count;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -89,5 +111,30 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
         {
             UseItem();
         }
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        CleanSlot();
+        parentAfterDrag = transform.parent;
+        transform.SetParent(transform.root);
+        transform.SetAsLastSibling(); //
+        img.raycastTarget = false;
+        countText.raycastTarget = false;
+        dragging = true;
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        transform.position = Input.mousePosition;
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        transform.SetParent(parentAfterDrag);
+        img.raycastTarget = true;
+        countText.raycastTarget = true;
+        dragging = false;
+        InitializeSlot();
     }
 }

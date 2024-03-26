@@ -108,8 +108,9 @@ public class InventoryManager : MonoBehaviour
             if (inventorySlotsUI[i].itemId == -1)
             {
                 inventorySlotsUI[i].itemId = newItem.itemID;
-                inventorySlotsUI[i].stackable = newItem.stackable;
                 inventorySlotsUI[i].itemType = newItem.itemType;
+                inventorySlotsUI[i].stackable = newItem.stackable;
+                inventorySlotsUI[i].stackMax = newItem.stackMax;
                 inventorySlotsUI[i].count += 1;
 
                 InventoryItem newItemGo = Instantiate(inventoryItem, inventorySlotsUI[i].transform);

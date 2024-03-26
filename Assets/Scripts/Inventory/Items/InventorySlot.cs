@@ -1,16 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using UnityEngine.EventSystems;
-using UnityEngine.Events;
-using Unity.VisualScripting;
 
-public class InventorySlot : MonoBehaviour
+public class InventorySlot : MonoBehaviour, IDropHandler
 {
     public int itemId = -1;
-    public bool stackable;
     public ItemType itemType;
+    public bool stackable;
+    public int stackMax;
     public int count = 0;
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        if(itemId == -1)
+        {
+            GameObject dropped = eventData.pointerDrag;
+            InventoryItem inventoryItem = dropped.GetComponent<InventoryItem>();
+            inventoryItem.parentAfterDrag = transform;
+        }
+        /*else
+        {
+            if(stackable)
+            {
+                GameObject dropped = eventData.pointerDrag;
+                InventoryItem inventoryItem = dropped.GetComponent<InventoryItem>();
+                if(itemId == inventoryItem.itemId && )
+            }
+        }*/
+    }
 }
