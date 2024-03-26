@@ -11,5 +11,6 @@ public class InventorySlot : MonoBehaviour
 {
     public int itemId = -1;
     public bool stackable;
+    public ItemType itemType;
     public int count = 0;
 }

@@ -109,11 +109,13 @@ public class InventoryManager : MonoBehaviour
             {
                 inventorySlotsUI[i].itemId = newItem.itemID;
                 inventorySlotsUI[i].stackable = newItem.stackable;
+                inventorySlotsUI[i].itemType = newItem.itemType;
                 inventorySlotsUI[i].count += 1;
 
-                InventoryItem newInventoryItem = Instantiate(inventoryItem, inventorySlotsUI[i].transform);
-                inventoryItem.GetComponent<InventoryItem>();
-                inventoryItem.InitializeItem(newItem);
+                InventoryItem newItemGo = Instantiate(inventoryItem, inventorySlotsUI[i].transform);
+                InventoryItem thisInventoryItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
+                thisInventoryItem.GetComponent<InventoryItem>().item = newItem;
+                thisInventoryItem.GetComponent<InventoryItem>().InitializeItem();
                 return true;
             }
         }

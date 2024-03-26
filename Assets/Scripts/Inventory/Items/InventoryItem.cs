@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class InventoryItem : MonoBehaviour, IPointerClickHandler
 {
@@ -15,27 +15,25 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     public bool stackable;
     public int maxStack;
     public int count;
-    TextMeshProUGUI countText;
+    public TextMeshProUGUI countText;
 
     bool dragging = false;
-    [HideInInspector] public Transform parentAfterDrag;
 
-    RectTransform rectTransform;
-
-    private void Start()
+    /*private void Start()
     {
         countText = GetComponentInChildren<TextMeshProUGUI>();
-    }
+        img = GetComponent<Image>();
+        img.sprite = item.icon;
+    }*/
 
-    public void InitializeItem(Item newItem)
+    public void InitializeItem()
     {
-        item = newItem;
-        itemId = newItem.itemID;
-        itemType = newItem.itemType;
-        stackable = newItem.stackable;
-        maxStack = newItem.stackMax;
-        count = 1;
-        img.sprite = newItem.icon;
+        itemId = item.itemID;
+        itemType = item.itemType;
+        stackable = item.stackable;
+        maxStack = item.stackMax;
+        img.sprite = item.icon;
+        count += 1;
     }
 
     public void RefreshCount()
@@ -75,14 +73,11 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     {
         if (count <= 0)
         {
-            /*item = null;
-            itemId = -1;
-            itemName = null;
-            maxStack = 0;
-            count = 0;
-            GetComponent<Image>().sprite = null;
-            GetComponent<Image>().color = new Color(0, 0, 0, 0);
-            itemType = ItemType.Default;*/
+            InventorySlot slot = GetComponentInParent<InventorySlot>();
+            slot.itemId = -1;
+            slot.itemType = ItemType.Default;
+            slot.stackable = false;
+            slot.count = 0;
             Destroy(gameObject);
         }
     }
