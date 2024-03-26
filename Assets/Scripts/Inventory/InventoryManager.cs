@@ -25,7 +25,9 @@ public class InventoryManager : MonoBehaviour
     }
     #endregion
 
-    public Item[] items;
+    public Dictionary<int, InventoryItem> inventory = new Dictionary<int, InventoryItem>();
+
+    public Item[] itemsDatabase;
     public InventorySlot slotPrefab;
     public InventoryItem inventoryItem;
     public Transform inventoryTransform; // where the slotPrefabs are instantiated.
@@ -74,20 +76,9 @@ public class InventoryManager : MonoBehaviour
         closed = true;
     }
 
-    public void AddItem(Item item)
-    {
-        for(int i = 0; i < items.Length; i++)
-        {
-            if(items[i] == null)
-            {
-                items[i] = item;
-                break;
-            }
-        }
-    }
-
     public bool AddInventoryItem(Item newItem)
     {
+        // add to stackable
         for(int i = 0; i < inventorySlotsUI.Length; i++)
         {
             if(inventorySlotsUI[i].itemId == newItem.itemID && inventorySlotsUI[i].stackable == true)
@@ -103,6 +94,7 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
+        // find next empty slot
         for (int i = 0; i < inventorySlotsUI.Length; i++)
         {
             if (inventorySlotsUI[i].itemId == -1)
@@ -122,5 +114,13 @@ public class InventoryManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void AddItemToDictionary(int position, int itemID, int count)
+    {
+        /*if(!inventory.ContainsKey(position))
+        {
+            inventory.Add(position, new);
+        }*/
     }
 }

@@ -2173,6 +2173,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8219488189397503505}
+  - component: {fileID: 229573422}
   m_Layer: 5
   m_Name: InventoryManager
   m_TagString: Untagged
@@ -2202,3 +2203,29 @@ RectTransform:
   m_AnchoredPosition: {x: -169.93161, y: 0}
   m_SizeDelta: {x: 289.0336, y: 355.4258}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &229573422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8219488189397503506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cf52ae93dedd8849b2c36743113f4db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsDatabase:
+  - {fileID: 11400000, guid: 446a2986bf96dd842a51f25aa4737cd3, type: 2}
+  - {fileID: 11400000, guid: ef635ea7dc59070488bf5b6b672191d4, type: 2}
+  - {fileID: 11400000, guid: 7b6a27554e8196145b976248006ddad4, type: 2}
+  - {fileID: 11400000, guid: 4e5be8657546d6d43b539e0d80a2cd70, type: 2}
+  - {fileID: 11400000, guid: 326608d8205c5474381ef4b40e7d5bf7, type: 2}
+  - {fileID: 11400000, guid: be3923e9bdaea564eb9bced257ddd476, type: 2}
+  slotPrefab: {fileID: -5775219928166392110, guid: 9e92f5916be2835439937d957d46641a, type: 3}
+  inventoryItem: {fileID: -6960829208771506430, guid: 98da79b8cd847be4fb826cd6299c9d6b, type: 3}
+  inventoryTransform: {fileID: 6378716177388220498}
+  inventorySlotsUI: []
+  inventoryAnim: {fileID: 5406414410777699016}
+  equipmentAnim: {fileID: 3236802437656529918}
+  closed: 1
