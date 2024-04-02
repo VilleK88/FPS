@@ -159,13 +159,14 @@ public class InventoryManager : MonoBehaviour
                 inventorySlotsUI[i].slotData.stackMax = GameManager.instance.inventorySlotsData[i].stackMax;
                 InventoryItem newItemGo = Instantiate(inventoryItem, inventorySlotsUI[i].transform);
                 InventoryItem thisInventoryItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
-                thisInventoryItem.item = itemsDatabase[i];
-                thisInventoryItem.GetComponent<InventoryItem>().itemId = itemsDatabase[i].itemID;
-                thisInventoryItem.GetComponent<InventoryItem>().itemType = itemsDatabase[i].itemType;
-                thisInventoryItem.GetComponent<InventoryItem>().stackable = itemsDatabase[i].stackable;
-                thisInventoryItem.GetComponent<InventoryItem>().maxStack = itemsDatabase[i].stackMax;
-                thisInventoryItem.GetComponent<InventoryItem>().count = inventorySlotsUI[i].slotData.count;
-                thisInventoryItem.GetComponent<InventoryItem>().img.sprite = itemsDatabase[i].icon;
+                thisInventoryItem.item = itemsDatabase[inventorySlotsUI[i].slotData.itemId];
+                newItemGo.itemId = thisInventoryItem.item.itemID;
+                newItemGo.itemType = thisInventoryItem.item.itemType;
+                newItemGo.stackable = thisInventoryItem.item.stackable;
+                newItemGo.maxStack = thisInventoryItem.item.stackMax;
+                newItemGo.count = inventorySlotsUI[i].slotData.count;
+                newItemGo.img.sprite = thisInventoryItem.item.icon;
+                thisInventoryItem.GetComponent<InventoryItem>().RefreshCount();
             }
         }
     }
