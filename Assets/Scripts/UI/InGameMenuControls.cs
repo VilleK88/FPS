@@ -68,11 +68,13 @@ public class InGameMenuControls : MonoBehaviour
         SaveSceneID();
         player.GetComponent<Player>().SavePlayerTransformPosition();
         //PlayerManager.instance.SavePlayerTransformPosition();
+        InventoryManager.instance.SaveInventory();
         GameManager.instance.Save();
     }
 
     public void LoadGame()
     {
+        InventoryManager.instance.ClearInventory();
         GameManager.instance.Load();
         LoadSceneID();
         //GameManager.instance.loadPlayerPosition = true;

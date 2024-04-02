@@ -45,6 +45,9 @@ public class GameManager : MonoBehaviour
     public bool loadPlayerPosition = false;
     public bool loadInventory = false;
 
+    public InventorySlotData[] inventorySlotsData;
+
+
     public void Save()
     {
         Debug.Log("Game Saved!");
@@ -69,6 +72,8 @@ public class GameManager : MonoBehaviour
 
         data.savedSceneID = savedSceneID;
         data.loadPlayerPosition = false;
+
+        data.inventorySlotsData = inventorySlotsData;
 
         //InventoryManager.instance.inventory.Save();
         //InventoryManager.instance.equipment.Save();
@@ -111,6 +116,9 @@ public class GameManager : MonoBehaviour
             savedSceneID = data.savedSceneID;
             loadPlayerPosition = true;
             loadInventory = true;
+
+            inventorySlotsData = data.inventorySlotsData;
+            //InventoryManager.instance.LoadInventory();
         }
     }
 }
@@ -136,4 +144,6 @@ class GameData
 
     public int savedSceneID;
     public bool loadPlayerPosition = false;
+
+    public InventorySlotData[] inventorySlotsData;
 }

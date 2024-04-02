@@ -58,7 +58,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
                 if (stackable)
                 {
                     count--;
-                    GetComponentInParent<InventorySlot>().count--;
+                    GetComponentInParent<InventorySlot>().slotData.count--;
                     RefreshCount();
                     DestroyItem();
                 }
@@ -76,11 +76,11 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         if (count <= 0)
         {
             InventorySlot slot = GetComponentInParent<InventorySlot>();
-            slot.itemId = -1;
-            slot.itemType = ItemType.Default;
-            slot.stackable = false;
-            slot.stackMax = 0;
-            slot.count = 0;
+            slot.slotData.itemId = -1;
+            slot.slotData.itemType = ItemType.Default;
+            slot.slotData.stackable = false;
+            slot.slotData.stackMax = 0;
+            slot.slotData.count = 0;
             Destroy(gameObject);
         }
     }
@@ -88,21 +88,21 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     void CleanSlot()
     {
         InventorySlot slot = GetComponentInParent<InventorySlot>();
-        slot.itemId = -1;
-        slot.itemType = ItemType.Default;
-        slot.stackable = false;
-        slot.stackMax = 0;
-        slot.count = 0;
+        slot.slotData.itemId = -1;
+        slot.slotData.itemType = ItemType.Default;
+        slot.slotData.stackable = false;
+        slot.slotData.stackMax = 0;
+        slot.slotData.count = 0;
     }
 
     void InitializeSlot()
     {
         InventorySlot slot = GetComponentInParent<InventorySlot>();
-        slot.itemId = itemId;
-        slot.itemType = itemType;
-        slot.stackable = stackable;
-        slot.stackMax = maxStack;
-        slot.count = count;
+        slot.slotData.itemId = itemId;
+        slot.slotData.itemType = itemType;
+        slot.slotData.stackable = stackable;
+        slot.slotData.stackMax = maxStack;
+        slot.slotData.count = count;
     }
 
     public void OnPointerClick(PointerEventData eventData)

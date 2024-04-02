@@ -12,11 +12,16 @@ public class MenuControls : MonoBehaviour
 
     private void Start()
     {
-        //currentScene = SceneManager.GetActiveScene();
+        GameObject inventoryCanvas = GameObject.Find("InventoryCanvas");
+        if(inventoryCanvas != null)
+        {
+            Destroy(inventoryCanvas);
+        }
     }
 
     public void StartGame()
     {
+        //InventoryManager.instance.ClearInventory();
         GameManager.instance.cashIDs = new int[0]; // clear collected currency IDs
         GameManager.instance.loadPlayerPosition = false;
         SceneManager.LoadScene("TestScene");
@@ -27,6 +32,7 @@ public class MenuControls : MonoBehaviour
 
     public void LoadGame()
     {
+        //InventoryManager.instance.ClearInventory();
         GameManager.instance.loadPlayerPosition = true;
         GameManager.instance.Load();
         LoadSceneID();
