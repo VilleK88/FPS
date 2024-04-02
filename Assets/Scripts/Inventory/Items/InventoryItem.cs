@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using Unity.VisualScripting;
 
-public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     public Item item;
     public int itemId;
@@ -19,13 +20,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
 
     [HideInInspector] public Transform parentAfterDrag;
     bool dragging = false;
-
-    /*private void Start()
-    {
-        countText = GetComponentInChildren<TextMeshProUGUI>();
-        img = GetComponent<Image>();
-        img.sprite = item.icon;
-    }*/
 
     public void InitializeItem()
     {
@@ -136,5 +130,35 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         countText.raycastTarget = true;
         dragging = false;
         InitializeSlot();
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        GameObject dropped = eventData.pointerDrag;
+        InventoryItem inventoryItem = dropped.GetComponent<InventoryItem>();
+        if (itemId == inventoryItem.itemId && stackable)
+        {
+            InventoryItem targetItem = GetComponent<InventoryItem>();
+            int totalAmount = count + inventoryItem.count;
+
+            if (maxStack == totalAmount)
+            {
+                count = totalAmount;
+                targetItem.count = totalAmount;
+                targetItem.RefreshCount();
+                Destroy(inventoryItem.gameObject);
+            }
+            /*else
+            {
+                if(totalAmount < maxStack && count < maxStack)
+                {
+                    int remainingAmount = maxStack - totalAmount;
+                    count = remainingAmount + totalAmount;
+                    targetItem.count = remainingAmount;
+                    targetItem.RefreshCount();
+                    RefreshCount();
+                }
+            }*/
+        }
     }
 }

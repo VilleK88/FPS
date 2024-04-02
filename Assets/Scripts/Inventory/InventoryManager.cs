@@ -48,7 +48,7 @@ public class InventoryManager : MonoBehaviour
 
         if(GameManager.instance.loadInventory)
         {
-            LoadInventorySlotData(); // from GameManager
+            LoadInventorySlotData();
             AddSavedInventorySlotData();
             GameManager.instance.loadInventory = false;
         }
@@ -127,6 +127,7 @@ public class InventoryManager : MonoBehaviour
         return false;
     }
 
+    // save to GameManager
     public void SaveInventory()
     {
         GameManager.instance.inventorySlotsData = new InventorySlotData[inventorySlotsUI.Length];
@@ -137,7 +138,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    // from GameManager
+    // load from GameManager
     public void LoadInventorySlotData()
     {
         for(int i = 0; i < inventorySlotsUI.Length; i++)
@@ -146,6 +147,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    // to inventory
     public void AddSavedInventorySlotData()
     {
         for (int i = 0; i < inventorySlotsUI.Length; i++)
