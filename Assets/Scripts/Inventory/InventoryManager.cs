@@ -48,7 +48,6 @@ public class InventoryManager : MonoBehaviour
 
         if(GameManager.instance.loadInventory)
         {
-            //ClearInventory();
             LoadInventorySlotData(); // from GameManager
             AddSavedInventorySlotData();
             GameManager.instance.loadInventory = false;

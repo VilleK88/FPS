@@ -45,7 +45,6 @@ public class InGameMenuControls : MonoBehaviour
 
     void UpdateCursorLockState()
     {
-        //player.GetComponentInChildren<MouseLook>();
         Cursor.lockState = menuButtons.activeSelf ? CursorLockMode.None : CursorLockMode.Locked;
     }
 
@@ -67,7 +66,6 @@ public class InGameMenuControls : MonoBehaviour
     {
         SaveSceneID();
         player.GetComponent<Player>().SavePlayerTransformPosition();
-        //PlayerManager.instance.SavePlayerTransformPosition();
         InventoryManager.instance.SaveInventory();
         GameManager.instance.Save();
     }
@@ -77,8 +75,6 @@ public class InGameMenuControls : MonoBehaviour
         InventoryManager.instance.ClearInventory();
         GameManager.instance.Load();
         LoadSceneID();
-        //GameManager.instance.loadPlayerPosition = true;
-        //PlayerManager.instance.LoadPlayerTransformPosition();
     }
 
     public void SaveSceneID()

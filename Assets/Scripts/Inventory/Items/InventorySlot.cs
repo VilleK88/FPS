@@ -15,11 +15,6 @@ public class InventorySlotData
 }
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
-    //public int itemId = -1;
-    //public ItemType itemType;
-    //public bool stackable;
-    //public int stackMax;
-    //public int count = 0;
     public InventorySlotData slotData = new InventorySlotData();
 
     public void OnDrop(PointerEventData eventData)
@@ -30,14 +25,5 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             InventoryItem inventoryItem = dropped.GetComponent<InventoryItem>();
             inventoryItem.parentAfterDrag = transform;
         }
-        /*else
-        {
-            if(stackable)
-            {
-                GameObject dropped = eventData.pointerDrag;
-                InventoryItem inventoryItem = dropped.GetComponent<InventoryItem>();
-                if(itemId == inventoryItem.itemId && )
-            }
-        }*/
     }
 }
