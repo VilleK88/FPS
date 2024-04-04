@@ -163,8 +163,12 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         }
         else
         {
-            SwapItems(inventoryItem, thisItem);
-            Debug.Log("Swap items");
+            if(thisItemsSlot.slotData.slotType == SlotType.Default)
+                SwapItems(inventoryItem, thisItem);
+            else if(thisItemsSlot.slotData.slotType == SlotType.Armor && inventoryItem.itemType == ItemType.Armor)
+                SwapItems(inventoryItem, thisItem);
+            else if(thisItemsSlot.slotData.slotType == SlotType.Weapon && inventoryItem.itemType == ItemType.Weapon)
+                SwapItems(inventoryItem, thisItem);
         }
     }
 

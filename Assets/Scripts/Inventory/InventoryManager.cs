@@ -32,6 +32,7 @@ public class InventoryManager : MonoBehaviour
     public InventoryItem inventoryItem;
     public Transform inventoryTransform; // where the slotPrefabs are instantiated.
     public InventorySlot[] inventorySlotsUI; // table where the slotPrefabs are put.
+    public EquipmentSlot[] equipmentSlotsUI;
 
     [SerializeField] Animator inventoryAnim; // inventory screen
     [SerializeField] Animator equipmentAnim; // equipment screen

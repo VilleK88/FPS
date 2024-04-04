@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 [Serializable]
 public class InventorySlotData
 {
+    public SlotType slotType = SlotType.Default;
     public int itemId = -1;
     public ItemType itemType;
     public bool stackable;
@@ -23,10 +24,6 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     {
         GameObject dropped = eventData.pointerDrag;
         InventoryItem inventoryItem = dropped.GetComponent<InventoryItem>();
-        /*if (slotData.itemId == -1)
-        {
-            inventoryItem.parentAfterDrag = transform;
-        }*/
         if(slotData.itemId == inventoryItem.itemId && slotData.stackable)
         {
             InventoryItem targetItem = GetComponentInChildren<InventoryItem>();
@@ -50,7 +47,19 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         }
         else
         {
-            inventoryItem.parentAfterDrag = transform;
+            if(slotData.slotType == SlotType.Default)
+                inventoryItem.parentAfterDrag = transform;
+            else if(slotData.slotType == SlotType.Armor && inventoryItem.itemType == ItemType.Armor)
+                inventoryItem.parentAfterDrag = transform;
+            else if(slotData.slotType == SlotType.Weapon && inventoryItem.itemType == ItemType.Weapon)
+                inventoryItem.parentAfterDrag = transform;
         }
     }
+}
+
+public enum SlotType
+{
+    Default,
+    Armor,
+    Weapon
 }
