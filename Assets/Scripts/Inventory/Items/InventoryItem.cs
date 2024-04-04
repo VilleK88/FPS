@@ -137,6 +137,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         GameObject dropped = eventData.pointerDrag;
         InventoryItem inventoryItem = dropped.GetComponent<InventoryItem>();
         InventorySlot thisItemsSlot = GetComponentInParent<InventorySlot>();
+        InventoryItem thisItem = GetComponent<InventoryItem>();
         if (itemId == inventoryItem.itemId && stackable)
         {
             InventoryItem targetItem = GetComponent<InventoryItem>();
@@ -160,5 +161,40 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
                 inventoryItem.RefreshCount();
             }
         }
+        else
+        {
+            SwapItems(inventoryItem, thisItem);
+            Debug.Log("Swap items");
+        }
+    }
+
+    void SwapItems(InventoryItem item1, InventoryItem item2)
+    {
+        Item tempItem = item1.item;
+        int tempItemId = item1.itemId;
+        ItemType tempItemType = item1.itemType;
+        string tempItemName = item1.itemName;
+        bool tempStackable = item1.stackable;
+        int tempMaxStack = item1.maxStack;
+        int tempCount = item1.count;
+        Sprite tempImg = item1.img.sprite;
+
+        item1.item = item2.item;
+        item1.itemId = item2.itemId;
+        item1.itemType = item2.itemType;
+        item1.itemName = item2.itemName;
+        item1.stackable = item2.stackable;
+        item1.maxStack = item2.maxStack;
+        item1.count = item2.count;
+        item1.img.sprite = item2.img.sprite;
+
+        item2.item = tempItem;
+        item2.itemId = tempItemId;
+        item2.itemType = tempItemType;
+        item2.itemName = tempItemName;
+        item2.stackable = tempStackable;
+        item2.maxStack = tempMaxStack;
+        item2.count = tempCount;
+        item2.img.sprite = tempImg;
     }
 }
