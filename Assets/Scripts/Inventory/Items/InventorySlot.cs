@@ -25,8 +25,6 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         InventoryItem inventoryItem = dropped.GetComponent<InventoryItem>();
         if (slotData.itemId == -1)
         {
-            //GameObject dropped = eventData.pointerDrag;
-            //InventoryItem inventoryItem = dropped.GetComponent<InventoryItem>();
             inventoryItem.parentAfterDrag = transform;
         }
         else if(slotData.itemId == inventoryItem.itemId && slotData.stackable)
@@ -37,22 +35,18 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             if (slotData.stackMax >= totalAmount)
             {
                 slotData.count = totalAmount;
-                //InventoryItem targetItem = GetComponentInChildren<InventoryItem>();
                 targetItem.count = totalAmount;
                 targetItem.RefreshCount();
                 Destroy(inventoryItem.gameObject);
             }
-            /*else
+            else
             {
-                if (slotData.stackMax < totalAmount && slotData.count < slotData.stackMax)
-                {
-                    int remainingAmount = slotData.stackMax - totalAmount;
-                    slotData.count = remainingAmount + totalAmount;
-                    targetItem.count = remainingAmount;
-                    targetItem.RefreshCount();
-                    RefreshCount();
-                }
-            }*/
+                slotData.count = slotData.stackMax;
+                targetItem.count = slotData.stackMax;
+                targetItem.RefreshCount();
+                inventoryItem.count = totalAmount - slotData.stackMax;
+                inventoryItem.RefreshCount();
+            }
         }
     }
 }

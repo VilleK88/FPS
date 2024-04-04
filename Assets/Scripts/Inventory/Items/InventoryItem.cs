@@ -136,29 +136,29 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     {
         GameObject dropped = eventData.pointerDrag;
         InventoryItem inventoryItem = dropped.GetComponent<InventoryItem>();
+        InventorySlot thisItemsSlot = GetComponentInParent<InventorySlot>();
         if (itemId == inventoryItem.itemId && stackable)
         {
             InventoryItem targetItem = GetComponent<InventoryItem>();
             int totalAmount = count + inventoryItem.count;
 
-            if (maxStack == totalAmount)
+            if (maxStack >= totalAmount)
             {
                 count = totalAmount;
                 targetItem.count = totalAmount;
                 targetItem.RefreshCount();
+                thisItemsSlot.slotData.count = totalAmount;
                 Destroy(inventoryItem.gameObject);
             }
-            /*else
+            else
             {
-                if(totalAmount < maxStack && count < maxStack)
-                {
-                    int remainingAmount = maxStack - totalAmount;
-                    count = remainingAmount + totalAmount;
-                    targetItem.count = remainingAmount;
-                    targetItem.RefreshCount();
-                    RefreshCount();
-                }
-            }*/
+                count = maxStack;
+                targetItem.count = maxStack;
+                targetItem.RefreshCount();
+                inventoryItem.count = totalAmount - maxStack;
+                thisItemsSlot.slotData.count = maxStack;
+                inventoryItem.RefreshCount();
+            }
         }
     }
 }
