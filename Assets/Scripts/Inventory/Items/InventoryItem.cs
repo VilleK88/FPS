@@ -196,5 +196,12 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         item2.maxStack = tempMaxStack;
         item2.count = tempCount;
         item2.img.sprite = tempImg;
+
+        InventorySlot slot = item2.GetComponentInParent<InventorySlot>();
+        slot.slotData.itemId = item2.itemId;
+        slot.slotData.itemType = item2.itemType;
+        slot.slotData.stackable = item2.stackable;
+        slot.slotData.stackMax = item2.maxStack;
+        slot.slotData.count = item2.count;
     }
 }

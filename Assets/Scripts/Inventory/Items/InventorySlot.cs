@@ -23,11 +23,11 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     {
         GameObject dropped = eventData.pointerDrag;
         InventoryItem inventoryItem = dropped.GetComponent<InventoryItem>();
-        if (slotData.itemId == -1)
+        /*if (slotData.itemId == -1)
         {
             inventoryItem.parentAfterDrag = transform;
-        }
-        else if(slotData.itemId == inventoryItem.itemId && slotData.stackable)
+        }*/
+        if(slotData.itemId == inventoryItem.itemId && slotData.stackable)
         {
             InventoryItem targetItem = GetComponentInChildren<InventoryItem>();
             int totalAmount = slotData.count + inventoryItem.count;
@@ -47,6 +47,10 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                 inventoryItem.count = totalAmount - slotData.stackMax;
                 inventoryItem.RefreshCount();
             }
+        }
+        else
+        {
+            inventoryItem.parentAfterDrag = transform;
         }
     }
 }
