@@ -131,26 +131,41 @@ public class InventoryManager : MonoBehaviour
     // save to GameManager
     public void SaveInventory()
     {
+        // saving inventory
         GameManager.instance.inventorySlotsData = new InventorySlotData[inventorySlotsUI.Length];
-
         for(int i = 0; i < inventorySlotsUI.Length; i++)
         {
             GameManager.instance.inventorySlotsData[i] = inventorySlotsUI[i].slotData;
+        }
+
+        // saving equipment
+        GameManager.instance.equipmentSlotsData = new InventorySlotData[equipmentSlotsUI.Length];
+        for (int i = 0; i < equipmentSlotsUI.Length; i++)
+        {
+            GameManager.instance.equipmentSlotsData[i] = equipmentSlotsUI[i].slotData;
         }
     }
 
     // load from GameManager
     public void LoadInventorySlotData()
     {
+        // loading inventory slots data
         for(int i = 0; i < inventorySlotsUI.Length; i++)
         {
             inventorySlotsUI[i].slotData = GameManager.instance.inventorySlotsData[i];
+        }
+
+        // loading equipment slots data
+        for (int i = 0; i < equipmentSlotsUI.Length; i++)
+        {
+            equipmentSlotsUI[i].slotData = GameManager.instance.equipmentSlotsData[i];
         }
     }
 
     // to inventory
     public void AddSavedInventorySlotData()
     {
+        // add saved inventory slot data
         for (int i = 0; i < inventorySlotsUI.Length; i++)
         {
             if (inventorySlotsUI[i].slotData.itemId > -1)
@@ -171,13 +186,42 @@ public class InventoryManager : MonoBehaviour
                 thisInventoryItem.GetComponent<InventoryItem>().RefreshCount();
             }
         }
+
+        // add saved equipment slot data
+        for (int i = 0; i < equipmentSlotsUI.Length; i++)
+        {
+            if (equipmentSlotsUI[i].slotData.itemId > -1)
+            {
+                equipmentSlotsUI[i].slotData.itemId = GameManager.instance.equipmentSlotsData[i].itemId;
+                equipmentSlotsUI[i].slotData.itemType = GameManager.instance.equipmentSlotsData[i].itemType;
+                equipmentSlotsUI[i].slotData.stackable = GameManager.instance.equipmentSlotsData[i].stackable;
+                equipmentSlotsUI[i].slotData.stackMax = GameManager.instance.equipmentSlotsData[i].stackMax;
+                InventoryItem newItemGo = Instantiate(inventoryItem, equipmentSlotsUI[i].transform);
+                InventoryItem thisInventoryItem = equipmentSlotsUI[i].GetComponentInChildren<InventoryItem>();
+                thisInventoryItem.item = itemsDatabase[equipmentSlotsUI[i].slotData.itemId];
+                newItemGo.itemId = thisInventoryItem.item.itemID;
+                newItemGo.itemType = thisInventoryItem.item.itemType;
+                newItemGo.stackable = thisInventoryItem.item.stackable;
+                newItemGo.maxStack = thisInventoryItem.item.stackMax;
+                newItemGo.count = equipmentSlotsUI[i].slotData.count;
+                newItemGo.img.sprite = thisInventoryItem.item.icon;
+                thisInventoryItem.GetComponent<InventoryItem>().RefreshCount();
+            }
+        }
     }
 
     public void ClearInventory()
     {
+        // clear inventory
         for(int i = 0; i < GameManager.instance.inventorySlotsData.Length; i++)
         {
             GameManager.instance.inventorySlotsData[i] = null;
+        }
+
+        // clear equipment
+        for (int i = 0; i < GameManager.instance.equipmentSlotsData.Length; i++)
+        {
+            GameManager.instance.equipmentSlotsData[i] = null;
         }
     }
 }
