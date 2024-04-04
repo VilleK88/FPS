@@ -27,6 +27,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     {
         itemId = item.itemID;
         itemType = item.itemType;
+        itemName = item.itemName;
         stackable = item.stackable;
         maxStack = item.stackMax;
         img.sprite = item.icon;
@@ -85,6 +86,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     {
         InventorySlot slot = GetComponentInParent<InventorySlot>();
         slot.slotData.itemId = -1;
+        slot.slotData.itemName = null;
         slot.slotData.itemType = ItemType.Default;
         slot.slotData.stackable = false;
         slot.slotData.stackMax = 0;
@@ -95,6 +97,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     {
         InventorySlot slot = GetComponentInParent<InventorySlot>();
         slot.slotData.itemId = itemId;
+        slot.slotData.itemName = itemName;
         slot.slotData.itemType = itemType;
         slot.slotData.stackable = stackable;
         slot.slotData.stackMax = maxStack;
@@ -117,6 +120,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     {
         InventorySlot slot = GetComponentInParent<InventorySlot>();
         slot.slotData.itemId = -1;
+        slot.slotData.itemName = null;
         slot.slotData.itemType = ItemType.Default;
         slot.slotData.stackable = false;
         slot.slotData.stackMax = 0;
@@ -220,6 +224,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
 
         InventorySlot slot = item2.GetComponentInParent<InventorySlot>();
         slot.slotData.itemId = item2.itemId;
+        slot.slotData.itemName = item2.itemName;
         slot.slotData.itemType = item2.itemType;
         slot.slotData.stackable = item2.stackable;
         slot.slotData.stackMax = item2.maxStack;

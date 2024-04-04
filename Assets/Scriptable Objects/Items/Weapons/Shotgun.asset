@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Shotgun
   itemID: 5
+  itemName: Shotgun
+  itemType: 3
   stackable: 0
   stackMax: 0
   icon: {fileID: 21300026, guid: 5acb27b603af6d44ea6113c4b7b15385, type: 3}
-  itemType: 3
   description: Shotgun

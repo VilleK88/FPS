@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: DefaultArmor
   itemID: 1
+  itemName: Default armor
+  itemType: 2
   stackable: 0
   stackMax: 0
   icon: {fileID: 21300000, guid: 2f1eaeeaad36ee5469eff7ff158f37ba, type: 3}
-  itemType: 2
   description: Default armor

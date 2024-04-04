@@ -7,10 +7,11 @@ public class Item : ScriptableObject
 {
     new public string name = "New Item";
     public int itemID;
+    public string itemName;
+    public ItemType itemType;
     public bool stackable = true;
     public int stackMax;
     public Sprite icon = null;
-    public ItemType itemType;
 
     [TextArea]
     public string description;

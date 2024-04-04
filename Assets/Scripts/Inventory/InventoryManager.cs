@@ -72,6 +72,28 @@ public class InventoryManager : MonoBehaviour
                 CloseInventory();
             }
         }
+
+        EquipWeapon();
+    }
+
+    void EquipWeapon()
+    {
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Debug.Log("Item equipped: " + equipmentSlotsUI[1]);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Debug.Log("Item equipped: " + equipmentSlotsUI[2]);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            Debug.Log("Item equipped: " + equipmentSlotsUI[3]);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            Debug.Log("Item equipped: " + equipmentSlotsUI[4]);
+        }
     }
 
     public void OpenInventory()
@@ -112,6 +134,7 @@ public class InventoryManager : MonoBehaviour
             if (inventorySlotsUI[i].slotData.itemId == -1)
             {
                 inventorySlotsUI[i].slotData.itemId = newItem.itemID;
+                inventorySlotsUI[i].slotData.itemName = newItem.itemName;
                 inventorySlotsUI[i].slotData.itemType = newItem.itemType;
                 inventorySlotsUI[i].slotData.stackable = newItem.stackable;
                 inventorySlotsUI[i].slotData.stackMax = newItem.stackMax;
@@ -178,6 +201,7 @@ public class InventoryManager : MonoBehaviour
                 InventoryItem thisInventoryItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
                 thisInventoryItem.item = itemsDatabase[inventorySlotsUI[i].slotData.itemId];
                 newItemGo.itemId = thisInventoryItem.item.itemID;
+                newItemGo.itemName = thisInventoryItem.item.itemName;
                 newItemGo.itemType = thisInventoryItem.item.itemType;
                 newItemGo.stackable = thisInventoryItem.item.stackable;
                 newItemGo.maxStack = thisInventoryItem.item.stackMax;
@@ -200,6 +224,7 @@ public class InventoryManager : MonoBehaviour
                 InventoryItem thisInventoryItem = equipmentSlotsUI[i].GetComponentInChildren<InventoryItem>();
                 thisInventoryItem.item = itemsDatabase[equipmentSlotsUI[i].slotData.itemId];
                 newItemGo.itemId = thisInventoryItem.item.itemID;
+                newItemGo.itemName = thisInventoryItem.item.itemName;
                 newItemGo.itemType = thisInventoryItem.item.itemType;
                 newItemGo.stackable = thisInventoryItem.item.stackable;
                 newItemGo.maxStack = thisInventoryItem.item.stackMax;

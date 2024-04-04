@@ -10,6 +10,7 @@ public class InventorySlotData
 {
     public SlotType slotType = SlotType.Default;
     public int itemId = -1;
+    public string itemName;
     public ItemType itemType;
     public bool stackable;
     public int stackMax;
