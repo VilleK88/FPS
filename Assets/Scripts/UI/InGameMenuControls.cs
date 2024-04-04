@@ -6,6 +6,22 @@ using UnityEngine.Events;
 
 public class InGameMenuControls : MonoBehaviour
 {
+    #region Singleton
+    public static InGameMenuControls instance;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+    #endregion
+
     [SerializeField] public GameObject menuButtons;
     public UnityEvent OnToggleMenu;
     public delegate void ToggleMenuDelegate(bool isActive);
@@ -25,13 +41,11 @@ public class InGameMenuControls : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && InventoryManager.instance.closed)
+        if(Input.GetKeyDown(KeyCode.Escape))
         {
             OnToggleMenu?.Invoke();
             OnToggleMenuStatic?.Invoke(menuButtons.activeSelf);
             ToggleInGameMenu();
-            UpdateCursorLockState();
-            UpdateMouseLook();
         }
     }
 
@@ -40,25 +54,6 @@ public class InGameMenuControls : MonoBehaviour
         if(menuButtons != null)
         {
             menuButtons.SetActive(!menuButtons.activeSelf);
-        }
-    }
-
-    void UpdateCursorLockState()
-    {
-        Cursor.lockState = menuButtons.activeSelf ? CursorLockMode.None : CursorLockMode.Locked;
-    }
-
-    void UpdateMouseLook()
-    {
-        if(menuButtons.activeSelf)
-        {
-            player.GetComponentInChildren<MouseLook>().enabled = false;
-            Cursor.visible = true;
-        }
-        else
-        {
-            player.GetComponentInChildren<MouseLook>().enabled = true;
-            Cursor.visible = false;
         }
     }
 
