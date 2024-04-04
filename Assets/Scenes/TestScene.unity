@@ -2243,6 +2243,17 @@ PrefabInstance:
       objectReference: {fileID: 7136351547511556537}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1650f0e3c15f82048a0ef798e321ceae, type: 3}
+--- !u!114 &3068284387711587387 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3068284388090766174, guid: 1650f0e3c15f82048a0ef798e321ceae, type: 3}
+  m_PrefabInstance: {fileID: 3068284387711587386}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e54b7e5feada25446a2b32b7d352795f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3953386805170320745
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2457,6 +2468,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 229573422, guid: 214de501518a9e84fa9bca5296544fd8, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 7136351547511556537}
+    - target: {fileID: 229573422, guid: 214de501518a9e84fa9bca5296544fd8, type: 3}
+      propertyPath: controls
+      value: 
+      objectReference: {fileID: 3068284387711587387}
     - target: {fileID: 8219488188914622979, guid: 214de501518a9e84fa9bca5296544fd8, type: 3}
       propertyPath: m_Name
       value: InventoryCanvas

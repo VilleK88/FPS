@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class InGameMenuControls : MonoBehaviour
 {
-    [SerializeField] GameObject menuButtons;
+    [SerializeField] public GameObject menuButtons;
     public UnityEvent OnToggleMenu;
     public delegate void ToggleMenuDelegate(bool isActive);
     public static event ToggleMenuDelegate OnToggleMenuStatic;
@@ -25,7 +25,7 @@ public class InGameMenuControls : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Escape) && InventoryManager.instance.closed)
         {
             OnToggleMenu?.Invoke();
             OnToggleMenuStatic?.Invoke(menuButtons.activeSelf);

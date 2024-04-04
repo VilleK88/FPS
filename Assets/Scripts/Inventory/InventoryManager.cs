@@ -37,6 +37,9 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] Animator equipmentAnim; // equipment screen
     public bool closed = true;
 
+    public Player player;
+    public InGameMenuControls controls;
+
     private void Start()
     {
         inventorySlotsUI = new InventorySlot[20];
@@ -60,15 +63,19 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I) && !controls.menuButtons.activeSelf)
         {
             if (closed)
             {
                 OpenInventory();
+                UpdateCursorLockState();
+                UpdateMouseLook();
             }
             else
             {
                 CloseInventory();
+                UpdateCursorLockState();
+                UpdateMouseLook();
             }
         }
     }
@@ -177,6 +184,28 @@ public class InventoryManager : MonoBehaviour
         for(int i = 0; i < GameManager.instance.inventorySlotsData.Length; i++)
         {
             GameManager.instance.inventorySlotsData[i] = null;
+        }
+    }
+
+    void UpdateCursorLockState()
+    {
+        if (closed)
+            Cursor.lockState = CursorLockMode.Locked;
+        else
+            Cursor.lockState = CursorLockMode.None;
+    }
+
+    void UpdateMouseLook()
+    {
+        if (!closed)
+        {
+            player.GetComponentInChildren<MouseLook>().enabled = false;
+            Cursor.visible = true;
+        }
+        else
+        {
+            player.GetComponentInChildren<MouseLook>().enabled = true;
+            Cursor.visible = false;
         }
     }
 }
