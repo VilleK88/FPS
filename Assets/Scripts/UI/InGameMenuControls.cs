@@ -36,7 +36,7 @@ public class InGameMenuControls : MonoBehaviour
             menuButtons.SetActive(false);
         }
         player.GetComponent<Player>();
-        //currentScene = SceneManager.GetActiveScene();
+        currentScene = SceneManager.GetActiveScene();
     }
 
     private void Update()
@@ -67,7 +67,7 @@ public class InGameMenuControls : MonoBehaviour
 
     public void LoadGame()
     {
-        InventoryManager.instance.ClearInventory();
+        ClearAndDestroyInventory();
         GameManager.instance.Load();
         LoadSceneID();
     }
@@ -104,5 +104,15 @@ public class InGameMenuControls : MonoBehaviour
     public void QuitGame()
     {
         SceneManager.LoadScene("1 - Menu");
+    }
+
+    public void ClearAndDestroyInventory()
+    {
+        InventoryManager.instance.ClearInventory();
+        GameObject inventoryCanvas = GameObject.Find("InventoryCanvas");
+        if (inventoryCanvas != null)
+        {
+            Destroy(inventoryCanvas);
+        }
     }
 }

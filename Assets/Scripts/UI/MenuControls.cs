@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class MenuControls : MonoBehaviour
 {
-    Scene currentScene;
-
     private void Start()
     {
         GameObject inventoryCanvas = GameObject.Find("InventoryCanvas");
@@ -21,6 +19,7 @@ public class MenuControls : MonoBehaviour
     {
         GameManager.instance.cashIDs = new int[0]; // clear collected currency IDs
         GameManager.instance.loadPlayerPosition = false;
+        //GameManager.instance.loadInventory = false;
         SceneManager.LoadScene("TestScene");
     }
 

@@ -75,9 +75,6 @@ public class GameManager : MonoBehaviour
 
         data.inventorySlotsData = inventorySlotsData;
 
-        //InventoryManager.instance.inventory.Save();
-        //InventoryManager.instance.equipment.Save();
-
         // Serialisoidaan GameData objekti, joka tallennetaan samalla tiedostoon.
         bf.Serialize(file, data);
         file.Close(); // Suljetaan tieodosto, ettei kukaan hakkeri p‰‰se siihen k‰siksi.
@@ -89,7 +86,6 @@ public class GameManager : MonoBehaviour
         // Jos on, niin sitten vasta jatka prosessia.
         if(File.Exists(Application.persistentDataPath + "/gameInfo.dat"))
         {
-            //Debug.Log("Game Loaded!");
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/gameInfo.dat", FileMode.Open);
             // Deserialisoidaan ja muunnetaan data GameData -muotoon. Me tied‰mme, ett‰ data on GameData objektin informaatio.
@@ -113,12 +109,11 @@ public class GameManager : MonoBehaviour
             y = data.y;
             z = data.z;
 
-            savedSceneID = data.savedSceneID;
             loadPlayerPosition = true;
-            loadInventory = true;
+            savedSceneID = data.savedSceneID;
 
+            loadInventory = true;
             inventorySlotsData = data.inventorySlotsData;
-            //InventoryManager.instance.LoadInventory();
         }
     }
 }
