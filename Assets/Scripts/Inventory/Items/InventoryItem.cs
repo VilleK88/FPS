@@ -21,6 +21,8 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     [HideInInspector] public Transform parentAfterDrag;
     bool dragging = false;
 
+    [SerializeField] GameObject removeItem;
+
     public void InitializeItem()
     {
         itemId = item.itemID;
@@ -105,6 +107,21 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         {
             UseItem();
         }
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            removeItem.SetActive(true);
+        }
+    }
+
+    public void RemoveItem()
+    {
+        InventorySlot slot = GetComponentInParent<InventorySlot>();
+        slot.slotData.itemId = -1;
+        slot.slotData.itemType = ItemType.Default;
+        slot.slotData.stackable = false;
+        slot.slotData.stackMax = 0;
+        slot.slotData.count = 0;
+        Destroy(gameObject);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
