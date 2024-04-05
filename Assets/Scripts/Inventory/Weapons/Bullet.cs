@@ -15,12 +15,28 @@ public class Bullet : MonoBehaviour
         else
             Destroy(gameObject);
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision objectWeHit)
     {
-        if(collision.gameObject.CompareTag("Target"))
+        if(objectWeHit.gameObject.CompareTag("Target"))
         {
-            Debug.Log("hit " + collision.gameObject.name + " !");
+            Debug.Log("hit " + objectWeHit.gameObject.name + " !");
+            CreateBulletImpactEffect(objectWeHit);
             Destroy(gameObject);
         }
+
+        if(objectWeHit.gameObject.CompareTag("Wall"))
+        {
+            Debug.Log("Hit a wall");
+            CreateBulletImpactEffect(objectWeHit);
+            Destroy(gameObject);
+        }
+    }
+
+    void CreateBulletImpactEffect(Collision objectWeHit)
+    {
+        ContactPoint contact = objectWeHit.contacts[0];
+        GameObject hole = Instantiate(GlobalReferences.Instance.bulletImpactEffectPrefab,
+            contact.point, Quaternion.LookRotation(contact.normal));
+        hole.transform.SetParent(objectWeHit.gameObject.transform);
     }
 }
