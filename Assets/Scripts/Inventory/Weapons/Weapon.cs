@@ -24,12 +24,17 @@ public class Weapon : MonoBehaviour
     public float bulletVelocity = 100;
     public float bulletPrefabLifeTime = 3f;
 
+    public GameObject muzzleEffect;
+    Animator anim;
+    [SerializeField] AudioClip shootingSound;
+
     public ShootingMode currentShootingMode;
 
     private void Awake()
     {
         readyToShoot = true;
         burstBulletsLeft = bulletsPerBurst;
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -54,6 +59,10 @@ public class Weapon : MonoBehaviour
 
     void FireWeapon()
     {
+        muzzleEffect.GetComponent<ParticleSystem>().Play();
+        anim.SetTrigger("Recoil");
+        //AudioManager.instance.PlaySound(shootingSound);
+
         readyToShoot = false;
         Vector3 shootingDirection = CalculateDirectionAndSpread().normalized;
 
@@ -90,7 +99,8 @@ public class Weapon : MonoBehaviour
     public Vector3 CalculateDirectionAndSpread()
     {
         // Shooting from the middle of the screen to check where are we pointing at
-        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        //Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
 
         Vector3 targetPoint;

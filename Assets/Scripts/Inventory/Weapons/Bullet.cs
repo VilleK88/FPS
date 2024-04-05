@@ -30,6 +30,13 @@ public class Bullet : MonoBehaviour
             CreateBulletImpactEffect(objectWeHit);
             Destroy(gameObject);
         }
+
+        if (objectWeHit.gameObject.CompareTag("Ground"))
+        {
+            Debug.Log("Hit a ground");
+            CreateBulletImpactEffect(objectWeHit);
+            Destroy(gameObject);
+        }
     }
 
     void CreateBulletImpactEffect(Collision objectWeHit)
