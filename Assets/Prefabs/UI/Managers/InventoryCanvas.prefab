@@ -491,10 +491,14 @@ MonoBehaviour:
   itemsDatabase:
   - {fileID: 11400000, guid: 446a2986bf96dd842a51f25aa4737cd3, type: 2}
   - {fileID: 11400000, guid: ef635ea7dc59070488bf5b6b672191d4, type: 2}
-  - {fileID: 11400000, guid: 7b6a27554e8196145b976248006ddad4, type: 2}
+  - {fileID: 11400000, guid: 1b375938d232505449e1484bd26c14e1, type: 2}
   - {fileID: 11400000, guid: 4e5be8657546d6d43b539e0d80a2cd70, type: 2}
-  - {fileID: 11400000, guid: 326608d8205c5474381ef4b40e7d5bf7, type: 2}
-  - {fileID: 11400000, guid: be3923e9bdaea564eb9bced257ddd476, type: 2}
+  - {fileID: 11400000, guid: 1c4f718f6cc99f040ba871259288c675, type: 2}
+  - {fileID: 11400000, guid: 0d037110ef7ece747998b75166bd5a0e, type: 2}
+  weaponPrefabs:
+  - {fileID: 3277656015592704822, guid: ea6cf546127d32640b6efe4f3ffccc19, type: 3}
+  - {fileID: 3739820389152333820, guid: bff73af88e1a87e4896a6106762b95ec, type: 3}
+  - {fileID: 8708857780096605405, guid: f5352dadbab532141a5b75836f568b93, type: 3}
   slotPrefab: {fileID: -5775219928166392110, guid: 9e92f5916be2835439937d957d46641a, type: 3}
   inventoryItem: {fileID: -6960829208771506430, guid: 98da79b8cd847be4fb826cd6299c9d6b, type: 3}
   inventoryTransform: {fileID: 6378716177388220498}
@@ -508,6 +512,7 @@ MonoBehaviour:
   inventoryAnim: {fileID: 5406414410777699016}
   equipmentAnim: {fileID: 3236802437656529918}
   closed: 1
+  player: {fileID: 0}
 --- !u!1001 &967399350864966322
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 public class Weapon : MonoBehaviour
 {
-    public Camera playerCamera;
+    [Header("Weapon model, shooting mode and weapon id")]
+    public WeaponModel thisWeaponModel;
+    public ShootingMode currentShootingMode;
+    public int weaponId;
 
     [Header("Shooting")]
     public bool isShooting, readyToShoot;
     bool allowReset = true;
     public float shootingDelay = 0.3f;
-    public ShootingMode currentShootingMode;
 
     [Header("Burst")]
     public int bulletsPerBurst = 1;
@@ -38,6 +38,10 @@ public class Weapon : MonoBehaviour
     public float reloadTime = 1.5f;
     public int magazineSize = 7, bulletsLeft;
     public bool isReloading;
+
+    public Vector3 spawnPosition = new Vector3(0.689f, -1.14f, 2.213f);
+    public Vector3 spawnRotation = new Vector3(0, 0, 0);
+    public bool isActiveWeapon;
 
     private void Awake()
     {
@@ -66,7 +70,7 @@ public class Weapon : MonoBehaviour
         /*if (readyToShoot && !isShooting && !isReloading && bulletsLeft <= 0) // automatic weapon reload
             Reload();*/
 
-        if (readyToShoot && isShooting && bulletsLeft > 0)
+        if (readyToShoot && isShooting && bulletsLeft > 0 && !isReloading)
         {
             burstBulletsLeft = bulletsPerBurst;
             FireWeapon();
@@ -113,6 +117,7 @@ public class Weapon : MonoBehaviour
     void Reload()
     {
         AudioManager.instance.PlaySound(reloadingSound);
+        //anim.SetTrigger("Reload"); // reload animation not yet made
         isReloading = true;
         Invoke("ReloadCompleted", reloadTime);
     }
@@ -163,4 +168,11 @@ public enum ShootingMode
     Single,
     Burst,
     Auto
+}
+
+public enum WeaponModel
+{
+    Pistol,
+    AssaultRifle,
+    Shotgun
 }

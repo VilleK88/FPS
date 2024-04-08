@@ -1,11 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-using UnityEngine.EventSystems;
-using UnityEngine.Events;
-using Unity.VisualScripting;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -28,6 +23,7 @@ public class InventoryManager : MonoBehaviour
     public Dictionary<int, InventoryItem> inventory = new Dictionary<int, InventoryItem>();
 
     public Item[] itemsDatabase;
+    public GameObject[] weaponPrefabs;
     public InventorySlot slotPrefab;
     public InventoryItem inventoryItem;
     public Transform inventoryTransform; // where the slotPrefabs are instantiated.
@@ -37,6 +33,8 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] Animator inventoryAnim; // inventory screen
     [SerializeField] Animator equipmentAnim; // equipment screen
     public bool closed = true;
+
+    public GameObject player;
 
     private void Start()
     {
@@ -81,18 +79,43 @@ public class InventoryManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
             Debug.Log("Item equipped: " + equipmentSlotsUI[1]);
+            DrawWeapon(1);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             Debug.Log("Item equipped: " + equipmentSlotsUI[2]);
+            DrawWeapon(2);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             Debug.Log("Item equipped: " + equipmentSlotsUI[3]);
+            DrawWeapon(3);
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             Debug.Log("Item equipped: " + equipmentSlotsUI[4]);
+            DrawWeapon(4);
+        }
+    }
+
+    void DrawWeapon(int index)
+    {
+        player = PlayerManager.instance.GetPlayer();
+        GameObject[] weaponSlots = player.GetComponent<Player>().weaponSlots;
+        if (player != null)
+        {
+            if (equipmentSlotsUI[index].slotData.itemId > -1)
+            {
+                for(int i = 0; i < weaponSlots.Length; i++)
+                {
+                    if (weaponSlots[i].GetComponent<Weapon>().weaponId == equipmentSlotsUI[index].slotData.itemId)
+                    {
+                        weaponSlots[i].SetActive(!weaponSlots[i].activeSelf);
+                    }
+                    else
+                        weaponSlots[i].SetActive(false);
+                }
+            }
         }
     }
 

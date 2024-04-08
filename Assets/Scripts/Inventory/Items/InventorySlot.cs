@@ -19,7 +19,7 @@ public class InventorySlotData
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
     public InventorySlotData slotData = new InventorySlotData();
-    bool isDragging = false;
+    //bool isDragging = false;
 
     public void OnDrop(PointerEventData eventData)
     {
