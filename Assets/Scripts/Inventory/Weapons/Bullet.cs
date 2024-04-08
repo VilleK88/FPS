@@ -5,16 +5,11 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    float maxTime = 2;
-    float count = 0;
-
-    private void Update()
+    private void Start()
     {
-        if (maxTime > count)
-            count += Time.deltaTime;
-        else
-            Destroy(gameObject);
+        Destroy(gameObject, 2);
     }
+
     private void OnCollisionEnter(Collision objectWeHit)
     {
         if(objectWeHit.gameObject.CompareTag("Target"))

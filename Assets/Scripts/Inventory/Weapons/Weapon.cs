@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Weapon : MonoBehaviour
 {
@@ -9,10 +11,11 @@ public class Weapon : MonoBehaviour
     [Header("Shooting")]
     public bool isShooting, readyToShoot;
     bool allowReset = true;
-    public float shootingDelay = 2f;
+    public float shootingDelay = 0.3f;
+    public ShootingMode currentShootingMode;
 
     [Header("Burst")]
-    public int bulletsPerBurst = 3;
+    public int bulletsPerBurst = 1;
     public int burstBulletsLeft;
 
     [Header("Spread")]
@@ -21,52 +24,69 @@ public class Weapon : MonoBehaviour
     [Header("Bullet")]
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
-    public float bulletVelocity = 100;
+    public float bulletVelocity = 500;
     public float bulletPrefabLifeTime = 3f;
 
+    [Header("Particle Effect, Animation, Sound")]
     public GameObject muzzleEffect;
     Animator anim;
     [SerializeField] AudioClip shootingSound;
+    [SerializeField] AudioClip reloadingSound;
+    [SerializeField] AudioClip emptyMagazineSound;
 
-    public ShootingMode currentShootingMode;
+    [Header("Loading")]
+    public float reloadTime = 1.5f;
+    public int magazineSize = 7, bulletsLeft;
+    public bool isReloading;
 
     private void Awake()
     {
         readyToShoot = true;
         burstBulletsLeft = bulletsPerBurst;
         anim = GetComponent<Animator>();
+        bulletsLeft = magazineSize;
     }
 
     private void Update()
     {
-        if(currentShootingMode == ShootingMode.Auto)
-        {
-            // Holding down left mouse button
-            isShooting = Input.GetKey(KeyCode.Mouse0);
-        }
-        else if(currentShootingMode == ShootingMode.Single || currentShootingMode == ShootingMode.Burst)
-        {
-            // Clicking left mouse button once
-            isShooting = Input.GetKeyDown(KeyCode.Mouse0);
-        }
+        if (bulletsLeft == 0 && isShooting)
+            AudioManager.instance.PlaySound(emptyMagazineSound);
 
-        if (readyToShoot && isShooting)
+        if (!InventoryManager.instance.closed || InGameMenuControls.instance.menuButtons.activeSelf)
+            return;
+
+        if(currentShootingMode == ShootingMode.Auto)
+            isShooting = Input.GetKey(KeyCode.Mouse0); // holding down left mouse button
+        else if(currentShootingMode == ShootingMode.Single || currentShootingMode == ShootingMode.Burst)
+            isShooting = Input.GetKeyDown(KeyCode.Mouse0); // clicking left mouse button once
+
+        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !isReloading) // reload weapon
+            Reload();
+
+        /*if (readyToShoot && !isShooting && !isReloading && bulletsLeft <= 0) // automatic weapon reload
+            Reload();*/
+
+        if (readyToShoot && isShooting && bulletsLeft > 0)
         {
             burstBulletsLeft = bulletsPerBurst;
             FireWeapon();
         }
+
+        if (AmmoManager.Instance.ammoDisplay != null)
+            AmmoManager.Instance.ammoDisplay.text = $"{bulletsLeft / bulletsPerBurst}/{magazineSize / bulletsPerBurst}";
     }
 
     void FireWeapon()
     {
+        bulletsLeft--;
         muzzleEffect.GetComponent<ParticleSystem>().Play();
         anim.SetTrigger("Recoil");
-        //AudioManager.instance.PlaySound(shootingSound);
+        AudioManager.instance.PlaySound(shootingSound);
 
         readyToShoot = false;
         Vector3 shootingDirection = CalculateDirectionAndSpread().normalized;
 
-        // Instantiate the bullet
+        // instantiate the bullet
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
 
         // Pointing the bullet to face the shooting direction
@@ -88,6 +108,19 @@ public class Weapon : MonoBehaviour
             burstBulletsLeft--;
             Invoke("FireWeapon", shootingDelay);
         }
+    }
+
+    void Reload()
+    {
+        AudioManager.instance.PlaySound(reloadingSound);
+        isReloading = true;
+        Invoke("ReloadCompleted", reloadTime);
+    }
+
+    void ReloadCompleted()
+    {
+        bulletsLeft = magazineSize;
+        isReloading = false;
     }
 
     void ResetShot()
@@ -117,8 +150,8 @@ public class Weapon : MonoBehaviour
 
         Vector3 direction = targetPoint - bulletSpawn.position;
 
-        float x = UnityEngine.Random.Range(-spreadIntensity, spreadIntensity);
-        float y = UnityEngine.Random.Range(-spreadIntensity, spreadIntensity);
+        float x = Random.Range(-spreadIntensity, spreadIntensity);
+        float y = Random.Range(-spreadIntensity, spreadIntensity);
 
         // returning the shooting direction and spread
         return direction + new Vector3(x, y, 0);
