@@ -53,13 +53,13 @@ public class Weapon : MonoBehaviour
 
     private void Update()
     {
-        if (bulletsLeft == 0 && isShooting)
-            AudioManager.instance.PlaySound(emptyMagazineSound);
-
         if (!InventoryManager.instance.closed || InGameMenuControls.instance.menuButtons.activeSelf)
             return;
 
-        if(currentShootingMode == ShootingMode.Auto)
+        if (bulletsLeft == 0 && isShooting)
+            AudioManager.instance.PlaySound(emptyMagazineSound);
+
+        if (currentShootingMode == ShootingMode.Auto)
             isShooting = Input.GetKey(KeyCode.Mouse0); // holding down left mouse button
         else if(currentShootingMode == ShootingMode.Single || currentShootingMode == ShootingMode.Burst)
             isShooting = Input.GetKeyDown(KeyCode.Mouse0); // clicking left mouse button once

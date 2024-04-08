@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
@@ -71,6 +73,9 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
+        if (!closed)
+            return;
+
         EquipWeapon();
     }
 
@@ -119,11 +124,23 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    void HolsterWeapons()
+    {
+        player = PlayerManager.instance.GetPlayer();
+        GameObject[] weaponSlots = player.GetComponent<Player>().weaponSlots;
+        if (player != null)
+        {
+            for(int i = 0; i < weaponSlots.Length; i++)
+                weaponSlots[i].SetActive(false);
+        }
+    }
+
     public void OpenInventory()
     {
         inventoryAnim.GetComponent<Animator>().SetBool("InventoryOn", true);
         equipmentAnim.GetComponent<Animator>().SetBool("EquipmentScreenOn", true);
         closed = false;
+        HolsterWeapons();
     }
 
     public void CloseInventory()
@@ -131,6 +148,7 @@ public class InventoryManager : MonoBehaviour
         inventoryAnim.GetComponent<Animator>().SetBool("InventoryOn", false);
         equipmentAnim.GetComponent<Animator>().SetBool("EquipmentScreenOn", false);
         closed = true;
+        HolsterWeapons();
     }
 
     public bool AddInventoryItem(Item newItem)
