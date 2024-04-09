@@ -119,6 +119,21 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    void CheckAmmoStatus()
+    {
+        for(int i = 0; i < InventoryManager.instance.inventorySlotsUI.Length; i++)
+        {
+            InventoryItem inventoryItem = InventoryManager.instance.inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
+            if(inventoryItem != null)
+            {
+                if(inventoryItem.itemType == ItemType.Ammo)
+                {
+                    //if(inventoryItem.item.Get)
+                }
+            }
+        }
+    }
+
     void Reload()
     {
         tempTotalAmmo = totalAmmo;

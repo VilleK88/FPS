@@ -83,7 +83,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 138760718}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!1 &1294436178
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,6 +435,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1294436179}
     m_Modifications:
     - target: {fileID: 4915713334536391105, guid: f5352dadbab532141a5b75836f568b93, type: 3}
+      propertyPath: totalAmmo
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 4915713334536391105, guid: f5352dadbab532141a5b75836f568b93, type: 3}
       propertyPath: reloadTime
       value: 2.2
       objectReference: {fileID: 0}
@@ -509,6 +513,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1294436179}
     m_Modifications:
+    - target: {fileID: 2431375446489821769, guid: ea6cf546127d32640b6efe4f3ffccc19, type: 3}
+      propertyPath: totalAmmo
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 2431375446489821769, guid: ea6cf546127d32640b6efe4f3ffccc19, type: 3}
       propertyPath: reloadTime
       value: 2.2
@@ -635,6 +643,10 @@ PrefabInstance:
     - target: {fileID: 4084011115690870086, guid: bff73af88e1a87e4896a6106762b95ec, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4550864358607795897, guid: bff73af88e1a87e4896a6106762b95ec, type: 3}
+      propertyPath: totalAmmo
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bff73af88e1a87e4896a6106762b95ec, type: 3}
