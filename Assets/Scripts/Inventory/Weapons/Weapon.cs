@@ -50,7 +50,7 @@ public class Weapon : MonoBehaviour
         burstBulletsLeft = bulletsPerBurst;
         anim = GetComponent<Animator>();
         bulletsLeft = magazineSize;
-        totalAmmo -= magazineSize;
+        //totalAmmo -= magazineSize;
     }
 
     private void Update()
@@ -66,11 +66,17 @@ public class Weapon : MonoBehaviour
         else if(currentShootingMode == ShootingMode.Single || currentShootingMode == ShootingMode.Burst)
             isShooting = Input.GetKeyDown(KeyCode.Mouse0); // clicking left mouse button once
 
-        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !isReloading && totalAmmo > 0) // reload weapon
-            Reload();
+        //if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !isReloading && totalAmmo > 0) // reload weapon
+        //Reload();
 
-        /*if (readyToShoot && !isShooting && !isReloading && bulletsLeft <= 0) // automatic weapon reload
-            Reload();*/
+        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !isReloading) // reload weapon
+        {
+            CheckAmmoStatus();
+            if (totalAmmo > 0)
+            {
+                Reload();
+            }
+        }
 
         if (readyToShoot && isShooting && bulletsLeft > 0 && !isReloading)
         {
@@ -95,40 +101,39 @@ public class Weapon : MonoBehaviour
         readyToShoot = false;
         Vector3 shootingDirection = CalculateDirectionAndSpread().normalized;
 
-        // instantiate the bullet
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
+        GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity); // instantiate the bullet
 
-        // Pointing the bullet to face the shooting direction
-        bullet.transform.forward = shootingDirection;
+        bullet.transform.forward = shootingDirection; // Pointing the bullet to face the shooting direction
 
-        // Shoot the bullet
-        bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse);
+        bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse); // Shoot the bullet
 
-        // Checking if we are done shooting
-        if(allowReset)
+        if (allowReset) // Checking if we are done shooting
         {
             Invoke("ResetShot", shootingDelay);
             allowReset = false;
         }
 
-        // Burst mode
-        if(currentShootingMode == ShootingMode.Burst && burstBulletsLeft > 1)
+        if(currentShootingMode == ShootingMode.Burst && burstBulletsLeft > 1) // Burst mode
         {
             burstBulletsLeft--;
             Invoke("FireWeapon", shootingDelay);
         }
     }
 
-    void CheckAmmoStatus()
+    public void CheckAmmoStatus()
     {
         for(int i = 0; i < InventoryManager.instance.inventorySlotsUI.Length; i++)
         {
             InventoryItem inventoryItem = InventoryManager.instance.inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
-            if(inventoryItem != null)
+            if(inventoryItem != null && inventoryItem.itemType == ItemType.Ammo)
             {
-                if(inventoryItem.itemType == ItemType.Ammo)
+                if (inventoryItem.item.ammoType == AmmoType.Pistol)
                 {
-                    //if(inventoryItem.item.Get)
+                    totalAmmo = inventoryItem.ammoAmount;
+                    if (inventoryItem.ammoAmount >= magazineSize)
+                        inventoryItem.ammoAmount -= magazineSize;
+                    else
+                        inventoryItem.ammoAmount -= inventoryItem.ammoAmount;
                 }
             }
         }
@@ -136,6 +141,8 @@ public class Weapon : MonoBehaviour
 
     void Reload()
     {
+        //CheckReloadAmmoStatus();
+
         tempTotalAmmo = totalAmmo;
         if (totalAmmo >= magazineSize)
             totalAmmo -= magazineSize;
@@ -159,6 +166,7 @@ public class Weapon : MonoBehaviour
 
         tempTotalAmmo = 0;
         isReloading = false;
+        //CheckAmmoStatus();
     }
 
     void ResetShot()

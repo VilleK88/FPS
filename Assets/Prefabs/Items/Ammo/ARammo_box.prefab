@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 206013711710074559}
-  m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.5328827, y: 0.000001977574, z: 4.057476}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -98,10 +98,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionTransform: {fileID: 203442474048525391}
-  item: {fileID: 11400000, guid: b6884361f56e26e419f16709e2696d49, type: 2}
-  itemName: ARammo
+  item: {fileID: 11400000, guid: 2ec4250524618d345877daac5a51de9f, type: 2}
+  itemName: Pistol ammo
   pickUpItemID: 2147483647
-  collectOnTouch: 0
+  collectOnTouch: 1
 --- !u!65 &2894796693078287432
 BoxCollider:
   m_ObjectHideFlags: 0

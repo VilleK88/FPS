@@ -16,6 +16,11 @@ public class Item : ScriptableObject
     [TextArea]
     public string description;
 
+    [Header("Ammo Settings")]
+    public int ammoAmount;
+    public int maxAmmo;
+    public AmmoType ammoType;
+
     public virtual void Use()
     {
 
@@ -29,4 +34,12 @@ public enum ItemType
     Armor,
     Weapon,
     Ammo,
+}
+
+public enum AmmoType
+{
+    Default,
+    Pistol,
+    AssaultRifle,
+    Shotgun,
 }

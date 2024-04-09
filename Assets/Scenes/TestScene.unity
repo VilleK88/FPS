@@ -2876,10 +2876,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 183581638493251901, guid: be9c37157eaa6224789ec6d7b05b1d5e, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 203442474048525391, guid: be9c37157eaa6224789ec6d7b05b1d5e, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2926,11 +2922,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 206013711710074559, guid: be9c37157eaa6224789ec6d7b05b1d5e, type: 3}
       propertyPath: m_Name
-      value: ARammo_box
-      objectReference: {fileID: 0}
-    - target: {fileID: 7295490662062558761, guid: be9c37157eaa6224789ec6d7b05b1d5e, type: 3}
-      propertyPath: collectOnTouch
-      value: 1
+      value: Pistol_AmmoBox
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be9c37157eaa6224789ec6d7b05b1d5e, type: 3}
@@ -2941,9 +2933,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 326921676706553713, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
+      propertyPath: totalAmmo
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1514570258976943554, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
       propertyPath: totalAmmo
-      value: 75
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 7136351547337792650, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
       propertyPath: m_RootOrder
@@ -3018,6 +3014,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 229573422, guid: 214de501518a9e84fa9bca5296544fd8, type: 3}
+      propertyPath: itemsDatabase.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 229573422, guid: 214de501518a9e84fa9bca5296544fd8, type: 3}
+      propertyPath: itemsDatabase.Array.data[6]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2ec4250524618d345877daac5a51de9f, type: 2}
     - target: {fileID: 8219488188914622979, guid: 214de501518a9e84fa9bca5296544fd8, type: 3}
       propertyPath: m_Name
       value: InventoryCanvas

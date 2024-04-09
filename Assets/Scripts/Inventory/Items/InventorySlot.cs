@@ -15,6 +15,10 @@ public class InventorySlotData
     public bool stackable;
     public int stackMax;
     public int count = 0;
+
+    public int ammoAmount;
+    public int maxAmmo;
+    public AmmoType ammoType;
 }
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
