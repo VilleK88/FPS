@@ -6,7 +6,7 @@ public class ItemPickup : Interactable
 {
     public Item item;
     public string itemName;
-    //public int pickUpItemID;
+    public int pickUpItemID;
 
     [SerializeField] bool collectOnTouch;
 
@@ -21,17 +21,28 @@ public class ItemPickup : Interactable
 
     void PickUp()
     {
-        //InventoryManager.instance.AddItem(item);
         bool wasPickedUp = InventoryManager.instance.AddInventoryItem(item);
         if(wasPickedUp)
         {
+            AddItemPickupIDsToArray(pickUpItemID);
             gameObject.SetActive(false);
         }
     }
 
+    void AddItemPickupIDsToArray(int newPickupItemID)
+    {
+        int[] newPickupItemIDs = new int[GameManager.instance.itemPickUpIDs.Length + 1];
+        for(int i = 0; i < GameManager.instance.itemPickUpIDs.Length; i++)
+        {
+            newPickupItemIDs[i] = GameManager.instance.itemPickUpIDs[i];
+        }
+        newPickupItemIDs[GameManager.instance.itemPickUpIDs.Length] = newPickupItemID;
+        GameManager.instance.itemPickUpIDs = newPickupItemIDs;
+    }
+
     public void GenerateID()
     {
-        //pickUpItemID = UnityEngine.Random.Range(0, 1000000);
+        pickUpItemID = UnityEngine.Random.Range(0, 100000000);
     }
 
     private void OnTriggerEnter(Collider other)

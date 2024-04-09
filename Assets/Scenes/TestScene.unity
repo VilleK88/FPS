@@ -403,6 +403,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 768637413091988551, guid: 5d08e7bf9f78c3c48ba0f3ea1b686355, type: 3}
+      propertyPath: pickUpItemID
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 1692678929937321850, guid: 5d08e7bf9f78c3c48ba0f3ea1b686355, type: 3}
       propertyPath: m_Name
       value: Small_Medpack (2)
@@ -1007,6 +1011,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 768637413091988551, guid: 5d08e7bf9f78c3c48ba0f3ea1b686355, type: 3}
+      propertyPath: pickUpItemID
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 1692678929937321850, guid: 5d08e7bf9f78c3c48ba0f3ea1b686355, type: 3}
       propertyPath: m_Name
       value: Small_Medpack (3)
@@ -2073,6 +2081,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 768637413091988551, guid: 5d08e7bf9f78c3c48ba0f3ea1b686355, type: 3}
+      propertyPath: pickUpItemID
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 1692678929937321850, guid: 5d08e7bf9f78c3c48ba0f3ea1b686355, type: 3}
       propertyPath: m_Name
       value: Small_Medpack (4)
@@ -2228,6 +2240,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 768637413091988551, guid: 5d08e7bf9f78c3c48ba0f3ea1b686355, type: 3}
+      propertyPath: pickUpItemID
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 1692678929937321850, guid: 5d08e7bf9f78c3c48ba0f3ea1b686355, type: 3}
       propertyPath: m_Name
       value: Small_Medpack (1)
@@ -2515,6 +2531,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 768637413091988551, guid: 5d08e7bf9f78c3c48ba0f3ea1b686355, type: 3}
+      propertyPath: pickUpItemID
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 1692678929937321850, guid: 5d08e7bf9f78c3c48ba0f3ea1b686355, type: 3}
       propertyPath: m_Name
       value: Small_Medpack
@@ -2572,6 +2592,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4231437589909763107, guid: 97469eb81891d844a838524d21705495, type: 3}
+      propertyPath: pickUpItemID
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7061816475649221993, guid: 97469eb81891d844a838524d21705495, type: 3}
       propertyPath: m_Name
       value: AssaultRifle
@@ -2734,6 +2758,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1910699683582643906, guid: 67a3dc81293d5474eb50495a8324e760, type: 3}
+      propertyPath: pickUpItemID
+      value: 796481722
+      objectReference: {fileID: 0}
     - target: {fileID: 3953386803886043185, guid: 67a3dc81293d5474eb50495a8324e760, type: 3}
       propertyPath: m_RootOrder
       value: 16

@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
 
     public int cash;
     public int[] cashIDs;
+    public int[] itemPickUpIDs;
 
     public float x;
     public float y;
@@ -66,6 +67,7 @@ public class GameManager : MonoBehaviour
 
         data.cash = cash;
         data.cashIDs = cashIDs;
+        data.itemPickUpIDs = itemPickUpIDs;
 
         data.x = x;
         data.y = y;
@@ -106,6 +108,7 @@ public class GameManager : MonoBehaviour
 
             cash = data.cash;
             cashIDs = data.cashIDs;
+            itemPickUpIDs = data.itemPickUpIDs;
 
             x = data.x;
             y = data.y;
@@ -135,6 +138,7 @@ class GameData
 
     public int cash;
     public int[] cashIDs;
+    public int[] itemPickUpIDs;
 
     public float x;
     public float y;

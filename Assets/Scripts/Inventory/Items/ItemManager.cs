@@ -15,5 +15,12 @@ public class ItemManager : MonoBehaviour
                 Destroy(coin.gameObject);
             }
         }
+
+        ItemPickup[] itemPickupsInScene = FindObjectsOfType<ItemPickup>();
+        foreach(ItemPickup itemPickup in itemPickupsInScene)
+        {
+            if (GameManager.instance.itemPickUpIDs.Contains(itemPickup.pickUpItemID))
+                Destroy(itemPickup.gameObject);
+        }
     }
 }
