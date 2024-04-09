@@ -36,7 +36,8 @@ public class Weapon : MonoBehaviour
 
     [Header("Loading")]
     public float reloadTime = 1.5f;
-    public int magazineSize = 7, bulletsLeft;
+    public int magazineSize = 7, bulletsLeft, totalAmmo;
+    public int tempTotalAmmo;
     public bool isReloading;
 
     public Vector3 spawnPosition = new Vector3(0.689f, -1.14f, 2.213f);
@@ -49,6 +50,7 @@ public class Weapon : MonoBehaviour
         burstBulletsLeft = bulletsPerBurst;
         anim = GetComponent<Animator>();
         bulletsLeft = magazineSize;
+        totalAmmo -= magazineSize;
     }
 
     private void Update()
@@ -64,7 +66,7 @@ public class Weapon : MonoBehaviour
         else if(currentShootingMode == ShootingMode.Single || currentShootingMode == ShootingMode.Burst)
             isShooting = Input.GetKeyDown(KeyCode.Mouse0); // clicking left mouse button once
 
-        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !isReloading) // reload weapon
+        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !isReloading && totalAmmo > 0) // reload weapon
             Reload();
 
         /*if (readyToShoot && !isShooting && !isReloading && bulletsLeft <= 0) // automatic weapon reload
@@ -77,7 +79,10 @@ public class Weapon : MonoBehaviour
         }
 
         if (AmmoManager.Instance.ammoDisplay != null)
-            AmmoManager.Instance.ammoDisplay.text = $"{bulletsLeft / bulletsPerBurst}/{magazineSize / bulletsPerBurst}";
+        {
+            //AmmoManager.Instance.ammoDisplay.text = $"{bulletsLeft / bulletsPerBurst}/{magazineSize / bulletsPerBurst}";
+            AmmoManager.Instance.ammoDisplay.text = $"{bulletsLeft / bulletsPerBurst}/{totalAmmo}";
+        }
     }
 
     void FireWeapon()
@@ -116,6 +121,12 @@ public class Weapon : MonoBehaviour
 
     void Reload()
     {
+        tempTotalAmmo = totalAmmo;
+        if (totalAmmo >= magazineSize)
+            totalAmmo -= magazineSize;
+        else
+            totalAmmo -= totalAmmo;
+
         AudioManager.instance.PlaySound(reloadingSound);
         //anim.SetTrigger("Reload"); // reload animation not yet made
         isReloading = true;
@@ -124,7 +135,14 @@ public class Weapon : MonoBehaviour
 
     void ReloadCompleted()
     {
-        bulletsLeft = magazineSize;
+        if (totalAmmo >= magazineSize)
+            bulletsLeft = magazineSize;
+        else if(tempTotalAmmo >= magazineSize)
+            bulletsLeft = magazineSize;
+        else
+            bulletsLeft = tempTotalAmmo;
+
+        tempTotalAmmo = 0;
         isReloading = false;
     }
 

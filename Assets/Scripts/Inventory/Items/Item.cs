@@ -28,4 +28,5 @@ public enum ItemType
     Medpack,
     Armor,
     Weapon,
+    Ammo,
 }
