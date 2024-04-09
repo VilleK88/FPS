@@ -42,7 +42,7 @@ public class ItemPickup : Interactable
 
     public void GenerateID()
     {
-        pickUpItemID = UnityEngine.Random.Range(0, 100000000);
+        pickUpItemID = UnityEngine.Random.Range(0, 1000000000);
     }
 
     private void OnTriggerEnter(Collider other)

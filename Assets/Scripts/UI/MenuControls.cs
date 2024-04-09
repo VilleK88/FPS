@@ -17,11 +17,17 @@ public class MenuControls : MonoBehaviour
 
     public void StartGame()
     {
-        GameManager.instance.cashIDs = new int[0]; // clear collected currency IDs
-        GameManager.instance.itemPickUpIDs = new int[0]; // clear colleted item IDs
+        ClearTablesInGameManager();
         GameManager.instance.loadPlayerPosition = false;
         //GameManager.instance.loadInventory = false;
         SceneManager.LoadScene("TestScene");
+    }
+
+    public void ClearTablesInGameManager()
+    {
+        GameManager.instance.cashIDs = new int[0]; // clear collected currency IDs
+        GameManager.instance.itemPickUpIDs = new int[0]; // clear colleted item IDs
+        GameManager.instance.bulletsLeft = new int[0]; // clear saved bullets left in magazines
     }
 
     public void LoadGame()

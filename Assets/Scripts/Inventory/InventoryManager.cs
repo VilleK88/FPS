@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
@@ -51,6 +52,7 @@ public class InventoryManager : MonoBehaviour
         {
             LoadInventorySlotData();
             AddSavedInventorySlotData();
+            LoadHowManyBulletsLeftInMagazine();
             GameManager.instance.loadInventory = false;
         }
         else
@@ -133,6 +135,35 @@ public class InventoryManager : MonoBehaviour
         {
             for(int i = 0; i < weaponSlots.Length; i++)
                 weaponSlots[i].SetActive(false);
+        }
+    }
+
+    public void SaveHowManyBulletsLeftInMagazine()
+    {
+        player = PlayerManager.instance.GetPlayer();
+        GameObject[] weaponSlots = player.GetComponent<Player>().weaponSlots;
+        GameManager.instance.bulletsLeft = new int[weaponSlots.Length];
+        if (player != null)
+        {
+            for (int i = 0; i < weaponSlots.Length; i++)
+            {
+                GameManager.instance.bulletsLeft[i] = weaponSlots[i].GetComponent<Weapon>().bulletsLeft;
+            }
+        }
+    }
+
+    public void LoadHowManyBulletsLeftInMagazine()
+    {
+        player = PlayerManager.instance.GetPlayer();
+        GameObject[] weaponSlots = player.GetComponent<Player>().weaponSlots;
+        if (player != null)
+        {
+            for (int i = 0; i < GameManager.instance.bulletsLeft.Length; i++)
+            {
+                weaponSlots[i].SetActive(true);
+                weaponSlots[i].GetComponent<Weapon>().bulletsLeft = GameManager.instance.bulletsLeft[i];
+                weaponSlots[i].SetActive(false);
+            }
         }
     }
 

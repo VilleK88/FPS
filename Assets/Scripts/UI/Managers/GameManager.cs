@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
 
     public InventorySlotData[] inventorySlotsData;
     public InventorySlotData[] equipmentSlotsData;
+    public int[] bulletsLeft;
 
 
     public void Save()
@@ -78,6 +79,7 @@ public class GameManager : MonoBehaviour
 
         data.inventorySlotsData = inventorySlotsData;
         data.equipmentSlotsData = equipmentSlotsData;
+        data.bulletsLeft = bulletsLeft;
 
         // Serialisoidaan GameData objekti, joka tallennetaan samalla tiedostoon.
         bf.Serialize(file, data);
@@ -120,6 +122,7 @@ public class GameManager : MonoBehaviour
             loadInventory = true;
             inventorySlotsData = data.inventorySlotsData;
             equipmentSlotsData = data.equipmentSlotsData;
+            bulletsLeft = data.bulletsLeft;
         }
     }
 }
@@ -149,4 +152,5 @@ class GameData
 
     public InventorySlotData[] inventorySlotsData;
     public InventorySlotData[] equipmentSlotsData;
+    public int[] bulletsLeft;
 }

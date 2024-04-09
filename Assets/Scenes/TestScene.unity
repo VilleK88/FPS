@@ -405,7 +405,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 768637413091988551, guid: 5d08e7bf9f78c3c48ba0f3ea1b686355, type: 3}
       propertyPath: pickUpItemID
-      value: 2147483647
+      value: 62643623
       objectReference: {fileID: 0}
     - target: {fileID: 1692678929937321850, guid: 5d08e7bf9f78c3c48ba0f3ea1b686355, type: 3}
       propertyPath: m_Name
@@ -1013,7 +1013,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 768637413091988551, guid: 5d08e7bf9f78c3c48ba0f3ea1b686355, type: 3}
       propertyPath: pickUpItemID
-      value: 2147483647
+      value: 865865865
       objectReference: {fileID: 0}
     - target: {fileID: 1692678929937321850, guid: 5d08e7bf9f78c3c48ba0f3ea1b686355, type: 3}
       propertyPath: m_Name
@@ -2083,7 +2083,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 768637413091988551, guid: 5d08e7bf9f78c3c48ba0f3ea1b686355, type: 3}
       propertyPath: pickUpItemID
-      value: 2147483647
+      value: 264224
       objectReference: {fileID: 0}
     - target: {fileID: 1692678929937321850, guid: 5d08e7bf9f78c3c48ba0f3ea1b686355, type: 3}
       propertyPath: m_Name
@@ -2242,7 +2242,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 768637413091988551, guid: 5d08e7bf9f78c3c48ba0f3ea1b686355, type: 3}
       propertyPath: pickUpItemID
-      value: 2147483647
+      value: 2462662
       objectReference: {fileID: 0}
     - target: {fileID: 1692678929937321850, guid: 5d08e7bf9f78c3c48ba0f3ea1b686355, type: 3}
       propertyPath: m_Name
@@ -2461,6 +2461,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pistol
       objectReference: {fileID: 0}
+    - target: {fileID: 5766339342047581307, guid: 3cc08bb6503cfc740923a80580069204, type: 3}
+      propertyPath: pickUpItemID
+      value: 1538686453
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3cc08bb6503cfc740923a80580069204, type: 3}
 --- !u!1001 &802006188231267751
@@ -2533,7 +2537,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 768637413091988551, guid: 5d08e7bf9f78c3c48ba0f3ea1b686355, type: 3}
       propertyPath: pickUpItemID
-      value: 2147483647
+      value: 13236573
       objectReference: {fileID: 0}
     - target: {fileID: 1692678929937321850, guid: 5d08e7bf9f78c3c48ba0f3ea1b686355, type: 3}
       propertyPath: m_Name
@@ -2594,7 +2598,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4231437589909763107, guid: 97469eb81891d844a838524d21705495, type: 3}
       propertyPath: pickUpItemID
-      value: 2147483647
+      value: 1327537435
       objectReference: {fileID: 0}
     - target: {fileID: 7061816475649221993, guid: 97469eb81891d844a838524d21705495, type: 3}
       propertyPath: m_Name
@@ -2760,7 +2764,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1910699683582643906, guid: 67a3dc81293d5474eb50495a8324e760, type: 3}
       propertyPath: pickUpItemID
-      value: 796481722
+      value: 5673435
       objectReference: {fileID: 0}
     - target: {fileID: 3953386803886043185, guid: 67a3dc81293d5474eb50495a8324e760, type: 3}
       propertyPath: m_RootOrder
@@ -2819,6 +2823,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4876750320153251762, guid: b8c1405358ca6fd4095d23c47aa0a30c, type: 3}
+      propertyPath: pickUpItemID
+      value: 2235353
+      objectReference: {fileID: 0}
     - target: {fileID: 6746419480133821705, guid: b8c1405358ca6fd4095d23c47aa0a30c, type: 3}
       propertyPath: m_Name
       value: Shotgun
@@ -2879,6 +2887,10 @@ PrefabInstance:
     - target: {fileID: 4127768663929679732, guid: 7a70fa855614c69438a621a2a5e5c67d, type: 3}
       propertyPath: m_Name
       value: Pistol_AmmoBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 6201793410695161276, guid: 7a70fa855614c69438a621a2a5e5c67d, type: 3}
+      propertyPath: pickUpItemID
+      value: 8753245
       objectReference: {fileID: 0}
     - target: {fileID: 8200553105090158309, guid: 7a70fa855614c69438a621a2a5e5c67d, type: 3}
       propertyPath: m_RootOrder
@@ -3207,6 +3219,10 @@ PrefabInstance:
     - target: {fileID: 3620132177701510139, guid: 0d46a1b42c9de164db01d6a88134508c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6183799396528062877, guid: 0d46a1b42c9de164db01d6a88134508c, type: 3}
+      propertyPath: pickUpItemID
+      value: 23388645
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d46a1b42c9de164db01d6a88134508c, type: 3}

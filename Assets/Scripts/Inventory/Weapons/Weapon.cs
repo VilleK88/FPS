@@ -41,16 +41,17 @@ public class Weapon : MonoBehaviour
     public int tempTotalAmmo;
     public bool isReloading;
 
-    public Vector3 spawnPosition = new Vector3(0.689f, -1.14f, 2.213f);
-    public Vector3 spawnRotation = new Vector3(0, 0, 0);
-    public bool isActiveWeapon;
+    //public Vector3 spawnPosition = new Vector3(0.689f, -1.14f, 2.213f);
+    //public Vector3 spawnRotation = new Vector3(0, 0, 0);
+    //public bool isActiveWeapon;
 
     private void Awake()
     {
         readyToShoot = true;
         burstBulletsLeft = bulletsPerBurst;
         anim = GetComponent<Animator>();
-        bulletsLeft = magazineSize;
+        if(!GameManager.instance.loadInventory)
+            bulletsLeft = magazineSize;
     }
 
     private void Update()
@@ -125,6 +126,8 @@ public class Weapon : MonoBehaviour
                 inventoryItem.item.ammoType == ammoType)
             {
                 totalAmmo = inventoryItem.ammoAmount;
+                InventorySlot slot = inventoryItem.GetComponentInParent<InventorySlot>();
+                slot.slotData.ammoAmount = inventoryItem.ammoAmount;
                 if (inventoryItem.ammoAmount >= magazineSize)
                 {
                     inventoryItem.ammoAmount -= magazineSize;
@@ -182,7 +185,6 @@ public class Weapon : MonoBehaviour
 
         tempTotalAmmo = 0;
         isReloading = false;
-        //CheckAmmoStatus();
     }
 
     void ResetShot()
