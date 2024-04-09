@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 368d9be3487582f4483c92a65c1ce4d0, type: 3}
-  m_Name: PistolAmmo
+  m_Name: ShotgunAmmo
   m_EditorClassIdentifier: 
-  name: PistolAmmo
-  itemID: 6
-  itemName: Pistol ammo
+  name: ShotgunAmmo
+  itemID: 8
+  itemName: Shotgun ammo
   itemType: 4
   stackable: 0
   stackMax: 1
-  icon: {fileID: 21300006, guid: a1d46cd3f2614cc43be92ab44ea7d819, type: 3}
-  description: Pistol ammo
-  ammoAmount: 14
-  maxAmmo: 64
-  ammoType: 1
+  icon: {fileID: 21300018, guid: a1d46cd3f2614cc43be92ab44ea7d819, type: 3}
+  description: Shotgun ammo
+  ammoAmount: 16
+  maxAmmo: 30
+  ammoType: 3

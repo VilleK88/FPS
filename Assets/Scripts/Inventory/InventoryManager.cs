@@ -116,6 +116,7 @@ public class InventoryManager : MonoBehaviour
                     if (weaponSlots[i].GetComponent<Weapon>().weaponId == equipmentSlotsUI[index].slotData.itemId)
                     {
                         weaponSlots[i].SetActive(!weaponSlots[i].activeSelf);
+                        weaponSlots[i].GetComponent<Weapon>().InitializeAmmoStatus();
                     }
                     else
                         weaponSlots[i].SetActive(false);

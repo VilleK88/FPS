@@ -7,6 +7,7 @@ public class Weapon : MonoBehaviour
     [Header("Weapon model, shooting mode and weapon id")]
     public WeaponModel thisWeaponModel;
     public ShootingMode currentShootingMode;
+    public AmmoType ammoType;
     public int weaponId;
 
     [Header("Shooting")]
@@ -50,7 +51,6 @@ public class Weapon : MonoBehaviour
         burstBulletsLeft = bulletsPerBurst;
         anim = GetComponent<Animator>();
         bulletsLeft = magazineSize;
-        //totalAmmo -= magazineSize;
     }
 
     private void Update()
@@ -65,9 +65,6 @@ public class Weapon : MonoBehaviour
             isShooting = Input.GetKey(KeyCode.Mouse0); // holding down left mouse button
         else if(currentShootingMode == ShootingMode.Single || currentShootingMode == ShootingMode.Burst)
             isShooting = Input.GetKeyDown(KeyCode.Mouse0); // clicking left mouse button once
-
-        //if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !isReloading && totalAmmo > 0) // reload weapon
-        //Reload();
 
         if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !isReloading) // reload weapon
         {
@@ -86,7 +83,6 @@ public class Weapon : MonoBehaviour
 
         if (AmmoManager.Instance.ammoDisplay != null)
         {
-            //AmmoManager.Instance.ammoDisplay.text = $"{bulletsLeft / bulletsPerBurst}/{magazineSize / bulletsPerBurst}";
             AmmoManager.Instance.ammoDisplay.text = $"{bulletsLeft / bulletsPerBurst}/{totalAmmo}";
         }
     }
@@ -125,15 +121,37 @@ public class Weapon : MonoBehaviour
         for(int i = 0; i < InventoryManager.instance.inventorySlotsUI.Length; i++)
         {
             InventoryItem inventoryItem = InventoryManager.instance.inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
-            if(inventoryItem != null && inventoryItem.itemType == ItemType.Ammo)
+            if(inventoryItem != null && inventoryItem.itemType == ItemType.Ammo &&
+                inventoryItem.item.ammoType == ammoType)
             {
-                if (inventoryItem.item.ammoType == AmmoType.Pistol)
+                totalAmmo = inventoryItem.ammoAmount;
+                if (inventoryItem.ammoAmount >= magazineSize)
+                {
+                    inventoryItem.ammoAmount -= magazineSize;
+                    if (inventoryItem.ammoAmount <= 0)
+                        inventoryItem.DestroyItem();
+                }
+                else
+                {
+                    inventoryItem.ammoAmount -= inventoryItem.ammoAmount;
+                    if (inventoryItem.ammoAmount <= 0)
+                        inventoryItem.DestroyItem();
+                }
+            }
+        }
+    }
+
+    public void InitializeAmmoStatus() // when initializing ammo item
+    {
+        for (int i = 0; i < InventoryManager.instance.inventorySlotsUI.Length; i++)
+        {
+            InventoryItem inventoryItem = InventoryManager.instance.inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
+            if (inventoryItem != null && inventoryItem.itemType == ItemType.Ammo &&
+                inventoryItem.item.ammoType == ammoType)
+            {
+                if (inventoryItem.item.ammoType == ammoType)
                 {
                     totalAmmo = inventoryItem.ammoAmount;
-                    if (inventoryItem.ammoAmount >= magazineSize)
-                        inventoryItem.ammoAmount -= magazineSize;
-                    else
-                        inventoryItem.ammoAmount -= inventoryItem.ammoAmount;
                 }
             }
         }
@@ -141,8 +159,6 @@ public class Weapon : MonoBehaviour
 
     void Reload()
     {
-        //CheckReloadAmmoStatus();
-
         tempTotalAmmo = totalAmmo;
         if (totalAmmo >= magazineSize)
             totalAmmo -= magazineSize;

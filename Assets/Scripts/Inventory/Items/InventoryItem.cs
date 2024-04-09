@@ -45,11 +45,11 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
 
         if(itemType == ItemType.Ammo)
         {
-            CheckAmmoStatus();
+            InitializeAmmoStatus();
         }
     }
 
-    void CheckAmmoStatus()
+    void InitializeAmmoStatus()
     {
         GameObject player = PlayerManager.instance.GetPlayer();
         GameObject[] weaponSlots = player.GetComponent<Player>().weaponSlots;
@@ -60,7 +60,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
                 if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.Pistol &&
                     ammoType == AmmoType.Pistol)
                 {
-                    weaponSlots[i].GetComponent<Weapon>().CheckAmmoStatus();
+                    weaponSlots[i].GetComponent<Weapon>().InitializeAmmoStatus();
                 }
             }
         }
@@ -100,9 +100,25 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         }
     }
 
-    void DestroyItem()
+    public void DestroyItem()
     {
         if (count <= 0)
+        {
+            InventorySlot slot = GetComponentInParent<InventorySlot>();
+            slot.slotData.itemId = -1;
+            slot.slotData.itemType = ItemType.Default;
+            slot.slotData.stackable = false;
+            slot.slotData.stackMax = 0;
+            slot.slotData.count = 0;
+
+            slot.slotData.ammoAmount = 0;
+            slot.slotData.maxAmmo = 0;
+            slot.slotData.ammoType = AmmoType.Default;
+
+            Destroy(gameObject);
+        }
+        
+        if(ammoAmount <= 0)
         {
             InventorySlot slot = GetComponentInParent<InventorySlot>();
             slot.slotData.itemId = -1;
