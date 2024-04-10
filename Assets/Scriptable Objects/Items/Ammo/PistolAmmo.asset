@@ -20,5 +20,5 @@ MonoBehaviour:
   stackMax: 64
   icon: {fileID: 21300006, guid: a1d46cd3f2614cc43be92ab44ea7d819, type: 3}
   description: Pistol ammo
-  ammoAmount: 14
+  ammoAmount: 21
   ammoType: 1

@@ -20,5 +20,5 @@ MonoBehaviour:
   stackMax: 28
   icon: {fileID: 21300018, guid: a1d46cd3f2614cc43be92ab44ea7d819, type: 3}
   description: Shotgun ammo
-  ammoAmount: 16
+  ammoAmount: 23
   ammoType: 3

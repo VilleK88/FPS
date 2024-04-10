@@ -20,5 +20,5 @@ MonoBehaviour:
   stackMax: 90
   icon: {fileID: 21300012, guid: a1d46cd3f2614cc43be92ab44ea7d819, type: 3}
   description: Assault rifle ammo
-  ammoAmount: 45
+  ammoAmount: 75
   ammoType: 2

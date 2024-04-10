@@ -46,8 +46,8 @@ public class Weapon : MonoBehaviour
         readyToShoot = true;
         burstBulletsLeft = bulletsPerBurst;
         anim = GetComponent<Animator>();
-        if(!GameManager.instance.loadInventory)
-            bulletsLeft = magazineSize;
+        /*if(!GameManager.instance.loadInventory)
+            bulletsLeft = magazineSize;*/
     }
 
     private void Update()
