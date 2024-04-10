@@ -169,7 +169,11 @@ public class Weapon : MonoBehaviour
         else
         {
             int reduceBulletsLeft = magazineSize - bulletsLeft;
-            totalAmmo -= reduceBulletsLeft;
+            int tempTotalAmmo = totalAmmo - reduceBulletsLeft;
+            if (tempTotalAmmo >= 0)
+                totalAmmo -= reduceBulletsLeft;
+            else
+                totalAmmo = 0;
         }
 
         AudioManager.instance.PlaySound(reloadingSound);
