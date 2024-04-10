@@ -190,7 +190,11 @@ public class Weapon : MonoBehaviour
         }
         else
         {
-            bulletsLeft = tempTotalAmmo;
+            int tempBulletsLeft = bulletsLeft + tempTotalAmmo;
+            if (tempBulletsLeft >= magazineSize)
+                bulletsLeft = magazineSize;
+            else
+                bulletsLeft = bulletsLeft + tempTotalAmmo;
         }
 
         tempTotalAmmo = 0;
