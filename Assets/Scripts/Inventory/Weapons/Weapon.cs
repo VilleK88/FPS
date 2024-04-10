@@ -41,10 +41,6 @@ public class Weapon : MonoBehaviour
     public int tempTotalAmmo;
     public bool isReloading;
 
-    //public Vector3 spawnPosition = new Vector3(0.689f, -1.14f, 2.213f);
-    //public Vector3 spawnRotation = new Vector3(0, 0, 0);
-    //public bool isActiveWeapon;
-
     private void Awake()
     {
         readyToShoot = true;
@@ -130,13 +126,15 @@ public class Weapon : MonoBehaviour
                 slot.slotData.ammoAmount = inventoryItem.ammoAmount;
                 if (inventoryItem.ammoAmount >= magazineSize)
                 {
-                    inventoryItem.ammoAmount -= magazineSize;
+                    int reduceBulletsLeft = magazineSize - bulletsLeft;
+                    inventoryItem.ammoAmount -= reduceBulletsLeft;
                     if (inventoryItem.ammoAmount <= 0)
                         inventoryItem.DestroyItem();
                 }
                 else
                 {
-                    inventoryItem.ammoAmount -= inventoryItem.ammoAmount;
+                    int reduceBulletsLeft = magazineSize - bulletsLeft;
+                    inventoryItem.ammoAmount -= reduceBulletsLeft;
                     if (inventoryItem.ammoAmount <= 0)
                         inventoryItem.DestroyItem();
                 }
@@ -164,9 +162,15 @@ public class Weapon : MonoBehaviour
     {
         tempTotalAmmo = totalAmmo;
         if (totalAmmo >= magazineSize)
-            totalAmmo -= magazineSize;
+        {
+            int reduceBulletsLeft = magazineSize - bulletsLeft;
+            totalAmmo -= reduceBulletsLeft;
+        }
         else
-            totalAmmo -= totalAmmo;
+        {
+            int reduceBulletsLeft = magazineSize - bulletsLeft;
+            totalAmmo -= reduceBulletsLeft;
+        }
 
         AudioManager.instance.PlaySound(reloadingSound);
         //anim.SetTrigger("Reload"); // reload animation not yet made
@@ -177,11 +181,17 @@ public class Weapon : MonoBehaviour
     void ReloadCompleted()
     {
         if (totalAmmo >= magazineSize)
+        {
             bulletsLeft = magazineSize;
+        }
         else if(tempTotalAmmo >= magazineSize)
+        {
             bulletsLeft = magazineSize;
+        }
         else
+        {
             bulletsLeft = tempTotalAmmo;
+        }
 
         tempTotalAmmo = 0;
         isReloading = false;
