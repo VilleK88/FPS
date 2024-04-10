@@ -18,7 +18,6 @@ public class Item : ScriptableObject
 
     [Header("Ammo Settings")]
     public int ammoAmount;
-    public int maxAmmo;
     public AmmoType ammoType;
 
     public virtual void Use()

@@ -17,8 +17,8 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     public int maxStack;
     public int count;
 
-    public int ammoAmount;
-    public int maxAmmo;
+    //public int ammoAmount;
+    //public int maxAmmo;
     public AmmoType ammoType;
 
     public TextMeshProUGUI countText;
@@ -40,17 +40,16 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         if(itemType != ItemType.Ammo)
             count += 1;
 
-        ammoAmount = item.ammoAmount;
-        maxAmmo = item.maxAmmo;
         ammoType = item.ammoType;
 
         if(itemType == ItemType.Ammo)
         {
-            InitializeAmmoStatus();
-            count = ammoAmount;
-            RefreshCount();
+            //InitializeAmmoStatus();
+            count = item.ammoAmount;
             InventorySlot slot = GetComponentInParent<InventorySlot>();
-            slot.slotData.count = ammoAmount;
+            slot.slotData.count = count;
+            RefreshCount();
+            InitializeAmmoStatus();
         }
     }
 
@@ -128,25 +127,8 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
             slot.slotData.stackMax = 0;
             slot.slotData.count = 0;
 
-            slot.slotData.ammoAmount = 0;
-            slot.slotData.maxAmmo = 0;
             slot.slotData.ammoType = AmmoType.Default;
-
-            Destroy(gameObject);
-        }
-        
-        if(ammoAmount <= 0)
-        {
-            InventorySlot slot = GetComponentInParent<InventorySlot>();
-            slot.slotData.itemId = -1;
-            slot.slotData.itemType = ItemType.Default;
-            slot.slotData.stackable = false;
-            slot.slotData.stackMax = 0;
-            slot.slotData.count = 0;
-
-            slot.slotData.ammoAmount = 0;
-            slot.slotData.maxAmmo = 0;
-            slot.slotData.ammoType = AmmoType.Default;
+            slot.slotData.itemName = null;
 
             Destroy(gameObject);
         }
@@ -162,8 +144,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slot.slotData.stackMax = 0;
         slot.slotData.count = 0;
 
-        slot.slotData.ammoAmount = 0;
-        slot.slotData.maxAmmo = 0;
         slot.slotData.ammoType = AmmoType.Default;
     }
 
@@ -177,12 +157,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slot.slotData.stackMax = maxStack;
         slot.slotData.count = count;
 
-        slot.slotData.ammoAmount = ammoAmount;
-        slot.slotData.maxAmmo = maxAmmo;
         slot.slotData.ammoType = ammoType;
-
-        if (itemType == ItemType.Ammo)
-            slot.slotData.count = ammoAmount;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -207,8 +182,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slot.slotData.stackMax = 0;
         slot.slotData.count = 0;
 
-        slot.slotData.ammoAmount = 0;
-        slot.slotData.maxAmmo = 0;
         slot.slotData.ammoType = AmmoType.Default;
 
         Destroy(gameObject);
@@ -290,8 +263,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         int tempCount = item1.count;
         Sprite tempImg = item1.img.sprite;
 
-        int tempAmmoAmount = item1.ammoAmount;
-        int tempMaxAmmo = item1.maxAmmo;
         AmmoType tempAmmoType = item1.ammoType;
 
         item1.item = item2.item;
@@ -303,8 +274,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         item1.count = item2.count;
         item1.img.sprite = item2.img.sprite;
 
-        item1.ammoAmount = item2.ammoAmount;
-        item1.maxAmmo = item2.maxAmmo;
         item1.ammoType = item2.ammoType;
 
         item1.RefreshCount();
@@ -318,8 +287,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         item2.count = tempCount;
         item2.img.sprite = tempImg;
 
-        item2.ammoAmount = tempAmmoAmount;
-        item2.maxAmmo = tempMaxAmmo;
         item2.ammoType = tempAmmoType;
 
         item2.RefreshCount();
@@ -332,8 +299,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slot.slotData.stackMax = item2.maxStack;
         slot.slotData.count = item2.count;
 
-        slot.slotData.ammoAmount = item2.ammoAmount;
-        slot.slotData.maxAmmo = item2.maxAmmo;
         slot.slotData.ammoType = item2.ammoType;
     }
 }

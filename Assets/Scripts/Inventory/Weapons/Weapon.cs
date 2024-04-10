@@ -121,29 +121,25 @@ public class Weapon : MonoBehaviour
             if(inventoryItem != null && inventoryItem.itemType == ItemType.Ammo &&
                 inventoryItem.item.ammoType == ammoType)
             {
-                totalAmmo = inventoryItem.ammoAmount;
+                totalAmmo = inventoryItem.count;
                 InventorySlot slot = inventoryItem.GetComponentInParent<InventorySlot>();
-                slot.slotData.ammoAmount = inventoryItem.ammoAmount;
-                if (inventoryItem.ammoAmount >= magazineSize)
+                //slot.slotData.ammoAmount = inventoryItem.count;
+                if (inventoryItem.count >= magazineSize)
                 {
                     int reduceBulletsLeft = magazineSize - bulletsLeft;
-                    inventoryItem.ammoAmount -= reduceBulletsLeft;
                     inventoryItem.count -= reduceBulletsLeft;
                     inventoryItem.RefreshCount();
                     slot.slotData.count -= reduceBulletsLeft;
-                    slot.slotData.ammoAmount -= reduceBulletsLeft;
-                    if (inventoryItem.ammoAmount <= 0)
+                    if (inventoryItem.count <= 0)
                         inventoryItem.DestroyItem();
                 }
                 else
                 {
                     int reduceBulletsLeft = magazineSize - bulletsLeft;
-                    inventoryItem.ammoAmount -= reduceBulletsLeft;
                     inventoryItem.count -= reduceBulletsLeft;
                     inventoryItem.RefreshCount();
                     slot.slotData.count -= reduceBulletsLeft;
-                    slot.slotData.ammoAmount -= reduceBulletsLeft;
-                    if (inventoryItem.ammoAmount <= 0)
+                    if (inventoryItem.count <= 0)
                         inventoryItem.DestroyItem();
                 }
             }
@@ -160,7 +156,7 @@ public class Weapon : MonoBehaviour
             {
                 if (inventoryItem.item.ammoType == ammoType)
                 {
-                    totalAmmo = inventoryItem.ammoAmount;
+                    totalAmmo = inventoryItem.count;
                 }
             }
         }
