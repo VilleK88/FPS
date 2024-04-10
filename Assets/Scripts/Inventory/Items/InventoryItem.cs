@@ -62,6 +62,18 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
                 {
                     weaponSlots[i].GetComponent<Weapon>().InitializeAmmoStatus();
                 }
+
+                if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.AssaultRifle &&
+                    ammoType == AmmoType.AssaultRifle)
+                {
+                    weaponSlots[i].GetComponent<Weapon>().InitializeAmmoStatus();
+                }
+
+                if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.Shotgun &&
+                    ammoType == AmmoType.Shotgun)
+                {
+                    weaponSlots[i].GetComponent<Weapon>().InitializeAmmoStatus();
+                }
             }
         }
     }
