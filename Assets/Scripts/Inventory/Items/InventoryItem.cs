@@ -37,7 +37,8 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         stackable = item.stackable;
         maxStack = item.stackMax;
         img.sprite = item.icon;
-        count += 1;
+        if(itemType != ItemType.Ammo)
+            count += 1;
 
         ammoAmount = item.ammoAmount;
         maxAmmo = item.maxAmmo;
@@ -46,6 +47,10 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         if(itemType == ItemType.Ammo)
         {
             InitializeAmmoStatus();
+            count = ammoAmount;
+            RefreshCount();
+            InventorySlot slot = GetComponentInParent<InventorySlot>();
+            slot.slotData.count = ammoAmount;
         }
     }
 
@@ -175,6 +180,9 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slot.slotData.ammoAmount = ammoAmount;
         slot.slotData.maxAmmo = maxAmmo;
         slot.slotData.ammoType = ammoType;
+
+        if (itemType == ItemType.Ammo)
+            slot.slotData.count = ammoAmount;
     }
 
     public void OnPointerClick(PointerEventData eventData)

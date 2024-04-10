@@ -128,6 +128,10 @@ public class Weapon : MonoBehaviour
                 {
                     int reduceBulletsLeft = magazineSize - bulletsLeft;
                     inventoryItem.ammoAmount -= reduceBulletsLeft;
+                    inventoryItem.count -= reduceBulletsLeft;
+                    inventoryItem.RefreshCount();
+                    slot.slotData.count -= reduceBulletsLeft;
+                    slot.slotData.ammoAmount -= reduceBulletsLeft;
                     if (inventoryItem.ammoAmount <= 0)
                         inventoryItem.DestroyItem();
                 }
@@ -135,6 +139,10 @@ public class Weapon : MonoBehaviour
                 {
                     int reduceBulletsLeft = magazineSize - bulletsLeft;
                     inventoryItem.ammoAmount -= reduceBulletsLeft;
+                    inventoryItem.count -= reduceBulletsLeft;
+                    inventoryItem.RefreshCount();
+                    slot.slotData.count -= reduceBulletsLeft;
+                    slot.slotData.ammoAmount -= reduceBulletsLeft;
                     if (inventoryItem.ammoAmount <= 0)
                         inventoryItem.DestroyItem();
                 }
