@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -38,6 +39,7 @@ public class InventoryManager : MonoBehaviour
     public bool closed = true;
 
     public GameObject player;
+    public GameObject middlePoint; // crosshair
 
     private void Start()
     {
