@@ -7,8 +7,15 @@ public class ItemPickup : Interactable
     public Item item;
     public string itemName;
     public int pickUpItemID;
+    public int pickUpItemCount;
 
     [SerializeField] bool collectOnTouch;
+
+    private void Start()
+    {
+        if (!GameManager.instance.loadInventory)
+            pickUpItemCount = item.count;
+    }
 
     public override void Interact()
     {

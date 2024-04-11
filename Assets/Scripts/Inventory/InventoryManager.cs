@@ -195,9 +195,39 @@ public class InventoryManager : MonoBehaviour
                 InventoryItem itemInSlot = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
                 if(newItem.stackMax > inventorySlotsUI[i].slotData.count)
                 {
-                    inventorySlotsUI[i].slotData.count += newItem.count;
-                    itemInSlot.count += newItem.count;
-                    itemInSlot.RefreshCount();
+                    int tempTotalCount = itemInSlot.count + newItem.count;
+                    if(itemInSlot.maxStack >= tempTotalCount)
+                    {
+                        inventorySlotsUI[i].slotData.count += newItem.count;
+                        itemInSlot.count += newItem.count;
+                        itemInSlot.RefreshCount();
+                    }
+                    else
+                    {
+                        int decreaseCount = tempTotalCount - itemInSlot.maxStack;
+                        inventorySlotsUI[i].slotData.count = newItem.stackMax;
+                        itemInSlot.count = newItem.stackMax;
+                        newItem.count = decreaseCount;
+                        itemInSlot.RefreshCount();
+
+                        if (newItem.itemType == ItemType.Ammo)
+                        {
+                            player = PlayerManager.instance.GetPlayer();
+                            GameObject[] weaponSlots = player.GetComponent<Player>().weaponSlots;
+                            if (player != null)
+                            {
+                                for (i = 0; i < weaponSlots.Length; i++)
+                                {
+                                    weaponSlots[i].GetComponent<Weapon>().InitializeAmmoStatus();
+                                }
+                            }
+                        }
+
+                        return false;
+                    }
+                    //inventorySlotsUI[i].slotData.count += newItem.count;
+                    //itemInSlot.count += newItem.count;
+                    //itemInSlot.RefreshCount();
 
                     if (newItem.itemType == ItemType.Ammo)
                     {

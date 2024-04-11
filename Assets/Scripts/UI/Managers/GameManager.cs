@@ -50,7 +50,6 @@ public class GameManager : MonoBehaviour
     public InventorySlotData[] equipmentSlotsData;
     public int[] bulletsLeft;
 
-
     public void Save()
     {
         Debug.Log("Game Saved!");
@@ -142,6 +141,7 @@ class GameData
     public int cash;
     public int[] cashIDs;
     public int[] itemPickUpIDs;
+    public Dictionary<int, int> itemPickUpDictionary;
 
     public float x;
     public float y;
