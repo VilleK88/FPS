@@ -149,7 +149,7 @@ public class Weapon : MonoBehaviour
 
     public void InitializeAmmoStatus() // when initializing ammo item
     {
-        //totalAmmo = 0;
+        totalAmmo = 0;
         for (int i = 0; i < InventoryManager.instance.inventorySlotsUI.Length; i++)
         {
             InventoryItem inventoryItem = InventoryManager.instance.inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
@@ -158,7 +158,7 @@ public class Weapon : MonoBehaviour
             {
                 if (inventoryItem.item.ammoType == ammoType)
                 {
-                    totalAmmo = inventoryItem.count;
+                    totalAmmo += inventoryItem.count;
                 }
             }
         }
@@ -185,6 +185,7 @@ public class Weapon : MonoBehaviour
         AudioManager.instance.PlaySound(reloadingSound);
         //anim.SetTrigger("Reload"); // reload animation not yet made
         isReloading = true;
+        InitializeAmmoStatus();
         Invoke("ReloadCompleted", reloadTime);
     }
 
