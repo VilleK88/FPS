@@ -52,7 +52,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         }
     }
 
-    void InitializeAmmoStatus()
+    public void InitializeAmmoStatus()
     {
         GameObject player = PlayerManager.instance.GetPlayer();
         GameObject[] weaponSlots = player.GetComponent<Player>().weaponSlots;

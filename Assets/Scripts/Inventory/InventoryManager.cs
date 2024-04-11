@@ -207,28 +207,41 @@ public class InventoryManager : MonoBehaviour
                         int decreaseCount = tempTotalCount - itemInSlot.maxStack;
                         inventorySlotsUI[i].slotData.count = newItem.stackMax;
                         itemInSlot.count = newItem.stackMax;
-                        //newItem.count = decreaseCount;
                         itemInSlot.RefreshCount();
 
-                        if (newItem.itemType == ItemType.Ammo)
+                        // find next empty slot
+                        for (i = 0; i < inventorySlotsUI.Length; i++)
                         {
-                            player = PlayerManager.instance.GetPlayer();
-                            GameObject[] weaponSlots = player.GetComponent<Player>().weaponSlots;
-                            if (player != null)
+                            if (inventorySlotsUI[i].slotData.itemId == -1)
                             {
-                                for (i = 0; i < weaponSlots.Length; i++)
-                                {
-                                    weaponSlots[i].GetComponent<Weapon>().InitializeAmmoStatus();
-                                }
+                                inventorySlotsUI[i].slotData.itemId = newItem.itemID;
+                                inventorySlotsUI[i].slotData.itemName = newItem.itemName;
+                                inventorySlotsUI[i].slotData.itemType = newItem.itemType;
+                                inventorySlotsUI[i].slotData.stackable = newItem.stackable;
+                                inventorySlotsUI[i].slotData.stackMax = newItem.stackMax;
+                                inventorySlotsUI[i].slotData.count += 1;
+
+                                inventorySlotsUI[i].slotData.ammoType = newItem.ammoType;
+
+                                InventoryItem newItemGo = Instantiate(inventoryItem, inventorySlotsUI[i].transform);
+                                InventoryItem thisInventoryItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
+                                thisInventoryItem.GetComponent<InventoryItem>().item = newItem;
+                                thisInventoryItem.GetComponent<InventoryItem>().itemId = newItem.itemID;
+                                thisInventoryItem.GetComponent<InventoryItem>().itemName = newItem.itemName;
+                                thisInventoryItem.GetComponent<InventoryItem>().itemType = newItem.itemType;
+                                thisInventoryItem.GetComponent<InventoryItem>().stackable = newItem.stackable;
+                                thisInventoryItem.GetComponent<InventoryItem>().maxStack = newItem.stackMax;
+                                thisInventoryItem.GetComponent<InventoryItem>().img.sprite = newItem.icon;
+                                thisInventoryItem.GetComponent<InventoryItem>().count = decreaseCount;
+                                thisInventoryItem.GetComponent<InventoryItem>().ammoType = newItem.ammoType;
+                                InventorySlot slot = thisInventoryItem.GetComponentInParent<InventorySlot>();
+                                slot.slotData.count = thisInventoryItem.count;
+                                thisInventoryItem.RefreshCount();
+                                thisInventoryItem.InitializeAmmoStatus();
+                                break;
                             }
                         }
-
-                        //return false;
                     }
-                    //inventorySlotsUI[i].slotData.count += newItem.count;
-                    //itemInSlot.count += newItem.count;
-                    //itemInSlot.RefreshCount();
-
                     if (newItem.itemType == ItemType.Ammo)
                     {
                         player = PlayerManager.instance.GetPlayer();
