@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -220,9 +218,7 @@ public class InventoryManager : MonoBehaviour
                                 inventorySlotsUI[i].slotData.stackable = newItem.stackable;
                                 inventorySlotsUI[i].slotData.stackMax = newItem.stackMax;
                                 inventorySlotsUI[i].slotData.count += 1;
-
                                 inventorySlotsUI[i].slotData.ammoType = newItem.ammoType;
-
                                 InventoryItem newItemGo = Instantiate(inventoryItem, inventorySlotsUI[i].transform);
                                 InventoryItem thisInventoryItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
                                 thisInventoryItem.GetComponent<InventoryItem>().item = newItem;
@@ -270,9 +266,7 @@ public class InventoryManager : MonoBehaviour
                 inventorySlotsUI[i].slotData.stackable = newItem.stackable;
                 inventorySlotsUI[i].slotData.stackMax = newItem.stackMax;
                 inventorySlotsUI[i].slotData.count += 1;
-
                 inventorySlotsUI[i].slotData.ammoType = newItem.ammoType;
-
                 InventoryItem newItemGo = Instantiate(inventoryItem, inventorySlotsUI[i].transform);
                 InventoryItem thisInventoryItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
                 thisInventoryItem.GetComponent<InventoryItem>().item = newItem;

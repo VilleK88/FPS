@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -20,7 +19,6 @@ public class InventorySlotData
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
     public InventorySlotData slotData = new InventorySlotData();
-    //bool isDragging = false;
 
     public void OnDrop(PointerEventData eventData)
     {

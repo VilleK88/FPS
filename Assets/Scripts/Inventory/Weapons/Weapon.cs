@@ -48,6 +48,7 @@ public class Weapon : MonoBehaviour
         anim = GetComponent<Animator>();
         /*if(!GameManager.instance.loadInventory)
             bulletsLeft = magazineSize;*/
+        InventoryManager.instance.LoadHowManyBulletsLeftInMagazine();
     }
 
     private void Update()

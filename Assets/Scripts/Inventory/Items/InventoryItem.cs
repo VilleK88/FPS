@@ -34,17 +34,12 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         stackable = item.stackable;
         maxStack = item.stackMax;
         img.sprite = item.icon;
-        /*if(itemType != ItemType.Ammo)
-            count += 1;*/
         count += item.count;
 
         ammoType = item.ammoType;
 
         if(itemType == ItemType.Ammo)
         {
-            //InitializeAmmoStatus();
-            //count = item.ammoAmount;
-            //count = item.count;
             InventorySlot slot = GetComponentInParent<InventorySlot>();
             slot.slotData.count = count;
             RefreshCount();
