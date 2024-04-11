@@ -207,7 +207,7 @@ public class InventoryManager : MonoBehaviour
                         int decreaseCount = tempTotalCount - itemInSlot.maxStack;
                         inventorySlotsUI[i].slotData.count = newItem.stackMax;
                         itemInSlot.count = newItem.stackMax;
-                        newItem.count = decreaseCount;
+                        //newItem.count = decreaseCount;
                         itemInSlot.RefreshCount();
 
                         if (newItem.itemType == ItemType.Ammo)

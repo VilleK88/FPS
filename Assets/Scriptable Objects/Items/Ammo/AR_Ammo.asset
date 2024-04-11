@@ -18,7 +18,7 @@ MonoBehaviour:
   itemType: 4
   stackable: 1
   stackMax: 90
-  count: 30
+  count: 75
   icon: {fileID: 21300012, guid: a1d46cd3f2614cc43be92ab44ea7d819, type: 3}
   description: Assault rifle ammo
   ammoType: 2
