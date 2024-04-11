@@ -16,9 +16,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     public bool stackable;
     public int maxStack;
     public int count;
-
-    //public int ammoAmount;
-    //public int maxAmmo;
     public AmmoType ammoType;
 
     public TextMeshProUGUI countText;
@@ -37,15 +34,17 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         stackable = item.stackable;
         maxStack = item.stackMax;
         img.sprite = item.icon;
-        if(itemType != ItemType.Ammo)
-            count += 1;
+        /*if(itemType != ItemType.Ammo)
+            count += 1;*/
+        count += item.count;
 
         ammoType = item.ammoType;
 
         if(itemType == ItemType.Ammo)
         {
             //InitializeAmmoStatus();
-            count = item.ammoAmount;
+            //count = item.ammoAmount;
+            //count = item.count;
             InventorySlot slot = GetComponentInParent<InventorySlot>();
             slot.slotData.count = count;
             RefreshCount();
@@ -102,15 +101,21 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
                 item.Use();
                 if (stackable)
                 {
-                    count--;
-                    GetComponentInParent<InventorySlot>().slotData.count--;
-                    RefreshCount();
-                    DestroyItem();
+                    if(itemType == ItemType.Medpack)
+                    {
+                        count--;
+                        GetComponentInParent<InventorySlot>().slotData.count--;
+                        RefreshCount();
+                        DestroyItem();
+                    }
                 }
                 else
                 {
-                    count--;
-                    DestroyItem();
+                    if(itemType == ItemType.Medpack)
+                    {
+                        count--;
+                        DestroyItem();
+                    }
                 }
             }
         }

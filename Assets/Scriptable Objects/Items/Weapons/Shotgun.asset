@@ -17,7 +17,8 @@ MonoBehaviour:
   itemName: Shotgun
   itemType: 3
   stackable: 0
-  stackMax: 0
+  stackMax: 1
+  count: 1
   icon: {fileID: 21300026, guid: 5acb27b603af6d44ea6113c4b7b15385, type: 3}
   description: 
-  itemPrefab: {fileID: 8708857780096605405, guid: f5352dadbab532141a5b75836f568b93, type: 3}
+  ammoType: 0

@@ -17,7 +17,8 @@ MonoBehaviour:
   itemName: Assault rifle
   itemType: 3
   stackable: 0
-  stackMax: 0
+  stackMax: 1
+  count: 1
   icon: {fileID: 21300044, guid: 5acb27b603af6d44ea6113c4b7b15385, type: 3}
   description: Assault rifle
-  itemPrefab: {fileID: 3277656015592704822, guid: ea6cf546127d32640b6efe4f3ffccc19, type: 3}
+  ammoType: 0

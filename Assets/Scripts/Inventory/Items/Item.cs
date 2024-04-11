@@ -11,13 +11,13 @@ public class Item : ScriptableObject
     public ItemType itemType;
     public bool stackable = true;
     public int stackMax;
+    public int count;
     public Sprite icon = null;
 
     [TextArea]
     public string description;
 
     [Header("Ammo Settings")]
-    public int ammoAmount;
     public AmmoType ammoType;
 
     public virtual void Use()

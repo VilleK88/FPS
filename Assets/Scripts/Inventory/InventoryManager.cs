@@ -195,18 +195,12 @@ public class InventoryManager : MonoBehaviour
                 InventoryItem itemInSlot = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
                 if(newItem.stackMax > inventorySlotsUI[i].slotData.count)
                 {
-                    if(newItem.itemType != ItemType.Ammo)
-                    {
-                        inventorySlotsUI[i].slotData.count++;
-                        itemInSlot.count++;
-                        itemInSlot.RefreshCount();
-                    }
-                    else
-                    {
-                        inventorySlotsUI[i].slotData.count += newItem.ammoAmount;
-                        itemInSlot.count += newItem.ammoAmount;
-                        itemInSlot.RefreshCount();
+                    inventorySlotsUI[i].slotData.count += newItem.count;
+                    itemInSlot.count += newItem.count;
+                    itemInSlot.RefreshCount();
 
+                    if (newItem.itemType == ItemType.Ammo)
+                    {
                         player = PlayerManager.instance.GetPlayer();
                         GameObject[] weaponSlots = player.GetComponent<Player>().weaponSlots;
                         if (player != null)

@@ -17,7 +17,8 @@ MonoBehaviour:
   itemName: Pistol
   itemType: 3
   stackable: 0
-  stackMax: 0
+  stackMax: 1
+  count: 1
   icon: {fileID: 21300010, guid: 5acb27b603af6d44ea6113c4b7b15385, type: 3}
   description: Pistol
-  itemPrefab: {fileID: 3739820389152333820, guid: bff73af88e1a87e4896a6106762b95ec, type: 3}
+  ammoType: 0

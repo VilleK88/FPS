@@ -17,6 +17,8 @@ MonoBehaviour:
   itemName: Knife
   itemType: 3
   stackable: 0
-  stackMax: 0
+  stackMax: 1
+  count: 1
   icon: {fileID: 21300038, guid: 5acb27b603af6d44ea6113c4b7b15385, type: 3}
   description: 
+  ammoType: 0
