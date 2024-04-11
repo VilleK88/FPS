@@ -10,6 +10,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
 {
     public Item item;
     public int itemId;
+    public int pickupItemID;
     public Image img;
     public ItemType itemType;
     public string itemName;
@@ -123,6 +124,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
             InventorySlot slot = GetComponentInParent<InventorySlot>();
             slot.slotData.itemId = -1;
             slot.slotData.itemType = ItemType.Default;
+            slot.slotData.pickupItemID = 0;
             slot.slotData.stackable = false;
             slot.slotData.stackMax = 0;
             slot.slotData.count = 0;
@@ -140,6 +142,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slot.slotData.itemId = -1;
         slot.slotData.itemName = null;
         slot.slotData.itemType = ItemType.Default;
+        slot.slotData.pickupItemID = 0;
         slot.slotData.stackable = false;
         slot.slotData.stackMax = 0;
         slot.slotData.count = 0;
@@ -153,6 +156,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slot.slotData.itemId = itemId;
         slot.slotData.itemName = itemName;
         slot.slotData.itemType = itemType;
+        slot.slotData.pickupItemID = pickupItemID;
         slot.slotData.stackable = stackable;
         slot.slotData.stackMax = maxStack;
         slot.slotData.count = count;
@@ -178,6 +182,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slot.slotData.itemId = -1;
         slot.slotData.itemName = null;
         slot.slotData.itemType = ItemType.Default;
+        slot.slotData.pickupItemID = pickupItemID;
         slot.slotData.stackable = false;
         slot.slotData.stackMax = 0;
         slot.slotData.count = 0;
@@ -257,6 +262,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         Item tempItem = item1.item;
         int tempItemId = item1.itemId;
         ItemType tempItemType = item1.itemType;
+        int tempPickupItemID = item1.pickupItemID;
         string tempItemName = item1.itemName;
         bool tempStackable = item1.stackable;
         int tempMaxStack = item1.maxStack;
@@ -268,6 +274,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         item1.item = item2.item;
         item1.itemId = item2.itemId;
         item1.itemType = item2.itemType;
+        item1.pickupItemID = item2.pickupItemID;
         item1.itemName = item2.itemName;
         item1.stackable = item2.stackable;
         item1.maxStack = item2.maxStack;
@@ -281,6 +288,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         item2.item = tempItem;
         item2.itemId = tempItemId;
         item2.itemType = tempItemType;
+        item2.pickupItemID = tempPickupItemID;
         item2.itemName = tempItemName;
         item2.stackable = tempStackable;
         item2.maxStack = tempMaxStack;
@@ -295,6 +303,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slot.slotData.itemId = item2.itemId;
         slot.slotData.itemName = item2.itemName;
         slot.slotData.itemType = item2.itemType;
+        slot.slotData.pickupItemID = item2.pickupItemID;
         slot.slotData.stackable = item2.stackable;
         slot.slotData.stackMax = item2.maxStack;
         slot.slotData.count = item2.count;

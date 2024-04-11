@@ -183,7 +183,7 @@ public class InventoryManager : MonoBehaviour
         HolsterWeapons();
     }
 
-    public bool AddInventoryItem(Item newItem)
+    public bool AddInventoryItem(Item newItem, int pickupItemID)
     {
         // add to stackable
         for(int i = 0; i < inventorySlotsUI.Length; i++)
@@ -270,6 +270,11 @@ public class InventoryManager : MonoBehaviour
                 InventoryItem newItemGo = Instantiate(inventoryItem, inventorySlotsUI[i].transform);
                 InventoryItem thisInventoryItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
                 thisInventoryItem.GetComponent<InventoryItem>().item = newItem;
+                if (newItem.itemType == ItemType.Weapon)
+                {
+                    inventorySlotsUI[i].slotData.pickupItemID = pickupItemID;
+                    thisInventoryItem.GetComponent<InventoryItem>().pickupItemID = pickupItemID;
+                }
                 thisInventoryItem.GetComponent<InventoryItem>().InitializeItem();
                 return true;
             }
@@ -322,12 +327,14 @@ public class InventoryManager : MonoBehaviour
             {
                 inventorySlotsUI[i].slotData.itemId = GameManager.instance.inventorySlotsData[i].itemId;
                 inventorySlotsUI[i].slotData.itemType = GameManager.instance.inventorySlotsData[i].itemType;
+                inventorySlotsUI[i].slotData.pickupItemID = GameManager.instance.inventorySlotsData[i].pickupItemID;
                 inventorySlotsUI[i].slotData.stackable = GameManager.instance.inventorySlotsData[i].stackable;
                 inventorySlotsUI[i].slotData.stackMax = GameManager.instance.inventorySlotsData[i].stackMax;
                 InventoryItem newItemGo = Instantiate(inventoryItem, inventorySlotsUI[i].transform);
                 InventoryItem thisInventoryItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
                 thisInventoryItem.item = itemsDatabase[inventorySlotsUI[i].slotData.itemId];
                 newItemGo.itemId = thisInventoryItem.item.itemID;
+                newItemGo.pickupItemID = inventorySlotsUI[i].slotData.pickupItemID;
                 newItemGo.itemName = thisInventoryItem.item.itemName;
                 newItemGo.itemType = thisInventoryItem.item.itemType;
                 newItemGo.stackable = thisInventoryItem.item.stackable;
@@ -348,6 +355,7 @@ public class InventoryManager : MonoBehaviour
             {
                 equipmentSlotsUI[i].slotData.itemId = GameManager.instance.equipmentSlotsData[i].itemId;
                 equipmentSlotsUI[i].slotData.itemType = GameManager.instance.equipmentSlotsData[i].itemType;
+                equipmentSlotsUI[i].slotData.pickupItemID = GameManager.instance.equipmentSlotsData[i].pickupItemID;
                 equipmentSlotsUI[i].slotData.stackable = GameManager.instance.equipmentSlotsData[i].stackable;
                 equipmentSlotsUI[i].slotData.stackMax = GameManager.instance.equipmentSlotsData[i].stackMax;
                 InventoryItem newItemGo = Instantiate(inventoryItem, equipmentSlotsUI[i].transform);
@@ -356,6 +364,7 @@ public class InventoryManager : MonoBehaviour
                 newItemGo.itemId = thisInventoryItem.item.itemID;
                 newItemGo.itemName = thisInventoryItem.item.itemName;
                 newItemGo.itemType = thisInventoryItem.item.itemType;
+                newItemGo.pickupItemID = thisInventoryItem.pickupItemID;
                 newItemGo.stackable = thisInventoryItem.item.stackable;
                 newItemGo.maxStack = thisInventoryItem.item.stackMax;
                 newItemGo.count = equipmentSlotsUI[i].slotData.count;

@@ -28,7 +28,7 @@ public class ItemPickup : Interactable
 
     void PickUp()
     {
-        bool wasPickedUp = InventoryManager.instance.AddInventoryItem(item);
+        bool wasPickedUp = InventoryManager.instance.AddInventoryItem(item, pickUpItemID);
         if(wasPickedUp)
         {
             AddItemPickupIDsToArray(pickUpItemID);
