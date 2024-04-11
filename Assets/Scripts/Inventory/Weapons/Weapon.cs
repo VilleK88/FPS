@@ -123,7 +123,6 @@ public class Weapon : MonoBehaviour
             {
                 totalAmmo = inventoryItem.count;
                 InventorySlot slot = inventoryItem.GetComponentInParent<InventorySlot>();
-                //slot.slotData.ammoAmount = inventoryItem.count;
                 if (inventoryItem.count >= magazineSize)
                 {
                     int reduceBulletsLeft = magazineSize - bulletsLeft;
@@ -132,6 +131,7 @@ public class Weapon : MonoBehaviour
                     slot.slotData.count -= reduceBulletsLeft;
                     if (inventoryItem.count <= 0)
                         inventoryItem.DestroyItem();
+                    break;
                 }
                 else
                 {
@@ -141,6 +141,7 @@ public class Weapon : MonoBehaviour
                     slot.slotData.count -= reduceBulletsLeft;
                     if (inventoryItem.count <= 0)
                         inventoryItem.DestroyItem();
+                    break;
                 }
             }
         }
@@ -148,6 +149,7 @@ public class Weapon : MonoBehaviour
 
     public void InitializeAmmoStatus() // when initializing ammo item
     {
+        //totalAmmo = 0;
         for (int i = 0; i < InventoryManager.instance.inventorySlotsUI.Length; i++)
         {
             InventoryItem inventoryItem = InventoryManager.instance.inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();

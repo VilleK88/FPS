@@ -223,7 +223,7 @@ public class InventoryManager : MonoBehaviour
                             }
                         }
 
-                        return false;
+                        //return false;
                     }
                     //inventorySlotsUI[i].slotData.count += newItem.count;
                     //itemInSlot.count += newItem.count;
