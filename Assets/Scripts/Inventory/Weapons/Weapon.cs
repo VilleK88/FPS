@@ -41,13 +41,17 @@ public class Weapon : MonoBehaviour
     public int tempTotalAmmo;
     public bool isReloading;
 
+    public bool weaponCollected;
+
     private void Awake()
     {
         readyToShoot = true;
         burstBulletsLeft = bulletsPerBurst;
         anim = GetComponent<Animator>();
-        /*if(!GameManager.instance.loadInventory)
-            bulletsLeft = magazineSize;*/
+    }
+
+    private void Start()
+    {
         InventoryManager.instance.LoadHowManyBulletsLeftInMagazine();
     }
 

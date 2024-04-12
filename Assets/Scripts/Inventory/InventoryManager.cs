@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,6 +41,8 @@ public class InventoryManager : MonoBehaviour
     public GameObject player;
     public GameObject middlePoint; // crosshair
 
+    public List<int> weaponIDsList = new List<int>();
+
     private void Start()
     {
         inventorySlotsUI = new InventorySlot[20];
@@ -52,6 +56,7 @@ public class InventoryManager : MonoBehaviour
         {
             LoadInventorySlotData();
             AddSavedInventorySlotData();
+            WeaponCollected();
             LoadHowManyBulletsLeftInMagazine();
             GameManager.instance.loadInventory = false;
         }
@@ -163,6 +168,33 @@ public class InventoryManager : MonoBehaviour
                 weaponSlots[i].SetActive(true);
                 weaponSlots[i].GetComponent<Weapon>().bulletsLeft = GameManager.instance.bulletsLeft[i];
                 weaponSlots[i].SetActive(false);
+            }
+        }
+    }
+
+    public void WeaponCollected()
+    {
+        player = PlayerManager.instance.GetPlayer();
+
+        foreach (var slotData in GameManager.instance.inventorySlotsData)
+            weaponIDsList.Add(slotData.itemId);
+
+        foreach (var slotData in GameManager.instance.equipmentSlotsData)
+            weaponIDsList.Add(slotData.itemId);
+
+        GameObject[] weaponSlots = player.GetComponent<Player>().weaponSlots;
+
+        foreach(var weaponSlot in weaponSlots)
+        {
+            Weapon weaponScript = weaponSlot.GetComponent<Weapon>();
+            if (weaponScript != null)
+            {
+                if(weaponIDsList.Contains(weaponScript.weaponId))
+                {
+                    weaponSlot.SetActive(true);
+                    weaponScript.weaponCollected = true;
+                    weaponSlot.SetActive(false);
+                }
             }
         }
     }
