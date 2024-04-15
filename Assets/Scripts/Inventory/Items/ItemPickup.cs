@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class ItemPickup : Interactable
 {
-    public Item item;
+    public Item item, secondItem;
     public string itemName;
     public int pickUpItemID;
     public int pickUpItemCount;
 
     [SerializeField] bool collectOnTouch;
+    public List<int> weaponIDsList = new List<int>();
 
     private void Start()
     {
@@ -22,7 +23,23 @@ public class ItemPickup : Interactable
         if(!collectOnTouch)
         {
             base.Interact();
-            PickUp();
+            if(item.itemType != ItemType.Weapon)
+                PickUp();
+            else
+            {
+                if (CheckIfWeaponAlreadyCollected(item.itemID))
+                {
+                    item = secondItem;
+                    if (item.ammoType == AmmoType.Pistol)
+                        pickUpItemCount = 7;
+                    if (item.ammoType == AmmoType.AssaultRifle)
+                        pickUpItemCount = 30;
+                    if (item.ammoType == AmmoType.Shotgun)
+                        pickUpItemCount = 7;
+                }
+                else
+                    PickUp();
+            }
         }
     }
 
@@ -34,6 +51,19 @@ public class ItemPickup : Interactable
             AddItemPickupIDsToArray(pickUpItemID);
             gameObject.SetActive(false);
         }
+    }
+
+    bool CheckIfWeaponAlreadyCollected(int thisItemId)
+    {
+        foreach(var slotData in InventoryManager.instance.inventorySlotsUI)
+        {
+            weaponIDsList.Add(slotData.slotData.itemId);
+        }
+
+        if (weaponIDsList.Contains(thisItemId))
+            return true;
+
+        return false;
     }
 
     void AddItemPickupIDsToArray(int newPickupItemID)
