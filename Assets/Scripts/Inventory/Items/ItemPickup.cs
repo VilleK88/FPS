@@ -23,23 +23,7 @@ public class ItemPickup : Interactable
         if(!collectOnTouch)
         {
             base.Interact();
-            if(item.itemType != ItemType.Weapon)
-                PickUp();
-            else
-            {
-                if (CheckIfWeaponAlreadyCollected(item.itemID))
-                {
-                    item = secondItem;
-                    if (item.ammoType == AmmoType.Pistol)
-                        pickUpItemCount = 7;
-                    if (item.ammoType == AmmoType.AssaultRifle)
-                        pickUpItemCount = 30;
-                    if (item.ammoType == AmmoType.Shotgun)
-                        pickUpItemCount = 7;
-                }
-                else
-                    PickUp();
-            }
+            PickUp();
         }
     }
 
@@ -56,9 +40,10 @@ public class ItemPickup : Interactable
     bool CheckIfWeaponAlreadyCollected(int thisItemId)
     {
         foreach(var slotData in InventoryManager.instance.inventorySlotsUI)
-        {
             weaponIDsList.Add(slotData.slotData.itemId);
-        }
+
+        foreach (var slotData in InventoryManager.instance.equipmentSlotsUI)
+            weaponIDsList.Add(slotData.slotData.itemId);
 
         if (weaponIDsList.Contains(thisItemId))
             return true;
@@ -88,7 +73,27 @@ public class ItemPickup : Interactable
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
             {
-                PickUp();
+                if(item.itemType != ItemType.Weapon)
+                    PickUp();
+                else
+                {
+                    if(CheckIfWeaponAlreadyCollected(item.itemID))
+                    {
+                        item = secondItem;
+                        itemName = item.itemName;
+                        if (item.ammoType == AmmoType.Pistol)
+                            pickUpItemCount = 7;
+                        if (item.ammoType == AmmoType.AssaultRifle)
+                            pickUpItemCount = 30;
+                        if (item.ammoType == AmmoType.Shotgun)
+                            pickUpItemCount = 7;
+                        PickUp();
+                    }
+                    else
+                    {
+                        PickUp();
+                    }
+                }
             }
         }
     }
