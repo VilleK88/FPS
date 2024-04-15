@@ -211,8 +211,23 @@ public class InventoryManager : MonoBehaviour
     {
         inventoryAnim.GetComponent<Animator>().SetBool("InventoryOn", false);
         equipmentAnim.GetComponent<Animator>().SetBool("EquipmentScreenOn", false);
+        CloseInventoryItemMenus();
         closed = true;
         HolsterWeapons();
+    }
+
+    void CloseInventoryItemMenus() // when closing inventory
+    {
+        for(int i = 0; i < inventorySlotsUI.Length; i++)
+        {
+            InventoryItem thisItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
+            if(thisItem != null)
+            {
+                thisItem.sliderBG.SetActive(false);
+                thisItem.itemMenuMoreThanOne.SetActive(false);
+                thisItem.itemMenu.SetActive(false);
+            }
+        }
     }
 
     public bool AddInventoryItem(Item newItem, int pickupItemID)
@@ -230,6 +245,7 @@ public class InventoryManager : MonoBehaviour
                     {
                         inventorySlotsUI[i].slotData.count += newItem.count;
                         itemInSlot.count += newItem.count;
+                        itemInSlot.slider.maxValue += newItem.count;
                         itemInSlot.RefreshCount();
                     }
                     else
@@ -237,6 +253,7 @@ public class InventoryManager : MonoBehaviour
                         int decreaseCount = tempTotalCount - itemInSlot.maxStack;
                         inventorySlotsUI[i].slotData.count = newItem.stackMax;
                         itemInSlot.count = newItem.stackMax;
+                        itemInSlot.slider.maxValue = newItem.stackMax;
                         itemInSlot.RefreshCount();
 
                         // find next empty slot
@@ -262,6 +279,7 @@ public class InventoryManager : MonoBehaviour
                                 thisInventoryItem.GetComponent<InventoryItem>().img.sprite = newItem.icon;
                                 thisInventoryItem.GetComponent<InventoryItem>().count = decreaseCount;
                                 thisInventoryItem.GetComponent<InventoryItem>().ammoType = newItem.ammoType;
+                                thisInventoryItem.GetComponent<InventoryItem>().slider.maxValue = thisInventoryItem.count;
                                 InventorySlot slot = thisInventoryItem.GetComponentInParent<InventorySlot>();
                                 slot.slotData.count = thisInventoryItem.count;
                                 thisInventoryItem.RefreshCount();
@@ -373,9 +391,8 @@ public class InventoryManager : MonoBehaviour
                 newItemGo.maxStack = thisInventoryItem.item.stackMax;
                 newItemGo.count = inventorySlotsUI[i].slotData.count;
                 newItemGo.img.sprite = thisInventoryItem.item.icon;
-
                 newItemGo.ammoType = thisInventoryItem.item.ammoType;
-
+                newItemGo.InitializeSlider();
                 thisInventoryItem.GetComponent<InventoryItem>().RefreshCount();
             }
         }

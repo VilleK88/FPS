@@ -136,10 +136,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ce78339b2d6f2c47a628d3a93596ddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: -1
-  stackable: 0
-  itemType: 0
-  count: 0
+  slotData:
+    slotType: 0
+    itemId: -1
+    pickupItemID: 0
+    itemName: 
+    itemType: 0
+    stackable: 0
+    stackMax: 0
+    count: 0
+    ammoType: 0
 --- !u!114 &7555935229486964021
 MonoBehaviour:
   m_ObjectHideFlags: 0

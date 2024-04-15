@@ -25,35 +25,39 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     {
         GameObject dropped = eventData.pointerDrag;
         InventoryItem inventoryItem = dropped.GetComponent<InventoryItem>();
-        if(slotData.itemId == inventoryItem.itemId && slotData.stackable)
-        {
-            InventoryItem targetItem = GetComponentInChildren<InventoryItem>();
-            int totalAmount = slotData.count + inventoryItem.count;
 
-            if (slotData.stackMax >= totalAmount)
+        if(dropped != null && inventoryItem != null)
+        {
+            if (slotData.itemId == inventoryItem.itemId && slotData.stackable)
             {
-                slotData.count = totalAmount;
-                targetItem.count = totalAmount;
-                targetItem.RefreshCount();
-                Destroy(inventoryItem.gameObject);
+                InventoryItem targetItem = GetComponentInChildren<InventoryItem>();
+                int totalAmount = slotData.count + inventoryItem.count;
+
+                if (slotData.stackMax >= totalAmount)
+                {
+                    slotData.count = totalAmount;
+                    targetItem.count = totalAmount;
+                    targetItem.RefreshCount();
+                    Destroy(inventoryItem.gameObject);
+                }
+                else
+                {
+                    slotData.count = slotData.stackMax;
+                    targetItem.count = slotData.stackMax;
+                    targetItem.RefreshCount();
+                    inventoryItem.count = totalAmount - slotData.stackMax;
+                    inventoryItem.RefreshCount();
+                }
             }
             else
             {
-                slotData.count = slotData.stackMax;
-                targetItem.count = slotData.stackMax;
-                targetItem.RefreshCount();
-                inventoryItem.count = totalAmount - slotData.stackMax;
-                inventoryItem.RefreshCount();
+                if (slotData.slotType == SlotType.Default)
+                    inventoryItem.parentAfterDrag = transform;
+                else if (slotData.slotType == SlotType.Armor && inventoryItem.itemType == ItemType.Armor)
+                    inventoryItem.parentAfterDrag = transform;
+                else if (slotData.slotType == SlotType.Weapon && inventoryItem.itemType == ItemType.Weapon)
+                    inventoryItem.parentAfterDrag = transform;
             }
-        }
-        else
-        {
-            if(slotData.slotType == SlotType.Default)
-                inventoryItem.parentAfterDrag = transform;
-            else if(slotData.slotType == SlotType.Armor && inventoryItem.itemType == ItemType.Armor)
-                inventoryItem.parentAfterDrag = transform;
-            else if(slotData.slotType == SlotType.Weapon && inventoryItem.itemType == ItemType.Weapon)
-                inventoryItem.parentAfterDrag = transform;
         }
     }
 }

@@ -24,7 +24,12 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     [HideInInspector] public Transform parentAfterDrag;
     bool dragging = false;
 
-    [SerializeField] GameObject removeItem;
+    [Header("Inventory Item Menu Info")]
+    public GameObject itemMenu;
+    public GameObject itemMenuMoreThanOne;
+    public GameObject sliderBG;
+    public Slider slider;
+    [SerializeField] TextMeshProUGUI sliderText;
 
 
     public void InitializeItem()
@@ -46,6 +51,19 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
             RefreshCount();
             InitializeAmmoStatus();
         }
+
+        InitializeSlider();
+    }
+
+    public void InitializeSlider()
+    {
+        slider.minValue = 1;
+        slider.maxValue = count;
+        slider.value = 0;
+        slider.onValueChanged.AddListener((v) =>
+        {
+            sliderText.text = $"{slider.value - 1}/{slider.maxValue}";
+        });
     }
 
     public void InitializeAmmoStatus()
@@ -155,7 +173,10 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         }
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            removeItem.SetActive(true);
+            if (count <= 1)
+                itemMenu.SetActive(!itemMenu.activeSelf);
+            else
+                itemMenuMoreThanOne.SetActive(!itemMenuMoreThanOne.activeSelf);
         }
     }
 
@@ -177,6 +198,8 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (itemMenuMoreThanOne.activeSelf || itemMenu.activeSelf)
+            return;
         CleanSlot();
         parentAfterDrag = transform.parent;
         transform.SetParent(transform.root);
@@ -188,11 +211,15 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (itemMenuMoreThanOne.activeSelf || itemMenu.activeSelf)
+            return;
         transform.position = Input.mousePosition;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (itemMenuMoreThanOne.activeSelf || itemMenu.activeSelf)
+            return;
         transform.SetParent(parentAfterDrag);
         img.raycastTarget = true;
         countText.raycastTarget = true;
@@ -202,41 +229,51 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
 
     public void OnDrop(PointerEventData eventData)
     {
+        if (itemMenuMoreThanOne.activeSelf || itemMenu.activeSelf)
+            return;
         GameObject dropped = eventData.pointerDrag;
         InventoryItem inventoryItem = dropped.GetComponent<InventoryItem>();
         InventorySlot thisItemsSlot = GetComponentInParent<InventorySlot>();
         InventoryItem thisItem = GetComponent<InventoryItem>();
-        if (itemId == inventoryItem.itemId && stackable)
-        {
-            InventoryItem targetItem = GetComponent<InventoryItem>();
-            int totalAmount = count + inventoryItem.count;
 
-            if (maxStack >= totalAmount)
+        if(inventoryItem != null)
+        {
+            if (itemId == inventoryItem.itemId && stackable)
             {
-                count = totalAmount;
-                targetItem.count = totalAmount;
-                targetItem.RefreshCount();
-                thisItemsSlot.slotData.count = totalAmount;
-                Destroy(inventoryItem.gameObject);
+                InventoryItem targetItem = GetComponent<InventoryItem>();
+                int totalAmount = count + inventoryItem.count;
+
+                if (maxStack >= totalAmount)
+                {
+                    count = totalAmount;
+                    targetItem.count = totalAmount;
+                    targetItem.RefreshCount();
+                    thisItemsSlot.slotData.count = totalAmount;
+                    slider.maxValue = count;
+                    slider.value = 0;
+                    Destroy(inventoryItem.gameObject);
+                }
+                else
+                {
+                    count = maxStack;
+                    targetItem.count = maxStack;
+                    targetItem.RefreshCount();
+                    inventoryItem.count = totalAmount - maxStack;
+                    thisItemsSlot.slotData.count = maxStack;
+                    inventoryItem.RefreshCount();
+                    slider.maxValue = count;
+                    slider.value = 0;
+                }
             }
             else
             {
-                count = maxStack;
-                targetItem.count = maxStack;
-                targetItem.RefreshCount();
-                inventoryItem.count = totalAmount - maxStack;
-                thisItemsSlot.slotData.count = maxStack;
-                inventoryItem.RefreshCount();
+                if (thisItemsSlot.slotData.slotType == SlotType.Default)
+                    SwapItems(inventoryItem, thisItem);
+                else if (thisItemsSlot.slotData.slotType == SlotType.Armor && inventoryItem.itemType == ItemType.Armor)
+                    SwapItems(inventoryItem, thisItem);
+                else if (thisItemsSlot.slotData.slotType == SlotType.Weapon && inventoryItem.itemType == ItemType.Weapon)
+                    SwapItems(inventoryItem, thisItem);
             }
-        }
-        else
-        {
-            if(thisItemsSlot.slotData.slotType == SlotType.Default)
-                SwapItems(inventoryItem, thisItem);
-            else if(thisItemsSlot.slotData.slotType == SlotType.Armor && inventoryItem.itemType == ItemType.Armor)
-                SwapItems(inventoryItem, thisItem);
-            else if(thisItemsSlot.slotData.slotType == SlotType.Weapon && inventoryItem.itemType == ItemType.Weapon)
-                SwapItems(inventoryItem, thisItem);
         }
     }
 
@@ -251,7 +288,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         int tempMaxStack = item1.maxStack;
         int tempCount = item1.count;
         Sprite tempImg = item1.img.sprite;
-
+        float tempSliderValue = item1.count;
         AmmoType tempAmmoType = item1.ammoType;
 
         item1.item = item2.item;
@@ -263,9 +300,8 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         item1.maxStack = item2.maxStack;
         item1.count = item2.count;
         item1.img.sprite = item2.img.sprite;
-
+        item1.slider.maxValue = item2.count;
         item1.ammoType = item2.ammoType;
-
         item1.RefreshCount();
 
         item2.item = tempItem;
@@ -277,9 +313,8 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         item2.maxStack = tempMaxStack;
         item2.count = tempCount;
         item2.img.sprite = tempImg;
-
+        item2.slider.maxValue = tempSliderValue;
         item2.ammoType = tempAmmoType;
-
         item2.RefreshCount();
 
         InventorySlot slot = item2.GetComponentInParent<InventorySlot>();
@@ -290,7 +325,11 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slot.slotData.stackable = item2.stackable;
         slot.slotData.stackMax = item2.maxStack;
         slot.slotData.count = item2.count;
-
         slot.slotData.ammoType = item2.ammoType;
+    }
+
+    public void SliderOK()
+    {
+        Debug.Log("Slider Value: " + slider.value);
     }
 }
