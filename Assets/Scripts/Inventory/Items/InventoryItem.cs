@@ -102,7 +102,8 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
                         count--;
                         GetComponentInParent<InventorySlot>().slotData.count--;
                         RefreshCount();
-                        DestroyItem();
+                        if (count <= 0)
+                            RemoveItem();
                     }
                 }
                 else
@@ -110,29 +111,11 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
                     if(itemType == ItemType.Medpack)
                     {
                         count--;
-                        DestroyItem();
+                        if (count <= 0)
+                            RemoveItem();
                     }
                 }
             }
-        }
-    }
-
-    public void DestroyItem()
-    {
-        if (count <= 0)
-        {
-            InventorySlot slot = GetComponentInParent<InventorySlot>();
-            slot.slotData.itemId = -1;
-            slot.slotData.itemType = ItemType.Default;
-            slot.slotData.pickupItemID = 0;
-            slot.slotData.stackable = false;
-            slot.slotData.stackMax = 0;
-            slot.slotData.count = 0;
-
-            slot.slotData.ammoType = AmmoType.Default;
-            slot.slotData.itemName = null;
-
-            Destroy(gameObject);
         }
     }
 

@@ -135,7 +135,7 @@ public class Weapon : MonoBehaviour
                     inventoryItem.RefreshCount();
                     slot.slotData.count -= reduceBulletsLeft;
                     if (inventoryItem.count <= 0)
-                        inventoryItem.DestroyItem();
+                        inventoryItem.RemoveItem();
                     break;
                 }
                 else
@@ -145,7 +145,7 @@ public class Weapon : MonoBehaviour
                     inventoryItem.RefreshCount();
                     slot.slotData.count -= reduceBulletsLeft;
                     if (inventoryItem.count <= 0)
-                        inventoryItem.DestroyItem();
+                        inventoryItem.RemoveItem();
                     break;
                 }
             }
