@@ -90,22 +90,18 @@ public class InventoryManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
-            Debug.Log("Item equipped: " + equipmentSlotsUI[1]);
             DrawWeapon(1);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            Debug.Log("Item equipped: " + equipmentSlotsUI[2]);
             DrawWeapon(2);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            Debug.Log("Item equipped: " + equipmentSlotsUI[3]);
             DrawWeapon(3);
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            Debug.Log("Item equipped: " + equipmentSlotsUI[4]);
             DrawWeapon(4);
         }
     }

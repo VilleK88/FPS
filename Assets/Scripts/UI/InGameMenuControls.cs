@@ -47,6 +47,11 @@ public class InGameMenuControls : MonoBehaviour
             OnToggleMenuStatic?.Invoke(menuButtons.activeSelf);
             ToggleInGameMenu();
         }
+
+        if (Input.GetKeyDown(KeyCode.F5))
+            SaveGame();
+        if (Input.GetKeyDown(KeyCode.F8))
+            LoadGame();
     }
 
     void ToggleInGameMenu()
