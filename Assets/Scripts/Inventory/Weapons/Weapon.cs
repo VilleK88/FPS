@@ -169,7 +169,10 @@ public class Weapon : MonoBehaviour
             {
                 if (inventoryItem.item.ammoType == ammoType)
                 {
-                    totalAmmo += inventoryItem.count;
+                    if (inventoryItem.count > 0)
+                        totalAmmo += inventoryItem.count;
+                    else
+                        totalAmmo = 0;
                 }
             }
         }

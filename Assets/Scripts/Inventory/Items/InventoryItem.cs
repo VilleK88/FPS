@@ -29,7 +29,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     public Slider slider;
     [SerializeField] TextMeshProUGUI sliderText;
 
-
     public void InitializeItem()
     {
         itemId = item.itemID;
@@ -110,15 +109,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
                         count--;
                         GetComponentInParent<InventorySlot>().slotData.count--;
                         RefreshCount();
-                        if (count <= 0)
-                            RemoveItem();
-                    }
-                }
-                else
-                {
-                    if(itemType == ItemType.Medpack)
-                    {
-                        count--;
                         if (count <= 0)
                             RemoveItem();
                     }

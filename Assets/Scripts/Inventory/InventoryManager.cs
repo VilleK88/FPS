@@ -5,6 +5,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -39,6 +40,7 @@ public class InventoryManager : MonoBehaviour
     public GameObject player;
     public GameObject middlePoint; // crosshair
     public List<int> weaponIDsList = new List<int>();
+    public Button selectSlot;
 
     private void Start()
     {
@@ -47,6 +49,7 @@ public class InventoryManager : MonoBehaviour
         {
             InventorySlot slot = Instantiate(slotPrefab, inventoryTransform);
             inventorySlotsUI[i] = slot;
+            slot.InitializeSlot();
         }
 
         if(GameManager.instance.loadInventory)
@@ -59,6 +62,9 @@ public class InventoryManager : MonoBehaviour
         }
         else
             ClearInventory();
+
+        selectSlot = inventorySlotsUI[0].GetComponent<Button>();
+        selectSlot.Select();
     }
 
     private void Update()
@@ -180,6 +186,7 @@ public class InventoryManager : MonoBehaviour
         equipmentAnim.GetComponent<Animator>().SetBool("EquipmentScreenOn", true);
         closed = false;
         HolsterWeapons();
+        selectSlot.Select();
     }
 
     public void CloseInventory()

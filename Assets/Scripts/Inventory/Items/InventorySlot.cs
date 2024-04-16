@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 [Serializable]
 public class InventorySlotData
@@ -20,6 +23,17 @@ public class InventorySlotData
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
     public InventorySlotData slotData = new InventorySlotData();
+
+    public void InitializeSlot() // for new input system
+    {
+        Button button = GetComponent<Button>();
+        button.onClick.AddListener(OnButtonClicked);
+    }
+
+    void OnButtonClicked()
+    {
+        GetComponentInChildren<InventoryItem>().UseItem();
+    }
 
     public void OnDrop(PointerEventData eventData)
     {
