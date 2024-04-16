@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class InGameMenuControls : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class InGameMenuControls : MonoBehaviour
     public static event ToggleMenuDelegate OnToggleMenuStatic;
     Scene currentScene;
     public Player player;
+    [SerializeField] Button saveButton;
 
     private void Start()
     {
@@ -59,6 +61,8 @@ public class InGameMenuControls : MonoBehaviour
         if(menuButtons != null)
         {
             menuButtons.SetActive(!menuButtons.activeSelf);
+            if (menuButtons.activeSelf)
+                saveButton.Select();
         }
     }
 
