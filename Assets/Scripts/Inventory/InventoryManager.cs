@@ -258,6 +258,8 @@ public class InventoryManager : MonoBehaviour
                                 InventorySlot slot = thisInventoryItem.GetComponentInParent<InventorySlot>();
                                 slot.slotData.count = thisInventoryItem.count;
                                 thisInventoryItem.RefreshCount();
+                                if(thisInventoryItem.count > 1)
+                                    thisInventoryItem.InitializeSlider();
                                 thisInventoryItem.InitializeAmmoStatus();
                                 break;
                             }
