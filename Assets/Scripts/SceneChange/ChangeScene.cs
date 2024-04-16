@@ -15,6 +15,7 @@ public class ChangeScene : MonoBehaviour
         if(other.gameObject.CompareTag("Player"))
         {
             playerSpawnPosition.initialValue = playerPosition;
+            GameManager.instance.changeScene = true;
             SceneManager.LoadScene(sceneToLoad);
         }
     }

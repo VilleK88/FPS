@@ -33,14 +33,11 @@ public class InventoryManager : MonoBehaviour
     public Transform inventoryTransform; // where the slotPrefabs are instantiated.
     public InventorySlot[] inventorySlotsUI; // table where the slotPrefabs are put.
     public EquipmentSlot[] equipmentSlotsUI;
-
     [SerializeField] Animator inventoryAnim; // inventory screen
     [SerializeField] Animator equipmentAnim; // equipment screen
     public bool closed = true;
-
     public GameObject player;
     public GameObject middlePoint; // crosshair
-
     public List<int> weaponIDsList = new List<int>();
 
     private void Start()
@@ -61,9 +58,7 @@ public class InventoryManager : MonoBehaviour
             GameManager.instance.loadInventory = false;
         }
         else
-        {
             ClearInventory();
-        }
     }
 
     private void Update()
@@ -71,13 +66,9 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
         {
             if (closed)
-            {
                 OpenInventory();
-            }
             else
-            {
                 CloseInventory();
-            }
         }
 
         if (!closed)
@@ -89,21 +80,13 @@ public class InventoryManager : MonoBehaviour
     void EquipWeapon()
     {
         if(Input.GetKeyDown(KeyCode.Alpha1))
-        {
             DrawWeapon(1);
-        }
         if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
             DrawWeapon(2);
-        }
         if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
             DrawWeapon(3);
-        }
         if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
             DrawWeapon(4);
-        }
     }
 
     void DrawWeapon(int index)
@@ -171,15 +154,11 @@ public class InventoryManager : MonoBehaviour
     public void WeaponCollected()
     {
         player = PlayerManager.instance.GetPlayer();
-
         foreach (var slotData in GameManager.instance.inventorySlotsData)
             weaponIDsList.Add(slotData.itemId);
-
         foreach (var slotData in GameManager.instance.equipmentSlotsData)
             weaponIDsList.Add(slotData.itemId);
-
         GameObject[] weaponSlots = player.GetComponent<Player>().weaponSlots;
-
         foreach(var weaponSlot in weaponSlots)
         {
             Weapon weaponScript = weaponSlot.GetComponent<Weapon>();
@@ -325,7 +304,6 @@ public class InventoryManager : MonoBehaviour
                 return true;
             }
         }
-
         return false;
     }
 
@@ -355,21 +333,16 @@ public class InventoryManager : MonoBehaviour
                 return true;
             }
         }
-
         return false;
     }
 
-    // save to GameManager
-    public void SaveInventory()
+    public void SaveInventory() // and equipment to GameManager
     {
-        // saving inventory
         GameManager.instance.inventorySlotsData = new InventorySlotData[inventorySlotsUI.Length];
-        for(int i = 0; i < inventorySlotsUI.Length; i++)
+        for (int i = 0; i < inventorySlotsUI.Length; i++)
         {
             GameManager.instance.inventorySlotsData[i] = inventorySlotsUI[i].slotData;
         }
-
-        // saving equipment
         GameManager.instance.equipmentSlotsData = new InventorySlotData[equipmentSlotsUI.Length];
         for (int i = 0; i < equipmentSlotsUI.Length; i++)
         {
@@ -377,26 +350,20 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    // load from GameManager
-    public void LoadInventorySlotData()
+    public void LoadInventorySlotData() // and equipment slot data from GameManager
     {
-        // loading inventory slots data
         for(int i = 0; i < inventorySlotsUI.Length; i++)
         {
             inventorySlotsUI[i].slotData = GameManager.instance.inventorySlotsData[i];
         }
-
-        // loading equipment slots data
         for (int i = 0; i < equipmentSlotsUI.Length; i++)
         {
             equipmentSlotsUI[i].slotData = GameManager.instance.equipmentSlotsData[i];
         }
     }
 
-    // to inventory
-    public void AddSavedInventorySlotData()
+    public void AddSavedInventorySlotData() // to inventory
     {
-        // add saved inventory slot data
         for (int i = 0; i < inventorySlotsUI.Length; i++)
         {
             if (inventorySlotsUI[i].slotData.itemId > -1)
@@ -422,7 +389,6 @@ public class InventoryManager : MonoBehaviour
                 thisInventoryItem.GetComponent<InventoryItem>().RefreshCount();
             }
         }
-
         // add saved equipment slot data
         for (int i = 0; i < equipmentSlotsUI.Length; i++)
         {
@@ -452,15 +418,12 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void ClearInventory()
+    public void ClearInventory() // and equipment
     {
-        // clear inventory
         for(int i = 0; i < GameManager.instance.inventorySlotsData.Length; i++)
         {
             GameManager.instance.inventorySlotsData[i] = null;
         }
-
-        // clear equipment
         for (int i = 0; i < GameManager.instance.equipmentSlotsData.Length; i++)
         {
             GameManager.instance.equipmentSlotsData[i] = null;

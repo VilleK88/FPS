@@ -50,11 +50,6 @@ public class Weapon : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    private void Start()
-    {
-        InventoryManager.instance.LoadHowManyBulletsLeftInMagazine();
-    }
-
     private void Update()
     {
         if (!InventoryManager.instance.closed || InGameMenuControls.instance.menuButtons.activeSelf)

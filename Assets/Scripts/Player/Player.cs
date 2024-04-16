@@ -20,11 +20,18 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        if(GameManager.instance.changeScene)
+        {
+            InventoryManager.instance.LoadHowManyBulletsLeftInMagazine();
+            GameManager.instance.changeScene = false;
+        }
+
         if (GameManager.instance.loadPlayerPosition)
         {
             LoadPlayerTransformPosition();
             Debug.Log("PlayerManagerin LoadPlayerTransformPosition debuggaa");
             GameManager.instance.loadPlayerPosition = false;
+            InventoryManager.instance.LoadHowManyBulletsLeftInMagazine();
         }
         else
         {

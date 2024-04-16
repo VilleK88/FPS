@@ -8,6 +8,7 @@ using System;
 
 public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
+    [Header("Item Info")]
     public Item item;
     public int itemId;
     public int pickupItemID;
@@ -18,12 +19,9 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     public int maxStack;
     public int count;
     public AmmoType ammoType;
-
     public TextMeshProUGUI countText;
-
     [HideInInspector] public Transform parentAfterDrag;
     bool dragging = false;
-
     [Header("Inventory Item Menu Info")]
     public GameObject itemMenu;
     public GameObject itemMenuMoreThanOne;
@@ -41,7 +39,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         maxStack = item.stackMax;
         img.sprite = item.icon;
         count += item.count;
-
         ammoType = item.ammoType;
 
         if(itemType == ItemType.Ammo)
@@ -51,7 +48,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
             RefreshCount();
             InitializeAmmoStatus();
         }
-
         InitializeSlider();
     }
 
@@ -76,21 +72,15 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
             {
                 if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.Pistol &&
                     ammoType == AmmoType.Pistol)
-                {
                     weaponSlots[i].GetComponent<Weapon>().InitializeAmmoStatus();
-                }
 
                 if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.AssaultRifle &&
                     ammoType == AmmoType.AssaultRifle)
-                {
                     weaponSlots[i].GetComponent<Weapon>().InitializeAmmoStatus();
-                }
 
                 if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.Shotgun &&
                     ammoType == AmmoType.Shotgun)
-                {
                     weaponSlots[i].GetComponent<Weapon>().InitializeAmmoStatus();
-                }
             }
         }
     }
@@ -147,7 +137,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slot.slotData.stackable = false;
         slot.slotData.stackMax = 0;
         slot.slotData.count = 0;
-
         slot.slotData.ammoType = AmmoType.Default;
     }
 
@@ -161,16 +150,13 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slot.slotData.stackable = stackable;
         slot.slotData.stackMax = maxStack;
         slot.slotData.count = count;
-
         slot.slotData.ammoType = ammoType;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
-        {
             UseItem();
-        }
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             if (count <= 1)
@@ -190,9 +176,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slot.slotData.stackable = false;
         slot.slotData.stackMax = 0;
         slot.slotData.count = 0;
-
         slot.slotData.ammoType = AmmoType.Default;
-
         Destroy(gameObject);
     }
 
@@ -203,7 +187,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         CleanSlot();
         parentAfterDrag = transform.parent;
         transform.SetParent(transform.root);
-        transform.SetAsLastSibling(); //
+        transform.SetAsLastSibling();
         img.raycastTarget = false;
         countText.raycastTarget = false;
         dragging = true;

@@ -50,6 +50,8 @@ public class GameManager : MonoBehaviour
     public InventorySlotData[] equipmentSlotsData;
     public int[] bulletsLeft;
 
+    public bool changeScene = false;
+
     public void Save()
     {
         Debug.Log("Game Saved!");
