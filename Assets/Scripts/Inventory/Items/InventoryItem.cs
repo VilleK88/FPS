@@ -330,6 +330,21 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
 
     public void SliderOK()
     {
-        Debug.Log("Slider Value: " + slider.value);
+        Item newItem = item;
+        newItem.itemID = itemId;
+        newItem.icon = img.sprite;
+        newItem.itemType = itemType;
+        newItem.stackable = stackable;
+        newItem.stackMax = maxStack;
+        newItem.count = Mathf.RoundToInt(slider.value -1);
+        newItem.ammoType = ammoType;
+        bool addItem = InventoryManager.instance.SplitStack(newItem, pickupItemID);
+        if(addItem)
+        {
+            count = Mathf.RoundToInt(slider.maxValue - slider.value + 1);
+            RefreshCount();
+        }
+        sliderBG.SetActive(false);
+        itemMenuMoreThanOne.SetActive(false);
     }
 }
