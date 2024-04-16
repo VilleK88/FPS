@@ -21,7 +21,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if(IsGrounded() && velocity.y < 0)
+        if (!InventoryManager.instance.closed || InGameMenuControls.instance.menuButtons.activeSelf)
+            return;
+
+        if (IsGrounded() && velocity.y < 0)
         {
             velocity.y = -2;
         }
