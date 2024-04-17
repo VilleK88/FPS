@@ -24,9 +24,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
     #endregion
-
     public Dictionary<int, InventoryItem> inventory = new Dictionary<int, InventoryItem>();
-
     public Item[] itemsDatabase;
     public GameObject[] weaponPrefabs;
     public InventorySlot slotPrefab;
@@ -105,7 +103,6 @@ public class InventoryManager : MonoBehaviour
                 return true;
             }
         }
-
         return false;
     }
 
@@ -276,7 +273,7 @@ public class InventoryManager : MonoBehaviour
                                 inventorySlotsUI[i].slotData.stackMax = newItem.stackMax;
                                 inventorySlotsUI[i].slotData.count += 1;
                                 inventorySlotsUI[i].slotData.ammoType = newItem.ammoType;
-                                InventoryItem newItemGo = Instantiate(inventoryItem, inventorySlotsUI[i].transform);
+                                Instantiate(inventoryItem, inventorySlotsUI[i].transform);
                                 InventoryItem thisInventoryItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
                                 thisInventoryItem.GetComponent<InventoryItem>().item = newItem;
                                 thisInventoryItem.GetComponent<InventoryItem>().itemId = newItem.itemID;

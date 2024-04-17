@@ -28,6 +28,9 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     public GameObject sliderBG;
     public Slider slider;
     [SerializeField] TextMeshProUGUI sliderText;
+    public Button menuCloseButton;
+    public Button menuCloseMoreThanOneButton;
+    public Button splitOkButton;
 
     public void InitializeItem()
     {
@@ -194,6 +197,12 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         }
     }
 
+    public void SelectSplitButtons()
+    {
+        sliderBG.SetActive(true);
+        splitOkButton.Select();
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (itemMenuMoreThanOne.activeSelf || itemMenu.activeSelf)
@@ -326,6 +335,13 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slot.slotData.ammoType = item2.ammoType;
     }
 
+    public void CloseItemMenus()
+    {
+        sliderBG.SetActive(false);
+        itemMenuMoreThanOne.SetActive(false);
+        itemMenu.SetActive(false);
+    }
+
     public void SliderOK()
     {
         Item newItem = item;
@@ -336,13 +352,26 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         newItem.stackMax = maxStack;
         newItem.count = Mathf.RoundToInt(slider.value -1);
         newItem.ammoType = ammoType;
-        bool addItem = InventoryManager.instance.SplitStack(newItem, pickupItemID);
-        if(addItem)
+        if(newItem.count > 0)
         {
-            count = Mathf.RoundToInt(slider.maxValue - slider.value + 1);
-            RefreshCount();
+            bool addItem = InventoryManager.instance.SplitStack(newItem, pickupItemID);
+            if (addItem)
+            {
+                count = Mathf.RoundToInt(slider.maxValue - slider.value + 1);
+                RefreshCount();
+                count = Mathf.RoundToInt(slider.maxValue - slider.value + 1);
+                RefreshCount();
+            }
         }
-        sliderBG.SetActive(false);
-        itemMenuMoreThanOne.SetActive(false);
+        CloseItemMenus();
+        InventorySlot thisSlot = GetComponentInParent<InventorySlot>();
+        thisSlot.GetComponent<Button>().Select();
+    }
+
+    public void SliderClose()
+    {
+        CloseItemMenus();
+        InventorySlot thisSlot = GetComponentInParent<InventorySlot>();
+        thisSlot.GetComponent<Button>().Select();
     }
 }

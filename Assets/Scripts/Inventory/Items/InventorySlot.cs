@@ -33,8 +33,27 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     void OnButtonClicked()
     {
         InventoryItem itemInThisSlot = GetComponentInChildren<InventoryItem>();
-        if (itemInThisSlot != null)
-            itemInThisSlot.UseItem();
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            if (itemInThisSlot != null)
+                itemInThisSlot.UseItem();
+        }
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            if(itemInThisSlot != null)
+            {
+                if (itemInThisSlot.count <= 1)
+                {
+                    itemInThisSlot.itemMenu.SetActive(!itemInThisSlot.itemMenu.activeSelf);
+                    itemInThisSlot.menuCloseButton.Select();
+                }
+                else
+                {
+                    itemInThisSlot.itemMenuMoreThanOne.SetActive(!itemInThisSlot.itemMenuMoreThanOne.activeSelf);
+                    itemInThisSlot.menuCloseMoreThanOneButton.Select();
+                }
+            }
+        }
     }
 
     public void OnDrop(PointerEventData eventData)
