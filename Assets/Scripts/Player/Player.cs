@@ -23,7 +23,6 @@ public class Player : MonoBehaviour
         if(GameManager.instance.changeScene)
         {
             InventoryManager.instance.LoadHowManyBulletsLeftInMagazine();
-            GameManager.instance.changeScene = false;
         }
 
         if (GameManager.instance.loadPlayerPosition)
@@ -35,11 +34,12 @@ public class Player : MonoBehaviour
         }
         else
         {
-            if(characterController != null)
+            if(characterController != null && GameManager.instance.changeScene)
             {
                 characterController.enabled = false;
                 characterController.transform.position = startingPosition.initialValue;
                 characterController.enabled = true;
+                GameManager.instance.changeScene = false;
             }
         }
     }
