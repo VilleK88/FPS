@@ -54,6 +54,13 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                 }
             }
         }
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            if(itemInThisSlot != null)
+            {
+
+            }
+        }
     }
 
     public void OnDrop(PointerEventData eventData)
