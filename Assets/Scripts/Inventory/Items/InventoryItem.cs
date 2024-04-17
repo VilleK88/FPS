@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 using System;
+using UnityEngine.InputSystem;
 
 public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
@@ -21,7 +22,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     public AmmoType ammoType;
     public TextMeshProUGUI countText;
     [HideInInspector] public Transform parentAfterDrag;
-    bool dragging = false;
+    public bool dragging = false;
     [Header("Inventory Item Menu Info")]
     public GameObject itemMenu;
     public GameObject itemMenuMoreThanOne;
@@ -201,6 +202,19 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     {
         sliderBG.SetActive(true);
         splitOkButton.Select();
+    }
+
+    public void SeparateFromParent()
+    {
+        if (itemMenuMoreThanOne.activeSelf || itemMenu.activeSelf)
+            return;
+        CleanSlot();
+        parentAfterDrag = transform.parent;
+        transform.SetParent(transform.root);
+        transform.SetAsLastSibling();
+        img.raycastTarget = false;
+        countText.raycastTarget = false;
+        dragging = true;
     }
 
     public void OnBeginDrag(PointerEventData eventData)

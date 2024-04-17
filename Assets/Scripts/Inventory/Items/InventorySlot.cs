@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 [Serializable]
 public class InventorySlotData
@@ -56,13 +57,15 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                     }
                 }
             }
-            if (Input.GetKeyDown(KeyCode.T))
+            /*if (Input.GetKeyDown(KeyCode.T))
             {
                 if (itemInThisSlot != null)
                 {
-
+                    itemInThisSlot.AddComponent<MoveItem>();
+                    itemInThisSlot.GetComponent<Button>().Select();
+                    itemInThisSlot.SeparateFromParent();
                 }
-            }
+            }*/
         }
     }
 
