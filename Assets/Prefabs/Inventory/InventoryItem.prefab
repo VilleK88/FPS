@@ -1032,7 +1032,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -6960829208771506430}
         m_TargetAssemblyTypeName: InventoryItem, Assembly-CSharp
-        m_MethodName: SliderClose
+        m_MethodName: CloseItemMenus
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

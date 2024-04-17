@@ -47,9 +47,10 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         {
             InventorySlot slot = GetComponentInParent<InventorySlot>();
             slot.slotData.count = count;
-            RefreshCount();
+            //RefreshCount();
             InitializeAmmoStatus();
         }
+        RefreshCount();
         InitializeSlider();
     }
 
@@ -157,7 +158,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slot.slotData.ammoType = AmmoType.Default;
     }
 
-    public void RemoveItem() // removes inventoryItem and cleans the inventorySlot
+    public void PublicRemoveItem() // removes inventoryItem and cleans the inventorySlot
     {
         InventorySlot slot = GetComponentInParent<InventorySlot>();
         slot.slotData.itemId = -1;
@@ -168,6 +169,21 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slot.slotData.stackMax = 0;
         slot.slotData.count = 0;
         slot.slotData.ammoType = AmmoType.Default;
+        Destroy(gameObject);
+    }
+
+    void RemoveItem() // removes inventoryItem and cleans the inventorySlot and Selects that slot again
+    {
+        InventorySlot slot = GetComponentInParent<InventorySlot>();
+        slot.slotData.itemId = -1;
+        slot.slotData.itemName = null;
+        slot.slotData.itemType = ItemType.Default;
+        slot.slotData.pickupItemID = 0;
+        slot.slotData.stackable = false;
+        slot.slotData.stackMax = 0;
+        slot.slotData.count = 0;
+        slot.slotData.ammoType = AmmoType.Default;
+        SelectThisSlot();
         Destroy(gameObject);
     }
 
@@ -340,6 +356,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         sliderBG.SetActive(false);
         itemMenuMoreThanOne.SetActive(false);
         itemMenu.SetActive(false);
+        SelectThisSlot();
     }
 
     public void SliderOK()
@@ -359,18 +376,14 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
             {
                 count = Mathf.RoundToInt(slider.maxValue - slider.value + 1);
                 RefreshCount();
-                count = Mathf.RoundToInt(slider.maxValue - slider.value + 1);
-                RefreshCount();
+                GetComponentInParent<InventorySlot>().slotData.count = count;
             }
         }
         CloseItemMenus();
-        InventorySlot thisSlot = GetComponentInParent<InventorySlot>();
-        thisSlot.GetComponent<Button>().Select();
     }
 
-    public void SliderClose()
+    void SelectThisSlot()
     {
-        CloseItemMenus();
         InventorySlot thisSlot = GetComponentInParent<InventorySlot>();
         thisSlot.GetComponent<Button>().Select();
     }

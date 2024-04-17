@@ -341,8 +341,7 @@ public class InventoryManager : MonoBehaviour
 
     public bool SplitStack(Item newItem, int pickupItemID)
     {
-        // find next empty slot
-        for (int i = 0; i < inventorySlotsUI.Length; i++)
+        for (int i = 0; i < inventorySlotsUI.Length; i++) // find next empty slot
         {
             if (inventorySlotsUI[i].slotData.itemId == -1)
             {
@@ -351,9 +350,9 @@ public class InventoryManager : MonoBehaviour
                 inventorySlotsUI[i].slotData.itemType = newItem.itemType;
                 inventorySlotsUI[i].slotData.stackable = newItem.stackable;
                 inventorySlotsUI[i].slotData.stackMax = newItem.stackMax;
-                inventorySlotsUI[i].slotData.count += 1;
+                inventorySlotsUI[i].slotData.count = newItem.count;
                 inventorySlotsUI[i].slotData.ammoType = newItem.ammoType;
-                InventoryItem newItemGo = Instantiate(inventoryItem, inventorySlotsUI[i].transform);
+                Instantiate(inventoryItem, inventorySlotsUI[i].transform);
                 InventoryItem thisInventoryItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
                 thisInventoryItem.GetComponent<InventoryItem>().item = newItem;
                 if (newItem.itemType == ItemType.Weapon)
