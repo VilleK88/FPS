@@ -32,7 +32,9 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
     void OnButtonClicked()
     {
-        GetComponentInChildren<InventoryItem>().UseItem();
+        InventoryItem itemInThisSlot = GetComponentInChildren<InventoryItem>();
+        if (itemInThisSlot != null)
+            itemInThisSlot.UseItem();
     }
 
     public void OnDrop(PointerEventData eventData)

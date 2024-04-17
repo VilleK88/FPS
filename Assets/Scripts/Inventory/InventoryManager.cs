@@ -83,6 +83,32 @@ public class InventoryManager : MonoBehaviour
         EquipWeapon();
     }
 
+    public bool CheckIfRoomInWeaponSlots(InventoryItem newWeaponItem)
+    {
+        for(int i = 1; i < equipmentSlotsUI.Length; i++)
+        {
+            InventoryItem weaponItem = equipmentSlotsUI[i].GetComponentInChildren<InventoryItem>();
+            if(weaponItem == null)
+            {
+                InventoryItem thisItemWeapon = Instantiate(inventoryItem, equipmentSlotsUI[i].transform);
+                thisItemWeapon.item = newWeaponItem.item;
+                thisItemWeapon.itemId = newWeaponItem.itemId;
+                thisItemWeapon.pickupItemID = newWeaponItem.pickupItemID;
+                thisItemWeapon.itemName = newWeaponItem.itemName;
+                thisItemWeapon.img.sprite = newWeaponItem.item.icon;
+                thisItemWeapon.itemType = newWeaponItem.itemType;
+                thisItemWeapon.stackable = newWeaponItem.stackable;
+                thisItemWeapon.maxStack = newWeaponItem.maxStack;
+                thisItemWeapon.count = newWeaponItem.count;
+                thisItemWeapon.ammoType = newWeaponItem.ammoType;
+                thisItemWeapon.InitializeSlot();
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     void EquipWeapon()
     {
         if(Input.GetKeyDown(KeyCode.Alpha1))

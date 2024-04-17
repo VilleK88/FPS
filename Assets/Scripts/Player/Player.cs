@@ -21,10 +21,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         if(GameManager.instance.changeScene)
-        {
             InventoryManager.instance.LoadHowManyBulletsLeftInMagazine();
-        }
-
         if (GameManager.instance.loadPlayerPosition)
         {
             LoadPlayerTransformPosition();

@@ -113,11 +113,48 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
                             RemoveItem();
                     }
                 }
+                else
+                {
+                    if(itemType == ItemType.Weapon)
+                    {
+                        InventorySlot slot = GetComponentInParent<InventorySlot>();
+                        if(slot.slotData.slotType != SlotType.Weapon)
+                        {
+                            bool addWeaponToWeaponSlot = InventoryManager.instance.CheckIfRoomInWeaponSlots(this);
+                            if(addWeaponToWeaponSlot)
+                            {
+                                RemoveItem();
+                            }
+                        }
+                        else
+                        {
+                            Debug.Log("Add weapon to inventory");
+                            bool addWeaponToInventory = InventoryManager.instance.AddInventoryItem(item, pickupItemID);
+                            if(addWeaponToInventory)
+                            {
+                                RemoveItem();
+                            }
+                        }
+                    }
+                }
             }
         }
     }
 
-    void CleanSlot()
+    void CleanSlot() // cleans this slot when dragging inventoryItem to another slot
+    {
+        InventorySlot slot = GetComponentInParent<InventorySlot>();
+        slot.slotData.pickupItemID = 0;
+        slot.slotData.itemId = -1;
+        slot.slotData.itemName = null;
+        slot.slotData.itemType = ItemType.Default;
+        slot.slotData.stackable = false;
+        slot.slotData.stackMax = 0;
+        slot.slotData.count = 0;
+        slot.slotData.ammoType = AmmoType.Default;
+    }
+
+    public void RemoveItem() // removes inventoryItem and cleans the inventorySlot
     {
         InventorySlot slot = GetComponentInParent<InventorySlot>();
         slot.slotData.itemId = -1;
@@ -128,9 +165,10 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slot.slotData.stackMax = 0;
         slot.slotData.count = 0;
         slot.slotData.ammoType = AmmoType.Default;
+        Destroy(gameObject);
     }
 
-    void InitializeSlot()
+    public void InitializeSlot()
     {
         InventorySlot slot = GetComponentInParent<InventorySlot>();
         slot.slotData.itemId = itemId;
@@ -154,20 +192,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
             else
                 itemMenuMoreThanOne.SetActive(!itemMenuMoreThanOne.activeSelf);
         }
-    }
-
-    public void RemoveItem()
-    {
-        InventorySlot slot = GetComponentInParent<InventorySlot>();
-        slot.slotData.itemId = -1;
-        slot.slotData.itemName = null;
-        slot.slotData.itemType = ItemType.Default;
-        slot.slotData.pickupItemID = pickupItemID;
-        slot.slotData.stackable = false;
-        slot.slotData.stackMax = 0;
-        slot.slotData.count = 0;
-        slot.slotData.ammoType = AmmoType.Default;
-        Destroy(gameObject);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
