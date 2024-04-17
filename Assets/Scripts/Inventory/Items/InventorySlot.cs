@@ -33,32 +33,35 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     void OnButtonClicked()
     {
         InventoryItem itemInThisSlot = GetComponentInChildren<InventoryItem>();
-        if(Input.GetKeyDown(KeyCode.E))
+        if(!InventoryManager.instance.closed)
         {
-            if (itemInThisSlot != null)
-                itemInThisSlot.UseItem();
-        }
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            if(itemInThisSlot != null)
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                if (itemInThisSlot.count <= 1)
+                if (itemInThisSlot != null)
+                    itemInThisSlot.UseItem();
+            }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                if (itemInThisSlot != null)
                 {
-                    itemInThisSlot.itemMenu.SetActive(!itemInThisSlot.itemMenu.activeSelf);
-                    itemInThisSlot.menuCloseButton.Select();
-                }
-                else
-                {
-                    itemInThisSlot.itemMenuMoreThanOne.SetActive(!itemInThisSlot.itemMenuMoreThanOne.activeSelf);
-                    itemInThisSlot.menuCloseMoreThanOneButton.Select();
+                    if (itemInThisSlot.count <= 1)
+                    {
+                        itemInThisSlot.itemMenu.SetActive(!itemInThisSlot.itemMenu.activeSelf);
+                        itemInThisSlot.menuCloseButton.Select();
+                    }
+                    else
+                    {
+                        itemInThisSlot.itemMenuMoreThanOne.SetActive(!itemInThisSlot.itemMenuMoreThanOne.activeSelf);
+                        itemInThisSlot.menuCloseMoreThanOneButton.Select();
+                    }
                 }
             }
-        }
-        if(Input.GetKeyDown(KeyCode.T))
-        {
-            if(itemInThisSlot != null)
+            if (Input.GetKeyDown(KeyCode.T))
             {
+                if (itemInThisSlot != null)
+                {
 
+                }
             }
         }
     }
