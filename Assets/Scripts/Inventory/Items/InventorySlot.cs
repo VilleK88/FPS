@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using Unity.VisualScripting;
-
 [Serializable]
 public class InventorySlotData
 {
@@ -24,13 +23,11 @@ public class InventorySlotData
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
     public InventorySlotData slotData = new InventorySlotData();
-
     public void InitializeSlot() // for new input system
     {
         Button button = GetComponent<Button>();
         button.onClick.AddListener(OnButtonClicked);
     }
-
     void OnButtonClicked()
     {
         InventoryItem itemInThisSlot = GetComponentInChildren<InventoryItem>();
@@ -57,18 +54,32 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                     }
                 }
             }
-            /*if (Input.GetKeyDown(KeyCode.T))
+            if (Input.GetKeyDown(KeyCode.T))
             {
-                if (itemInThisSlot != null)
-                {
-                    itemInThisSlot.AddComponent<MoveItem>();
-                    itemInThisSlot.GetComponent<Button>().Select();
-                    itemInThisSlot.SeparateFromParent();
-                }
-            }*/
+                if (itemInThisSlot != null && InventoryManager.instance.tempInventoryItem == null)
+                    InventoryManager.instance.MakeTempInventoryItemForTransfer(itemInThisSlot); // clone the item for transfer
+                else if (InventoryManager.instance.tempInventoryItem != null && itemInThisSlot == null)
+                    TransferItemToAnotherEmptySlot();
+                else if(InventoryManager.instance.tempInventoryItem != null && itemInThisSlot != null)
+                    SwapItems(itemInThisSlot);
+            }
         }
     }
-
+    void TransferItemToAnotherEmptySlot()
+    {
+        InventoryItem newItem = Instantiate(InventoryManager.instance.tempInventoryItem, this.transform);
+        newItem.InitializeSlot();
+        InventoryManager.instance.tempInventoryItem.PublicRemoveItem();
+    }
+    void SwapItems(InventoryItem itemInThisSlot)
+    {
+        InventoryItem newItem = Instantiate(InventoryManager.instance.tempInventoryItem, this.transform);
+        InventoryItem secondNewItem = Instantiate(itemInThisSlot, InventoryManager.instance.tempInventoryItem.GetComponentInParent<InventorySlot>().transform);
+        itemInThisSlot.PublicRemoveItem();
+        InventoryManager.instance.tempInventoryItem.PublicRemoveItem();
+        newItem.InitializeSlot();
+        secondNewItem.InitializeSlot();
+    }
     public void OnDrop(PointerEventData eventData)
     {
         GameObject dropped = eventData.pointerDrag;
@@ -109,7 +120,6 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         }
     }
 }
-
 public enum SlotType
 {
     Default,

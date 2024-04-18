@@ -39,7 +39,8 @@ public class InventoryManager : MonoBehaviour
     public GameObject middlePoint; // crosshair
     public List<int> weaponIDsList = new List<int>();
     public Button selectSlot;
-
+    public InventoryItem tempInventoryItem;
+    public Transform tempInventoryItemTransform;
     private void Start()
     {
         inventorySlotsUI = new InventorySlot[20];
@@ -49,7 +50,6 @@ public class InventoryManager : MonoBehaviour
             inventorySlotsUI[i] = slot;
             slot.InitializeSlot();
         }
-
         if(GameManager.instance.loadInventory)
         {
             LoadInventorySlotData();
@@ -60,11 +60,9 @@ public class InventoryManager : MonoBehaviour
         }
         else
             ClearInventory();
-
         selectSlot = inventorySlotsUI[0].GetComponent<Button>();
         selectSlot.Select();
     }
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab))
@@ -74,13 +72,15 @@ public class InventoryManager : MonoBehaviour
             else
                 CloseInventory();
         }
-
         if (!closed)
             return;
-
         EquipWeapon();
     }
-
+    public void MakeTempInventoryItemForTransfer(InventoryItem inventoryItemInTransfer)
+    {
+        tempInventoryItem = inventoryItemInTransfer;
+        tempInventoryItemTransform = inventoryItemInTransfer.transform;
+    }
     public bool CheckIfRoomInWeaponSlots(InventoryItem newWeaponItem)
     {
         for(int i = 1; i < equipmentSlotsUI.Length; i++)
@@ -105,7 +105,6 @@ public class InventoryManager : MonoBehaviour
         }
         return false;
     }
-
     void EquipWeapon()
     {
         if(Input.GetKeyDown(KeyCode.Alpha1))
@@ -117,7 +116,6 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha4))
             DrawWeapon(4);
     }
-
     void DrawWeapon(int index)
     {
         player = PlayerManager.instance.GetPlayer();
@@ -139,7 +137,6 @@ public class InventoryManager : MonoBehaviour
             }
         }
     }
-
     void HolsterWeapons()
     {
         player = PlayerManager.instance.GetPlayer();
@@ -150,7 +147,6 @@ public class InventoryManager : MonoBehaviour
                 weaponSlots[i].SetActive(false);
         }
     }
-
     public void SaveHowManyBulletsLeftInMagazine()
     {
         player = PlayerManager.instance.GetPlayer();
@@ -164,7 +160,6 @@ public class InventoryManager : MonoBehaviour
             }
         }
     }
-
     public void LoadHowManyBulletsLeftInMagazine()
     {
         player = PlayerManager.instance.GetPlayer();
@@ -179,7 +174,6 @@ public class InventoryManager : MonoBehaviour
             }
         }
     }
-
     public void WeaponCollected()
     {
         player = PlayerManager.instance.GetPlayer();
@@ -202,7 +196,6 @@ public class InventoryManager : MonoBehaviour
             }
         }
     }
-
     public void OpenInventory()
     {
         inventoryAnim.GetComponent<Animator>().SetBool("InventoryOn", true);
@@ -211,7 +204,6 @@ public class InventoryManager : MonoBehaviour
         HolsterWeapons();
         selectSlot.Select();
     }
-
     public void CloseInventory()
     {
         inventoryAnim.GetComponent<Animator>().SetBool("InventoryOn", false);
@@ -220,7 +212,6 @@ public class InventoryManager : MonoBehaviour
         closed = true;
         HolsterWeapons();
     }
-
     void CloseInventoryItemMenus() // when closing inventory
     {
         for(int i = 0; i < inventorySlotsUI.Length; i++)
@@ -234,7 +225,6 @@ public class InventoryManager : MonoBehaviour
             }
         }
     }
-
     public bool AddInventoryItem(Item newItem, int pickupItemID)
     {
         // add to stackable
@@ -338,7 +328,6 @@ public class InventoryManager : MonoBehaviour
         }
         return false;
     }
-
     public bool SplitStack(Item newItem, int pickupItemID)
     {
         for (int i = 0; i < inventorySlotsUI.Length; i++) // find next empty slot
@@ -366,7 +355,6 @@ public class InventoryManager : MonoBehaviour
         }
         return false;
     }
-
     public void SaveInventory() // and equipment to GameManager
     {
         GameManager.instance.inventorySlotsData = new InventorySlotData[inventorySlotsUI.Length];
@@ -380,7 +368,6 @@ public class InventoryManager : MonoBehaviour
             GameManager.instance.equipmentSlotsData[i] = equipmentSlotsUI[i].slotData;
         }
     }
-
     public void LoadInventorySlotData() // and equipment slot data from GameManager
     {
         for(int i = 0; i < inventorySlotsUI.Length; i++)
@@ -392,7 +379,6 @@ public class InventoryManager : MonoBehaviour
             equipmentSlotsUI[i].slotData = GameManager.instance.equipmentSlotsData[i];
         }
     }
-
     public void AddSavedInventorySlotData() // to inventory
     {
         for (int i = 0; i < inventorySlotsUI.Length; i++)
@@ -441,14 +427,11 @@ public class InventoryManager : MonoBehaviour
                 newItemGo.maxStack = thisInventoryItem.item.stackMax;
                 newItemGo.count = equipmentSlotsUI[i].slotData.count;
                 newItemGo.img.sprite = thisInventoryItem.item.icon;
-
                 newItemGo.ammoType = thisInventoryItem.item.ammoType;
-
                 thisInventoryItem.GetComponent<InventoryItem>().RefreshCount();
             }
         }
     }
-
     public void ClearInventory() // and equipment
     {
         for(int i = 0; i < GameManager.instance.inventorySlotsData.Length; i++)
