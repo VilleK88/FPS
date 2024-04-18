@@ -6,7 +6,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-
 public class InventoryManager : MonoBehaviour
 {
     #region Singleton
@@ -25,22 +24,21 @@ public class InventoryManager : MonoBehaviour
     }
     #endregion
     public Dictionary<int, InventoryItem> inventory = new Dictionary<int, InventoryItem>();
-    public Item[] itemsDatabase;
+    public Item[] itemsDatabase; // where the inventory gets the item scriptable objects when loading the game
     public GameObject[] weaponPrefabs;
     public InventorySlot slotPrefab;
-    public InventoryItem inventoryItem;
+    public InventoryItem inventoryItem; // prefab
     public Transform inventoryTransform; // where the slotPrefabs are instantiated.
     public InventorySlot[] inventorySlotsUI; // table where the slotPrefabs are put.
     public EquipmentSlot[] equipmentSlotsUI;
     [SerializeField] Animator inventoryAnim; // inventory screen
     [SerializeField] Animator equipmentAnim; // equipment screen
-    public bool closed = true;
+    public bool closed = true; // inventory ui closed or not
     public GameObject player;
     public GameObject middlePoint; // crosshair
     public List<int> weaponIDsList = new List<int>();
-    public Button selectSlot;
-    public InventoryItem tempInventoryItem;
-    //public Transform tempInventoryItemTransform;
+    public Button selectSlot; // for keyboard use
+    public InventoryItem tempInventoryItem; // for keyboard use
     private void Start()
     {
         inventorySlotsUI = new InventorySlot[20];
@@ -79,7 +77,6 @@ public class InventoryManager : MonoBehaviour
     public void MakeTempInventoryItemForTransfer(InventoryItem inventoryItemInTransfer)
     {
         tempInventoryItem = inventoryItemInTransfer;
-        //tempInventoryItemTransform = inventoryItemInTransfer.transform;
     }
     public bool CheckIfRoomInWeaponSlots(InventoryItem newWeaponItem)
     {
@@ -211,7 +208,11 @@ public class InventoryManager : MonoBehaviour
         CloseInventoryItemMenus();
         closed = true;
         HolsterWeapons();
-        tempInventoryItem = null;
+        if(tempInventoryItem != null)
+        {
+            tempInventoryItem.GetComponentInParent<InventorySlot>().CloseTransparentBG(tempInventoryItem);
+            tempInventoryItem = null;
+        }
     }
     void CloseInventoryItemMenus() // when closing inventory
     {

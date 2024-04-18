@@ -57,7 +57,10 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             if (Input.GetKeyDown(KeyCode.T))
             {
                 if (itemInThisSlot != null && InventoryManager.instance.tempInventoryItem == null)
+                {
                     InventoryManager.instance.MakeTempInventoryItemForTransfer(itemInThisSlot); // clone the item for transfer
+                    itemInThisSlot.transparent.SetActive(true);
+                }
                 else if (InventoryManager.instance.tempInventoryItem != null && itemInThisSlot == null)
                     TransferItemToAnotherEmptySlot();
                 else if(InventoryManager.instance.tempInventoryItem != null && itemInThisSlot != null)
@@ -75,6 +78,10 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             }
         }
     } // inventory keyboard use
+    public void CloseTransparentBG(InventoryItem closeThisInvItemsTranspBG)
+    {
+        closeThisInvItemsTranspBG.transparent.SetActive(false);
+    }
     void AddToStack(InventoryItem firstInventoryItem, InventoryItem secondInventoryItem)
     {
         int totalAmount = firstInventoryItem.count + secondInventoryItem.count;
@@ -105,6 +112,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             secondInventoryItem.InitializeSlider();
             firstInventoryItem.GetComponentInParent<InventorySlot>().slotData.count = firstInventoryItem.count;
             secondInventoryItem.GetComponentInParent<InventorySlot>().slotData.count = secondInventoryItem.count;
+            CloseTransparentBG(secondInventoryItem);
             InventoryManager.instance.tempInventoryItem = null;
         }
     } // inventory keyboard use
@@ -112,6 +120,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     {
         InventoryItem newItem = Instantiate(InventoryManager.instance.tempInventoryItem, this.transform);
         newItem.InitializeSlot();
+        CloseTransparentBG(newItem);
         InventoryManager.instance.tempInventoryItem.PublicRemoveItem();
     } // inventory keyboard use
     void SwapItems(InventoryItem itemInThisSlot)
@@ -120,6 +129,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         InventoryItem secondNewItem = Instantiate(itemInThisSlot, InventoryManager.instance.tempInventoryItem.GetComponentInParent<InventorySlot>().transform);
         itemInThisSlot.PublicRemoveItem();
         InventoryManager.instance.tempInventoryItem.PublicRemoveItem();
+        CloseTransparentBG(newItem);
         newItem.InitializeSlot();
         secondNewItem.InitializeSlot();
     } // inventory keyboard use

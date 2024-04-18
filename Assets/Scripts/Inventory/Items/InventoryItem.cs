@@ -22,15 +22,16 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     public TextMeshProUGUI countText;
     [HideInInspector] public Transform parentAfterDrag;
     public bool dragging = false;
-    [Header("Inventory Item Menu Info")]
+    [Header("Inventory Item Menu")]
     public GameObject itemMenu;
     public GameObject itemMenuMoreThanOne;
     public GameObject sliderBG;
-    public Slider slider;
-    [SerializeField] TextMeshProUGUI sliderText;
+    public GameObject transparent; // when transfering item to another slot with keyboard
     public Button menuCloseButton;
     public Button menuCloseMoreThanOneButton;
     public Button splitOkButton;
+    public Slider slider;
+    [SerializeField] TextMeshProUGUI sliderText;
     public void InitializeItem()
     {
         itemId = item.itemID;
