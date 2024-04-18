@@ -40,7 +40,7 @@ public class InventoryManager : MonoBehaviour
     public List<int> weaponIDsList = new List<int>();
     public Button selectSlot;
     public InventoryItem tempInventoryItem;
-    public Transform tempInventoryItemTransform;
+    //public Transform tempInventoryItemTransform;
     private void Start()
     {
         inventorySlotsUI = new InventorySlot[20];
@@ -79,7 +79,7 @@ public class InventoryManager : MonoBehaviour
     public void MakeTempInventoryItemForTransfer(InventoryItem inventoryItemInTransfer)
     {
         tempInventoryItem = inventoryItemInTransfer;
-        tempInventoryItemTransform = inventoryItemInTransfer.transform;
+        //tempInventoryItemTransform = inventoryItemInTransfer.transform;
     }
     public bool CheckIfRoomInWeaponSlots(InventoryItem newWeaponItem)
     {
@@ -211,6 +211,7 @@ public class InventoryManager : MonoBehaviour
         CloseInventoryItemMenus();
         closed = true;
         HolsterWeapons();
+        tempInventoryItem = null;
     }
     void CloseInventoryItemMenus() // when closing inventory
     {

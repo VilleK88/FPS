@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 using TMPro;
 using System;
 using UnityEngine.InputSystem;
-
 public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     [Header("Item Info")]
@@ -32,7 +31,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     public Button menuCloseButton;
     public Button menuCloseMoreThanOneButton;
     public Button splitOkButton;
-
     public void InitializeItem()
     {
         itemId = item.itemID;
@@ -54,7 +52,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         RefreshCount();
         InitializeSlider();
     }
-
     public void InitializeSlider()
     {
         slider.minValue = 1;
@@ -65,7 +62,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
             sliderText.text = $"{slider.value - 1}/{slider.maxValue}";
         });
     }
-
     public void InitializeAmmoStatus()
     {
         GameObject player = PlayerManager.instance.GetPlayer();
@@ -88,7 +84,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
             }
         }
     }
-
     public void RefreshCount()
     {
         bool textActive = count > 1;
@@ -99,7 +94,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
             countText.text = "";
         }
     }
-
     public void UseItem()
     {
         if (item != null)
@@ -145,7 +139,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
             }
         }
     }
-
     void CleanSlot()
     {
         InventorySlot slot = GetComponentInParent<InventorySlot>();
@@ -158,20 +151,17 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slot.slotData.count = 0;
         slot.slotData.ammoType = AmmoType.Default;
     }
-
     public void PublicRemoveItem() // removes inventoryItem and cleans the inventorySlot
     {
         CleanSlot();
         Destroy(gameObject);
     }
-
     void RemoveItem() // removes inventoryItem and cleans the inventorySlot and Selects that slot again
     {
         CleanSlot();
         SelectThisSlot();
         Destroy(gameObject);
     }
-
     public void InitializeSlot()
     {
         InventorySlot slot = GetComponentInParent<InventorySlot>();
@@ -184,7 +174,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slot.slotData.count = count;
         slot.slotData.ammoType = ammoType;
     }
-
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
@@ -197,13 +186,11 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
                 itemMenuMoreThanOne.SetActive(!itemMenuMoreThanOne.activeSelf);
         }
     }
-
     public void SelectSplitButtons()
     {
         sliderBG.SetActive(true);
         splitOkButton.Select();
     }
-
     public void SeparateFromParent()
     {
         if (itemMenuMoreThanOne.activeSelf || itemMenu.activeSelf)
@@ -216,7 +203,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         countText.raycastTarget = false;
         dragging = true;
     }
-
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (itemMenuMoreThanOne.activeSelf || itemMenu.activeSelf)
@@ -229,14 +215,12 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         countText.raycastTarget = false;
         dragging = true;
     }
-
     public void OnDrag(PointerEventData eventData)
     {
         if (itemMenuMoreThanOne.activeSelf || itemMenu.activeSelf)
             return;
         transform.position = Input.mousePosition;
     }
-
     public void OnEndDrag(PointerEventData eventData)
     {
         if (itemMenuMoreThanOne.activeSelf || itemMenu.activeSelf)
@@ -247,7 +231,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         dragging = false;
         InitializeSlot();
     }
-
     public void OnDrop(PointerEventData eventData)
     {
         if (itemMenuMoreThanOne.activeSelf || itemMenu.activeSelf)
@@ -297,7 +280,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
             }
         }
     }
-
     void SwapItems(InventoryItem item1, InventoryItem item2)
     {
         Item tempItem = item1.item;
@@ -348,7 +330,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slot.slotData.count = item2.count;
         slot.slotData.ammoType = item2.ammoType;
     }
-
     public void CloseItemMenus()
     {
         sliderBG.SetActive(false);
@@ -356,7 +337,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         itemMenu.SetActive(false);
         SelectThisSlot();
     }
-
     public void SliderOK()
     {
         Item newItem = item;
@@ -379,7 +359,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         }
         CloseItemMenus();
     }
-
     void SelectThisSlot()
     {
         InventorySlot thisSlot = GetComponentInParent<InventorySlot>();

@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using Unity.VisualScripting;
-
 [Serializable]
 public class InventorySlotData
 {
@@ -29,7 +28,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         Button button = GetComponent<Button>();
         button.onClick.AddListener(OnButtonClicked);
     }
-    void OnButtonClicked()
+    void OnButtonClicked() // inventory keyboard use
     {
         InventoryItem itemInThisSlot = GetComponentInChildren<InventoryItem>();
         if(!InventoryManager.instance.closed)
@@ -63,7 +62,9 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                     TransferItemToAnotherEmptySlot();
                 else if(InventoryManager.instance.tempInventoryItem != null && itemInThisSlot != null)
                 {
-                    if(!InventoryManager.instance.tempInventoryItem.stackable && !itemInThisSlot.stackable)
+                    if (!InventoryManager.instance.tempInventoryItem.stackable && itemInThisSlot.stackable)
+                        SwapItems(itemInThisSlot);
+                    else if (InventoryManager.instance.tempInventoryItem.stackable && !itemInThisSlot.stackable)
                         SwapItems(itemInThisSlot);
                     else
                     {
@@ -73,7 +74,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                 }
             }
         }
-    }
+    } // inventory keyboard use
     void AddToStack(InventoryItem firstInventoryItem, InventoryItem secondInventoryItem)
     {
         int totalAmount = firstInventoryItem.count + secondInventoryItem.count;
@@ -87,6 +88,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             firstInventoryItem.slider.maxValue = firstInventoryItem.count;
             firstInventoryItem.slider.value = 0;
             firstInventoryItem.RefreshCount();
+            firstInventoryItem.InitializeSlider();
             Destroy(secondInventoryItem.gameObject);
         }
         else
@@ -99,17 +101,19 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             firstInventoryItem.slider.value = 0;
             firstInventoryItem.RefreshCount();
             secondInventoryItem.RefreshCount();
+            firstInventoryItem.InitializeSlider();
+            secondInventoryItem.InitializeSlider();
             firstInventoryItem.GetComponentInParent<InventorySlot>().slotData.count = firstInventoryItem.count;
             secondInventoryItem.GetComponentInParent<InventorySlot>().slotData.count = secondInventoryItem.count;
             InventoryManager.instance.tempInventoryItem = null;
         }
-    }
+    } // inventory keyboard use
     void TransferItemToAnotherEmptySlot()
     {
         InventoryItem newItem = Instantiate(InventoryManager.instance.tempInventoryItem, this.transform);
         newItem.InitializeSlot();
         InventoryManager.instance.tempInventoryItem.PublicRemoveItem();
-    }
+    } // inventory keyboard use
     void SwapItems(InventoryItem itemInThisSlot)
     {
         InventoryItem newItem = Instantiate(InventoryManager.instance.tempInventoryItem, this.transform);
@@ -118,7 +122,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         InventoryManager.instance.tempInventoryItem.PublicRemoveItem();
         newItem.InitializeSlot();
         secondNewItem.InitializeSlot();
-    }
+    } // inventory keyboard use
     public void OnDrop(PointerEventData eventData)
     {
         GameObject dropped = eventData.pointerDrag;
@@ -157,7 +161,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                     inventoryItem.parentAfterDrag = transform;
             }
         }
-    }
+    } // inventory mouse use
 }
 public enum SlotType
 {
