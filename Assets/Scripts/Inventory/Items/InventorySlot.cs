@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+
 [Serializable]
 public class InventorySlotData
 {
@@ -61,8 +62,46 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                 else if (InventoryManager.instance.tempInventoryItem != null && itemInThisSlot == null)
                     TransferItemToAnotherEmptySlot();
                 else if(InventoryManager.instance.tempInventoryItem != null && itemInThisSlot != null)
-                    SwapItems(itemInThisSlot);
+                {
+                    if(!InventoryManager.instance.tempInventoryItem.stackable && !itemInThisSlot.stackable)
+                        SwapItems(itemInThisSlot);
+                    else
+                    {
+                        if (InventoryManager.instance.tempInventoryItem.itemId == itemInThisSlot.itemId)
+                            AddToStack(itemInThisSlot, InventoryManager.instance.tempInventoryItem);
+                    }
+                }
             }
+        }
+    }
+    void AddToStack(InventoryItem firstInventoryItem, InventoryItem secondInventoryItem)
+    {
+        int totalAmount = firstInventoryItem.count + secondInventoryItem.count;
+
+        if (firstInventoryItem.maxStack >= totalAmount)
+        {
+            firstInventoryItem.count = totalAmount;
+            secondInventoryItem.count = totalAmount;
+            secondInventoryItem.RefreshCount();
+            slotData.count = totalAmount;
+            firstInventoryItem.slider.maxValue = firstInventoryItem.count;
+            firstInventoryItem.slider.value = 0;
+            firstInventoryItem.RefreshCount();
+            Destroy(secondInventoryItem.gameObject);
+        }
+        else
+        {
+            firstInventoryItem.count = firstInventoryItem.maxStack;
+            secondInventoryItem.count = firstInventoryItem.maxStack;
+            secondInventoryItem.count = totalAmount - firstInventoryItem.maxStack;
+            slotData.count = firstInventoryItem.maxStack;
+            firstInventoryItem.slider.maxValue = firstInventoryItem.count;
+            firstInventoryItem.slider.value = 0;
+            firstInventoryItem.RefreshCount();
+            secondInventoryItem.RefreshCount();
+            firstInventoryItem.GetComponentInParent<InventorySlot>().slotData.count = firstInventoryItem.count;
+            secondInventoryItem.GetComponentInParent<InventorySlot>().slotData.count = secondInventoryItem.count;
+            InventoryManager.instance.tempInventoryItem = null;
         }
     }
     void TransferItemToAnotherEmptySlot()
