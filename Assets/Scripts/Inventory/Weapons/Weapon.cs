@@ -34,6 +34,8 @@ public class Weapon : MonoBehaviour
     public int tempTotalAmmo;
     public bool isReloading;
     public bool weaponCollected; // can't collect same weapon twice
+    //public int tempInventoryItemAmmoCount;
+    public int tempCount;
     private void Awake()
     {
         readyToShoot = true;
@@ -128,8 +130,39 @@ public class Weapon : MonoBehaviour
                     inventoryItem.RefreshCount();
                     slot.slotData.count -= reduceBulletsLeft;
                     if (inventoryItem.count <= 0)
+                    {
+                        int tempInventoryItemAmmoCount = inventoryItem.count;
                         inventoryItem.PublicRemoveItem();
+                        if (tempInventoryItemAmmoCount < 0)
+                            DecreaseAmmoCountOnNextAmmoItem(tempInventoryItemAmmoCount);
+                    }
                     break;
+                }
+            }
+        }
+    }
+    public void DecreaseAmmoCountOnNextAmmoItem(int decreaseAmount)
+    {
+        for (int i = 0; i < InventoryManager.instance.inventorySlotsUI.Length; i++)
+        {
+            InventoryItem inventoryItem = InventoryManager.instance.inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
+            if (inventoryItem != null && inventoryItem.itemType == ItemType.Ammo &&
+                inventoryItem.item.ammoType == ammoType)
+            {
+                tempCount = inventoryItem.count;
+                inventoryItem.count += decreaseAmount;
+                inventoryItem.RefreshCount();
+                if (inventoryItem.count < 0)
+                {
+                    tempCount -= inventoryItem.count;
+                    inventoryItem.PublicRemoveItem();
+                }
+                else
+                {
+                    inventoryItem.count = tempCount;
+                    inventoryItem.RefreshCount();
+                    InventorySlot slot = inventoryItem.GetComponentInParent<InventorySlot>();
+                    slot.slotData.count = inventoryItem.count;
                 }
             }
         }
