@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class Weapon : MonoBehaviour
 {
     [Header("Weapon model, shooting mode and weapon id")]
@@ -35,14 +34,12 @@ public class Weapon : MonoBehaviour
     public int tempTotalAmmo;
     public bool isReloading;
     public bool weaponCollected; // can't collect same weapon twice
-
     private void Awake()
     {
         readyToShoot = true;
         burstBulletsLeft = bulletsPerBurst;
         anim = GetComponent<Animator>();
     }
-
     private void Update()
     {
         if (!InventoryManager.instance.closed || InGameMenuControls.instance.menuButtons.activeSelf)
@@ -69,7 +66,6 @@ public class Weapon : MonoBehaviour
             AmmoManager.Instance.ammoDisplay.text = $"{bulletsLeft / bulletsPerBurst}/{totalAmmo}";
         }
     }
-
     void FireWeapon()
     {
         bulletsLeft--;
@@ -105,7 +101,6 @@ public class Weapon : MonoBehaviour
             Invoke("FireWeapon", shootingDelay);
         }
     }
-
     public void CheckAmmoStatus()
     {
         for(int i = 0; i < InventoryManager.instance.inventorySlotsUI.Length; i++)
@@ -139,7 +134,6 @@ public class Weapon : MonoBehaviour
             }
         }
     }
-
     public void InitializeAmmoStatus() // when initializing ammo item
     {
         totalAmmo = 0;
@@ -159,7 +153,6 @@ public class Weapon : MonoBehaviour
             }
         }
     }
-
     void Reload()
     {
         tempTotalAmmo = totalAmmo;
@@ -183,7 +176,6 @@ public class Weapon : MonoBehaviour
         InitializeAmmoStatus();
         Invoke("ReloadCompleted", reloadTime);
     }
-
     void ReloadCompleted()
     {
         if (totalAmmo >= magazineSize)
@@ -205,13 +197,11 @@ public class Weapon : MonoBehaviour
         tempTotalAmmo = 0;
         isReloading = false;
     }
-
     void ResetShot()
     {
         readyToShoot = true;
         allowReset = true;
     }
-
     public Vector3 CalculateDirectionAndSpread()
     {
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // Shooting from the middle of the screen to check where are we pointing at
@@ -227,14 +217,12 @@ public class Weapon : MonoBehaviour
         return direction + new Vector3(x, y, 0); // returning the shooting direction and spread
     }
 }
-
 public enum ShootingMode
 {
     Single,
     Burst,
     Auto
 }
-
 public enum WeaponModel
 {
     Pistol,

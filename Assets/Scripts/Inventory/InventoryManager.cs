@@ -78,6 +78,27 @@ public class InventoryManager : MonoBehaviour
     {
         tempInventoryItem = inventoryItemInTransfer;
     }
+    public bool CheckIfArmorSlotEmpty(InventoryItem newArmorItem)
+    {
+        InventoryItem armorItem = equipmentSlotsUI[0].GetComponentInChildren<InventoryItem>();
+        if (armorItem == null)
+        {
+            InventoryItem thisArmorItem = Instantiate(inventoryItem, equipmentSlotsUI[0].transform);
+            thisArmorItem.item = newArmorItem.item;
+            thisArmorItem.itemId = newArmorItem.itemId;
+            thisArmorItem.pickupItemID = newArmorItem.pickupItemID;
+            thisArmorItem.itemName = newArmorItem.itemName;
+            thisArmorItem.img.sprite = newArmorItem.item.icon;
+            thisArmorItem.itemType = newArmorItem.itemType;
+            thisArmorItem.stackable = newArmorItem.stackable;
+            thisArmorItem.maxStack = newArmorItem.maxStack;
+            thisArmorItem.count = newArmorItem.count;
+            thisArmorItem.ammoType = newArmorItem.ammoType;
+            thisArmorItem.InitializeSlot();
+            return true;
+        }
+        return false;
+    }
     public bool CheckIfRoomInWeaponSlots(InventoryItem newWeaponItem)
     {
         for(int i = 1; i < equipmentSlotsUI.Length; i++)

@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class Player : MonoBehaviour
 {
     [SerializeField] CharacterController characterController;
-
     [Header("Plater Interaction Info")]
     [SerializeField] Camera cam;
     public Interactable focus;
@@ -13,11 +11,8 @@ public class Player : MonoBehaviour
     RaycastHit hit;
     Vector3 cursorPosition;
     [SerializeField] LayerMask groundLayer;
-
     public VectorValue startingPosition;
     public GameObject[] weaponSlots;
-
-
     private void Start()
     {
         if(GameManager.instance.changeScene)
@@ -40,12 +35,10 @@ public class Player : MonoBehaviour
             }
         }
     }
-
     private void Update()
     {
         MouseInteraction();
     }
-
     void MouseInteraction()
     {
         if(Input.GetMouseButtonDown(0))
@@ -57,54 +50,41 @@ public class Player : MonoBehaviour
                 RemoveFocus();
             }
         }
-
         if(Input.GetKeyDown(KeyCode.E))
         {
             ray = cam.ScreenPointToRay(Input.mousePosition);
-
             if(Physics.Raycast(ray, out hit, 100))
             {
                 Interactable interactable = hit.collider.GetComponent<Interactable>();
                 if(interactable != null)
-                {
                     SetFocus(interactable);
-                }
             }
         }
     }
-
     void SetFocus(Interactable newFocus)
     {
         if (newFocus != focus)
         {
             if (focus != null)
-            {
                 focus.OnDefocused();
-            }
-
             focus = newFocus;
         }
 
         newFocus.OnFocused(transform);
     }
-
     void RemoveFocus()
     {
-        if(focus != null)
-        {
+        if (focus != null)
             focus.OnDefocused();
-        }
 
         focus = null;
     }
-
     public void SavePlayerTransformPosition()
     {
         GameManager.instance.x = transform.position.x;
         GameManager.instance.y = 4;
         GameManager.instance.z = transform.position.z;
     }
-
     public void LoadPlayerTransformPosition()
     {
         characterController.enabled = false;

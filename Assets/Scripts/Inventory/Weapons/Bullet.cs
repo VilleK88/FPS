@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
-
 public class Bullet : MonoBehaviour
 {
     private void Start()
@@ -18,14 +17,12 @@ public class Bullet : MonoBehaviour
             CreateBulletImpactEffect(objectWeHit);
             Destroy(gameObject);
         }
-
         if(objectWeHit.gameObject.CompareTag("Wall"))
         {
             Debug.Log("Hit a wall");
             CreateBulletImpactEffect(objectWeHit);
             Destroy(gameObject);
         }
-
         if (objectWeHit.gameObject.CompareTag("Ground"))
         {
             Debug.Log("Hit a ground");
@@ -33,7 +30,6 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
     void CreateBulletImpactEffect(Collision objectWeHit)
     {
         ContactPoint contact = objectWeHit.contacts[0];

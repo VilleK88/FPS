@@ -47,7 +47,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         {
             InventorySlot slot = GetComponentInParent<InventorySlot>();
             slot.slotData.count = count;
-            //RefreshCount();
             InitializeAmmoStatus();
         }
         RefreshCount();
@@ -122,18 +121,29 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
                         {
                             bool addWeaponToWeaponSlot = InventoryManager.instance.CheckIfRoomInWeaponSlots(this);
                             if (addWeaponToWeaponSlot)
-                            {
                                 RemoveItem();
-                            }
                         }
                         else
                         {
-                            Debug.Log("Add weapon to inventory");
                             bool addWeaponToInventory = InventoryManager.instance.AddInventoryItem(item, pickupItemID);
                             if (addWeaponToInventory)
-                            {
                                 RemoveItem();
-                            }
+                        }
+                    }
+                    if(itemType == ItemType.Armor)
+                    {
+                        InventorySlot slot = GetComponentInParent<InventorySlot>();
+                        if(slot.slotData.slotType != SlotType.Armor)
+                        {
+                            bool addArmorToArmorSlot = InventoryManager.instance.CheckIfArmorSlotEmpty(this);
+                            if (addArmorToArmorSlot)
+                                RemoveItem();
+                        }
+                        else
+                        {
+                            bool addArmorToInventory = InventoryManager.instance.AddInventoryItem(item, pickupItemID);
+                            if (addArmorToInventory)
+                                RemoveItem();
                         }
                     }
                 }
