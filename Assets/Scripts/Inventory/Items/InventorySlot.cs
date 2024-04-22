@@ -66,7 +66,11 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                 else if(InventoryManager.instance.tempInventoryItem != null && itemInThisSlot != null)
                 {
                     if (!InventoryManager.instance.tempInventoryItem.stackable && itemInThisSlot.stackable)
-                        SwapItems(itemInThisSlot);
+                    {
+                        InventorySlot tempSlot = InventoryManager.instance.tempInventoryItem.GetComponentInParent<InventorySlot>();
+                        if (tempSlot.slotData.slotType == SlotType.Default)
+                            SwapItems(itemInThisSlot);
+                    }
                     else if (InventoryManager.instance.tempInventoryItem.stackable && !itemInThisSlot.stackable)
                         SwapItems(itemInThisSlot);
                     else

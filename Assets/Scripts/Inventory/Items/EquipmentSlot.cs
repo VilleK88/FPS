@@ -44,7 +44,13 @@ public class EquipmentSlot : InventorySlot
                     itemInThisSlot.transparent.SetActive(true);
                 }
                 else if (InventoryManager.instance.tempInventoryItem != null && itemInThisSlot == null)
-                    TransferItemToAnotherEmptySlot();
+                {
+                    InventorySlot thisSlot = GetComponent<InventorySlot>();
+                    if (thisSlot != null && InventoryManager.instance.tempInventoryItem.itemType == ItemType.Weapon && thisSlot.slotData.slotType == SlotType.Weapon)
+                        TransferItemToAnotherEmptySlot();
+                    else if(thisSlot != null && InventoryManager.instance.tempInventoryItem.itemType == ItemType.Armor && thisSlot.slotData.slotType == SlotType.Armor)
+                        TransferItemToAnotherEmptySlot();
+                }
                 else if (InventoryManager.instance.tempInventoryItem != null && itemInThisSlot != null)
                 {
                     if(InventoryManager.instance.tempInventoryItem.itemType == ItemType.Weapon &&
