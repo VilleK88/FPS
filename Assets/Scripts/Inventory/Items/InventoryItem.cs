@@ -59,8 +59,15 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slider.value = 0;
         slider.onValueChanged.AddListener((v) =>
         {
-            sliderText.text = $"{slider.value - 1}/{slider.maxValue}";
+            //sliderText.text = $"{slider.value - 1}/{slider.maxValue}";
+            UpdateSliderText(v);
         });
+        UpdateSliderText(slider.value);
+    }
+
+    void UpdateSliderText(float value)
+    {
+        sliderText.text = $"{slider.value - 1}/{slider.maxValue}";
     }
     public void InitializeAmmoStatus()
     {
@@ -93,6 +100,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         {
             countText.text = "";
         }
+        InitializeSlider();
     }
     public void UseItem()
     {
