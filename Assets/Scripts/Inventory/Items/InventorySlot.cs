@@ -76,7 +76,10 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                     else
                     {
                         if (InventoryManager.instance.tempInventoryItem.itemId == itemInThisSlot.itemId)
-                            AddToStack(itemInThisSlot, InventoryManager.instance.tempInventoryItem);
+                        {
+                            if(InventoryManager.instance.tempInventoryItem != itemInThisSlot)
+                                AddToStack(itemInThisSlot, InventoryManager.instance.tempInventoryItem);
+                        }
                     }
                 }
             }
