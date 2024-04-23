@@ -36,7 +36,7 @@ public class EquipmentSlot : InventorySlot
                     }
                 }
             }
-            if (Input.GetKeyDown(KeyCode.T))
+            if(Input.GetKeyDown(KeyCode.T))
             {
                 if (itemInThisSlot != null && InventoryManager.instance.tempInventoryItem == null)
                 {
@@ -54,10 +54,12 @@ public class EquipmentSlot : InventorySlot
                 else if (InventoryManager.instance.tempInventoryItem != null && itemInThisSlot != null)
                 {
                     if(InventoryManager.instance.tempInventoryItem.itemType == ItemType.Weapon &&
-                        itemInThisSlot.itemType == ItemType.Weapon)
+                        itemInThisSlot.itemType == ItemType.Weapon &&
+                        itemInThisSlot != InventoryManager.instance.tempInventoryItem)
                         SwapItems(itemInThisSlot);
                     else if(InventoryManager.instance.tempInventoryItem.itemType == ItemType.Armor &&
-                        itemInThisSlot.itemType == ItemType.Armor)
+                        itemInThisSlot.itemType == ItemType.Armor &&
+                        itemInThisSlot != InventoryManager.instance.tempInventoryItem)
                         SwapItems(itemInThisSlot);
                 }
             }
