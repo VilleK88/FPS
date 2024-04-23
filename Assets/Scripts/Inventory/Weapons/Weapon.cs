@@ -35,7 +35,7 @@ public class Weapon : MonoBehaviour
     public bool isReloading;
     public bool weaponCollected; // can't collect same weapon twice
     //public int tempInventoryItemAmmoCount;
-    public int tempCount;
+    public int ifTwiceStop;
     private void Awake()
     {
         readyToShoot = true;
@@ -105,7 +105,8 @@ public class Weapon : MonoBehaviour
     }
     public void CheckAmmoStatus()
     {
-        for(int i = 0; i < InventoryManager.instance.inventorySlotsUI.Length; i++)
+        tempTotalAmmo = totalAmmo;
+        for (int i = 0; i < InventoryManager.instance.inventorySlotsUI.Length; i++)
         {
             InventoryItem inventoryItem = InventoryManager.instance.inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
             if(inventoryItem != null && inventoryItem.itemType == ItemType.Ammo &&
@@ -133,36 +134,40 @@ public class Weapon : MonoBehaviour
                     {
                         int tempInventoryItemAmmoCount = inventoryItem.count;
                         inventoryItem.PublicRemoveItem();
+                        //Debug.Log("InventoryItemCount before loop: " + inventoryItem.count);
                         if (tempInventoryItemAmmoCount < 0)
-                            DecreaseAmmoCountOnNextAmmoItem(tempInventoryItemAmmoCount);
+                        {
+                            DecreaseAmmoCountOnNextAmmoItem(tempInventoryItemAmmoCount, i);
+                        }
                     }
                     break;
                 }
             }
         }
     }
-    public void DecreaseAmmoCountOnNextAmmoItem(int decreaseAmount)
+    public void DecreaseAmmoCountOnNextAmmoItem(int decreaseAmount, int itemCount)
     {
-        for (int i = 0; i < InventoryManager.instance.inventorySlotsUI.Length; i++)
+        for (int i = itemCount+1; i < InventoryManager.instance.inventorySlotsUI.Length; i++)
         {
             InventoryItem inventoryItem = InventoryManager.instance.inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
             if (inventoryItem != null && inventoryItem.itemType == ItemType.Ammo &&
                 inventoryItem.item.ammoType == ammoType)
             {
-                tempCount = inventoryItem.count;
-                inventoryItem.count += decreaseAmount;
-                inventoryItem.RefreshCount();
-                if (inventoryItem.count < 0)
+                if (decreaseAmount == 0)
+                    break;
+                if(inventoryItem.count + decreaseAmount <= 0)
                 {
-                    tempCount -= inventoryItem.count;
+                    decreaseAmount += inventoryItem.count;
+                    inventoryItem.count = 0;
                     inventoryItem.PublicRemoveItem();
                 }
                 else
                 {
-                    inventoryItem.count = tempCount;
+                    inventoryItem.count += decreaseAmount;
                     inventoryItem.RefreshCount();
                     InventorySlot slot = inventoryItem.GetComponentInParent<InventorySlot>();
                     slot.slotData.count = inventoryItem.count;
+                    decreaseAmount = 0;
                 }
             }
         }
@@ -179,56 +184,38 @@ public class Weapon : MonoBehaviour
                 if (inventoryItem.item.ammoType == ammoType)
                 {
                     if (inventoryItem.count > 0)
+                    {
                         totalAmmo += inventoryItem.count;
+                    }
                     else
+                    {
                         totalAmmo = 0;
+                    }
                 }
             }
         }
     }
     void Reload()
     {
-        tempTotalAmmo = totalAmmo;
-        if (totalAmmo >= magazineSize)
-        {
-            int reduceBulletsLeft = magazineSize - bulletsLeft;
-            totalAmmo -= reduceBulletsLeft;
-        }
-        else
-        {
-            int reduceBulletsLeft = magazineSize - bulletsLeft;
-            int tempTotalAmmo = totalAmmo - reduceBulletsLeft;
-            if (tempTotalAmmo >= 0)
-                totalAmmo -= reduceBulletsLeft;
-            else
-                totalAmmo = 0;
-        }
+        InitializeAmmoStatus();
         AudioManager.instance.PlaySound(reloadingSound);
         //anim.SetTrigger("Reload"); // reload animation not yet made
         isReloading = true;
-        InitializeAmmoStatus();
         Invoke("ReloadCompleted", reloadTime);
     }
     void ReloadCompleted()
     {
-        if (totalAmmo >= magazineSize)
+        int tempTotalBulletsLeft = tempTotalAmmo + bulletsLeft;
+        if (tempTotalBulletsLeft >= magazineSize)
         {
             bulletsLeft = magazineSize;
         }
-        else if(tempTotalAmmo >= magazineSize)
+        else if(tempTotalBulletsLeft < magazineSize)
         {
-            bulletsLeft = magazineSize;
+            bulletsLeft = tempTotalAmmo + bulletsLeft;
         }
-        else
-        {
-            int tempBulletsLeft = bulletsLeft + tempTotalAmmo;
-            if (tempBulletsLeft >= magazineSize)
-                bulletsLeft = magazineSize;
-            else
-                bulletsLeft = bulletsLeft + tempTotalAmmo;
-        }
-        tempTotalAmmo = 0;
         isReloading = false;
+        InitializeAmmoStatus();
     }
     void ResetShot()
     {

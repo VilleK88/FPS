@@ -32,7 +32,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     public Button splitOkButton;
     public Slider slider;
     [SerializeField] TextMeshProUGUI sliderText;
-    public void InitializeItem()
+    public void InitializeItem(int newItemCount)
     {
         itemId = item.itemID;
         itemType = item.itemType;
@@ -40,7 +40,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         stackable = item.stackable;
         maxStack = item.stackMax;
         img.sprite = item.icon;
-        count += item.count;
+        count += newItemCount;
         ammoType = item.ammoType;
 
         if (itemType == ItemType.Ammo)
@@ -64,7 +64,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         });
         UpdateSliderText(slider.value);
     }
-
     void UpdateSliderText(float value)
     {
         sliderText.text = $"{slider.value - 1}/{slider.maxValue}";
@@ -133,7 +132,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
                         }
                         else
                         {
-                            bool addWeaponToInventory = InventoryManager.instance.AddInventoryItem(item, pickupItemID);
+                            bool addWeaponToInventory = InventoryManager.instance.AddInventoryItem(item, pickupItemID, count);
                             if (addWeaponToInventory)
                                 RemoveItem();
                         }
@@ -149,7 +148,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
                         }
                         else
                         {
-                            bool addArmorToInventory = InventoryManager.instance.AddInventoryItem(item, pickupItemID);
+                            bool addArmorToInventory = InventoryManager.instance.AddInventoryItem(item, pickupItemID, count);
                             if (addArmorToInventory)
                                 RemoveItem();
                         }
@@ -364,11 +363,12 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         newItem.itemType = itemType;
         newItem.stackable = stackable;
         newItem.stackMax = maxStack;
-        newItem.count = Mathf.RoundToInt(slider.value - 1);
+        int tempCount = Mathf.RoundToInt(slider.value - 1);
+        //newItem.count = Mathf.RoundToInt(slider.value - 1);
         newItem.ammoType = ammoType;
-        if (newItem.count > 0)
+        if (count > 0)
         {
-            bool addItem = InventoryManager.instance.SplitStack(newItem, pickupItemID);
+            bool addItem = InventoryManager.instance.SplitStack(newItem, pickupItemID, tempCount);
             if (addItem)
             {
                 count = Mathf.RoundToInt(slider.maxValue - slider.value + 1);

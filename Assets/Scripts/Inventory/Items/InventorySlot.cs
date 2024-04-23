@@ -126,7 +126,9 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     void TransferItemToAnotherEmptySlot()
     {
         InventoryItem newItem = Instantiate(InventoryManager.instance.tempInventoryItem, this.transform);
+        newItem.count = InventoryManager.instance.tempInventoryItem.GetComponentInParent<InventorySlot>().slotData.count;
         newItem.InitializeSlot();
+        newItem.InitializeSlider();
         CloseTransparentBG(newItem);
         InventoryManager.instance.tempInventoryItem.PublicRemoveItem();
     } // inventory keyboard use

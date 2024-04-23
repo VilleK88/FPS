@@ -1,23 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class ItemPickup : Interactable
 {
     public Item item, secondItem;
     public string itemName;
     public int pickUpItemID;
-    public int pickUpItemCount;
-
+    public int count = 1;
     [SerializeField] bool collectOnTouch;
     public List<int> weaponIDsList = new List<int>();
-
-    private void Start()
-    {
-        if (!GameManager.instance.loadInventory)
-            pickUpItemCount = item.count;
-    }
-
     public override void Interact()
     {
         if(!collectOnTouch)
@@ -26,17 +17,15 @@ public class ItemPickup : Interactable
             PickUp();
         }
     }
-
     void PickUp()
     {
-        bool wasPickedUp = InventoryManager.instance.AddInventoryItem(item, pickUpItemID);
+        bool wasPickedUp = InventoryManager.instance.AddInventoryItem(item, pickUpItemID, count);
         if(wasPickedUp)
         {
             AddItemPickupIDsToArray(pickUpItemID);
             gameObject.SetActive(false);
         }
     }
-
     bool CheckIfWeaponAlreadyCollected(int thisItemId)
     {
         foreach(var slotData in InventoryManager.instance.inventorySlotsUI)
@@ -50,7 +39,6 @@ public class ItemPickup : Interactable
 
         return false;
     }
-
     void AddItemPickupIDsToArray(int newPickupItemID)
     {
         int[] newPickupItemIDs = new int[GameManager.instance.itemPickUpIDs.Length + 1];
@@ -61,12 +49,10 @@ public class ItemPickup : Interactable
         newPickupItemIDs[GameManager.instance.itemPickUpIDs.Length] = newPickupItemID;
         GameManager.instance.itemPickUpIDs = newPickupItemIDs;
     }
-
     public void GenerateID()
     {
         pickUpItemID = UnityEngine.Random.Range(0, 1000000000);
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if(collectOnTouch)
@@ -81,12 +67,13 @@ public class ItemPickup : Interactable
                     {
                         item = secondItem;
                         itemName = item.itemName;
+                        item.itemType = ItemType.Ammo;
                         if (item.ammoType == AmmoType.Pistol)
-                            pickUpItemCount = 7;
+                            count = 7;
                         if (item.ammoType == AmmoType.AssaultRifle)
-                            pickUpItemCount = 30;
+                            count = 30;
                         if (item.ammoType == AmmoType.Shotgun)
-                            pickUpItemCount = 7;
+                            count = 7;
                         PickUp();
                     }
                     else

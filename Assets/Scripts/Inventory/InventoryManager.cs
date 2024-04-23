@@ -248,7 +248,7 @@ public class InventoryManager : MonoBehaviour
             }
         }
     }
-    public bool AddInventoryItem(Item newItem, int pickupItemID)
+    public bool AddInventoryItem(Item newItem, int pickupItemID, int count)
     {
         // add to stackable
         for(int i = 0; i < inventorySlotsUI.Length; i++)
@@ -258,12 +258,12 @@ public class InventoryManager : MonoBehaviour
                 InventoryItem itemInSlot = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
                 if(newItem.stackMax > inventorySlotsUI[i].slotData.count)
                 {
-                    int tempTotalCount = itemInSlot.count + newItem.count;
+                    int tempTotalCount = itemInSlot.count + count;
                     if(itemInSlot.maxStack >= tempTotalCount)
                     {
-                        inventorySlotsUI[i].slotData.count += newItem.count;
-                        itemInSlot.count += newItem.count;
-                        itemInSlot.slider.maxValue += newItem.count;
+                        inventorySlotsUI[i].slotData.count += count;
+                        itemInSlot.count += count;
+                        itemInSlot.slider.maxValue += count;
                         itemInSlot.RefreshCount();
                     }
                     else
@@ -345,13 +345,13 @@ public class InventoryManager : MonoBehaviour
                     inventorySlotsUI[i].slotData.pickupItemID = pickupItemID;
                     thisInventoryItem.GetComponent<InventoryItem>().pickupItemID = pickupItemID;
                 }
-                thisInventoryItem.GetComponent<InventoryItem>().InitializeItem();
+                thisInventoryItem.GetComponent<InventoryItem>().InitializeItem(count);
                 return true;
             }
         }
         return false;
     }
-    public bool SplitStack(Item newItem, int pickupItemID)
+    public bool SplitStack(Item newItem, int pickupItemID, int count)
     {
         for (int i = 0; i < inventorySlotsUI.Length; i++) // find next empty slot
         {
@@ -362,7 +362,7 @@ public class InventoryManager : MonoBehaviour
                 inventorySlotsUI[i].slotData.itemType = newItem.itemType;
                 inventorySlotsUI[i].slotData.stackable = newItem.stackable;
                 inventorySlotsUI[i].slotData.stackMax = newItem.stackMax;
-                inventorySlotsUI[i].slotData.count = newItem.count;
+                inventorySlotsUI[i].slotData.count = count;
                 inventorySlotsUI[i].slotData.ammoType = newItem.ammoType;
                 Instantiate(inventoryItem, inventorySlotsUI[i].transform);
                 InventoryItem thisInventoryItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
@@ -372,7 +372,7 @@ public class InventoryManager : MonoBehaviour
                     inventorySlotsUI[i].slotData.pickupItemID = pickupItemID;
                     thisInventoryItem.GetComponent<InventoryItem>().pickupItemID = pickupItemID;
                 }
-                thisInventoryItem.GetComponent<InventoryItem>().InitializeItem();
+                thisInventoryItem.GetComponent<InventoryItem>().InitializeItem(count);
                 return true;
             }
         }

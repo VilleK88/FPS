@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
 public class Item : ScriptableObject
 {
@@ -11,21 +10,17 @@ public class Item : ScriptableObject
     public ItemType itemType;
     public bool stackable = true;
     public int stackMax;
-    public int count;
+    //public int count;
     public Sprite icon = null;
-
     [TextArea]
     public string description;
-
     [Header("Ammo Settings")]
     public AmmoType ammoType;
-
     public virtual void Use()
     {
 
     }
 }
-
 public enum ItemType
 {
     Default,
