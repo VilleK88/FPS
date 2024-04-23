@@ -319,7 +319,6 @@ public class InventoryManager : MonoBehaviour
                 }
             }
         }
-
         // find next empty slot
         for (int i = 0; i < inventorySlotsUI.Length; i++)
         {
