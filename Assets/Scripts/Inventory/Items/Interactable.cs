@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class Interactable : MonoBehaviour
 {
     float radius = 3;
@@ -10,12 +9,10 @@ public class Interactable : MonoBehaviour
     Transform player;
     bool hasInteracted = false;
     float distance;
-
     public virtual void Interact()
     {
         Debug.Log("Interacting with " + transform.name);
     }
-
     private void Update()
     {
         if(isFocus && !hasInteracted)
@@ -32,21 +29,18 @@ public class Interactable : MonoBehaviour
             OnDefocused();
         }
     }
-
     public void OnFocused(Transform playerTransform)
     {
         isFocus = true;
         player = playerTransform;
         hasInteracted = false;
     }
-
     public void OnDefocused()
     {
         isFocus = false;
         player = null;
         hasInteracted = false;
     }
-
     private void OnDrawGizmosSelected()
     {
         if(interactionTransform == null)

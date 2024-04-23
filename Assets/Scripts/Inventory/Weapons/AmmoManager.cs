@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
 public class AmmoManager : MonoBehaviour
 {
     #region Singleton
@@ -16,7 +13,6 @@ public class AmmoManager : MonoBehaviour
             Instance = this;
     }
     #endregion
-
     [Header("UI")]
     public TextMeshProUGUI ammoDisplay;
 }

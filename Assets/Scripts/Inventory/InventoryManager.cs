@@ -1,11 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
 public class InventoryManager : MonoBehaviour
 {
     #region Singleton
@@ -147,7 +142,7 @@ public class InventoryManager : MonoBehaviour
                     if (weaponSlots[i].GetComponent<Weapon>().weaponId == equipmentSlotsUI[index].slotData.itemId)
                     {
                         weaponSlots[i].SetActive(!weaponSlots[i].activeSelf);
-                        weaponSlots[i].GetComponent<Weapon>().InitializeAmmoStatus();
+                        weaponSlots[i].GetComponent<Weapon>().UpdateTotalAmmoStatus();
                     }
                     else
                         weaponSlots[i].SetActive(false);
@@ -316,7 +311,7 @@ public class InventoryManager : MonoBehaviour
                         {
                             for (i = 0; i < weaponSlots.Length; i++)
                             {
-                                weaponSlots[i].GetComponent<Weapon>().InitializeAmmoStatus();
+                                weaponSlots[i].GetComponent<Weapon>().UpdateTotalAmmoStatus();
                             }
                         }
                     }
@@ -337,7 +332,7 @@ public class InventoryManager : MonoBehaviour
                 inventorySlotsUI[i].slotData.stackMax = newItem.stackMax;
                 inventorySlotsUI[i].slotData.count += 1;
                 inventorySlotsUI[i].slotData.ammoType = newItem.ammoType;
-                InventoryItem newItemGo = Instantiate(inventoryItem, inventorySlotsUI[i].transform);
+                Instantiate(inventoryItem, inventorySlotsUI[i].transform);
                 InventoryItem thisInventoryItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
                 thisInventoryItem.GetComponent<InventoryItem>().item = newItem;
                 if (newItem.itemType == ItemType.Weapon)

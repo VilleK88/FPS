@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
 public class ItemManager : MonoBehaviour
 {
     private void Start()
@@ -15,7 +12,6 @@ public class ItemManager : MonoBehaviour
                 Destroy(coin.gameObject);
             }
         }
-
         ItemPickup[] itemPickupsInScene = FindObjectsOfType<ItemPickup>();
         foreach(ItemPickup itemPickup in itemPickupsInScene)
         {

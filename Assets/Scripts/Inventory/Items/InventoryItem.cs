@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
-using System;
-using UnityEngine.InputSystem;
 public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     [Header("Item Info")]
@@ -67,7 +63,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     {
         sliderText.text = $"{slider.value - 1}/{slider.maxValue}";
     }
-    public void InitializeAmmoStatus()
+    public void InitializeAmmoStatus() // when initializing ammo item
     {
         GameObject player = PlayerManager.instance.GetPlayer();
         GameObject[] weaponSlots = player.GetComponent<Player>().weaponSlots;
@@ -77,15 +73,15 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
             {
                 if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.Pistol &&
                     ammoType == AmmoType.Pistol)
-                    weaponSlots[i].GetComponent<Weapon>().InitializeAmmoStatus();
+                    weaponSlots[i].GetComponent<Weapon>().UpdateTotalAmmoStatus();
 
                 if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.AssaultRifle &&
                     ammoType == AmmoType.AssaultRifle)
-                    weaponSlots[i].GetComponent<Weapon>().InitializeAmmoStatus();
+                    weaponSlots[i].GetComponent<Weapon>().UpdateTotalAmmoStatus();
 
                 if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.Shotgun &&
                     ammoType == AmmoType.Shotgun)
-                    weaponSlots[i].GetComponent<Weapon>().InitializeAmmoStatus();
+                    weaponSlots[i].GetComponent<Weapon>().UpdateTotalAmmoStatus();
             }
         }
     }
@@ -298,7 +294,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         Sprite tempImg = item1.img.sprite;
         float tempSliderValue = item1.count;
         AmmoType tempAmmoType = item1.ammoType;
-
         item1.item = item2.item;
         item1.itemId = item2.itemId;
         item1.itemType = item2.itemType;
@@ -311,7 +306,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         item1.slider.maxValue = item2.count;
         item1.ammoType = item2.ammoType;
         item1.RefreshCount();
-
         item2.item = tempItem;
         item2.itemId = tempItemId;
         item2.itemType = tempItemType;
@@ -324,7 +318,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         item2.slider.maxValue = tempSliderValue;
         item2.ammoType = tempAmmoType;
         item2.RefreshCount();
-
         InventorySlot slot = item2.GetComponentInParent<InventorySlot>();
         slot.slotData.itemId = item2.itemId;
         slot.slotData.itemName = item2.itemName;
@@ -351,7 +344,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         newItem.stackable = stackable;
         newItem.stackMax = maxStack;
         int tempCount = Mathf.RoundToInt(slider.value - 1);
-        //newItem.count = Mathf.RoundToInt(slider.value - 1);
         newItem.ammoType = ammoType;
         if (count > 0)
         {

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 public class Bullet : MonoBehaviour
 {
@@ -8,7 +5,6 @@ public class Bullet : MonoBehaviour
     {
         Destroy(gameObject, 2);
     }
-
     private void OnCollisionEnter(Collision objectWeHit)
     {
         if(objectWeHit.gameObject.CompareTag("Target"))
