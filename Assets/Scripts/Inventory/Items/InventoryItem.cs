@@ -59,7 +59,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slider.value = 0;
         slider.onValueChanged.AddListener((v) =>
         {
-            //sliderText.text = $"{slider.value - 1}/{slider.maxValue}";
             UpdateSliderText(v);
         });
         UpdateSliderText(slider.value);
@@ -121,7 +120,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
                 }
                 else
                 {
-                    if (itemType == ItemType.Weapon)
+                    if(itemType == ItemType.Weapon)
                     {
                         InventorySlot slot = GetComponentInParent<InventorySlot>();
                         if (slot.slotData.slotType != SlotType.Weapon)
@@ -208,18 +207,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     {
         sliderBG.SetActive(true);
         splitOkButton.Select();
-    }
-    public void SeparateFromParent()
-    {
-        if (itemMenuMoreThanOne.activeSelf || itemMenu.activeSelf)
-            return;
-        CleanSlot();
-        parentAfterDrag = transform.parent;
-        transform.SetParent(transform.root);
-        transform.SetAsLastSibling();
-        img.raycastTarget = false;
-        countText.raycastTarget = false;
-        dragging = true;
     }
     public void OnBeginDrag(PointerEventData eventData)
     {

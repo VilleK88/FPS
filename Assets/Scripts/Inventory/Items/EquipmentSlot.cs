@@ -17,7 +17,7 @@ public class EquipmentSlot : InventorySlot
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if (itemInThisSlot != null)
+                if(itemInThisSlot != null)
                     itemInThisSlot.UseItem();
             }
             if (Input.GetKeyDown(KeyCode.R))
@@ -46,9 +46,9 @@ public class EquipmentSlot : InventorySlot
                 else if (InventoryManager.instance.tempInventoryItem != null && itemInThisSlot == null)
                 {
                     InventorySlot thisSlot = GetComponent<InventorySlot>();
-                    if (thisSlot != null && InventoryManager.instance.tempInventoryItem.itemType == ItemType.Weapon && thisSlot.slotData.slotType == SlotType.Weapon)
+                    if (InventoryManager.instance.tempInventoryItem.itemType == ItemType.Weapon && thisSlot.slotData.slotType == SlotType.Weapon)
                         TransferItemToAnotherEmptySlot();
-                    else if(thisSlot != null && InventoryManager.instance.tempInventoryItem.itemType == ItemType.Armor && thisSlot.slotData.slotType == SlotType.Armor)
+                    else if(InventoryManager.instance.tempInventoryItem.itemType == ItemType.Armor && thisSlot.slotData.slotType == SlotType.Armor)
                         TransferItemToAnotherEmptySlot();
                 }
                 else if (InventoryManager.instance.tempInventoryItem != null && itemInThisSlot != null)
@@ -66,7 +66,9 @@ public class EquipmentSlot : InventorySlot
     void TransferItemToAnotherEmptySlot()
     {
         InventoryItem newItem = Instantiate(InventoryManager.instance.tempInventoryItem, this.transform);
+        newItem.count = InventoryManager.instance.tempInventoryItem.GetComponentInParent<InventorySlot>().slotData.count;
         newItem.InitializeSlot();
+        newItem.InitializeSlider();
         CloseTransparentBG(newItem);
         InventoryManager.instance.tempInventoryItem.PublicRemoveItem();
     } // inventory keyboard use
