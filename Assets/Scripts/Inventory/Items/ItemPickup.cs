@@ -29,13 +29,10 @@ public class ItemPickup : Interactable
     {
         foreach(var slotData in InventoryManager.instance.inventorySlotsUI)
             weaponIDsList.Add(slotData.slotData.itemId);
-
         foreach (var slotData in InventoryManager.instance.equipmentSlotsUI)
             weaponIDsList.Add(slotData.slotData.itemId);
-
         if (weaponIDsList.Contains(thisItemId))
             return true;
-
         return false;
     }
     void AddItemPickupIDsToArray(int newPickupItemID)
@@ -76,9 +73,7 @@ public class ItemPickup : Interactable
                         PickUp();
                     }
                     else
-                    {
                         PickUp();
-                    }
                 }
             }
         }
