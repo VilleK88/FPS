@@ -1,11 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using System;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 public class GameManager : MonoBehaviour
 {
@@ -52,43 +47,37 @@ public class GameManager : MonoBehaviour
     public void Save()
     {
         Debug.Log("Game Saved!");
-        BinaryFormatter bf = new BinaryFormatter(); // Tehd‰‰n uusi olio tai instanssi luokasta BinaryFormatter
-        FileStream file = File.Create(Application.persistentDataPath + "/gameInfo.dat");
-        GameData data = new GameData();
-        data.health = health;
-        data.currentHealth = currentHealth;
-        data.maxHealth = maxHealth;
-        data.stamina = stamina;
-        data.armor = armor;
-        data.x = x;
-        data.y = y;
-        data.z = z;
-        data.xRotation = xRotation;
-        data.yRotation = yRotation;
-        data.zRotation = zRotation;
-        data.savedSceneID = savedSceneID;
-        data.loadPlayerPosition = false;
-        data.inventorySlotsData = inventorySlotsData;
-        data.equipmentSlotsData = equipmentSlotsData;
-        data.bulletsLeft = bulletsLeft;
-        data.cash = cash;
-        data.cashIDs = cashIDs;
-        data.itemPickUpIDs = itemPickUpIDs;
-        bf.Serialize(file, data); // Serialisoidaan GameData objekti, joka tallennetaan samalla tiedostoon.
-        file.Close(); // Suljetaan tieodosto, ettei kukaan hakkeri p‰‰se siihen k‰siksi.
+        string json = JsonConvert.SerializeObject(new GameData
+        {
+            health = this.health,
+            currentHealth = this.currentHealth,
+            maxHealth = this.maxHealth,
+            stamina = this.stamina,
+            armor = this.armor,
+            x = this.x,
+            y = this.y,
+            z = this.z,
+            xRotation = this.xRotation,
+            yRotation = this.yRotation,
+            zRotation = this.zRotation,
+            savedSceneID = this.savedSceneID,
+            inventorySlotsData = this.inventorySlotsData,
+            equipmentSlotsData = this.equipmentSlotsData,
+            bulletsLeft = this.bulletsLeft,
+            cash = this.cash,
+            cashIDs = this.cashIDs,
+            itemPickUpIDs = this.itemPickUpIDs
+        }, Formatting.Indented);
+        File.WriteAllText(Application.persistentDataPath + "/gameInfo.dat", json);
     }
 
     public void Load()
     {
-        // Muista aina kun lataat tiedostoa mist‰ tahansa, tarkista ett‰ se on edes olemassa.
-        // Jos on, niin sitten vasta jatka prosessia.
-        if(File.Exists(Application.persistentDataPath + "/gameInfo.dat"))
+        string filePath = Application.persistentDataPath + "/gameInfo.dat";
+        if(File.Exists(filePath))
         {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/gameInfo.dat", FileMode.Open);
-            GameData data = (GameData)bf.Deserialize(file); // Deserialisoidaan ja muunnetaan data GameData -muotoon. Me tied‰mme, ett‰ data on GameData objektin informaatio.
-            file.Close(); // T‰rke‰. Muista sulkea tiedosto, ettei hakkerit p‰‰se k‰siksi.
-            // Kun tieto on ladattu data objektiin, siirret‰‰n muuttujien arvot Game Manager:in muuttujiin.
+            string json = File.ReadAllText(filePath);
+            GameData data = JsonConvert.DeserializeObject<GameData>(json);
             health = data.health;
             currentHealth = data.currentHealth;
             maxHealth = data.maxHealth;
@@ -100,8 +89,8 @@ public class GameManager : MonoBehaviour
             xRotation = data.xRotation;
             yRotation = data.yRotation;
             zRotation = data.zRotation;
-            loadPlayerPosition = true;
             savedSceneID = data.savedSceneID;
+            loadPlayerPosition = true;
             loadInventory = true;
             inventorySlotsData = data.inventorySlotsData;
             equipmentSlotsData = data.equipmentSlotsData;
