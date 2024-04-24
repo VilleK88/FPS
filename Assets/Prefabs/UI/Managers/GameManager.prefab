@@ -45,10 +45,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
+  currentHealth: 0
+  maxHealth: 100
   stamina: 0
   armor: 0
-  currentLevel: 0
-  skillPoints: 0
+  x: 0
+  y: 0
+  z: 0
+  xRotation: 0
+  yRotation: 0
+  zRotation: 0
+  savedSceneID: 0
+  loadPlayerPosition: 0
+  loadInventory: 0
+  changeScene: 0
+  inventorySlotsData: []
+  equipmentSlotsData: []
+  bulletsLeft: 
   cash: 0
   cashIDs: 
-  savedSceneID: 0
+  itemPickUpIDs: 

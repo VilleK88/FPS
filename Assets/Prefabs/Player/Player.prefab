@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 7136351547337792651}
   - component: {fileID: 7136351547337792649}
   - component: {fileID: 7136351547337792648}
+  - component: {fileID: 7136351547511556538}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -213,6 +214,18 @@ MonoBehaviour:
   - {fileID: 596758123390547508}
   - {fileID: 1857097617616639165}
   - {fileID: 7464601139862114000}
+--- !u!114 &7136351547511556538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7136351547337792652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76605e85b70af6546a337208eea8374f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7136351547362206918
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,8 +460,16 @@ PrefabInstance:
       value: 2.2
       objectReference: {fileID: 0}
     - target: {fileID: 4915713334536391105, guid: f5352dadbab532141a5b75836f568b93, type: 3}
+      propertyPath: bulletsLeft
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4915713334536391105, guid: f5352dadbab532141a5b75836f568b93, type: 3}
       propertyPath: shootingDelay
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4915713334536391105, guid: f5352dadbab532141a5b75836f568b93, type: 3}
+      propertyPath: spreadIntensity
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 8329342291554485863, guid: f5352dadbab532141a5b75836f568b93, type: 3}
       propertyPath: m_RootOrder
@@ -532,6 +553,10 @@ PrefabInstance:
     - target: {fileID: 2431375446489821769, guid: ea6cf546127d32640b6efe4f3ffccc19, type: 3}
       propertyPath: reloadTime
       value: 2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2431375446489821769, guid: ea6cf546127d32640b6efe4f3ffccc19, type: 3}
+      propertyPath: bulletsLeft
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2753742725896671628, guid: ea6cf546127d32640b6efe4f3ffccc19, type: 3}
       propertyPath: m_RootOrder
@@ -663,6 +688,10 @@ PrefabInstance:
     - target: {fileID: 4550864358607795897, guid: bff73af88e1a87e4896a6106762b95ec, type: 3}
       propertyPath: totalAmmo
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4550864358607795897, guid: bff73af88e1a87e4896a6106762b95ec, type: 3}
+      propertyPath: bulletsLeft
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bff73af88e1a87e4896a6106762b95ec, type: 3}

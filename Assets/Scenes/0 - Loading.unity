@@ -417,9 +417,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
-    - target: {fileID: 5398075679547046075, guid: 4e88829b5aa00f543ade6aed80167b4a, type: 3}
-      propertyPath: inventorySlotsData.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e88829b5aa00f543ade6aed80167b4a, type: 3}
