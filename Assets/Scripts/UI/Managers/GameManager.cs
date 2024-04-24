@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 public class GameManager : MonoBehaviour
 {
     #region Singleton
@@ -34,14 +35,17 @@ public class GameManager : MonoBehaviour
     public float x;
     public float y;
     public float z;
+    public float xRotation;
+    public float yRotation;
+    public float zRotation;
     public int savedSceneID;
     public bool loadPlayerPosition = false;
     public bool loadInventory = false;
-    public bool changeScene = false;
+    public bool changeScene = false; // check if scene is changing. not serialized.
     [Header("Save/load players inventory and check picked up items")]
     public InventorySlotData[] inventorySlotsData;
     public InventorySlotData[] equipmentSlotsData;
-    public int[] bulletsLeft;
+    public int[] bulletsLeft; // save/load how many bullets left in weapon
     public int cash;
     public int[] cashIDs;
     public int[] itemPickUpIDs;
@@ -59,6 +63,9 @@ public class GameManager : MonoBehaviour
         data.x = x;
         data.y = y;
         data.z = z;
+        data.xRotation = xRotation;
+        data.yRotation = yRotation;
+        data.zRotation = zRotation;
         data.savedSceneID = savedSceneID;
         data.loadPlayerPosition = false;
         data.inventorySlotsData = inventorySlotsData;
@@ -67,8 +74,7 @@ public class GameManager : MonoBehaviour
         data.cash = cash;
         data.cashIDs = cashIDs;
         data.itemPickUpIDs = itemPickUpIDs;
-        // Serialisoidaan GameData objekti, joka tallennetaan samalla tiedostoon.
-        bf.Serialize(file, data);
+        bf.Serialize(file, data); // Serialisoidaan GameData objekti, joka tallennetaan samalla tiedostoon.
         file.Close(); // Suljetaan tieodosto, ettei kukaan hakkeri p‰‰se siihen k‰siksi.
     }
 
@@ -80,10 +86,8 @@ public class GameManager : MonoBehaviour
         {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/gameInfo.dat", FileMode.Open);
-            // Deserialisoidaan ja muunnetaan data GameData -muotoon. Me tied‰mme, ett‰ data on GameData objektin informaatio.
-            GameData data = (GameData)bf.Deserialize(file);
-            // T‰rke‰. Muista sulkea tiedosto, ettei hakkerit p‰‰se k‰siksi.
-            file.Close();
+            GameData data = (GameData)bf.Deserialize(file); // Deserialisoidaan ja muunnetaan data GameData -muotoon. Me tied‰mme, ett‰ data on GameData objektin informaatio.
+            file.Close(); // T‰rke‰. Muista sulkea tiedosto, ettei hakkerit p‰‰se k‰siksi.
             // Kun tieto on ladattu data objektiin, siirret‰‰n muuttujien arvot Game Manager:in muuttujiin.
             health = data.health;
             currentHealth = data.currentHealth;
@@ -93,6 +97,9 @@ public class GameManager : MonoBehaviour
             x = data.x;
             y = data.y;
             z = data.z;
+            xRotation = data.xRotation;
+            yRotation = data.yRotation;
+            zRotation = data.zRotation;
             loadPlayerPosition = true;
             savedSceneID = data.savedSceneID;
             loadInventory = true;
@@ -105,8 +112,7 @@ public class GameManager : MonoBehaviour
         }
     }
 }
-// Toinen luokka, joka voidaan serialisoida. Pit‰‰ sis‰ll‰‰n vaan sen datan mit‰ halutaan serialisoida ja tallentaa.
-[Serializable]
+[Serializable] // Toinen luokka, joka voidaan serialisoida. Pit‰‰ sis‰ll‰‰n vaan sen datan mit‰ halutaan serialisoida ja tallentaa.
 class GameData
 {
     public float health;
@@ -117,6 +123,9 @@ class GameData
     public float x;
     public float y;
     public float z;
+    public float xRotation;
+    public float yRotation;
+    public float zRotation;
     public int savedSceneID;
     public bool loadPlayerPosition = false;
     public InventorySlotData[] inventorySlotsData;

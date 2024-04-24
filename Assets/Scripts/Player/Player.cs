@@ -84,11 +84,15 @@ public class Player : MonoBehaviour
         GameManager.instance.x = transform.position.x;
         GameManager.instance.y = 4;
         GameManager.instance.z = transform.position.z;
+        GameManager.instance.xRotation = transform.rotation.eulerAngles.x;
+        GameManager.instance.yRotation = transform.rotation.eulerAngles.y;
+        GameManager.instance.zRotation = transform.rotation.eulerAngles.z;
     }
     public void LoadPlayerTransformPosition()
     {
         characterController.enabled = false;
         characterController.transform.position = new Vector3(GameManager.instance.x, GameManager.instance.y, GameManager.instance.z);
+        characterController.transform.rotation = Quaternion.Euler(GameManager.instance.xRotation, GameManager.instance.yRotation, GameManager.instance.zRotation);
         characterController.enabled = true;
     }
 }
