@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
 {
     Rigidbody rb;
     CapsuleCollider capsuleCollider;
+    [SerializeField] Animator anim;
     [Header("Field of View")]
     public float radius = 10;
     [Range(0, 360)]
@@ -45,6 +46,7 @@ public class Enemy : MonoBehaviour
         StartCoroutine(FOVRoutine());
         agent.SetDestination(waypoints[waypointIndex].position);
         originalSpeed = agent.speed;
+        anim.GetComponent<Animator>().SetBool("Walk", true);
     }
     private void Update()
     {
@@ -77,6 +79,7 @@ public class Enemy : MonoBehaviour
                 }
                 else if(distanceToPlayer < stoppingDistance)
                 {
+                    anim.GetComponent<Animator>().SetBool("Walk", false);
                     transform.LookAt(player.transform.position);
                     Attack();
                 }
@@ -85,9 +88,14 @@ public class Enemy : MonoBehaviour
             {
                 Patrol();
                 if (waypointCounter < waypointMaxTime)
+                {
                     waypointCounter += Time.deltaTime;
+                }
                 else
+                {
                     agent.SetDestination(waypoints[waypointIndex].position);
+                    anim.GetComponent<Animator>().SetBool("Walk", true);
+                }
             }
         }
         if (playerDead)
@@ -96,13 +104,14 @@ public class Enemy : MonoBehaviour
     void Patrol()
     {
         agent.speed = originalSpeed;
-        if(Vector3.Distance(transform.position, waypoints[waypointIndex].transform.position) < 1.5f)
+        if (Vector3.Distance(transform.position, waypoints[waypointIndex].transform.position) < 1.5f)
         {
             if (randomPatrol)
                 waypointIndex = Random.Range(0, 5);
             else
                 waypointIndex++;
             waypointCounter = 0;
+            anim.GetComponent<Animator>().SetBool("Walk", false);
             if (waypointIndex >= waypoints.Length)
                 waypointIndex = 0;
         }
@@ -113,6 +122,7 @@ public class Enemy : MonoBehaviour
     }
     void Chase()
     {
+        anim.GetComponent<Animator>().SetBool("Walk", true);
         agent.isStopped = false;
         agent.speed = 3.8f;
         agent.SetDestination(player.transform.position);
