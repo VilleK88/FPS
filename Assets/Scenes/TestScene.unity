@@ -508,6 +508,61 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7308929108521659704, guid: edeb6989b27755d45b0a195fd6779d35, type: 3}
   m_PrefabInstance: {fileID: 600139744}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &123896084
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 123896086}
+  - component: {fileID: 123896085}
+  m_Layer: 0
+  m_Name: TestItems
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &123896085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123896084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 883ee579654ad35448ae9175f3cbd85f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsFile: {fileID: 4900000, guid: aff0293db83832441b213eefda0f9f68, type: 3}
+  testItemArray:
+  - Name: sword
+    Price: 100
+    testItemColor: {r: 1, g: 1, b: 1, a: 1}
+  - Name: armor
+    Price: 200
+    testItemColor: {r: 0, g: 0, b: 0, a: 1}
+  - Name: shield
+    Price: 150
+    testItemColor: {r: 0.64705884, g: 0.16470589, b: 0.16470589, a: 1}
+--- !u!4 &123896086
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123896084}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 36.623337, y: 0.892153, z: -39.90371}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &123906275
 PrefabInstance:
   m_ObjectHideFlags: 0

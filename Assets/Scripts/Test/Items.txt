@@ -1,0 +1,3 @@
+sword,100,gray
+armor,200,black
+shield,150,brown
