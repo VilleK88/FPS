@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5539434ec4acd98448df157bc9002986, type: 3}
-  m_Name: Small_Medpack
+  m_Name: Large_Medpack
   m_EditorClassIdentifier: 
-  name: Small_Medpack
-  itemID: 0
-  itemName: Small medpack
+  name: Large_Medpack
+  itemID: 9
+  itemName: Large Medpack
   itemType: 1
   stackable: 1
   stackMax: 3
-  icon: {fileID: 21300050, guid: a1d46cd3f2614cc43be92ab44ea7d819, type: 3}
-  description: Small medpack
+  icon: {fileID: 21300052, guid: a1d46cd3f2614cc43be92ab44ea7d819, type: 3}
+  description: Large medpack
   ammoType: 0
-  healthAmount: 25
+  healthAmount: 50

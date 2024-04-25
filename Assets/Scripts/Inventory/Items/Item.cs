@@ -10,7 +10,6 @@ public class Item : ScriptableObject
     public ItemType itemType;
     public bool stackable = true;
     public int stackMax;
-    //public int count;
     public Sprite icon = null;
     [TextArea]
     public string description;
