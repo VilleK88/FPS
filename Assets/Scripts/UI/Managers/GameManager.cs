@@ -42,8 +42,8 @@ public class GameManager : MonoBehaviour
     public InventorySlotData[] equipmentSlotsData;
     public int[] bulletsLeft; // save/load how many bullets left in weapon
     public int cash;
-    public int[] cashIDs;
-    public int[] itemPickUpIDs;
+    public string[] cashIDs;
+    public string[] itemPickUpIDs;
     public void Save()
     {
         Debug.Log("Game Saved!");
@@ -121,6 +121,6 @@ class GameData
     public InventorySlotData[] equipmentSlotsData;
     public int[] bulletsLeft;
     public int cash;
-    public int[] cashIDs;
-    public int[] itemPickUpIDs;
+    public string[] cashIDs;
+    public string[] itemPickUpIDs;
 }

@@ -10,9 +10,7 @@ public class MenuControls : MonoBehaviour
     {
         GameObject inventoryCanvas = GameObject.Find("InventoryCanvas");
         if(inventoryCanvas != null)
-        {
             Destroy(inventoryCanvas);
-        }
     }
 
     public void StartGame()
@@ -25,8 +23,8 @@ public class MenuControls : MonoBehaviour
 
     public void ClearTablesInGameManager()
     {
-        GameManager.instance.cashIDs = new int[0]; // clear collected currency IDs
-        GameManager.instance.itemPickUpIDs = new int[0]; // clear colleted item IDs
+        GameManager.instance.cashIDs = new string[0]; // clear collected currency IDs
+        GameManager.instance.itemPickUpIDs = new string[0]; // clear colleted item IDs
         GameManager.instance.bulletsLeft = new int[0]; // clear saved bullets left in magazines
     }
 
@@ -40,20 +38,14 @@ public class MenuControls : MonoBehaviour
     public void LoadSceneID()
     {
         if (GameManager.instance.savedSceneID == 0)
-        {
             SceneManager.LoadScene("TestScene");
-        }
         if (GameManager.instance.savedSceneID == 1)
-        {
             SceneManager.LoadScene("TestScene2");
-        }
     }
-
     public void Settings()
     {
 
     }
-
     public void QuitGame()
     {
         Application.Quit();

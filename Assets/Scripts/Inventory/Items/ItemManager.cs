@@ -8,9 +8,7 @@ public class ItemManager : MonoBehaviour
         foreach(Coin coin in coinsInScene)
         {
             if(GameManager.instance.cashIDs.Contains(coin.coinID))
-            {
                 Destroy(coin.gameObject);
-            }
         }
         ItemPickup[] itemPickupsInScene = FindObjectsOfType<ItemPickup>();
         foreach(ItemPickup itemPickup in itemPickupsInScene)

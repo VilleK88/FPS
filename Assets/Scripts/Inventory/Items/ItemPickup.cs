@@ -4,7 +4,8 @@ public class ItemPickup : Interactable
 {
     public Item item, secondItem;
     public string itemName;
-    public int pickUpItemID;
+    public string pickUpItemID;
+    [SerializeField] string id;
     public int count = 1;
     [SerializeField] bool collectOnTouch;
     public List<int> weaponIDsList = new List<int>();
@@ -35,19 +36,20 @@ public class ItemPickup : Interactable
             return true;
         return false;
     }
-    void AddItemPickupIDsToArray(int newPickupItemID)
+    void AddItemPickupIDsToArray(string newPickupItemID)
     {
-        int[] newPickupItemIDs = new int[GameManager.instance.itemPickUpIDs.Length + 1];
-        for(int i = 0; i < GameManager.instance.itemPickUpIDs.Length; i++)
+        string[] newPickupItemIDs = new string[GameManager.instance.itemPickUpIDs.Length + 1];
+        for (int i = 0; i < GameManager.instance.itemPickUpIDs.Length; i++)
         {
             newPickupItemIDs[i] = GameManager.instance.itemPickUpIDs[i];
         }
         newPickupItemIDs[GameManager.instance.itemPickUpIDs.Length] = newPickupItemID;
         GameManager.instance.itemPickUpIDs = newPickupItemIDs;
     }
+    [ContextMenu("Generate GUID FOR ID")]
     public void GenerateID()
     {
-        pickUpItemID = UnityEngine.Random.Range(0, 1000000000);
+        pickUpItemID = System.Guid.NewGuid().ToString();
     }
     private void OnTriggerEnter(Collider other)
     {

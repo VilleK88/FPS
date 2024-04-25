@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(ItemPickup))]
+/*[CustomEditor(typeof(ItemPickup))]
 public class PickUpItemIDGenerator : Editor
 {
     public override void OnInspectorGUI()
@@ -16,3 +16,4 @@ public class PickUpItemIDGenerator : Editor
             script.GenerateID();
     }
 }
+*/

@@ -2,7 +2,7 @@ using UnityEngine;
 public class Coin : MonoBehaviour
 {
     public int value;
-    public int coinID;
+    public string coinID;
     [SerializeField] AudioClip collectSound;
     private void OnTriggerEnter(Collider other)
     {
@@ -14,9 +14,9 @@ public class Coin : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-    void AddToCashIDsArray(int newCoinID)
+    void AddToCashIDsArray(string newCoinID)
     {
-        int[] newCashIDs = new int[GameManager.instance.cashIDs.Length + 1];
+        string[] newCashIDs = new string[GameManager.instance.cashIDs.Length + 1];
         for(int i = 0; i < GameManager.instance.cashIDs.Length; i++)
         {
             newCashIDs[i] = GameManager.instance.cashIDs[i];
@@ -24,8 +24,9 @@ public class Coin : MonoBehaviour
         newCashIDs[GameManager.instance.cashIDs.Length] = newCoinID;
         GameManager.instance.cashIDs = newCashIDs;
     }
+    [ContextMenu("Generate GUID FOR ID")]
     public void GenerateID()
     {
-        coinID = UnityEngine.Random.Range(0, 100000000);
+        coinID = System.Guid.NewGuid().ToString();
     }
 }

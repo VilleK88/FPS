@@ -243,7 +243,7 @@ public class InventoryManager : MonoBehaviour
             }
         }
     }
-    public bool AddInventoryItem(Item newItem, int pickupItemID, int count)
+    public bool AddInventoryItem(Item newItem, string pickupItemID, int count)
     {
         // add to stackable
         for(int i = 0; i < inventorySlotsUI.Length; i++)
@@ -345,7 +345,7 @@ public class InventoryManager : MonoBehaviour
         }
         return false;
     }
-    public bool SplitStack(Item newItem, int pickupItemID, int count)
+    public bool SplitStack(Item newItem, string pickupItemID, int count)
     {
         for (int i = 0; i < inventorySlotsUI.Length; i++) // find next empty slot
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(Coin))]
+/*[CustomEditor(typeof(Coin))]
 public class CoinIDGenerator : Editor
 {
     public override void OnInspectorGUI()
@@ -16,3 +16,4 @@ public class CoinIDGenerator : Editor
             script.GenerateID();
     }
 }
+*/

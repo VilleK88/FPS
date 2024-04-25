@@ -7,7 +7,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     [Header("Item Info")]
     public Item item;
     public int itemId;
-    public int pickupItemID;
+    public string pickupItemID;
     public Image img;
     public ItemType itemType;
     public string itemName;
@@ -155,7 +155,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     void CleanSlot()
     {
         InventorySlot slot = GetComponentInParent<InventorySlot>();
-        slot.slotData.pickupItemID = 0;
+        slot.slotData.pickupItemID = null;
         slot.slotData.itemId = -1;
         slot.slotData.itemName = null;
         slot.slotData.itemType = ItemType.Default;
@@ -286,7 +286,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         Item tempItem = item1.item;
         int tempItemId = item1.itemId;
         ItemType tempItemType = item1.itemType;
-        int tempPickupItemID = item1.pickupItemID;
+        string tempPickupItemID = item1.pickupItemID;
         string tempItemName = item1.itemName;
         bool tempStackable = item1.stackable;
         int tempMaxStack = item1.maxStack;

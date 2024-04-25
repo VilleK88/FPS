@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using UnityEngine.UI;
-
 public class InGameMenuControls : MonoBehaviour
 {
     #region Singleton
@@ -22,7 +21,6 @@ public class InGameMenuControls : MonoBehaviour
         }
     }
     #endregion
-
     [SerializeField] public GameObject menuButtons;
     public UnityEvent OnToggleMenu;
     public delegate void ToggleMenuDelegate(bool isActive);
@@ -30,17 +28,13 @@ public class InGameMenuControls : MonoBehaviour
     Scene currentScene;
     public Player player;
     [SerializeField] Button saveButton;
-
     private void Start()
     {
         if(menuButtons != null)
-        {
             menuButtons.SetActive(false);
-        }
         player.GetComponent<Player>();
         currentScene = SceneManager.GetActiveScene();
     }
-
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape))
@@ -49,13 +43,11 @@ public class InGameMenuControls : MonoBehaviour
             OnToggleMenuStatic?.Invoke(menuButtons.activeSelf);
             ToggleInGameMenu();
         }
-
         if (Input.GetKeyDown(KeyCode.F5))
             SaveGame();
         if (Input.GetKeyDown(KeyCode.F8))
             LoadGame();
     }
-
     void ToggleInGameMenu()
     {
         if(menuButtons != null)
@@ -65,7 +57,6 @@ public class InGameMenuControls : MonoBehaviour
                 saveButton.Select();
         }
     }
-
     public void SaveGame()
     {
         SaveSceneID();
@@ -74,55 +65,39 @@ public class InGameMenuControls : MonoBehaviour
         InventoryManager.instance.SaveHowManyBulletsLeftInMagazine();
         GameManager.instance.Save();
     }
-
     public void LoadGame()
     {
         ClearAndDestroyInventory();
         GameManager.instance.Load();
         LoadSceneID();
     }
-
     public void SaveSceneID()
     {
         if(currentScene.name == "TestScene")
-        {
             GameManager.instance.savedSceneID = 0;
-        }
         if (currentScene.name == "TestScene2")
-        {
             GameManager.instance.savedSceneID = 1;
-        }
     }
-
     public void LoadSceneID()
     {
         if(GameManager.instance.savedSceneID == 0)
-        {
             SceneManager.LoadScene("TestScene");
-        }
         if (GameManager.instance.savedSceneID == 1)
-        {
             SceneManager.LoadScene("TestScene2");
-        }
     }
-
     public void Settings()
     {
 
     }
-
     public void QuitGame()
     {
         SceneManager.LoadScene("1 - Menu");
     }
-
     public void ClearAndDestroyInventory()
     {
         InventoryManager.instance.ClearInventory();
         GameObject inventoryCanvas = GameObject.Find("InventoryCanvas");
         if (inventoryCanvas != null)
-        {
             Destroy(inventoryCanvas);
-        }
     }
 }
