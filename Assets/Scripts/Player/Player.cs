@@ -13,9 +13,20 @@ public class Player : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     public VectorValue startingPosition;
     public GameObject[] weaponSlots;
+    [Header("References")]
+    public Transform attackPoint;
+    public GameObject objectToThrow;
+    [Header("Settings")]
+    public int totalThrows;
+    public float throwCooldown;
+    [Header("Throwing")]
+    public KeyCode throwKey = KeyCode.Mouse0;
+    public float throwForce;
+    public float throwUpwardForce;
+    bool readyToThrow = true;
     private void Start()
     {
-        if(GameManager.instance.changeScene)
+        if (GameManager.instance.changeScene)
             InventoryManager.instance.LoadHowManyBulletsLeftInMagazine();
         if (GameManager.instance.loadPlayerPosition)
         {
@@ -38,6 +49,22 @@ public class Player : MonoBehaviour
     private void Update()
     {
         MouseInteraction();
+        if(Input.GetKeyDown(throwKey) && readyToThrow && totalThrows > 0)
+            Throw();
+    }
+    void Throw()
+    {
+        readyToThrow = false;
+        GameObject projectile = Instantiate(objectToThrow, attackPoint.position, cam.transform.rotation);
+        Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+        Vector3 forceToAdd = cam.transform.forward * throwForce + transform.up * throwUpwardForce;
+        projectileRb.AddForce(forceToAdd, ForceMode.Impulse);
+        totalThrows--;
+        Invoke(nameof(ResetThrow), throwCooldown);
+    }
+    void ResetThrow()
+    {
+        readyToThrow = true;
     }
     void MouseInteraction()
     {
@@ -46,9 +73,7 @@ public class Player : MonoBehaviour
             ray = cam.ScreenPointToRay(Input.mousePosition);
             
             if(Physics.Raycast(ray, out hit, 100, groundLayer))
-            {
                 RemoveFocus();
-            }
         }
         if(Input.GetKeyDown(KeyCode.E))
         {

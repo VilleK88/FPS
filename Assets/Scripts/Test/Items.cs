@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Items : MonoBehaviour
 {
-    [SerializeField] TextAsset itemsFile;
+    /*[SerializeField] TextAsset itemsFile;
     public TestItem[] testItemArray;
     private void OnValidate()
     {
@@ -34,12 +34,12 @@ public class Items : MonoBehaviour
             Price = int.TryParse(parts[1], out int num) ? num : 0,
             testItemColor = ColorUtility.TryParseHtmlString(parts[2], out Color c)? c:Color.white
         };
-    }
+    }*/
 }
-[Serializable]
+/*[Serializable]
 public class TestItem
 {
     public string Name;
     public int Price;
     public Color testItemColor;
-}
+}*/

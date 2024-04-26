@@ -39,6 +39,8 @@ public class InGameMenuControls : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
+            if (!InventoryManager.instance.closed)
+                InventoryManager.instance.CloseInventory();
             OnToggleMenu?.Invoke();
             OnToggleMenuStatic?.Invoke(menuButtons.activeSelf);
             ToggleInGameMenu();
