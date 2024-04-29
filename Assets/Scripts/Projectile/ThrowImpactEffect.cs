@@ -8,5 +8,12 @@ public class ThrowImpactEffect : MonoBehaviour
     private void Start()
     {
         enemies = FindObjectsOfType<Enemy>();
+        for(int i = 0; i < enemies.Length; i++)
+        {
+            Enemy enemy = enemies[i];
+            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+            if (distanceToEnemy < 20)
+                enemy.Disturbance();
+        }
     }
 }

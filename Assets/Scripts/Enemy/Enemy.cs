@@ -30,8 +30,14 @@ public class Enemy : MonoBehaviour
     public Transform[] waypoints;
     int waypointIndex;
     public float waypointCounter = 0;
-    float waypointMaxTime = 3;
+    float waypointMaxTime = 4;
     public bool randomPatrol = false;
+    [Header("Disturbance Parameters")]
+    public bool disturbance;
+    public ThrowImpactEffect throwImpactEffect;
+    public float lookAtDisturbanceCounter = 0;
+    public float lookAroundCounter = 0;
+    public Quaternion currentRotation;
     [Header("Player")]
     GameObject player;
     [Header("Death booleans")]
@@ -86,20 +92,63 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                Patrol();
-                if (waypointCounter < waypointMaxTime)
+                if(disturbance)
                 {
-                    waypointCounter += Time.deltaTime;
+                    if (lookAtDisturbanceCounter < 2)
+                        lookAtDisturbanceCounter += Time.deltaTime;
+                    else
+                    {
+                        CheckDisturbance();
+                    }
                 }
                 else
                 {
-                    agent.SetDestination(waypoints[waypointIndex].position);
-                    anim.GetComponent<Animator>().SetBool("Walk", true);
+                    Patrol();
+                    if (waypointCounter < waypointMaxTime)
+                    {
+                        waypointCounter += Time.deltaTime;
+                    }
+                    else
+                    {
+                        agent.SetDestination(waypoints[waypointIndex].position);
+                        anim.GetComponent<Animator>().SetBool("Walk", true);
+                    }
                 }
             }
         }
         if (playerDead)
             isAgro = false;
+    }
+    public void Disturbance()
+    {
+        if (!canSeePlayer && !isAgro)
+            disturbance = true;
+        throwImpactEffect = FindObjectOfType<ThrowImpactEffect>();
+        if(throwImpactEffect != null)
+        {
+            transform.LookAt(throwImpactEffect.transform.position);
+        }
+    }
+    void CheckDisturbance()
+    {
+        agent.SetDestination(throwImpactEffect.transform.position);
+        float distanceToImpactEffect = Vector3.Distance(transform.position, throwImpactEffect.transform.position);
+        if (distanceToImpactEffect > 2.2f)
+            anim.GetComponent<Animator>().SetBool("Walk", true);
+        else
+        {
+            anim.GetComponent<Animator>().SetBool("Walk", false);
+            currentRotation = transform.rotation;
+            if(lookAroundCounter < 30)
+            {
+                lookAroundCounter += Time.deltaTime;
+                LookAround();
+            }
+        }
+    }
+    void LookAround()
+    {
+
     }
     void Patrol()
     {
