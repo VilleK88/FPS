@@ -37,7 +37,12 @@ public class Enemy : MonoBehaviour
     public ThrowImpactEffect throwImpactEffect;
     public float lookAtDisturbanceCounter = 0;
     public float lookAroundCounter = 0;
+    public Quaternion startRotation;
+    bool checkStartRotation;
     public Quaternion currentRotation;
+    public float startRotationY;
+    public float currentRotationY;
+    float rotationSpeed = 12;
     [Header("Player")]
     GameObject player;
     [Header("Death booleans")]
@@ -63,6 +68,7 @@ public class Enemy : MonoBehaviour
             {
                 isAgro = true;
                 agroCounter = 0;
+                DisturbanceOver();
             }
             else
             {
@@ -105,9 +111,7 @@ public class Enemy : MonoBehaviour
                 {
                     Patrol();
                     if (waypointCounter < waypointMaxTime)
-                    {
                         waypointCounter += Time.deltaTime;
-                    }
                     else
                     {
                         agent.SetDestination(waypoints[waypointIndex].position);
@@ -119,10 +123,14 @@ public class Enemy : MonoBehaviour
         if (playerDead)
             isAgro = false;
     }
-    public void Disturbance()
+    public void Disturbance() // this is called from the ThrowImpactEffect -script
     {
         if (!canSeePlayer && !isAgro)
+        {
             disturbance = true;
+            agent.ResetPath();
+            anim.GetComponent<Animator>().SetBool("Walk", false);
+        }
         throwImpactEffect = FindObjectOfType<ThrowImpactEffect>();
         if(throwImpactEffect != null)
         {
@@ -131,24 +139,54 @@ public class Enemy : MonoBehaviour
     }
     void CheckDisturbance()
     {
-        agent.SetDestination(throwImpactEffect.transform.position);
-        float distanceToImpactEffect = Vector3.Distance(transform.position, throwImpactEffect.transform.position);
-        if (distanceToImpactEffect > 2.2f)
-            anim.GetComponent<Animator>().SetBool("Walk", true);
-        else
+        if (throwImpactEffect != null)
         {
-            anim.GetComponent<Animator>().SetBool("Walk", false);
-            currentRotation = transform.rotation;
-            if(lookAroundCounter < 30)
+            agent.SetDestination(throwImpactEffect.transform.position);
+            float distanceToImpactEffect = Vector3.Distance(transform.position, throwImpactEffect.transform.position);
+            if (distanceToImpactEffect > 2.2f)
+                anim.GetComponent<Animator>().SetBool("Walk", true);
+            else
             {
-                lookAroundCounter += Time.deltaTime;
-                LookAround();
+                anim.GetComponent<Animator>().SetBool("Walk", false);
+                if (!checkStartRotation)
+                    StartLookingAround();
+                if (lookAroundCounter < 10)
+                {
+                    lookAroundCounter += Time.deltaTime;
+                    LookAround();
+                }
+                else
+                    DisturbanceOver();
             }
         }
+        else
+            DisturbanceOver();
+    }
+    void StartLookingAround()
+    {
+        startRotation = transform.rotation;
+        startRotationY = startRotation.eulerAngles.y;
+        checkStartRotation = true;
     }
     void LookAround()
     {
-
+        transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
+        currentRotation = transform.rotation;
+        currentRotationY = currentRotation.eulerAngles.y;
+        currentRotationY = (currentRotationY - startRotationY + 360) % 360;
+        if (currentRotationY > 180)
+            currentRotationY -= 360;
+        if (currentRotationY > 40)
+            rotationSpeed = -Mathf.Abs(rotationSpeed);
+        else if (currentRotationY < -40)
+            rotationSpeed = Mathf.Abs(rotationSpeed);
+    }
+    void DisturbanceOver()
+    {
+        disturbance = false;
+        checkStartRotation = false;
+        lookAroundCounter = 0;
+        lookAtDisturbanceCounter = 0;
     }
     void Patrol()
     {

@@ -15,5 +15,11 @@ public class ThrowImpactEffect : MonoBehaviour
             if (distanceToEnemy < 20)
                 enemy.Disturbance();
         }
+        StartCoroutine(DestroyObject());
+    }
+    IEnumerator DestroyObject()
+    {
+        yield return new WaitForSeconds(25);
+        Destroy(gameObject);
     }
 }
