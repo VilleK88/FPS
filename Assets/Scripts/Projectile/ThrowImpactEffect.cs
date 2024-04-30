@@ -13,7 +13,12 @@ public class ThrowImpactEffect : MonoBehaviour
             Enemy enemy = enemies[i];
             float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
             if (distanceToEnemy < 20)
+            {
+                //enemy.DisturbanceOver();
+                enemy.disturbance = false;
                 enemy.Disturbance();
+                enemy.disturbanceTimes++;
+            }
         }
         StartCoroutine(DestroyObject());
     }

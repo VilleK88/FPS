@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
 public class Enemy : MonoBehaviour
 {
     Rigidbody rb;
@@ -43,6 +42,8 @@ public class Enemy : MonoBehaviour
     public float startRotationY;
     public float currentRotationY;
     float rotationSpeed = 12;
+    public int disturbanceTimes;
+    public float disturbanceTimesCount = 10;
     [Header("Player")]
     GameObject player;
     [Header("Death booleans")]
@@ -103,9 +104,7 @@ public class Enemy : MonoBehaviour
                     if (lookAtDisturbanceCounter < 2)
                         lookAtDisturbanceCounter += Time.deltaTime;
                     else
-                    {
                         CheckDisturbance();
-                    }
                 }
                 else
                 {
@@ -122,9 +121,23 @@ public class Enemy : MonoBehaviour
         }
         if (playerDead)
             isAgro = false;
+        DisturbanceAlertState();
+    }
+    void DisturbanceAlertState()
+    {
+        if(disturbance)
+        {
+            if (disturbanceTimes > 2)
+            {
+                isAgro = true;
+                DisturbanceOver();
+            }
+        }
     }
     public void Disturbance() // this is called from the ThrowImpactEffect -script
     {
+        disturbanceTimesCount = 10;
+        lookAtDisturbanceCounter = 0;
         if (!canSeePlayer && !isAgro)
         {
             disturbance = true;
@@ -181,12 +194,14 @@ public class Enemy : MonoBehaviour
         else if (currentRotationY < -40)
             rotationSpeed = Mathf.Abs(rotationSpeed);
     }
-    void DisturbanceOver()
+    public void DisturbanceOver()
     {
         disturbance = false;
         checkStartRotation = false;
         lookAroundCounter = 0;
         lookAtDisturbanceCounter = 0;
+        disturbanceTimes = 0;
+        disturbanceTimesCount = 0;
     }
     void Patrol()
     {
@@ -232,7 +247,6 @@ public class Enemy : MonoBehaviour
             directionToTarget = (target.position - transform.position).normalized;
             if (Vector3.Angle(transform.forward, directionToTarget) < angle / 2)
             {
-                distanceToPlayer = Vector3.Distance(transform.position, target.position);
                 if (!Physics.Raycast(transform.position, directionToTarget, distanceToPlayer, obstructionMask))
                     canSeePlayer = true;
                 else
