@@ -46,7 +46,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
             InitializeAmmoStatus();
         }
         RefreshCount();
-        InitializeSlider();
     }
     public void InitializeSlider()
     {
@@ -102,16 +101,21 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         {
             if (!dragging)
             {
-                item.Use();
                 if (stackable)
                 {
                     if (itemType == ItemType.Medpack)
                     {
-                        count--;
-                        GetComponentInParent<InventorySlot>().slotData.count--;
-                        RefreshCount();
-                        if (count <= 0)
-                            RemoveItem();
+                        PlayerHealth playerHealth = PlayerManager.instance.player.GetComponent<PlayerHealth>();
+                        Medpack medpack = item as Medpack;
+                        bool ifHealing = playerHealth.HealPlayer(medpack.healthAmount);
+                        if(ifHealing)
+                        {
+                            count--;
+                            GetComponentInParent<InventorySlot>().slotData.count--;
+                            RefreshCount();
+                            if (count <= 0)
+                                RemoveItem();
+                        }
                     }
                 }
                 else

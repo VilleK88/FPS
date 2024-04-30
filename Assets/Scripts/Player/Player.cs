@@ -31,7 +31,6 @@ public class Player : MonoBehaviour
         if (GameManager.instance.loadPlayerPosition)
         {
             LoadPlayerTransformPosition();
-            Debug.Log("PlayerManagerin LoadPlayerTransformPosition debuggaa");
             GameManager.instance.loadPlayerPosition = false;
             InventoryManager.instance.LoadHowManyBulletsLeftInMagazine();
         }
@@ -94,14 +93,12 @@ public class Player : MonoBehaviour
                 focus.OnDefocused();
             focus = newFocus;
         }
-
         newFocus.OnFocused(transform);
     }
     void RemoveFocus()
     {
         if (focus != null)
             focus.OnDefocused();
-
         focus = null;
     }
     public void SavePlayerTransformPosition()

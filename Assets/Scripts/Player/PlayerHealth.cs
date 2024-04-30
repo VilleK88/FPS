@@ -25,7 +25,7 @@ public class PlayerHealth : MonoBehaviour
             HealthUIManager.Instance.UpdateHealthBar();
         }
     }
-    bool HealPlayer(float health)
+    public bool HealPlayer(float health)
     {
         if(GameManager.instance.maxHealth > GameManager.instance.currentHealth)
         {
@@ -48,7 +48,14 @@ public class PlayerHealth : MonoBehaviour
                 Medpack medPack = item as Medpack;
                 bool healing = HealPlayer(medPack.healthAmount);
                 if(healing)
-                    inventoryItem.PublicRemoveItem();
+                {
+                    inventoryItem.count--;
+                    inventoryItem.GetComponentInParent<InventorySlot>().slotData.count--;
+                    if (inventoryItem.count <= 0)
+                        inventoryItem.PublicRemoveItem();
+                    else
+                        inventoryItem.RefreshCount();
+                }
                 break;
             }
         }
