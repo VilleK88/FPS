@@ -101,8 +101,11 @@ public class Enemy : MonoBehaviour
             {
                 if(disturbance)
                 {
-                    if (lookAtDisturbanceCounter < 2)
+                    if (lookAtDisturbanceCounter < 4)
+                    {
                         lookAtDisturbanceCounter += Time.deltaTime;
+                        LookAtDisturbance();
+                    }
                     else
                         CheckDisturbance();
                 }
@@ -143,11 +146,18 @@ public class Enemy : MonoBehaviour
             disturbance = true;
             agent.ResetPath();
             anim.GetComponent<Animator>().SetBool("Walk", false);
+            throwImpactEffect = FindObjectOfType<ThrowImpactEffect>();
         }
-        throwImpactEffect = FindObjectOfType<ThrowImpactEffect>();
-        if(throwImpactEffect != null)
+    }
+    void LookAtDisturbance()
+    {
+        if (throwImpactEffect != null)
         {
-            transform.LookAt(throwImpactEffect.transform.position);
+            Quaternion currentRotation = transform.rotation;
+            Vector3 directionToImpact = throwImpactEffect.transform.position - transform.position;
+            Quaternion targetRotation = Quaternion.LookRotation(directionToImpact);
+            Quaternion newRotation = Quaternion.Slerp(currentRotation, targetRotation, 3 * Time.deltaTime);
+            transform.rotation = newRotation;
         }
     }
     void CheckDisturbance()
