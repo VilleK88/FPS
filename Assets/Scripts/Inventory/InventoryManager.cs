@@ -79,9 +79,8 @@ public class InventoryManager : MonoBehaviour
         if (armorItem == null)
         {
             InventoryItem thisArmorItem = Instantiate(inventoryItem, equipmentSlotsUI[0].transform);
-            thisArmorItem.item = newArmorItem.item;
+            thisArmorItem.InitializeItem(newArmorItem.item, newArmorItem.count);
             thisArmorItem.pickupItemID = newArmorItem.pickupItemID;
-            thisArmorItem.InitializeItem(newArmorItem.count);
             thisArmorItem.InitializeSlot();
             return true;
         }
@@ -95,9 +94,8 @@ public class InventoryManager : MonoBehaviour
             if(weaponItem == null)
             {
                 InventoryItem thisItemWeapon = Instantiate(inventoryItem, equipmentSlotsUI[i].transform);
-                thisItemWeapon.item = newWeaponItem.item;
+                thisItemWeapon.InitializeItem(newWeaponItem.item, newWeaponItem.count);
                 thisItemWeapon.pickupItemID = newWeaponItem.pickupItemID;
-                thisItemWeapon.InitializeItem(newWeaponItem.count);
                 thisItemWeapon.InitializeSlot();
                 return true;
             }
@@ -229,8 +227,7 @@ public class InventoryManager : MonoBehaviour
     }
     public bool AddInventoryItem(Item newItem, string pickupItemID, int count)
     {
-        // add to stackable
-        for(int i = 0; i < inventorySlotsUI.Length; i++)
+        for(int i = 0; i < inventorySlotsUI.Length; i++) // add to stackable
         {
             if(inventorySlotsUI[i].slotData.itemId == newItem.itemID && inventorySlotsUI[i].slotData.stackable == true)
             {
@@ -252,8 +249,7 @@ public class InventoryManager : MonoBehaviour
                         itemInSlot.count = newItem.stackMax;
                         itemInSlot.slider.maxValue = newItem.stackMax;
                         itemInSlot.RefreshCount();
-                        // find next empty slot
-                        for (i = 0; i < inventorySlotsUI.Length; i++)
+                        for (i = 0; i < inventorySlotsUI.Length; i++) // find next empty slot
                         {
                             if (inventorySlotsUI[i].slotData.itemId == -1)
                             {
@@ -293,8 +289,7 @@ public class InventoryManager : MonoBehaviour
                 }
             }
         }
-        // find next empty slot
-        for (int i = 0; i < inventorySlotsUI.Length; i++)
+        for (int i = 0; i < inventorySlotsUI.Length; i++) // find next empty slot
         {
             if (inventorySlotsUI[i].slotData.itemId == -1)
             {
@@ -302,13 +297,12 @@ public class InventoryManager : MonoBehaviour
                 inventorySlotsUI[i].slotData.count += 1;
                 Instantiate(inventoryItem, inventorySlotsUI[i].transform);
                 InventoryItem thisInventoryItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
-                thisInventoryItem.GetComponent<InventoryItem>().item = newItem;
-                if (newItem.itemType == ItemType.Weapon)
+                thisInventoryItem.GetComponent<InventoryItem>().InitializeItem(newItem, count);
+                if (newItem.itemType == ItemType.Weapon || newItem.itemType == ItemType.Armor)
                 {
                     inventorySlotsUI[i].slotData.pickupItemID = pickupItemID;
-                    thisInventoryItem.GetComponent<InventoryItem>().pickupItemID = pickupItemID;
+                    thisInventoryItem.pickupItemID = pickupItemID;
                 }
-                thisInventoryItem.GetComponent<InventoryItem>().InitializeItem(count);
                 return true;
             }
         }
@@ -324,13 +318,12 @@ public class InventoryManager : MonoBehaviour
                 inventorySlotsUI[i].slotData.count = count;
                 Instantiate(inventoryItem, inventorySlotsUI[i].transform);
                 InventoryItem thisInventoryItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
-                thisInventoryItem.GetComponent<InventoryItem>().item = newItem;
+                thisInventoryItem.GetComponent<InventoryItem>().InitializeItem(thisInventoryItem.item, count);
                 if (newItem.itemType == ItemType.Weapon)
                 {
                     inventorySlotsUI[i].slotData.pickupItemID = pickupItemID;
-                    thisInventoryItem.GetComponent<InventoryItem>().pickupItemID = pickupItemID;
+                    thisInventoryItem.pickupItemID = pickupItemID;
                 }
-                thisInventoryItem.GetComponent<InventoryItem>().InitializeItem(count);
                 return true;
             }
         }

@@ -27,8 +27,9 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     public Button splitOkButton;
     public Slider slider;
     [SerializeField] TextMeshProUGUI sliderText;
-    public void InitializeItem(int newItemCount)
+    public void InitializeItem(Item newItem, int newItemCount)
     {
+        item = newItem;
         itemId = item.itemID;
         itemType = item.itemType;
         itemName = item.itemName;
