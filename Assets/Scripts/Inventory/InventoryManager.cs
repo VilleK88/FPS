@@ -80,14 +80,8 @@ public class InventoryManager : MonoBehaviour
         {
             InventoryItem thisArmorItem = Instantiate(inventoryItem, equipmentSlotsUI[0].transform);
             thisArmorItem.item = newArmorItem.item;
-            thisArmorItem.itemId = newArmorItem.itemId;
             thisArmorItem.pickupItemID = newArmorItem.pickupItemID;
-            thisArmorItem.itemName = newArmorItem.itemName;
-            thisArmorItem.img.sprite = newArmorItem.item.icon;
-            thisArmorItem.itemType = newArmorItem.itemType;
-            thisArmorItem.stackable = newArmorItem.stackable;
-            thisArmorItem.maxStack = newArmorItem.maxStack;
-            thisArmorItem.count = newArmorItem.count;
+            thisArmorItem.InitializeItem(newArmorItem.count);
             thisArmorItem.InitializeSlot();
             return true;
         }
@@ -102,14 +96,8 @@ public class InventoryManager : MonoBehaviour
             {
                 InventoryItem thisItemWeapon = Instantiate(inventoryItem, equipmentSlotsUI[i].transform);
                 thisItemWeapon.item = newWeaponItem.item;
-                thisItemWeapon.itemId = newWeaponItem.itemId;
                 thisItemWeapon.pickupItemID = newWeaponItem.pickupItemID;
-                thisItemWeapon.itemName = newWeaponItem.itemName;
-                thisItemWeapon.img.sprite = newWeaponItem.item.icon;
-                thisItemWeapon.itemType = newWeaponItem.itemType;
-                thisItemWeapon.stackable = newWeaponItem.stackable;
-                thisItemWeapon.maxStack = newWeaponItem.maxStack;
-                thisItemWeapon.count = newWeaponItem.count;
+                thisItemWeapon.InitializeItem(newWeaponItem.count);
                 thisItemWeapon.InitializeSlot();
                 return true;
             }
@@ -276,7 +264,6 @@ public class InventoryManager : MonoBehaviour
                                 Instantiate(inventoryItem, inventorySlotsUI[i].transform);
                                 InventoryItem thisInventoryItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
                                 thisInventoryItem.item = newItem;
-                                thisInventoryItem.itemId = newItem.itemID;
                                 thisInventoryItem.itemName = newItem.itemName;
                                 thisInventoryItem.itemType = newItem.itemType;
                                 thisInventoryItem.stackable = newItem.stackable;
@@ -388,8 +375,6 @@ public class InventoryManager : MonoBehaviour
                 InventoryItem thisInventoryItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
                 thisInventoryItem.item = itemsDatabase[inventorySlotsUI[i].slotData.itemId];
                 InitializeSavedItem(thisInventoryItem, newItemGo);
-                newItemGo.InitializeSlider();
-                thisInventoryItem.GetComponent<InventoryItem>().RefreshCount();
             }
         }
         for (int i = 0; i < equipmentSlotsUI.Length; i++) // add saved equipment slot data
@@ -401,7 +386,6 @@ public class InventoryManager : MonoBehaviour
                 InventoryItem thisInventoryItem = equipmentSlotsUI[i].GetComponentInChildren<InventoryItem>();
                 thisInventoryItem.item = itemsDatabase[equipmentSlotsUI[i].slotData.itemId];
                 InitializeSavedItem(thisInventoryItem, newItemGo);
-                thisInventoryItem.GetComponent<InventoryItem>().RefreshCount();
             }
         }
     }
@@ -415,6 +399,7 @@ public class InventoryManager : MonoBehaviour
         newItem.maxStack = savedInventoryItem.item.stackMax;
         newItem.count = savedInventoryItem.GetComponentInParent<InventorySlot>().slotData.count;
         newItem.img.sprite = savedInventoryItem.item.icon;
+        newItem.RefreshCount();
     }
     void InitializeSavedSlot(InventorySlotData savedSlotData, InventorySlot newSlot)
     {
