@@ -41,7 +41,7 @@ public class InventoryManager : MonoBehaviour
         {
             InventorySlot slot = Instantiate(slotPrefab, inventoryTransform);
             inventorySlotsUI[i] = slot;
-            slot.InitializeSlot();
+            slot.InitializeButton();
         }
         if(GameManager.instance.loadInventory)
         {
@@ -271,23 +271,19 @@ public class InventoryManager : MonoBehaviour
                         {
                             if (inventorySlotsUI[i].slotData.itemId == -1)
                             {
-                                inventorySlotsUI[i].slotData.itemId = newItem.itemID;
-                                inventorySlotsUI[i].slotData.itemName = newItem.itemName;
-                                inventorySlotsUI[i].slotData.itemType = newItem.itemType;
-                                inventorySlotsUI[i].slotData.stackable = newItem.stackable;
-                                inventorySlotsUI[i].slotData.stackMax = newItem.stackMax;
+                                inventorySlotsUI[i].InitializeSlot(newItem);
                                 inventorySlotsUI[i].slotData.count += 1;
                                 Instantiate(inventoryItem, inventorySlotsUI[i].transform);
                                 InventoryItem thisInventoryItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
-                                thisInventoryItem.GetComponent<InventoryItem>().item = newItem;
-                                thisInventoryItem.GetComponent<InventoryItem>().itemId = newItem.itemID;
-                                thisInventoryItem.GetComponent<InventoryItem>().itemName = newItem.itemName;
-                                thisInventoryItem.GetComponent<InventoryItem>().itemType = newItem.itemType;
-                                thisInventoryItem.GetComponent<InventoryItem>().stackable = newItem.stackable;
-                                thisInventoryItem.GetComponent<InventoryItem>().maxStack = newItem.stackMax;
-                                thisInventoryItem.GetComponent<InventoryItem>().img.sprite = newItem.icon;
-                                thisInventoryItem.GetComponent<InventoryItem>().count = decreaseCount;
-                                thisInventoryItem.GetComponent<InventoryItem>().slider.maxValue = thisInventoryItem.count;
+                                thisInventoryItem.item = newItem;
+                                thisInventoryItem.itemId = newItem.itemID;
+                                thisInventoryItem.itemName = newItem.itemName;
+                                thisInventoryItem.itemType = newItem.itemType;
+                                thisInventoryItem.stackable = newItem.stackable;
+                                thisInventoryItem.maxStack = newItem.stackMax;
+                                thisInventoryItem.img.sprite = newItem.icon;
+                                thisInventoryItem.count = decreaseCount;
+                                thisInventoryItem.slider.maxValue = thisInventoryItem.count;
                                 InventorySlot slot = thisInventoryItem.GetComponentInParent<InventorySlot>();
                                 slot.slotData.count = thisInventoryItem.count;
                                 thisInventoryItem.RefreshCount();
@@ -319,11 +315,7 @@ public class InventoryManager : MonoBehaviour
         {
             if (inventorySlotsUI[i].slotData.itemId == -1)
             {
-                inventorySlotsUI[i].slotData.itemId = newItem.itemID;
-                inventorySlotsUI[i].slotData.itemName = newItem.itemName;
-                inventorySlotsUI[i].slotData.itemType = newItem.itemType;
-                inventorySlotsUI[i].slotData.stackable = newItem.stackable;
-                inventorySlotsUI[i].slotData.stackMax = newItem.stackMax;
+                inventorySlotsUI[i].InitializeSlot(newItem);
                 inventorySlotsUI[i].slotData.count += 1;
                 Instantiate(inventoryItem, inventorySlotsUI[i].transform);
                 InventoryItem thisInventoryItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
@@ -345,11 +337,7 @@ public class InventoryManager : MonoBehaviour
         {
             if (inventorySlotsUI[i].slotData.itemId == -1)
             {
-                inventorySlotsUI[i].slotData.itemId = newItem.itemID;
-                inventorySlotsUI[i].slotData.itemName = newItem.itemName;
-                inventorySlotsUI[i].slotData.itemType = newItem.itemType;
-                inventorySlotsUI[i].slotData.stackable = newItem.stackable;
-                inventorySlotsUI[i].slotData.stackMax = newItem.stackMax;
+                inventorySlotsUI[i].InitializeSlot(newItem);
                 inventorySlotsUI[i].slotData.count = count;
                 Instantiate(inventoryItem, inventorySlotsUI[i].transform);
                 InventoryItem thisInventoryItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
@@ -395,22 +383,11 @@ public class InventoryManager : MonoBehaviour
         {
             if (inventorySlotsUI[i].slotData.itemId > -1)
             {
-                inventorySlotsUI[i].slotData.itemId = GameManager.instance.inventorySlotsData[i].itemId;
-                inventorySlotsUI[i].slotData.itemType = GameManager.instance.inventorySlotsData[i].itemType;
-                inventorySlotsUI[i].slotData.pickupItemID = GameManager.instance.inventorySlotsData[i].pickupItemID;
-                inventorySlotsUI[i].slotData.stackable = GameManager.instance.inventorySlotsData[i].stackable;
-                inventorySlotsUI[i].slotData.stackMax = GameManager.instance.inventorySlotsData[i].stackMax;
+                InitializeSavedSlot(GameManager.instance.inventorySlotsData[i], inventorySlotsUI[i]);
                 InventoryItem newItemGo = Instantiate(inventoryItem, inventorySlotsUI[i].transform);
                 InventoryItem thisInventoryItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
                 thisInventoryItem.item = itemsDatabase[inventorySlotsUI[i].slotData.itemId];
-                newItemGo.itemId = thisInventoryItem.item.itemID;
-                newItemGo.pickupItemID = inventorySlotsUI[i].slotData.pickupItemID;
-                newItemGo.itemName = thisInventoryItem.item.itemName;
-                newItemGo.itemType = thisInventoryItem.item.itemType;
-                newItemGo.stackable = thisInventoryItem.item.stackable;
-                newItemGo.maxStack = thisInventoryItem.item.stackMax;
-                newItemGo.count = inventorySlotsUI[i].slotData.count;
-                newItemGo.img.sprite = thisInventoryItem.item.icon;
+                InitializeSavedItem(thisInventoryItem, newItemGo);
                 newItemGo.InitializeSlider();
                 thisInventoryItem.GetComponent<InventoryItem>().RefreshCount();
             }
@@ -419,25 +396,33 @@ public class InventoryManager : MonoBehaviour
         {
             if (equipmentSlotsUI[i].slotData.itemId > -1)
             {
-                equipmentSlotsUI[i].slotData.itemId = GameManager.instance.equipmentSlotsData[i].itemId;
-                equipmentSlotsUI[i].slotData.itemType = GameManager.instance.equipmentSlotsData[i].itemType;
-                equipmentSlotsUI[i].slotData.pickupItemID = GameManager.instance.equipmentSlotsData[i].pickupItemID;
-                equipmentSlotsUI[i].slotData.stackable = GameManager.instance.equipmentSlotsData[i].stackable;
-                equipmentSlotsUI[i].slotData.stackMax = GameManager.instance.equipmentSlotsData[i].stackMax;
+                InitializeSavedSlot(GameManager.instance.inventorySlotsData[i], inventorySlotsUI[i]);
                 InventoryItem newItemGo = Instantiate(inventoryItem, equipmentSlotsUI[i].transform);
                 InventoryItem thisInventoryItem = equipmentSlotsUI[i].GetComponentInChildren<InventoryItem>();
                 thisInventoryItem.item = itemsDatabase[equipmentSlotsUI[i].slotData.itemId];
-                newItemGo.itemId = thisInventoryItem.item.itemID;
-                newItemGo.itemName = thisInventoryItem.item.itemName;
-                newItemGo.itemType = thisInventoryItem.item.itemType;
-                newItemGo.pickupItemID = thisInventoryItem.pickupItemID;
-                newItemGo.stackable = thisInventoryItem.item.stackable;
-                newItemGo.maxStack = thisInventoryItem.item.stackMax;
-                newItemGo.count = equipmentSlotsUI[i].slotData.count;
-                newItemGo.img.sprite = thisInventoryItem.item.icon;
+                InitializeSavedItem(thisInventoryItem, newItemGo);
                 thisInventoryItem.GetComponent<InventoryItem>().RefreshCount();
             }
         }
+    }
+    void InitializeSavedItem(InventoryItem savedInventoryItem, InventoryItem newItem)
+    {
+        newItem.itemId = savedInventoryItem.item.itemID;
+        newItem.pickupItemID = savedInventoryItem.GetComponentInParent<InventorySlot>().slotData.pickupItemID;
+        newItem.itemName = savedInventoryItem.item.itemName;
+        newItem.itemType = savedInventoryItem.item.itemType;
+        newItem.stackable = savedInventoryItem.item.stackable;
+        newItem.maxStack = savedInventoryItem.item.stackMax;
+        newItem.count = savedInventoryItem.GetComponentInParent<InventorySlot>().slotData.count;
+        newItem.img.sprite = savedInventoryItem.item.icon;
+    }
+    void InitializeSavedSlot(InventorySlotData savedSlotData, InventorySlot newSlot)
+    {
+        newSlot.slotData.itemId = savedSlotData.itemId;
+        newSlot.slotData.itemType = savedSlotData.itemType;
+        newSlot.slotData.pickupItemID = savedSlotData.pickupItemID;
+        newSlot.slotData.stackable = savedSlotData.stackable;
+        newSlot.slotData.stackMax = savedSlotData.stackMax;
     }
     public void ClearInventory() // and equipment
     {

@@ -1,4 +1,5 @@
 using System;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -17,10 +18,18 @@ public class InventorySlotData
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
     public InventorySlotData slotData = new InventorySlotData();
-    public void InitializeSlot() // for new input system
+    public void InitializeButton() // for new input system
     {
         Button button = GetComponent<Button>();
         button.onClick.AddListener(OnButtonClicked);
+    }
+    public void InitializeSlot(Item item)
+    {
+        slotData.itemId = item.itemID;
+        slotData.itemName = item.itemName;
+        slotData.itemType = item.itemType;
+        slotData.stackable = item.stackable;
+        slotData.stackMax = item.stackMax;
     }
     void OnButtonClicked() // inventory keyboard use
     {
