@@ -18,7 +18,6 @@ MonoBehaviour:
   itemType: 1
   stackable: 1
   stackMax: 3
-  icon: {fileID: 21300050, guid: a1d46cd3f2614cc43be92ab44ea7d819, type: 3}
+  icon: {fileID: 21300050, guid: 5163ae49a0de665458bba61cd20c99b1, type: 3}
   description: Small medpack
-  ammoType: 0
   healthAmount: 25

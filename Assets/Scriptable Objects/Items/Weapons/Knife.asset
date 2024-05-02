@@ -18,7 +18,5 @@ MonoBehaviour:
   itemType: 3
   stackable: 0
   stackMax: 1
-  count: 1
-  icon: {fileID: 21300038, guid: 5acb27b603af6d44ea6113c4b7b15385, type: 3}
+  icon: {fileID: 21300038, guid: 6674e8c43c63e4f4184cbd009379498d, type: 3}
   description: 
-  ammoType: 0
