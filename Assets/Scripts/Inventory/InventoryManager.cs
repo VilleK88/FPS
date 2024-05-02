@@ -154,9 +154,7 @@ public class InventoryManager : MonoBehaviour
         if (player != null)
         {
             for (int i = 0; i < weaponSlots.Length; i++)
-            {
                 GameManager.instance.bulletsLeft[i] = weaponSlots[i].GetComponent<Weapon>().bulletsLeft;
-            }
         }
     }
     public void LoadHowManyBulletsLeftInMagazine()
@@ -288,9 +286,7 @@ public class InventoryManager : MonoBehaviour
                         if (player != null)
                         {
                             for (i = 0; i < weaponSlots.Length; i++)
-                            {
                                 weaponSlots[i].GetComponent<Weapon>().UpdateTotalAmmoStatus();
-                            }
                         }
                     }
                     return true;
@@ -344,25 +340,17 @@ public class InventoryManager : MonoBehaviour
     {
         GameManager.instance.inventorySlotsData = new InventorySlotData[inventorySlotsUI.Length];
         for (int i = 0; i < inventorySlotsUI.Length; i++)
-        {
             GameManager.instance.inventorySlotsData[i] = inventorySlotsUI[i].slotData;
-        }
         GameManager.instance.equipmentSlotsData = new InventorySlotData[equipmentSlotsUI.Length];
         for (int i = 0; i < equipmentSlotsUI.Length; i++)
-        {
             GameManager.instance.equipmentSlotsData[i] = equipmentSlotsUI[i].slotData;
-        }
     }
     public void LoadInventorySlotData() // and equipment slot data from GameManager
     {
         for(int i = 0; i < inventorySlotsUI.Length; i++)
-        {
             inventorySlotsUI[i].slotData = GameManager.instance.inventorySlotsData[i];
-        }
         for (int i = 0; i < equipmentSlotsUI.Length; i++)
-        {
             equipmentSlotsUI[i].slotData = GameManager.instance.equipmentSlotsData[i];
-        }
     }
     public void AddSavedInventorySlotData() // to inventory and equipments
     {
@@ -412,12 +400,8 @@ public class InventoryManager : MonoBehaviour
     public void ClearInventory() // and equipment
     {
         for(int i = 0; i < GameManager.instance.inventorySlotsData.Length; i++)
-        {
             GameManager.instance.inventorySlotsData[i] = null;
-        }
         for (int i = 0; i < GameManager.instance.equipmentSlotsData.Length; i++)
-        {
             GameManager.instance.equipmentSlotsData[i] = null;
-        }
     }
 }

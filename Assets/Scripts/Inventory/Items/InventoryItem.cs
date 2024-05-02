@@ -88,9 +88,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         if (textActive)
             countText.text = count.ToString();
         else
-        {
             countText.text = "";
-        }
         InitializeSlider();
     }
     public void UseItem()
