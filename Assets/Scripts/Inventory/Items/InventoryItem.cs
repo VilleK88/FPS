@@ -27,9 +27,8 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     public Button splitOkButton;
     public Slider slider;
     [SerializeField] TextMeshProUGUI sliderText;
-    public void InitializeItem(Item newItem, int newItemCount)
+    public void InitializeItem(int newItemCount)
     {
-        item = newItem;
         itemId = item.itemID;
         itemType = item.itemType;
         itemName = item.itemName;
@@ -69,16 +68,13 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
             for (int i = 0; i < weaponSlots.Length; i++)
             {
                 Ammo ammo = item as Ammo;
-                if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.Pistol &&
-                    ammo.ammoType == AmmoType.Pistol)
+                if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.Pistol && ammo.ammoType == AmmoType.Pistol)
                     weaponSlots[i].GetComponent<Weapon>().UpdateTotalAmmoStatus();
 
-                if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.AssaultRifle &&
-                    ammo.ammoType == AmmoType.AssaultRifle)
+                if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.AssaultRifle && ammo.ammoType == AmmoType.AssaultRifle)
                     weaponSlots[i].GetComponent<Weapon>().UpdateTotalAmmoStatus();
 
-                if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.Shotgun &&
-                    ammo.ammoType == AmmoType.Shotgun)
+                if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.Shotgun && ammo.ammoType == AmmoType.Shotgun)
                     weaponSlots[i].GetComponent<Weapon>().UpdateTotalAmmoStatus();
             }
         }

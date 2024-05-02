@@ -79,7 +79,7 @@ public class InventoryManager : MonoBehaviour
         if (armorItem == null)
         {
             InventoryItem thisArmorItem = Instantiate(inventoryItem, equipmentSlotsUI[0].transform);
-            thisArmorItem.InitializeItem(newArmorItem.item, newArmorItem.count);
+            thisArmorItem.InitializeItem(newArmorItem.count);
             thisArmorItem.pickupItemID = newArmorItem.pickupItemID;
             thisArmorItem.InitializeSlot();
             return true;
@@ -94,7 +94,7 @@ public class InventoryManager : MonoBehaviour
             if(weaponItem == null)
             {
                 InventoryItem thisItemWeapon = Instantiate(inventoryItem, equipmentSlotsUI[i].transform);
-                thisItemWeapon.InitializeItem(newWeaponItem.item, newWeaponItem.count);
+                thisItemWeapon.InitializeItem(newWeaponItem.count);
                 thisItemWeapon.pickupItemID = newWeaponItem.pickupItemID;
                 thisItemWeapon.InitializeSlot();
                 return true;
@@ -297,7 +297,8 @@ public class InventoryManager : MonoBehaviour
                 inventorySlotsUI[i].slotData.count += 1;
                 Instantiate(inventoryItem, inventorySlotsUI[i].transform);
                 InventoryItem thisInventoryItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
-                thisInventoryItem.GetComponent<InventoryItem>().InitializeItem(newItem, count);
+                thisInventoryItem.item = newItem;
+                thisInventoryItem.GetComponent<InventoryItem>().InitializeItem(count);
                 if (newItem.itemType == ItemType.Weapon || newItem.itemType == ItemType.Armor)
                 {
                     inventorySlotsUI[i].slotData.pickupItemID = pickupItemID;
@@ -318,7 +319,8 @@ public class InventoryManager : MonoBehaviour
                 inventorySlotsUI[i].slotData.count = count;
                 Instantiate(inventoryItem, inventorySlotsUI[i].transform);
                 InventoryItem thisInventoryItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
-                thisInventoryItem.GetComponent<InventoryItem>().InitializeItem(thisInventoryItem.item, count);
+                thisInventoryItem.item = newItem;
+                thisInventoryItem.GetComponent<InventoryItem>().InitializeItem(count);
                 if (newItem.itemType == ItemType.Weapon)
                 {
                     inventorySlotsUI[i].slotData.pickupItemID = pickupItemID;
