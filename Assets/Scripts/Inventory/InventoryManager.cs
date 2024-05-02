@@ -261,12 +261,11 @@ public class InventoryManager : MonoBehaviour
                     }
                     else
                     {
-                        int decreaseCount = tempTotalCount - itemInSlot.maxStack;
+                        int decreaseCount = tempTotalCount - itemInSlot.maxStack; // decrease items count
                         inventorySlotsUI[i].slotData.count = newItem.stackMax;
                         itemInSlot.count = newItem.stackMax;
                         itemInSlot.slider.maxValue = newItem.stackMax;
                         itemInSlot.RefreshCount();
-
                         // find next empty slot
                         for (i = 0; i < inventorySlotsUI.Length; i++)
                         {
@@ -390,9 +389,9 @@ public class InventoryManager : MonoBehaviour
             equipmentSlotsUI[i].slotData = GameManager.instance.equipmentSlotsData[i];
         }
     }
-    public void AddSavedInventorySlotData() // to inventory
+    public void AddSavedInventorySlotData() // to inventory and equipments
     {
-        for (int i = 0; i < inventorySlotsUI.Length; i++)
+        for (int i = 0; i < inventorySlotsUI.Length; i++) // add saved inventory slot data
         {
             if (inventorySlotsUI[i].slotData.itemId > -1)
             {
@@ -416,8 +415,7 @@ public class InventoryManager : MonoBehaviour
                 thisInventoryItem.GetComponent<InventoryItem>().RefreshCount();
             }
         }
-        // add saved equipment slot data
-        for (int i = 0; i < equipmentSlotsUI.Length; i++)
+        for (int i = 0; i < equipmentSlotsUI.Length; i++) // add saved equipment slot data
         {
             if (equipmentSlotsUI[i].slotData.itemId > -1)
             {

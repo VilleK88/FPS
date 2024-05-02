@@ -5,7 +5,6 @@ public class ItemPickup : Interactable
     public Item item, secondItem;
     public string itemName;
     public string pickUpItemID;
-    [SerializeField] string id;
     public int count = 1;
     [SerializeField] bool collectOnTouch;
     public List<int> weaponIDsList = new List<int>();
