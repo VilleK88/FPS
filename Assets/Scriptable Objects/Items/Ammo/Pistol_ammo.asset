@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 368d9be3487582f4483c92a65c1ce4d0, type: 3}
-  m_Name: ShotgunAmmo
+  m_Script: {fileID: 11500000, guid: b4e28fda6b6d00149a40ec13365967f0, type: 3}
+  m_Name: Pistol_ammo
   m_EditorClassIdentifier: 
-  name: ShotgunAmmo
-  itemID: 8
-  itemName: Shotgun ammo
+  name: Pistol_ammo
+  itemID: 6
+  itemName: Pistol ammo
   itemType: 4
   stackable: 1
-  stackMax: 28
-  count: 23
-  icon: {fileID: 21300018, guid: a1d46cd3f2614cc43be92ab44ea7d819, type: 3}
-  description: Shotgun ammo
-  ammoType: 3
+  stackMax: 64
+  icon: {fileID: 21300000, guid: a1d46cd3f2614cc43be92ab44ea7d819, type: 3}
+  description: Pistol ammo
+  ammoType: 1
+  newAmmoType: 1

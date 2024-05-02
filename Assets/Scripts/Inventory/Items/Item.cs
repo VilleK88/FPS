@@ -11,8 +11,6 @@ public class Item : ScriptableObject
     public Sprite icon = null;
     [TextArea]
     public string description;
-    [Header("Ammo Settings")]
-    public AmmoType ammoType;
 }
 public enum ItemType
 {
@@ -21,12 +19,4 @@ public enum ItemType
     Armor,
     Weapon,
     Ammo,
-}
-
-public enum AmmoType
-{
-    Default,
-    Pistol,
-    AssaultRifle,
-    Shotgun,
 }

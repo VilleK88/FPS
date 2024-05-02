@@ -28,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3134858595228707918}
-  m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 9.87, y: 1.574, z: 4.057476}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -100,9 +100,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionTransform: {fileID: 3136876932622896830}
   item: {fileID: 11400000, guid: 2749981cea30ec4499b66760fb944794, type: 2}
+  secondItem: {fileID: 0}
   itemName: Assault rifle ammo
-  pickUpItemID: 783357866
+  pickUpItemID: 2642672
+  id: 
+  count: 75
   collectOnTouch: 1
+  weaponIDsList: 
 --- !u!65 &105495289616498361
 BoxCollider:
   m_ObjectHideFlags: 0

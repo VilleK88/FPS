@@ -28,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3617629316439423243}
-  m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8.01, y: 1.57, z: 0.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -99,10 +99,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionTransform: {fileID: 3620132177701510139}
-  item: {fileID: 11400000, guid: 5ca931ff0742c0a498b72c235f5dd3d3, type: 2}
+  item: {fileID: 11400000, guid: 68e1794815be8f542a00bdad9ade0989, type: 2}
+  secondItem: {fileID: 0}
   itemName: Shotgun ammo
-  pickUpItemID: 2147483647
+  pickUpItemID: 23388645
+  id: 
+  count: 21
   collectOnTouch: 1
+  weaponIDsList: 
 --- !u!65 &1784529991021079548
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -105,35 +105,38 @@ public class Weapon : MonoBehaviour
         for (int i = 0; i < InventoryManager.instance.inventorySlotsUI.Length; i++)
         {
             InventoryItem inventoryItem = InventoryManager.instance.inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
-            if(inventoryItem != null && inventoryItem.itemType == ItemType.Ammo &&
-                inventoryItem.item.ammoType == ammoType)
+            if(inventoryItem != null && inventoryItem.itemType == ItemType.Ammo)
             {
-                totalAmmo = inventoryItem.count;
-                InventorySlot slot = inventoryItem.GetComponentInParent<InventorySlot>();
-                if (inventoryItem.count >= magazineSize)
+                Ammo ammo = inventoryItem.item as Ammo;
+                if (ammo.ammoType == ammoType)
                 {
-                    int reduceBulletsLeft = magazineSize - bulletsLeft;
-                    inventoryItem.count -= reduceBulletsLeft;
-                    inventoryItem.RefreshCount();
-                    slot.slotData.count -= reduceBulletsLeft;
-                    if (inventoryItem.count <= 0)
-                        inventoryItem.PublicRemoveItem();
-                    break;
-                }
-                else
-                {
-                    int reduceBulletsLeft = magazineSize - bulletsLeft;
-                    inventoryItem.count -= reduceBulletsLeft;
-                    inventoryItem.RefreshCount();
-                    slot.slotData.count -= reduceBulletsLeft;
-                    if (inventoryItem.count <= 0)
+                    totalAmmo = inventoryItem.count;
+                    InventorySlot slot = inventoryItem.GetComponentInParent<InventorySlot>();
+                    if (inventoryItem.count >= magazineSize)
                     {
-                        int tempInventoryItemAmmoCount = inventoryItem.count;
-                        inventoryItem.PublicRemoveItem();
-                        if (tempInventoryItemAmmoCount < 0)
-                            DecreaseAmmoCountOnNextAmmoItem(tempInventoryItemAmmoCount, i);
+                        int reduceBulletsLeft = magazineSize - bulletsLeft;
+                        inventoryItem.count -= reduceBulletsLeft;
+                        inventoryItem.RefreshCount();
+                        slot.slotData.count -= reduceBulletsLeft;
+                        if (inventoryItem.count <= 0)
+                            inventoryItem.PublicRemoveItem();
+                        break;
                     }
-                    break;
+                    else
+                    {
+                        int reduceBulletsLeft = magazineSize - bulletsLeft;
+                        inventoryItem.count -= reduceBulletsLeft;
+                        inventoryItem.RefreshCount();
+                        slot.slotData.count -= reduceBulletsLeft;
+                        if (inventoryItem.count <= 0)
+                        {
+                            int tempInventoryItemAmmoCount = inventoryItem.count;
+                            inventoryItem.PublicRemoveItem();
+                            if (tempInventoryItemAmmoCount < 0)
+                                DecreaseAmmoCountOnNextAmmoItem(tempInventoryItemAmmoCount, i);
+                        }
+                        break;
+                    }
                 }
             }
         }
@@ -143,24 +146,27 @@ public class Weapon : MonoBehaviour
         for (int i = itemCount+1; i < InventoryManager.instance.inventorySlotsUI.Length; i++)
         {
             InventoryItem inventoryItem = InventoryManager.instance.inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
-            if (inventoryItem != null && inventoryItem.itemType == ItemType.Ammo &&
-                inventoryItem.item.ammoType == ammoType)
+            if (inventoryItem != null && inventoryItem.itemType == ItemType.Ammo)
             {
-                if (decreaseAmount == 0)
-                    break;
-                if(inventoryItem.count + decreaseAmount <= 0)
+                Ammo ammo = inventoryItem.item as Ammo;
+                if (ammo.ammoType == ammoType)
                 {
-                    decreaseAmount += inventoryItem.count;
-                    inventoryItem.count = 0;
-                    inventoryItem.PublicRemoveItem();
-                }
-                else
-                {
-                    inventoryItem.count += decreaseAmount;
-                    inventoryItem.RefreshCount();
-                    InventorySlot slot = inventoryItem.GetComponentInParent<InventorySlot>();
-                    slot.slotData.count = inventoryItem.count;
-                    decreaseAmount = 0;
+                    if (decreaseAmount == 0)
+                        break;
+                    if (inventoryItem.count + decreaseAmount <= 0)
+                    {
+                        decreaseAmount += inventoryItem.count;
+                        inventoryItem.count = 0;
+                        inventoryItem.PublicRemoveItem();
+                    }
+                    else
+                    {
+                        inventoryItem.count += decreaseAmount;
+                        inventoryItem.RefreshCount();
+                        InventorySlot slot = inventoryItem.GetComponentInParent<InventorySlot>();
+                        slot.slotData.count = inventoryItem.count;
+                        decreaseAmount = 0;
+                    }
                 }
             }
         }
@@ -171,15 +177,19 @@ public class Weapon : MonoBehaviour
         for (int i = 0; i < InventoryManager.instance.inventorySlotsUI.Length; i++)
         {
             InventoryItem inventoryItem = InventoryManager.instance.inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
-            if (inventoryItem != null && inventoryItem.itemType == ItemType.Ammo &&
-                inventoryItem.item.ammoType == ammoType)
+            if (inventoryItem != null && inventoryItem.itemType == ItemType.Ammo)
             {
-                if (inventoryItem.item.ammoType == ammoType)
+                Item item = inventoryItem.item;
+                Ammo ammo = item as Ammo;
+                if(item != null && ammo != null)
                 {
-                    if (inventoryItem.count > 0)
-                        totalAmmo += inventoryItem.count;
-                    else
-                        totalAmmo = 0;
+                    if (ammo.ammoType == ammoType)
+                    {
+                        if (inventoryItem.count > 0)
+                            totalAmmo += inventoryItem.count;
+                        else
+                            totalAmmo = 0;
+                    }
                 }
             }
         }

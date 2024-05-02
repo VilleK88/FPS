@@ -212,5 +212,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionTransform: {fileID: 6746419480133821711}
   item: {fileID: 11400000, guid: 0d037110ef7ece747998b75166bd5a0e, type: 2}
+  secondItem: {fileID: 11400000, guid: 68e1794815be8f542a00bdad9ade0989, type: 2}
   itemName: Shotgun
+  pickUpItemID: 2235353
+  id: 
+  count: 1
   collectOnTouch: 1
+  weaponIDsList: 

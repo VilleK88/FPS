@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 368d9be3487582f4483c92a65c1ce4d0, type: 3}
-  m_Name: AR_Ammo
+  m_Script: {fileID: 11500000, guid: b4e28fda6b6d00149a40ec13365967f0, type: 3}
+  m_Name: AR_ammo
   m_EditorClassIdentifier: 
   name: AR_ammo
   itemID: 7
@@ -18,7 +18,7 @@ MonoBehaviour:
   itemType: 4
   stackable: 1
   stackMax: 90
-  count: 75
-  icon: {fileID: 21300012, guid: a1d46cd3f2614cc43be92ab44ea7d819, type: 3}
+  icon: {fileID: 21300010, guid: a1d46cd3f2614cc43be92ab44ea7d819, type: 3}
   description: Assault rifle ammo
   ammoType: 2
+  newAmmoType: 2

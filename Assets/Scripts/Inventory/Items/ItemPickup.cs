@@ -66,11 +66,12 @@ public class ItemPickup : Interactable
                         item = secondItem;
                         itemName = item.itemName;
                         item.itemType = ItemType.Ammo;
-                        if (item.ammoType == AmmoType.Pistol)
+                        Ammo ammo = item as Ammo;
+                        if (ammo.ammoType == AmmoType.Pistol)
                             count = 7;
-                        if (item.ammoType == AmmoType.AssaultRifle)
+                        if (ammo.ammoType == AmmoType.AssaultRifle)
                             count = 30;
-                        if (item.ammoType == AmmoType.Shotgun)
+                        if (ammo.ammoType == AmmoType.Shotgun)
                             count = 7;
                         PickUp();
                     }

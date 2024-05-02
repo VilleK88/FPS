@@ -14,7 +14,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
     public bool stackable;
     public int maxStack;
     public int count;
-    public AmmoType ammoType;
     public TextMeshProUGUI countText;
     [HideInInspector] public Transform parentAfterDrag;
     public bool dragging = false;
@@ -37,8 +36,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         maxStack = item.stackMax;
         img.sprite = item.icon;
         count += newItemCount;
-        ammoType = item.ammoType;
-
         if (itemType == ItemType.Ammo)
         {
             InventorySlot slot = GetComponentInParent<InventorySlot>();
@@ -70,16 +67,17 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         {
             for (int i = 0; i < weaponSlots.Length; i++)
             {
+                Ammo ammo = item as Ammo;
                 if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.Pistol &&
-                    ammoType == AmmoType.Pistol)
+                    ammo.ammoType == AmmoType.Pistol)
                     weaponSlots[i].GetComponent<Weapon>().UpdateTotalAmmoStatus();
 
                 if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.AssaultRifle &&
-                    ammoType == AmmoType.AssaultRifle)
+                    ammo.ammoType == AmmoType.AssaultRifle)
                     weaponSlots[i].GetComponent<Weapon>().UpdateTotalAmmoStatus();
 
                 if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.Shotgun &&
-                    ammoType == AmmoType.Shotgun)
+                    ammo.ammoType == AmmoType.Shotgun)
                     weaponSlots[i].GetComponent<Weapon>().UpdateTotalAmmoStatus();
             }
         }
@@ -166,7 +164,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slot.slotData.stackable = false;
         slot.slotData.stackMax = 0;
         slot.slotData.count = 0;
-        slot.slotData.ammoType = AmmoType.Default;
     }
     public void PublicRemoveItem() // removes inventoryItem and cleans the inventorySlot
     {
@@ -189,7 +186,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slot.slotData.stackable = stackable;
         slot.slotData.stackMax = maxStack;
         slot.slotData.count = count;
-        slot.slotData.ammoType = ammoType;
     }
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -297,7 +293,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         int tempCount = item1.count;
         Sprite tempImg = item1.img.sprite;
         float tempSliderValue = item1.count;
-        AmmoType tempAmmoType = item1.ammoType;
         item1.item = item2.item;
         item1.itemId = item2.itemId;
         item1.itemType = item2.itemType;
@@ -308,7 +303,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         item1.count = item2.count;
         item1.img.sprite = item2.img.sprite;
         item1.slider.maxValue = item2.count;
-        item1.ammoType = item2.ammoType;
         item1.RefreshCount();
         item2.item = tempItem;
         item2.itemId = tempItemId;
@@ -320,7 +314,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         item2.count = tempCount;
         item2.img.sprite = tempImg;
         item2.slider.maxValue = tempSliderValue;
-        item2.ammoType = tempAmmoType;
         item2.RefreshCount();
         InventorySlot slot = item2.GetComponentInParent<InventorySlot>();
         slot.slotData.itemId = item2.itemId;
@@ -330,7 +323,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         slot.slotData.stackable = item2.stackable;
         slot.slotData.stackMax = item2.maxStack;
         slot.slotData.count = item2.count;
-        slot.slotData.ammoType = item2.ammoType;
     }
     public void CloseItemMenus()
     {
@@ -348,7 +340,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         newItem.stackable = stackable;
         newItem.stackMax = maxStack;
         int tempCount = Mathf.RoundToInt(slider.value - 1);
-        newItem.ammoType = ammoType;
         if (count > 0)
         {
             bool addItem = InventoryManager.instance.SplitStack(newItem, pickupItemID, tempCount);

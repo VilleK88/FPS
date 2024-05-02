@@ -505,9 +505,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4e5be8657546d6d43b539e0d80a2cd70, type: 2}
   - {fileID: 11400000, guid: 1c4f718f6cc99f040ba871259288c675, type: 2}
   - {fileID: 11400000, guid: 0d037110ef7ece747998b75166bd5a0e, type: 2}
-  - {fileID: 11400000, guid: 2ec4250524618d345877daac5a51de9f, type: 2}
+  - {fileID: 11400000, guid: 1b0130e3167ff194f9fa49f3c2912bc7, type: 2}
   - {fileID: 11400000, guid: 2749981cea30ec4499b66760fb944794, type: 2}
-  - {fileID: 11400000, guid: 5ca931ff0742c0a498b72c235f5dd3d3, type: 2}
+  - {fileID: 11400000, guid: 68e1794815be8f542a00bdad9ade0989, type: 2}
+  - {fileID: 11400000, guid: 7ced13b880134084cba2fb8582e0573e, type: 2}
   weaponPrefabs:
   - {fileID: 3277656015592704822, guid: ea6cf546127d32640b6efe4f3ffccc19, type: 3}
   - {fileID: 3739820389152333820, guid: bff73af88e1a87e4896a6106762b95ec, type: 3}
@@ -529,6 +530,7 @@ MonoBehaviour:
   middlePoint: {fileID: 0}
   weaponIDsList: 
   selectSlot: {fileID: 0}
+  tempInventoryItem: {fileID: 0}
 --- !u!1001 &967399350864966322
 PrefabInstance:
   m_ObjectHideFlags: 0

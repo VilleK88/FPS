@@ -13,7 +13,6 @@ public class InventorySlotData
     public bool stackable;
     public int stackMax;
     public int count = 0;
-    public AmmoType ammoType;
 }
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
@@ -72,9 +71,11 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                     {
                         if (InventoryManager.instance.tempInventoryItem.itemId == itemInThisSlot.itemId)
                         {
-                            if(InventoryManager.instance.tempInventoryItem != itemInThisSlot)
+                            if (InventoryManager.instance.tempInventoryItem != itemInThisSlot)
                                 AddToStack(itemInThisSlot, InventoryManager.instance.tempInventoryItem);
                         }
+                        else
+                            SwapItems(itemInThisSlot);
                     }
                 }
             }
@@ -141,14 +142,12 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     {
         GameObject dropped = eventData.pointerDrag;
         InventoryItem inventoryItem = dropped.GetComponent<InventoryItem>();
-
         if(dropped != null && inventoryItem != null)
         {
             if (slotData.itemId == inventoryItem.itemId && slotData.stackable)
             {
                 InventoryItem targetItem = GetComponentInChildren<InventoryItem>();
                 int totalAmount = slotData.count + inventoryItem.count;
-
                 if (slotData.stackMax >= totalAmount)
                 {
                     slotData.count = totalAmount;
@@ -167,11 +166,11 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             }
             else
             {
-                if (slotData.slotType == SlotType.Default)
+                if (slotData.slotType == SlotType.Default && slotData.itemId == -1)
                     inventoryItem.parentAfterDrag = transform;
-                else if (slotData.slotType == SlotType.Armor && inventoryItem.itemType == ItemType.Armor)
+                else if (slotData.slotType == SlotType.Armor && inventoryItem.itemType == ItemType.Armor && slotData.itemId == -1)
                     inventoryItem.parentAfterDrag = transform;
-                else if (slotData.slotType == SlotType.Weapon && inventoryItem.itemType == ItemType.Weapon)
+                else if (slotData.slotType == SlotType.Weapon && inventoryItem.itemType == ItemType.Weapon && slotData.itemId == -1)
                     inventoryItem.parentAfterDrag = transform;
             }
         }
