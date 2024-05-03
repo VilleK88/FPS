@@ -68,13 +68,16 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
             for (int i = 0; i < weaponSlots.Length; i++)
             {
                 Ammo ammo = item as Ammo;
-                if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.Pistol && ammo.ammoType == AmmoType.Pistol)
+                if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.Pistol &&
+                    ammo.ammoType == AmmoType.Pistol)
                     weaponSlots[i].GetComponent<Weapon>().UpdateTotalAmmoStatus();
 
-                if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.AssaultRifle && ammo.ammoType == AmmoType.AssaultRifle)
+                if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.AssaultRifle &&
+                    ammo.ammoType == AmmoType.AssaultRifle)
                     weaponSlots[i].GetComponent<Weapon>().UpdateTotalAmmoStatus();
 
-                if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.Shotgun && ammo.ammoType == AmmoType.Shotgun)
+                if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.Shotgun &&
+                    ammo.ammoType == AmmoType.Shotgun)
                     weaponSlots[i].GetComponent<Weapon>().UpdateTotalAmmoStatus();
             }
         }
@@ -85,7 +88,9 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         if (textActive)
             countText.text = count.ToString();
         else
+        {
             countText.text = "";
+        }
         InitializeSlider();
     }
     public void UseItem()

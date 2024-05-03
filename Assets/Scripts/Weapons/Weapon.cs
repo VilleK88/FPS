@@ -78,7 +78,7 @@ public class Weapon : MonoBehaviour
             bullet.transform.forward = shootingDirection; // Pointing the bullet to face the shooting direction
             bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse); // Shoot the bullet
         }
-        else // if shotgun shoot several bullets at the same time
+        else
         {
             for(int i = 0; i < 12; i++)
             {

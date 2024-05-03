@@ -5,6 +5,7 @@ public class ItemPickup : Interactable
     public Item item, secondItem;
     public string itemName;
     public string pickUpItemID;
+    [SerializeField] string id;
     public int count = 1;
     [SerializeField] bool collectOnTouch;
     public List<int> weaponIDsList = new List<int>();
@@ -39,7 +40,9 @@ public class ItemPickup : Interactable
     {
         string[] newPickupItemIDs = new string[GameManager.instance.itemPickUpIDs.Length + 1];
         for (int i = 0; i < GameManager.instance.itemPickUpIDs.Length; i++)
+        {
             newPickupItemIDs[i] = GameManager.instance.itemPickUpIDs[i];
+        }
         newPickupItemIDs[GameManager.instance.itemPickUpIDs.Length] = newPickupItemID;
         GameManager.instance.itemPickUpIDs = newPickupItemIDs;
     }
