@@ -28,6 +28,10 @@ public class InGameMenuControls : MonoBehaviour
     Scene currentScene;
     public Player player;
     [SerializeField] Button saveButton;
+
+    //henkan lisäys asetuksia varten
+    public GameObject SettingsMenu;
+
     private void Start()
     {
         if(menuButtons != null)
@@ -89,7 +93,7 @@ public class InGameMenuControls : MonoBehaviour
     }
     public void Settings()
     {
-
+        SettingsMenu.SetActive(true);
     }
     public void QuitGame()
     {
