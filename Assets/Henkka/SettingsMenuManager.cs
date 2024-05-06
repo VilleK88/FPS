@@ -4,48 +4,39 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 using TMPro;
-
 public class SettingsMenuManager : MonoBehaviour
 {
     public GameObject SettingsMenu;
     public Slider masterVol, musicVol, sfxVol;
     public AudioMixer MainAudioMixer;
-
-
+    private void Start()
+    {
+        masterVol.value = PlayerPrefs.GetFloat("MasterVolume", masterVol.value);
+        musicVol.value = PlayerPrefs.GetFloat("MusicVolume", musicVol.value);
+        sfxVol.value = PlayerPrefs.GetFloat("SFXVolume", sfxVol.value);
+        ChangeMasterVolume();
+        ChangeMusicVolume();
+        ChangeSFXVolume();
+        masterVol.onValueChanged.AddListener(delegate { ChangeMasterVolume(); });
+        musicVol.onValueChanged.AddListener(delegate { ChangeMusicVolume(); });
+        sfxVol.onValueChanged.AddListener(delegate { ChangeSFXVolume(); });
+    }
     public void ChangeMasterVolume()
     {
         MainAudioMixer.SetFloat("MasterVol", masterVol.value);
+        PlayerPrefs.SetFloat("MasterVolume", masterVol.value);
+        PlayerPrefs.Save();
     }
-
     public void ChangeMusicVolume()
     {
         MainAudioMixer.SetFloat("MusicVol", musicVol.value);
+        PlayerPrefs.SetFloat("MusicVolume", musicVol.value);
+        PlayerPrefs.Save();
     }
-
     public void ChangeSFXVolume()
     {
         MainAudioMixer.SetFloat("SFXVol", sfxVol.value);
-    }
-
-    public void ExitSettings()
-    {
-        SettingsMenu.SetActive(false);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            {
-                ExitSettings();
-            }
-        }
+        PlayerPrefs.SetFloat("SFXVolume", sfxVol.value);
+        PlayerPrefs.Save();
     }
 }

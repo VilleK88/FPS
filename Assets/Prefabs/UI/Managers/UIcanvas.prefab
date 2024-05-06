@@ -790,7 +790,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3806046243496213349}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SettingsMenuManager, Assembly-CSharp
         m_MethodName: ChangeMasterVolume
         m_Mode: 1
@@ -970,7 +970,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3806046243496213349}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SettingsMenuManager, Assembly-CSharp
         m_MethodName: ChangeMusicVolume
         m_Mode: 1
@@ -1069,7 +1069,6 @@ GameObject:
   - component: {fileID: 8303082951849361110}
   - component: {fileID: 7662288438502152382}
   - component: {fileID: 6869629201052476910}
-  - component: {fileID: 3806046243496213349}
   m_Layer: 5
   m_Name: SettingsMenu
   m_TagString: Untagged
@@ -1140,23 +1139,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3806046243496213349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2175586911727245223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d1d305b0d3fb1c4cbd2bea668df68a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SettingsMenu: {fileID: 2175586911727245223}
-  masterVol: {fileID: 26072802175200936}
-  musicVol: {fileID: 7237268708711182806}
-  sfxVol: {fileID: 2631785237429753562}
-  MainAudioMixer: {fileID: 24100000, guid: 5e5e3fc38ca5310468991786d5830774, type: 2}
 --- !u!1 &2431771082948352128
 GameObject:
   m_ObjectHideFlags: 0
@@ -1615,7 +1597,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3068284386082703864
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1701,9 +1683,9 @@ RectTransform:
   m_Father: {fileID: 3068284386082703864}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 54.30205, y: -124.14497}
   m_SizeDelta: {x: 108.6041, y: 33.5639}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3068284386197632575
@@ -2718,9 +2700,9 @@ RectTransform:
   m_Father: {fileID: 3068284386082703864}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 54.30205, y: -88.3573}
   m_SizeDelta: {x: 108.6041, y: 33.5639}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3068284387534581662
@@ -2894,9 +2876,9 @@ RectTransform:
   m_Father: {fileID: 3068284386082703864}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 54.30205, y: -52.569626}
   m_SizeDelta: {x: 108.6041, y: 33.5639}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3068284388018084516
@@ -3003,6 +2985,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3068284388090766169}
   - component: {fileID: 3068284388090766174}
+  - component: {fileID: 3068284387711587392}
   m_Layer: 5
   m_Name: InGameMenuUI
   m_TagString: Untagged
@@ -3050,7 +3033,24 @@ MonoBehaviour:
       m_Calls: []
   player: {fileID: 0}
   saveButton: {fileID: 3068284388099582920}
+  settingsMenu: {fileID: 2175586911727245223}
+--- !u!114 &3068284387711587392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3068284388090766168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d1d305b0d3fb1c4cbd2bea668df68a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   SettingsMenu: {fileID: 2175586911727245223}
+  masterVol: {fileID: 26072802175200936}
+  musicVol: {fileID: 7237268708711182806}
+  sfxVol: {fileID: 2631785237429753562}
+  MainAudioMixer: {fileID: 24100000, guid: 5e5e3fc38ca5310468991786d5830774, type: 2}
 --- !u!1 &3068284388099582922
 GameObject:
   m_ObjectHideFlags: 0
@@ -3086,9 +3086,9 @@ RectTransform:
   m_Father: {fileID: 3068284386082703864}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 54.30205, y: -16.78195}
   m_SizeDelta: {x: 108.6041, y: 33.5639}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3068284388099582926
@@ -3496,9 +3496,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3806046243496213349}
-        m_TargetAssemblyTypeName: SettingsMenuManager, Assembly-CSharp
-        m_MethodName: ExitSettings
+      - m_Target: {fileID: 3068284388090766174}
+        m_TargetAssemblyTypeName: InGameMenuControls, Assembly-CSharp
+        m_MethodName: CloseSettings
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4361,7 +4361,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3806046243496213349}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SettingsMenuManager, Assembly-CSharp
         m_MethodName: ChangeSFXVolume
         m_Mode: 1

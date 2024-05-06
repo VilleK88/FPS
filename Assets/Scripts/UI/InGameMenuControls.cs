@@ -12,13 +12,9 @@ public class InGameMenuControls : MonoBehaviour
     private void Awake()
     {
         if (instance != null && instance != this)
-        {
             Destroy(this);
-        }
         else
-        {
             instance = this;
-        }
     }
     #endregion
     [SerializeField] public GameObject menuButtons;
@@ -28,20 +24,22 @@ public class InGameMenuControls : MonoBehaviour
     Scene currentScene;
     public Player player;
     [SerializeField] Button saveButton;
-
     //henkan lisäys asetuksia varten
-    public GameObject SettingsMenu;
-
+    SettingsMenuManager settingsMenuManager;
+    public GameObject settingsMenu;
+    bool settingsMenuOpen;
     private void Start()
     {
-        if(menuButtons != null)
+        if (settingsMenu != null)
+            settingsMenu.SetActive(false);
+        if (menuButtons != null)
             menuButtons.SetActive(false);
         player.GetComponent<Player>();
         currentScene = SceneManager.GetActiveScene();
     }
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !settingsMenuOpen)
         {
             if (!InventoryManager.instance.closed)
                 InventoryManager.instance.CloseInventory();
@@ -49,6 +47,8 @@ public class InGameMenuControls : MonoBehaviour
             OnToggleMenuStatic?.Invoke(menuButtons.activeSelf);
             ToggleInGameMenu();
         }
+        else if (Input.GetKeyDown(KeyCode.Escape) && settingsMenuOpen)
+            CloseSettings();
         if (Input.GetKeyDown(KeyCode.F5))
             SaveGame();
         if (Input.GetKeyDown(KeyCode.F8))
@@ -93,7 +93,13 @@ public class InGameMenuControls : MonoBehaviour
     }
     public void Settings()
     {
-        SettingsMenu.SetActive(true);
+        settingsMenu.SetActive(true);
+        settingsMenuOpen = true;
+    }
+    public void CloseSettings()
+    {
+        settingsMenu.SetActive(false);
+        settingsMenuOpen = false;
     }
     public void QuitGame()
     {
