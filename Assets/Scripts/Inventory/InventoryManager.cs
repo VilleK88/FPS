@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
 public class InventoryManager : MonoBehaviour
@@ -42,7 +41,7 @@ public class InventoryManager : MonoBehaviour
         {
             InventorySlot slot = Instantiate(slotPrefab, inventoryTransform);
             inventorySlotsUI[i] = slot;
-            slot.InitializeSlot();
+            slot.InitializeButton();
         }
         if(GameManager.instance.loadInventory)
         {

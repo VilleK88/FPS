@@ -17,7 +17,7 @@ public class InventorySlotData
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
     public InventorySlotData slotData = new InventorySlotData();
-    public void InitializeSlot() // for new input system
+    public void InitializeButton() // for new input system
     {
         Button button = GetComponent<Button>();
         button.onClick.AddListener(OnButtonClicked);
