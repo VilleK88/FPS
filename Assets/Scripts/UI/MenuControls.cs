@@ -15,6 +15,12 @@ public class MenuControls : MonoBehaviour
             Destroy(inventoryCanvas);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            SettingsMenu.SetActive(false);
+    }
+
     public void StartGame()
     {
         ClearTablesInGameManager();
