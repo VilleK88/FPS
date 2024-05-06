@@ -37,7 +37,7 @@ public class InGameMenuControls : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !settingsMenuOpen)
+        if (Input.GetKeyDown(KeyCode.Escape) && !settingsMenuOpen && InventoryManager.instance.tempInventoryItem == null)
         {
             if (!InventoryManager.instance.closed)
                 InventoryManager.instance.CloseInventory();
@@ -47,6 +47,8 @@ public class InGameMenuControls : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && settingsMenuOpen)
             CloseSettings();
+        else if (Input.GetKeyDown(KeyCode.Escape) && InventoryManager.instance.tempInventoryItem != null)
+            InventoryManager.instance.CancelKeyboardItemTransfer();
         if (Input.GetKeyDown(KeyCode.F5))
             SaveGame();
         if (Input.GetKeyDown(KeyCode.F8))

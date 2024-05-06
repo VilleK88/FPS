@@ -69,6 +69,19 @@ public class InventoryManager : MonoBehaviour
             return;
         EquipWeapon();
     }
+    public void CancelKeyboardItemTransfer()
+    {
+        tempInventoryItem = null;
+        for(int i = 0; i < inventorySlotsUI.Length; i++)
+        {
+            InventoryItem cancelItemTransfer = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
+            if(cancelItemTransfer != null)
+            {
+                cancelItemTransfer.transparent.SetActive(false);
+                cancelItemTransfer.CloseItemMenus();
+            }
+        }
+    }
     public void MakeTempInventoryItemForTransfer(InventoryItem inventoryItemInTransfer)
     {
         tempInventoryItem = inventoryItemInTransfer;
@@ -214,6 +227,8 @@ public class InventoryManager : MonoBehaviour
         closed = false;
         HolsterWeapons();
         selectSlot.Select();
+        InGameMenuControls.instance.CloseSettings();
+        InGameMenuControls.instance.menuButtons.SetActive(false);
     }
     public void CloseInventory()
     {
