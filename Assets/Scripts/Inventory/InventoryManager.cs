@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
 public class InventoryManager : MonoBehaviour
@@ -272,12 +273,7 @@ public class InventoryManager : MonoBehaviour
                         {
                             if (inventorySlotsUI[i].slotData.itemId == -1)
                             {
-                                inventorySlotsUI[i].slotData.itemId = newItem.itemID;
-                                inventorySlotsUI[i].slotData.itemName = newItem.itemName;
-                                inventorySlotsUI[i].slotData.itemType = newItem.itemType;
-                                inventorySlotsUI[i].slotData.stackable = newItem.stackable;
-                                inventorySlotsUI[i].slotData.stackMax = newItem.stackMax;
-                                inventorySlotsUI[i].slotData.count += 1;
+                                InitializeSlot(inventorySlotsUI[i], newItem);
                                 Instantiate(inventoryItem, inventorySlotsUI[i].transform);
                                 InventoryItem thisInventoryItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
                                 thisInventoryItem.GetComponent<InventoryItem>().item = newItem;
@@ -320,12 +316,7 @@ public class InventoryManager : MonoBehaviour
         {
             if (inventorySlotsUI[i].slotData.itemId == -1)
             {
-                inventorySlotsUI[i].slotData.itemId = newItem.itemID;
-                inventorySlotsUI[i].slotData.itemName = newItem.itemName;
-                inventorySlotsUI[i].slotData.itemType = newItem.itemType;
-                inventorySlotsUI[i].slotData.stackable = newItem.stackable;
-                inventorySlotsUI[i].slotData.stackMax = newItem.stackMax;
-                inventorySlotsUI[i].slotData.count += 1;
+                InitializeSlot(inventorySlotsUI[i], newItem);
                 Instantiate(inventoryItem, inventorySlotsUI[i].transform);
                 InventoryItem thisInventoryItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
                 thisInventoryItem.GetComponent<InventoryItem>().item = newItem;
@@ -339,6 +330,15 @@ public class InventoryManager : MonoBehaviour
             }
         }
         return false;
+    }
+    void InitializeSlot(InventorySlot slotGo, Item itemGo)
+    {
+        slotGo.slotData.itemId = itemGo.itemID;
+        slotGo.slotData.itemName = itemGo.itemName;
+        slotGo.slotData.itemType = itemGo.itemType;
+        slotGo.slotData.stackable = itemGo.stackable;
+        slotGo.slotData.stackMax = itemGo.stackMax;
+        slotGo.slotData.count += 1;
     }
     public bool SplitStack(Item newItem, string pickupItemID, int count)
     {
