@@ -70,7 +70,6 @@ public class GameManager : MonoBehaviour
         }, Formatting.Indented);
         File.WriteAllText(Application.persistentDataPath + "/gameInfo.dat", json);
     }
-
     public void Load()
     {
         string filePath = Application.persistentDataPath + "/gameInfo.dat";
