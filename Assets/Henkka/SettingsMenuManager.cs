@@ -39,4 +39,5 @@ public class SettingsMenuManager : MonoBehaviour
         PlayerPrefs.SetFloat("SFXVolume", sfxVol.value);
         PlayerPrefs.Save();
     }
+
 }

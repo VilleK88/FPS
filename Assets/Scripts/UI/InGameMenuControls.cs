@@ -24,8 +24,6 @@ public class InGameMenuControls : MonoBehaviour
     Scene currentScene;
     public Player player;
     [SerializeField] Button saveButton;
-    //henkan lisäys asetuksia varten
-    SettingsMenuManager settingsMenuManager;
     public GameObject settingsMenu;
     bool settingsMenuOpen;
     private void Start()

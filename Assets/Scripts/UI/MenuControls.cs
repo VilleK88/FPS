@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class MenuControls : MonoBehaviour
 {
+    public GameObject SettingsMenu;
+
     private void Start()
     {
         GameObject inventoryCanvas = GameObject.Find("InventoryCanvas");
@@ -44,8 +46,14 @@ public class MenuControls : MonoBehaviour
     }
     public void Settings()
     {
-
+        SettingsMenu.SetActive(true);
     }
+
+    public void CloseSettings()
+    {
+        SettingsMenu.SetActive(false);
+    }
+
     public void QuitGame()
     {
         Application.Quit();
