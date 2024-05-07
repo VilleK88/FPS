@@ -81,6 +81,15 @@ public class InventoryManager : MonoBehaviour
                 cancelItemTransfer.CloseItemMenus();
             }
         }
+        for (int i = 0; i < equipmentSlotsUI.Length; i++)
+        {
+            InventoryItem cancelItemTransfer = equipmentSlotsUI[i].GetComponentInChildren<InventoryItem>();
+            if (cancelItemTransfer != null)
+            {
+                cancelItemTransfer.transparent.SetActive(false);
+                cancelItemTransfer.CloseItemMenus();
+            }
+        }
     }
     public void MakeTempInventoryItemForTransfer(InventoryItem inventoryItemInTransfer)
     {
