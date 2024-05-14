@@ -9,8 +9,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] Animator anim;
     [Header("Field of View")]
     public float radius = 10;
-    [Range(0, 360)]
-    public float angle = 140;
+    [Range(0, 360)] public float angle = 140;
     public LayerMask targetMask;
     public LayerMask obstructionMask;
     public bool canSeePlayer;
