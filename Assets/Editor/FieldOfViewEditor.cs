@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEditor;
-[CustomEditor(typeof(Enemy))]
+//[CustomEditor(typeof(Enemy))]
+[CustomEditor(typeof(StatePatternEnemy))]
 public class FieldOfViewEditor : Editor
 {
     private void OnSceneGUI()
     {
-        Enemy fov = (Enemy)target;
+        //Enemy fov = (Enemy)target;
+        StatePatternEnemy fov = (StatePatternEnemy)target;
         Handles.color = Color.white;
         Handles.DrawWireArc(fov.transform.position, Vector3.up, Vector3.forward, 360, fov.radius);
         Vector3 viewAngle01 = directionFromAngle(fov.transform.eulerAngles.y, -fov.angle / 2);
