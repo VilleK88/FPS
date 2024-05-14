@@ -24,10 +24,12 @@ public class PatrolState : IEnemyState
     }
     public void ToAlertState()
     {
+        EnemyManager.Instance.indicatorText.text = "Enemy is alerted";
         enemy.currentState = enemy.alertState;
     }
     public void ToChaseState()
     {
+        EnemyManager.Instance.indicatorText.text = "Enemy is chasing";
         enemy.currentState = enemy.chaseState;
     }
     public void ToPatrolState()
@@ -50,7 +52,7 @@ public class PatrolState : IEnemyState
     }
     void Patrol()
     {
-        enemy.indicator.material.color = Color.green;
+        //enemy.indicator.material.color = Color.green;
         enemy.agent.destination = enemy.waypoints[nextWaypoint].position;
         enemy.agent.isStopped = false;
         if(enemy.agent.remainingDistance <= enemy.agent.stoppingDistance && !enemy.agent.pathPending)

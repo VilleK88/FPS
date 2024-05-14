@@ -24,10 +24,12 @@ public class TrackingState : IEnemyState
     }
     public void ToAlertState()
     {
+        EnemyManager.Instance.indicatorText.text = "Enemy is alerted";
         enemy.currentState = enemy.alertState;
     }
     public void ToChaseState()
     {
+        EnemyManager.Instance.indicatorText.text = "Enemy is chasing";
         enemy.currentState = enemy.chaseState;
     }
     public void ToPatrolState()
@@ -50,7 +52,7 @@ public class TrackingState : IEnemyState
     }
     void Hunt()
     {
-        enemy.indicator.material.color = Color.cyan;
+        //enemy.indicator.material.color = Color.cyan;
         enemy.agent.destination = enemy.lastKnownPlayerPosition;
         enemy.agent.isStopped = false;
         if (enemy.agent.remainingDistance <= enemy.agent.stoppingDistance && !enemy.agent.pathPending)

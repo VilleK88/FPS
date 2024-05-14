@@ -25,11 +25,13 @@ public class AlertState : IEnemyState
     }
     public void ToChaseState()
     {
+        EnemyManager.Instance.indicatorText.text = "Enemy is chasing";
         searchTimer = 0;
         enemy.currentState = enemy.chaseState;
     }
     public void ToPatrolState()
     {
+        EnemyManager.Instance.StartCoroutine(EnemyManager.Instance.BackToPatrol());
         searchTimer = 0;
         enemy.currentState = enemy.patrolState;
     }
@@ -49,7 +51,7 @@ public class AlertState : IEnemyState
     }
     void Search()
     {
-        enemy.indicator.material.color = Color.yellow;
+        //enemy.indicator.material.color = Color.yellow;
         enemy.agent.isStopped = true;
         enemy.transform.Rotate(0, enemy.searchTurnSpeed * Time.deltaTime, 0);
         searchTimer += Time.deltaTime;

@@ -20,6 +20,7 @@ public class ChaseState : IEnemyState
     }
     public void ToAlertState()
     {
+        EnemyManager.Instance.indicatorText.text = "Enemy is alerted";
         enemy.currentState = enemy.alertState;
     }
     public void ToChaseState()
@@ -51,7 +52,7 @@ public class ChaseState : IEnemyState
     }
     void Chase()
     {
-        enemy.indicator.material.color = Color.red;
+        //enemy.indicator.material.color = Color.red;
         enemy.agent.destination = enemy.chaseTarget.position;
         enemy.agent.isStopped = false;
     }
