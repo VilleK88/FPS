@@ -12,7 +12,6 @@ public class TrackingState : IEnemyState
 
     public void UpdateState()
     {
-        //Look();
         FOVRoutine();
         Hunt();
     }
@@ -41,16 +40,6 @@ public class TrackingState : IEnemyState
     public void ToTrackingState()
     {
 
-    }
-    void Look()
-    {
-        Debug.DrawRay(enemy.eye.position, enemy.eye.forward * enemy.sightRange, Color.green);
-        RaycastHit hit;
-        if (Physics.Raycast(enemy.eye.position, enemy.eye.forward, out hit, enemy.sightRange) && hit.collider.CompareTag("Player"))
-        {
-            enemy.chaseTarget = hit.transform;
-            ToChaseState();
-        }
     }
     public void FOVRoutine()
     {

@@ -37,21 +37,6 @@ public class ChaseState : IEnemyState
     {
         enemy.currentState = enemy.trackingState;
     }
-    void Look()
-    {
-        Vector3 enemyToTarget = enemy.chaseTarget.position - enemy.eye.position;
-        Debug.DrawRay(enemy.eye.position, enemyToTarget, Color.red);
-        RaycastHit hit;
-        if (Physics.Raycast(enemy.eye.position, enemyToTarget, out hit, enemy.sightRange) && hit.collider.CompareTag("Player"))
-        {
-            enemy.chaseTarget = hit.transform;
-        }
-        else
-        {
-            enemy.lastKnownPlayerPosition = enemy.chaseTarget.position;
-            ToTrackingState();
-        }
-    }
     public void FOVRoutine()
     {
         if (fovTimer > 0)

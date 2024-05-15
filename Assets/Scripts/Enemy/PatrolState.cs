@@ -12,7 +12,6 @@ public class PatrolState : IEnemyState
     }
     public void UpdateState()
     {
-        //Look();
         FOVRoutine();
         enemy.distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.player.transform.position);
         Patrol();
@@ -44,16 +43,6 @@ public class PatrolState : IEnemyState
         EnemyManager.Instance.indicatorText.text = "Enemy is tracking";
         Debug.Log("Enemy starts tracking");
         enemy.currentState = enemy.trackingState;
-    }
-    void Look()
-    {
-        Debug.DrawRay(enemy.eye.position, enemy.eye.forward * enemy.sightRange, Color.green);
-        RaycastHit hit;
-        if(Physics.Raycast(enemy.eye.position, enemy.eye.forward, out hit, enemy.sightRange) && hit.collider.CompareTag("Player"))
-        {
-            enemy.chaseTarget = hit.transform;
-            ToChaseState();
-        }
     }
     public void FOVRoutine()
     {

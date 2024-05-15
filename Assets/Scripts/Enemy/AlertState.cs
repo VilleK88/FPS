@@ -13,7 +13,6 @@ public class AlertState : IEnemyState
     }
     public void UpdateState()
     {
-        //Look();
         FOVRoutine();
         Search();
     }
@@ -40,16 +39,6 @@ public class AlertState : IEnemyState
     public void ToTrackingState()
     {
 
-    }
-    void Look()
-    {
-        Debug.DrawRay(enemy.eye.position, enemy.eye.forward * enemy.sightRange, Color.yellow);
-        RaycastHit hit;
-        if (Physics.Raycast(enemy.eye.position, enemy.eye.forward, out hit, enemy.sightRange) && hit.collider.CompareTag("Player"))
-        {
-            enemy.chaseTarget = hit.transform;
-            ToChaseState();
-        }
     }
     public void FOVRoutine()
     {
@@ -78,7 +67,6 @@ public class AlertState : IEnemyState
     }
     void Search()
     {
-        //enemy.indicator.material.color = Color.yellow;
         enemy.agent.isStopped = true;
         enemy.transform.Rotate(0, enemy.searchTurnSpeed * Time.deltaTime, 0);
         searchTimer += Time.deltaTime;
