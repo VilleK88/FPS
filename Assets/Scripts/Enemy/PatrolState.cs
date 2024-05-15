@@ -19,10 +19,7 @@ public class PatrolState : IEnemyState
     public void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
-        {
-            Debug.Log("Player triggers hearing area");
             ToAlertState();
-        }
     }
     public void ToAlertState()
     {
@@ -51,7 +48,6 @@ public class PatrolState : IEnemyState
         else
         {
             FieldOfViewCheck();
-            Debug.Log("FOV routine");
             fovTimer = 0;
         }
     }
@@ -65,9 +61,15 @@ public class PatrolState : IEnemyState
             if (Vector3.Angle(enemy.transform.forward, enemy.directionToTarget) < enemy.angle / 2)
             {
                 if (!Physics.Raycast(enemy.transform.position, enemy.directionToTarget, enemy.distanceToPlayer, enemy.obstructionMask))
-                    ToChaseState();
+                    enemy.canSeePlayer = true;
+                else
+                    enemy.canSeePlayer = false;
             }
         }
+        else if (enemy.canSeePlayer)
+            enemy.canSeePlayer = false;
+        if (enemy.canSeePlayer)
+            ToChaseState();
     }
     void Patrol()
     {

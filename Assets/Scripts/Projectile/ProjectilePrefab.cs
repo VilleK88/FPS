@@ -4,6 +4,7 @@ using UnityEngine;
 public class ProjectilePrefab : MonoBehaviour
 {
     Rigidbody rb;
+    [SerializeField] StatePatternEnemy[] enemies;
     private void Start()
     {
         Destroy(gameObject, 5);
@@ -15,7 +16,19 @@ public class ProjectilePrefab : MonoBehaviour
             rb = GetComponent<Rigidbody>();
             rb.isKinematic = true;
             transform.SetParent(objectWeHit.transform);
-            CreateThrowImpactEffect(objectWeHit);
+            //CreateThrowImpactEffect(objectWeHit);
+            enemies = FindObjectsOfType<StatePatternEnemy>();
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                StatePatternEnemy enemy = enemies[i];
+                float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+                if (distanceToEnemy < 20)
+                {
+                    //enemy.disturbance = false;
+                    //enemy.Disturbance();
+                    //enemy.disturbanceTimes++;
+                }
+            }
             Destroy(gameObject);
         }
     }

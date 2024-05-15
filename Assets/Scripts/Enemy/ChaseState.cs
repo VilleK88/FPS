@@ -44,7 +44,6 @@ public class ChaseState : IEnemyState
         else
         {
             FieldOfViewCheck();
-            Debug.Log("FOV routine");
             fovTimer = 0;
         }
     }
@@ -58,9 +57,17 @@ public class ChaseState : IEnemyState
             if (Vector3.Angle(enemy.transform.forward, enemy.directionToTarget) < enemy.angle / 2)
             {
                 if (!Physics.Raycast(enemy.transform.position, enemy.directionToTarget, enemy.distanceToPlayer, enemy.obstructionMask))
-                    enemy.currentState = enemy.chaseState;
+                    enemy.canSeePlayer = true;
+                else
+                    enemy.canSeePlayer = false;
             }
         }
+        else if (enemy.canSeePlayer)
+            enemy.canSeePlayer = false;
+        if (enemy.canSeePlayer)
+            ToChaseState();
+        else
+            ToTrackingState();
     }
     void Chase()
     {

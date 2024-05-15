@@ -13,7 +13,6 @@ public class ThrowImpactEffect : MonoBehaviour
             float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
             if (distanceToEnemy < 20)
             {
-                //enemy.DisturbanceOver();
                 enemy.disturbance = false;
                 enemy.Disturbance();
                 enemy.disturbanceTimes++;
