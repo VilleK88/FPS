@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -19,9 +20,8 @@ public class PlayerManager : MonoBehaviour
         }
     }
     #endregion
-
     public GameObject player;
-
+    public TextMeshProUGUI sneakIndicatorText;
     public GameObject GetPlayer()
     {
         return player;

@@ -43,11 +43,13 @@ public class PlayerMovement : MonoBehaviour
             {
                 sneaking = true;
                 speed = sneakSpeed;
+                PlayerManager.instance.sneakIndicatorText.text = "Sneaking";
             }
             else
             {
                 sneaking = false;
                 speed = originalSpeed;
+                PlayerManager.instance.sneakIndicatorText.text = "";
             }
         }
         if (Input.GetKey(KeyCode.LeftShift) && !sneaking)
