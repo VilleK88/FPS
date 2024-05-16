@@ -73,7 +73,7 @@ public class TrackingState : IEnemyState
     }
     void Hunt()
     {
-        enemy.agent.destination = enemy.lastKnownPlayerPosition;
+        enemy.agent.SetDestination(enemy.lastKnownPlayerPosition);
         enemy.agent.isStopped = false;
         if (enemy.agent.remainingDistance <= enemy.agent.stoppingDistance && !enemy.agent.pathPending)
         {

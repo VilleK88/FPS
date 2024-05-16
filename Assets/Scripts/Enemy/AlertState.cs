@@ -7,6 +7,7 @@ public class AlertState : IEnemyState
     private StatePatternEnemy enemy;
     private float searchTimer;
     private float fovTimer = 0.2f;
+    public float turnSpeed;
     public AlertState(StatePatternEnemy statePatternEnemy)
     {
         this.enemy = statePatternEnemy;
@@ -73,7 +74,8 @@ public class AlertState : IEnemyState
     void Search()
     {
         enemy.agent.isStopped = true;
-        enemy.transform.Rotate(0, enemy.searchTurnSpeed * Time.deltaTime, 0);
+        enemy.transform.Rotate(0, turnSpeed * Time.deltaTime, 0);
+
         searchTimer += Time.deltaTime;
         if(searchTimer >= enemy.searchDuration)
         {

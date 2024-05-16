@@ -5,11 +5,11 @@ using UnityEngine.AI;
 public class StatePatternEnemy : MonoBehaviour
 {
     public float searchDuration; // AlertState searching time
-    public float searchTurnSpeed; // AlertState turn speed
-    public float sightRange; // line of sight
+    //public float searchTurnSpeed; // AlertState turn speed
+    public int randomEnemyTurn;
+    //public float sightRange; // line of sight
     public Transform[] waypoints;
-    public Transform eye; // Eye where the raycast is
-    //public MeshRenderer indicator;
+    //public Transform eye; // Eye where the raycast is
     public Vector3 lastKnownPlayerPosition;
     [Header("Field of View")]
     public float radius = 20;
@@ -22,7 +22,7 @@ public class StatePatternEnemy : MonoBehaviour
     [HideInInspector] public Vector3 directionToTarget;
     public float distanceToPlayer;
     [HideInInspector] public GameObject player;
-    [HideInInspector] public Transform chaseTarget; // target that is chased
+    //[HideInInspector] public Transform chaseTarget; // target that is chased
     [HideInInspector] public IEnemyState currentState; // current state is defined here
     [HideInInspector] public PatrolState patrolState;
     [HideInInspector] public AlertState alertState;

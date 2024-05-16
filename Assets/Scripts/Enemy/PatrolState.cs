@@ -14,15 +14,26 @@ public class PatrolState : IEnemyState
     {
         FOVRoutine();
         enemy.distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.player.transform.position);
+        HearingArea();
         Patrol();
     }
     public void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        //if(other.CompareTag("Player") && !enemy.player.GetComponent<PlayerMovement>().sneaking)
+            //ToAlertState();
+    }
+    public void HearingArea()
+    {
+        if (enemy.distanceToPlayer < 8.1f && enemy.player.GetComponent<PlayerMovement>().moving && !enemy.player.GetComponent<PlayerMovement>().sneaking)
             ToAlertState();
     }
     public void ToAlertState()
     {
+        enemy.randomEnemyTurn = Random.Range(0, 2);
+        if (enemy.randomEnemyTurn == 0)
+            enemy.alertState.turnSpeed = 150;
+        else if (enemy.randomEnemyTurn == 1)
+            enemy.alertState.turnSpeed = -150;
         EnemyManager.Instance.indicatorText.text = "Enemy is alerted";
         enemy.currentState = enemy.alertState;
     }
@@ -73,12 +84,9 @@ public class PatrolState : IEnemyState
     }
     void Patrol()
     {
-        //enemy.indicator.material.color = Color.green;
         enemy.agent.destination = enemy.waypoints[nextWaypoint].position;
         enemy.agent.isStopped = false;
         if(enemy.agent.remainingDistance <= enemy.agent.stoppingDistance && !enemy.agent.pathPending)
-        {
             nextWaypoint = (nextWaypoint + 1) % enemy.waypoints.Length;
-        }
     }
 }

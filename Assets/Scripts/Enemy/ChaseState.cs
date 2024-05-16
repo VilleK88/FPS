@@ -35,6 +35,8 @@ public class ChaseState : IEnemyState
     }
     public void ToTrackingState()
     {
+        EnemyManager.Instance.indicatorText.text = "Enemy is tracking";
+        enemy.lastKnownPlayerPosition = enemy.player.transform.position;
         enemy.currentState = enemy.trackingState;
     }
     public void FOVRoutine()
