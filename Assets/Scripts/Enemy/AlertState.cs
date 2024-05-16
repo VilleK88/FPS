@@ -21,7 +21,6 @@ public class AlertState : IEnemyState
     }
     public void OnTriggerEnter(Collider other)
     {
-
     }
     public void HearingArea()
     {
@@ -34,7 +33,6 @@ public class AlertState : IEnemyState
     }
     public void ToAlertState()
     {
-
     }
     public void ToChaseState()
     {

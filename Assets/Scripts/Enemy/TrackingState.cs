@@ -19,7 +19,6 @@ public class TrackingState : IEnemyState
     }
     public void OnTriggerEnter(Collider other)
     {
-
     }
     public void HearingArea()
     {

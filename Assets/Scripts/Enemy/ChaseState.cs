@@ -17,7 +17,6 @@ public class ChaseState : IEnemyState
     }
     public void OnTriggerEnter(Collider other)
     {
-
     }
     public void HearingArea()
     {
@@ -32,11 +31,9 @@ public class ChaseState : IEnemyState
     }
     public void ToChaseState()
     {
-
     }
     public void ToPatrolState()
     {
-
     }
     public void ToTrackingState()
     {
@@ -83,7 +80,6 @@ public class ChaseState : IEnemyState
             enemy.agent.SetDestination(enemy.player.transform.position);
         else
             enemy.transform.LookAt(enemy.player.transform.position);
-        //enemy.agent.SetDestination(enemy.player.transform.position);
         enemy.agent.isStopped = false;
     }
 }

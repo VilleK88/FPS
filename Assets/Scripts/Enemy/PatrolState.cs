@@ -41,7 +41,6 @@ public class PatrolState : IEnemyState
     }
     public void ToPatrolState()
     {
-        // can't be used because we are already in the patrol state
     }
     public void ToTrackingState()
     {
