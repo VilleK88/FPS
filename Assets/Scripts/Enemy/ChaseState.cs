@@ -12,7 +12,6 @@ public class ChaseState : IEnemyState
     }
     public void UpdateState()
     {
-        //Look();
         FOVRoutine();
         enemy.distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.player.transform.position);
         Chase();
@@ -79,8 +78,6 @@ public class ChaseState : IEnemyState
     }
     void Chase()
     {
-        //enemy.indicator.material.color = Color.red;
-        //enemy.agent.destination = enemy.chaseTarget.position;
         enemy.agent.SetDestination(enemy.player.transform.position);
         enemy.agent.isStopped = false;
     }

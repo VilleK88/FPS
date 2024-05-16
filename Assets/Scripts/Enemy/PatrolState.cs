@@ -1,12 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
-
 public class PatrolState : IEnemyState
 {
     private StatePatternEnemy enemy;
-    //private int nextWaypoint;
     private float fovTimer = 0.2f;
     int waypointIndex;
     float waypointCounter = 0;
@@ -24,8 +21,6 @@ public class PatrolState : IEnemyState
     }
     public void OnTriggerEnter(Collider other)
     {
-        //if(other.CompareTag("Player") && !enemy.player.GetComponent<PlayerMovement>().sneaking)
-            //ToAlertState();
     }
     public void HearingArea()
     {

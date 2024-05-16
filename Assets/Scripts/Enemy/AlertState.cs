@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class AlertState : IEnemyState
 {
     private StatePatternEnemy enemy;
@@ -19,7 +18,6 @@ public class AlertState : IEnemyState
         enemy.distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.player.transform.position);
         HearingArea();
         LookAround();
-        //Search();
     }
     public void OnTriggerEnter(Collider other)
     {
@@ -87,16 +85,6 @@ public class AlertState : IEnemyState
             enemy.canSeePlayer = false;
         if (enemy.canSeePlayer)
             ToChaseState();
-    }
-    void Search()
-    {
-        enemy.agent.isStopped = true;
-        enemy.transform.Rotate(0, turnSpeed * Time.deltaTime, 0);
-        searchTimer += Time.deltaTime;
-        if(searchTimer >= enemy.searchDuration)
-        {
-            ToPatrolState();
-        }
     }
     void LookAround()
     {
