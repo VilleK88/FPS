@@ -92,10 +92,14 @@ public class PatrolState : IEnemyState
                 waypointIndex = 0;
         }
         if (waypointCounter < waypointMaxTime)
+        {
             waypointCounter += Time.deltaTime;
+            enemy.GetComponentInChildren<Animator>().SetBool("Walk", false);
+        }
         else
         {
             enemy.agent.SetDestination(enemy.waypoints[waypointIndex].position);
+            enemy.GetComponentInChildren<Animator>().SetBool("Walk", true);
         }
     }
 }
