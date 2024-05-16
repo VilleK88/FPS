@@ -76,10 +76,20 @@ public class ChaseState : IEnemyState
     }
     void Chase()
     {
-        if (enemy.distanceToPlayer > 5)
+        enemy.GetComponentInChildren<Animator>().SetBool("Walk", false);
+        if (enemy.distanceToPlayer > 6)
+        {
+            enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
+            enemy.GetComponentInChildren<Animator>().SetBool("Running", true);
             enemy.agent.SetDestination(enemy.player.transform.position);
+            enemy.agent.isStopped = false;
+        }
         else
+        {
+            enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
+            enemy.GetComponentInChildren<Animator>().SetBool("Aiming", true);
             enemy.transform.LookAt(enemy.player.transform.position);
-        enemy.agent.isStopped = false;
+            enemy.agent.isStopped = true;
+        }
     }
 }
