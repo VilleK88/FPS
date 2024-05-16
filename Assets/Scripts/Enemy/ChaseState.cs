@@ -20,6 +20,11 @@ public class ChaseState : IEnemyState
     {
 
     }
+    public void HearingArea()
+    {
+        if (enemy.distanceToPlayer < 8.1f && enemy.player.GetComponent<PlayerMovement>().moving && !enemy.player.GetComponent<PlayerMovement>().sneaking)
+            ToAlertState();
+    }
     public void ToAlertState()
     {
         EnemyManager.Instance.indicatorText.text = "Enemy is alerted";

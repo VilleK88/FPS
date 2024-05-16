@@ -5,9 +5,10 @@ using UnityEngine;
 public class AlertState : IEnemyState
 {
     private StatePatternEnemy enemy;
-    private float searchTimer;
+    public float searchTimer;
     private float fovTimer = 0.2f;
     public float turnSpeed;
+    public bool checkDisturbance;
     public AlertState(StatePatternEnemy statePatternEnemy)
     {
         this.enemy = statePatternEnemy;
@@ -15,11 +16,22 @@ public class AlertState : IEnemyState
     public void UpdateState()
     {
         FOVRoutine();
-        Search();
+        HearingArea();
+        LookAround();
+        //Search();
     }
     public void OnTriggerEnter(Collider other)
     {
 
+    }
+    public void HearingArea()
+    {
+        if (enemy.distanceToPlayer < 8.1f && enemy.player.GetComponent<PlayerMovement>().moving && !enemy.player.GetComponent<PlayerMovement>().sneaking)
+        {
+            enemy.lastKnownPlayerPosition = enemy.player.transform.position;
+            checkDisturbance = false;
+            searchTimer = 0;
+        }
     }
     public void ToAlertState()
     {
@@ -29,17 +41,21 @@ public class AlertState : IEnemyState
     {
         EnemyManager.Instance.indicatorText.text = "Enemy is chasing";
         searchTimer = 0;
+        checkDisturbance = false;
         enemy.currentState = enemy.chaseState;
     }
     public void ToPatrolState()
     {
         EnemyManager.Instance.StartCoroutine(EnemyManager.Instance.BackToPatrol());
         searchTimer = 0;
+        checkDisturbance = false;
         enemy.currentState = enemy.patrolState;
     }
     public void ToTrackingState()
     {
-
+        EnemyManager.Instance.indicatorText.text = "Enemy is tracking";
+        enemy.currentState = enemy.trackingState;
+        searchTimer = 0;
     }
     public void FOVRoutine()
     {
@@ -75,11 +91,28 @@ public class AlertState : IEnemyState
     {
         enemy.agent.isStopped = true;
         enemy.transform.Rotate(0, turnSpeed * Time.deltaTime, 0);
-
         searchTimer += Time.deltaTime;
         if(searchTimer >= enemy.searchDuration)
         {
             ToPatrolState();
+        }
+    }
+    void LookAround()
+    {
+        enemy.agent.isStopped = true;
+        Quaternion currentRotation = enemy.transform.rotation;
+        Vector3 directionToImpact = enemy.lastKnownPlayerPosition - enemy.transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(directionToImpact);
+        Quaternion newRotation = Quaternion.Slerp(currentRotation, targetRotation, 3 * Time.deltaTime);
+        enemy.transform.rotation = newRotation;
+
+        searchTimer += Time.deltaTime;
+        if (searchTimer >= enemy.searchDuration)
+        {
+            if (!checkDisturbance)
+                ToPatrolState();
+            else
+                ToTrackingState();
         }
     }
 }

@@ -29,11 +29,12 @@ public class PatrolState : IEnemyState
     }
     public void ToAlertState()
     {
-        enemy.randomEnemyTurn = Random.Range(0, 2);
+        /*enemy.randomEnemyTurn = Random.Range(0, 2);
         if (enemy.randomEnemyTurn == 0)
             enemy.alertState.turnSpeed = 150;
         else if (enemy.randomEnemyTurn == 1)
-            enemy.alertState.turnSpeed = -150;
+            enemy.alertState.turnSpeed = -150;*/
+        enemy.lastKnownPlayerPosition = enemy.player.transform.position;
         EnemyManager.Instance.indicatorText.text = "Enemy is alerted";
         enemy.currentState = enemy.alertState;
     }

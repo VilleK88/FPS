@@ -24,6 +24,11 @@ public class ProjectilePrefab : MonoBehaviour
                 float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
                 if (distanceToEnemy < 20)
                 {
+                    enemy.lastKnownPlayerPosition = transform.position;
+                    enemy.alertState.checkDisturbance = true;
+                    enemy.alertState.searchTimer = 0;
+                    EnemyManager.Instance.indicatorText.text = "Enemy is alerted";
+                    enemy.currentState = enemy.alertState;
                     //enemy.disturbance = false;
                     //enemy.Disturbance();
                     //enemy.disturbanceTimes++;

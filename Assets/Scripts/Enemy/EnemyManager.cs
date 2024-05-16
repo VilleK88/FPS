@@ -26,7 +26,9 @@ public class EnemyManager : MonoBehaviour
     public IEnumerator BackToPatrol()
     {
         indicatorText.text = "Enemy goes back to patrol state...";
+        TextMeshProUGUI currentIndicatorText = indicatorText;
         yield return new WaitForSeconds(3);
-        indicatorText.text = "";
+        if(currentIndicatorText == indicatorText)
+            indicatorText.text = "";
     }
 }
