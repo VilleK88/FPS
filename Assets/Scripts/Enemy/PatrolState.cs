@@ -35,8 +35,6 @@ public class PatrolState : IEnemyState
     }
     public void ToChaseState()
     {
-        //enemy.GetComponentInChildren<Animator>().SetBool("Walk", false);
-        //enemy.GetComponentInChildren<Animator>().SetBool("Running", true);
         enemy.agent.speed = enemy.runningSpeed;
         EnemyManager.Instance.indicatorText.text = "Enemy is chasing";
         enemy.currentState = enemy.chaseState;

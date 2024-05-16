@@ -23,18 +23,21 @@ public class StatePatternEnemy : MonoBehaviour
     [Header("Move Speed")]
     public float walkSpeed = 3.5f;
     public float runningSpeed = 5f;
+    public Transform shootingPoint;
+    public GameObject bulletPrefab;
+    public float bulletVelocity = 500;
     [HideInInspector] public GameObject player;
     [HideInInspector] public IEnemyState currentState; // current state is defined here
     [HideInInspector] public PatrolState patrolState;
     [HideInInspector] public AlertState alertState;
-    [HideInInspector] public ChaseState chaseState;
+    [HideInInspector] public CombatState chaseState;
     [HideInInspector] public TrackingState trackingState;
     [HideInInspector] public NavMeshAgent agent;
     private void Awake()
     {
         patrolState = new PatrolState(this);
         alertState = new AlertState(this);
-        chaseState = new ChaseState(this);
+        chaseState = new CombatState(this);
         trackingState = new TrackingState(this);
         agent = GetComponent<NavMeshAgent>();
     }
@@ -50,5 +53,10 @@ public class StatePatternEnemy : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         currentState.OnTriggerEnter(other);
+    }
+    public void Shoot()
+    {
+        GameObject bullet = Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation);
+        bullet.GetComponent<Rigidbody>().AddForce(transform.forward * bulletVelocity, ForceMode.Impulse);
     }
 }

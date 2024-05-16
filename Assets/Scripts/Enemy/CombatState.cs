@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class ChaseState : IEnemyState
+public class CombatState : IEnemyState
 {
     private StatePatternEnemy enemy;
     private float fovTimer = 0.1f;
-    public ChaseState(StatePatternEnemy statePatternEnemy)
+    private float shootingDelay = 1f;
+    public CombatState(StatePatternEnemy statePatternEnemy)
     {
         this.enemy = statePatternEnemy;
     }
@@ -90,6 +91,13 @@ public class ChaseState : IEnemyState
             enemy.GetComponentInChildren<Animator>().SetBool("Aiming", true);
             enemy.transform.LookAt(enemy.player.transform.position);
             enemy.agent.isStopped = true;
+            if (shootingDelay > 0)
+                shootingDelay -= Time.deltaTime;
+            else
+            {
+                enemy.Shoot();
+                shootingDelay = 1;
+            }
         }
     }
 }
