@@ -20,6 +20,9 @@ public class StatePatternEnemy : MonoBehaviour
     [Header("Patrol")]
     public Transform[] waypoints;
     public bool randomPatrol = false;
+    [Header("Move Speed")]
+    public float walkSpeed = 3.5f;
+    public float runningSpeed = 4f;
     [HideInInspector] public GameObject player;
     [HideInInspector] public IEnemyState currentState; // current state is defined here
     [HideInInspector] public PatrolState patrolState;

@@ -35,6 +35,7 @@ public class PatrolState : IEnemyState
     }
     public void ToChaseState()
     {
+        enemy.agent.speed = enemy.runningSpeed;
         EnemyManager.Instance.indicatorText.text = "Enemy is chasing";
         enemy.currentState = enemy.chaseState;
     }
@@ -44,6 +45,7 @@ public class PatrolState : IEnemyState
     }
     public void ToTrackingState()
     {
+        enemy.agent.speed = enemy.walkSpeed;
         EnemyManager.Instance.indicatorText.text = "Enemy is tracking";
         Debug.Log("Enemy starts tracking");
         enemy.currentState = enemy.trackingState;

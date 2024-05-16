@@ -38,6 +38,7 @@ public class AlertState : IEnemyState
     }
     public void ToChaseState()
     {
+        enemy.agent.speed = enemy.runningSpeed;
         EnemyManager.Instance.indicatorText.text = "Enemy is chasing";
         searchTimer = 0;
         checkDisturbance = false;
@@ -45,6 +46,7 @@ public class AlertState : IEnemyState
     }
     public void ToPatrolState()
     {
+        enemy.agent.speed = enemy.walkSpeed;
         EnemyManager.Instance.StartCoroutine(EnemyManager.Instance.BackToPatrol());
         searchTimer = 0;
         checkDisturbance = false;
@@ -52,6 +54,7 @@ public class AlertState : IEnemyState
     }
     public void ToTrackingState()
     {
+        enemy.agent.speed = enemy.walkSpeed;
         EnemyManager.Instance.indicatorText.text = "Enemy is tracking";
         enemy.currentState = enemy.trackingState;
         searchTimer = 0;

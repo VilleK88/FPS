@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class ChaseState : IEnemyState
 {
     private StatePatternEnemy enemy;
@@ -27,6 +26,7 @@ public class ChaseState : IEnemyState
     }
     public void ToAlertState()
     {
+        enemy.agent.speed = enemy.walkSpeed;
         EnemyManager.Instance.indicatorText.text = "Enemy is alerted";
         enemy.currentState = enemy.alertState;
     }
@@ -40,6 +40,7 @@ public class ChaseState : IEnemyState
     }
     public void ToTrackingState()
     {
+        enemy.agent.speed = enemy.walkSpeed;
         EnemyManager.Instance.indicatorText.text = "Enemy is tracking";
         enemy.lastKnownPlayerPosition = enemy.player.transform.position;
         enemy.currentState = enemy.trackingState;
@@ -78,7 +79,11 @@ public class ChaseState : IEnemyState
     }
     void Chase()
     {
-        enemy.agent.SetDestination(enemy.player.transform.position);
+        if (enemy.distanceToPlayer > 5)
+            enemy.agent.SetDestination(enemy.player.transform.position);
+        else
+            enemy.transform.LookAt(enemy.player.transform.position);
+        //enemy.agent.SetDestination(enemy.player.transform.position);
         enemy.agent.isStopped = false;
     }
 }

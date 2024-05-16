@@ -19,11 +19,7 @@ public class TrackingState : IEnemyState
     }
     public void OnTriggerEnter(Collider other)
     {
-        /*if (other.CompareTag("Player"))
-        {
-            Debug.Log("Player triggers hearing area");
-            ToAlertState();
-        }*/
+
     }
     public void HearingArea()
     {
@@ -32,18 +28,21 @@ public class TrackingState : IEnemyState
     }
     public void ToAlertState()
     {
+        enemy.agent.speed = enemy.walkSpeed;
         EnemyManager.Instance.indicatorText.text = "Enemy is alerted";
         searchTimer = 0;
         enemy.currentState = enemy.alertState;
     }
     public void ToChaseState()
     {
+        enemy.agent.speed = enemy.runningSpeed;
         EnemyManager.Instance.indicatorText.text = "Enemy is chasing";
         searchTimer = 0;
         enemy.currentState = enemy.chaseState;
     }
     public void ToPatrolState()
     {
+        enemy.agent.speed = enemy.walkSpeed;
         EnemyManager.Instance.StartCoroutine(EnemyManager.Instance.BackToPatrol());
         searchTimer = 0;
         enemy.currentState = enemy.patrolState;
