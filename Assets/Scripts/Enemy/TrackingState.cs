@@ -14,6 +14,7 @@ public class TrackingState : IEnemyState
     public void UpdateState()
     {
         FOVRoutine();
+        enemy.distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.player.transform.position);
         Hunt();
     }
     public void OnTriggerEnter(Collider other)

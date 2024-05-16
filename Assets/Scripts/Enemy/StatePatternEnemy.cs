@@ -6,7 +6,6 @@ public class StatePatternEnemy : MonoBehaviour
 {
     public float searchDuration; // AlertState searching time
     public int randomEnemyTurn;
-    public Transform[] waypoints;
     public Vector3 lastKnownPlayerPosition;
     [Header("Field of View")]
     public float radius = 20;
@@ -18,6 +17,9 @@ public class StatePatternEnemy : MonoBehaviour
     [HideInInspector] public Transform target;
     [HideInInspector] public Vector3 directionToTarget;
     public float distanceToPlayer;
+    [Header("Patrol")]
+    public Transform[] waypoints;
+    public bool randomPatrol = false;
     [HideInInspector] public GameObject player;
     [HideInInspector] public IEnemyState currentState; // current state is defined here
     [HideInInspector] public PatrolState patrolState;

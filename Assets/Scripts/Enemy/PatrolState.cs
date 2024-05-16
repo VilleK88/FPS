@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
+
 public class PatrolState : IEnemyState
 {
     private StatePatternEnemy enemy;
-    private int nextWaypoint;
+    //private int nextWaypoint;
     private float fovTimer = 0.2f;
+    int waypointIndex;
+    float waypointCounter = 0;
+    float waypointMaxTime = 4;
     public PatrolState(StatePatternEnemy statePatternEnemy)
     {
         this.enemy = statePatternEnemy;
@@ -29,11 +34,6 @@ public class PatrolState : IEnemyState
     }
     public void ToAlertState()
     {
-        /*enemy.randomEnemyTurn = Random.Range(0, 2);
-        if (enemy.randomEnemyTurn == 0)
-            enemy.alertState.turnSpeed = 150;
-        else if (enemy.randomEnemyTurn == 1)
-            enemy.alertState.turnSpeed = -150;*/
         enemy.lastKnownPlayerPosition = enemy.player.transform.position;
         EnemyManager.Instance.indicatorText.text = "Enemy is alerted";
         enemy.currentState = enemy.alertState;
@@ -85,9 +85,21 @@ public class PatrolState : IEnemyState
     }
     void Patrol()
     {
-        enemy.agent.destination = enemy.waypoints[nextWaypoint].position;
-        enemy.agent.isStopped = false;
-        if(enemy.agent.remainingDistance <= enemy.agent.stoppingDistance && !enemy.agent.pathPending)
-            nextWaypoint = (nextWaypoint + 1) % enemy.waypoints.Length;
+        if (Vector3.Distance(enemy.transform.position, enemy.waypoints[waypointIndex].transform.position) < 1)
+        {
+            if (enemy.randomPatrol)
+                waypointIndex = Random.Range(0, enemy.waypoints.Length);
+            else
+                waypointIndex = (waypointIndex + 1) % enemy.waypoints.Length;
+            waypointCounter = 0;
+            if (waypointIndex >= enemy.waypoints.Length)
+                waypointIndex = 0;
+        }
+        if (waypointCounter < waypointMaxTime)
+            waypointCounter += Time.deltaTime;
+        else
+        {
+            enemy.agent.SetDestination(enemy.waypoints[waypointIndex].position);
+        }
     }
 }

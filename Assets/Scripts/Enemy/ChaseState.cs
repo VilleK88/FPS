@@ -5,7 +5,7 @@ using UnityEngine;
 public class ChaseState : IEnemyState
 {
     private StatePatternEnemy enemy;
-    private float fovTimer = 0.2f;
+    private float fovTimer = 0.1f;
     public ChaseState(StatePatternEnemy statePatternEnemy)
     {
         this.enemy = statePatternEnemy;
@@ -14,6 +14,7 @@ public class ChaseState : IEnemyState
     {
         //Look();
         FOVRoutine();
+        enemy.distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.player.transform.position);
         Chase();
     }
     public void OnTriggerEnter(Collider other)

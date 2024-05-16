@@ -16,6 +16,7 @@ public class AlertState : IEnemyState
     public void UpdateState()
     {
         FOVRoutine();
+        enemy.distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.player.transform.position);
         HearingArea();
         LookAround();
         //Search();
