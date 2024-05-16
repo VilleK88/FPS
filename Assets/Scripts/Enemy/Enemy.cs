@@ -32,7 +32,6 @@ public class Enemy : MonoBehaviour
     public bool randomPatrol = false;
     [Header("Disturbance Parameters")]
     public bool disturbance;
-    public ThrowImpactEffect throwImpactEffect;
     public float lookAtDisturbanceCounter = 0;
     public float lookAroundCounter = 0;
     public Quaternion startRotation;
@@ -145,23 +144,23 @@ public class Enemy : MonoBehaviour
             disturbance = true;
             agent.ResetPath();
             anim.GetComponent<Animator>().SetBool("Walk", false);
-            throwImpactEffect = FindObjectOfType<ThrowImpactEffect>();
+            //throwImpactEffect = FindObjectOfType<ThrowImpactEffect>();
         }
     }
     void LookAtDisturbance()
     {
-        if (throwImpactEffect != null)
+        /*if (throwImpactEffect != null)
         {
             Quaternion currentRotation = transform.rotation;
             Vector3 directionToImpact = throwImpactEffect.transform.position - transform.position;
             Quaternion targetRotation = Quaternion.LookRotation(directionToImpact);
             Quaternion newRotation = Quaternion.Slerp(currentRotation, targetRotation, 3 * Time.deltaTime);
             transform.rotation = newRotation;
-        }
+        }*/
     }
     void CheckDisturbance()
     {
-        if (throwImpactEffect != null)
+        /*if (throwImpactEffect != null)
         {
             agent.SetDestination(throwImpactEffect.transform.position);
             float distanceToImpactEffect = Vector3.Distance(transform.position, throwImpactEffect.transform.position);
@@ -182,7 +181,7 @@ public class Enemy : MonoBehaviour
             }
         }
         else
-            DisturbanceOver();
+            DisturbanceOver();*/
     }
     void StartLookingAround()
     {

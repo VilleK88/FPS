@@ -11,12 +11,18 @@ public class ProjectilePrefab : MonoBehaviour
     }
     private void OnCollisionEnter(Collision objectWeHit)
     {
-        if(objectWeHit.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (objectWeHit.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            StatePatternEnemy enemy = objectWeHit.gameObject.GetComponent<StatePatternEnemy>();
+            enemy.lastKnownPlayerPosition = enemy.player.transform.position;
+            enemy.currentState = enemy.chaseState;
+            Destroy(gameObject);
+        }
+        if (objectWeHit.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             rb = GetComponent<Rigidbody>();
             rb.isKinematic = true;
             transform.SetParent(objectWeHit.transform);
-            //CreateThrowImpactEffect(objectWeHit);
             enemies = FindObjectsOfType<StatePatternEnemy>();
             for (int i = 0; i < enemies.Length; i++)
             {
@@ -29,19 +35,9 @@ public class ProjectilePrefab : MonoBehaviour
                     enemy.alertState.searchTimer = 0;
                     EnemyManager.Instance.indicatorText.text = "Enemy is alerted";
                     enemy.currentState = enemy.alertState;
-                    //enemy.disturbance = false;
-                    //enemy.Disturbance();
-                    //enemy.disturbanceTimes++;
                 }
             }
             Destroy(gameObject);
         }
-    }
-    void CreateThrowImpactEffect(Collision objectWeHit)
-    {
-        ContactPoint contact = objectWeHit.contacts[0];
-        GameObject hitPoint = Instantiate(GlobalReferences.Instance.throwImpactEffectPrefab,
-            contact.point, Quaternion.LookRotation(contact.normal));
-        hitPoint.transform.SetParent(objectWeHit.gameObject.transform);
     }
 }
