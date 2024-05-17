@@ -9,32 +9,29 @@ public class Bullet : MonoBehaviour
     }
     private void OnCollisionEnter(Collision objectWeHit)
     {
-        if(objectWeHit.gameObject.CompareTag(target))
+        if (target != "" && objectWeHit.gameObject.CompareTag(target))
         {
-            Debug.Log("hit " + objectWeHit.gameObject.name + " !");
-            objectWeHit.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
-            Destroy(gameObject);
+            if (target == "Player")
+                objectWeHit.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
         }
-        if(objectWeHit.gameObject.CompareTag("Target"))
+        if (objectWeHit.gameObject.CompareTag("Target"))
         {
             Debug.Log("hit " + objectWeHit.gameObject.name + " !");
             CreateBulletImpactEffect(objectWeHit);
-            Destroy(gameObject);
         }
         if(objectWeHit.gameObject.CompareTag("Wall"))
         {
             Debug.Log("Hit a wall");
             CreateBulletImpactEffect(objectWeHit);
-            Destroy(gameObject);
         }
         if (objectWeHit.gameObject.CompareTag("Ground"))
         {
             Debug.Log("Hit a ground");
             CreateBulletImpactEffect(objectWeHit);
-            Destroy(gameObject);
         }
+        Destroy(gameObject);
     }
-    void CreateBulletImpactEffect(Collision objectWeHit)
+    void CreateBulletImpactEffect(Collision objectWeHit) // and destroy gameobject
     {
         ContactPoint contact = objectWeHit.contacts[0];
         GameObject hole = Instantiate(GlobalReferences.Instance.bulletImpactEffectPrefab,
