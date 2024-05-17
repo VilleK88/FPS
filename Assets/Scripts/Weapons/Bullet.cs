@@ -1,12 +1,20 @@
 using UnityEngine;
 public class Bullet : MonoBehaviour
 {
+    public string target = "";
+    public float damage = 0;
     private void Start()
     {
         Destroy(gameObject, 2);
     }
     private void OnCollisionEnter(Collision objectWeHit)
     {
+        if(objectWeHit.gameObject.CompareTag(target))
+        {
+            Debug.Log("hit " + objectWeHit.gameObject.name + " !");
+            objectWeHit.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+            Destroy(gameObject);
+        }
         if(objectWeHit.gameObject.CompareTag("Target"))
         {
             Debug.Log("hit " + objectWeHit.gameObject.name + " !");

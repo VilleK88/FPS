@@ -23,9 +23,12 @@ public class StatePatternEnemy : MonoBehaviour
     [Header("Move Speed")]
     public float walkSpeed = 3.5f;
     public float runningSpeed = 5f;
+    [Header("Shooting")]
     public Transform shootingPoint;
     public GameObject bulletPrefab;
     public float bulletVelocity = 500;
+    public float bulletDamage = 2f;
+    public string bulletTarget = "Player";
     [HideInInspector] public GameObject player;
     [HideInInspector] public IEnemyState currentState; // current state is defined here
     [HideInInspector] public PatrolState patrolState;
@@ -58,5 +61,7 @@ public class StatePatternEnemy : MonoBehaviour
     {
         GameObject bullet = Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation);
         bullet.GetComponent<Rigidbody>().AddForce(transform.forward * bulletVelocity, ForceMode.Impulse);
+        bullet.GetComponent<Bullet>().target = bulletTarget;
+        bullet.GetComponent<Bullet>().damage = bulletDamage;
     }
 }
