@@ -26,6 +26,7 @@ public class StatePatternEnemy : MonoBehaviour
     [Header("Shooting")]
     public Transform shootingPoint;
     public GameObject bulletPrefab;
+    public GameObject muzzleFlash;
     public float bulletVelocity = 500;
     public float bulletDamage = 2f;
     public string bulletTarget = "Player";
@@ -63,5 +64,6 @@ public class StatePatternEnemy : MonoBehaviour
         bullet.GetComponent<Rigidbody>().AddForce(transform.forward * bulletVelocity, ForceMode.Impulse);
         bullet.GetComponent<Bullet>().target = bulletTarget;
         bullet.GetComponent<Bullet>().damage = bulletDamage;
+        muzzleFlash.GetComponent<ParticleSystem>().Play();
     }
 }
