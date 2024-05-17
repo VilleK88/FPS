@@ -10,7 +10,10 @@ public class PlayerMovement : MonoBehaviour
     float runningSpeed = 15;
     float originalSpeed;
     public bool moving;
+    [Header("Sneaking")]
     public bool sneaking;
+    float characterControllerOriginalHeight = 3.8f;
+    float characterControllerSneakingHeight = 3.2f;
     [Header("Jumping")]
     Vector3 velocity;
     float gravity = -19.62f;
@@ -41,15 +44,11 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!sneaking)
             {
-                sneaking = true;
-                speed = sneakSpeed;
-                PlayerManager.instance.sneakIndicatorText.text = "Sneaking";
+                Sneak();
             }
             else
             {
-                sneaking = false;
-                speed = originalSpeed;
-                PlayerManager.instance.sneakIndicatorText.text = "";
+                StopSneaking();
             }
         }
         if (Input.GetKey(KeyCode.LeftShift) && !sneaking)
@@ -64,9 +63,27 @@ public class PlayerMovement : MonoBehaviour
     void Jump()
     {
         if (Input.GetButtonDown("Jump") && IsGrounded())
+        {
+            if (sneaking)
+                StopSneaking();
             velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+        }
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+    }
+    void Sneak()
+    {
+        sneaking = true;
+        speed = sneakSpeed;
+        PlayerManager.instance.sneakIndicatorText.text = "Sneaking";
+        controller.height = characterControllerSneakingHeight;
+    }
+    void StopSneaking()
+    {
+        sneaking = false;
+        speed = originalSpeed;
+        PlayerManager.instance.sneakIndicatorText.text = "";
+        controller.height = characterControllerOriginalHeight;
     }
     bool IsGrounded()
     {

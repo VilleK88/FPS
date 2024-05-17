@@ -78,7 +78,7 @@ public class CombatState : IEnemyState
     void Chase()
     {
         enemy.GetComponentInChildren<Animator>().SetBool("Walk", false);
-        if (enemy.distanceToPlayer > 6)
+        if (enemy.distanceToPlayer > 10)
         {
             enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
             enemy.GetComponentInChildren<Animator>().SetBool("Running", true);
