@@ -1,14 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class PlayerHealth : MonoBehaviour
 {
+    public GameObject postProcessGO;
+    PostProcessVolume volume;
+    Vignette vignette;
+    public float intensity = 0;
     private void Start()
     {
         if(!GameManager.instance.loadPlayerPosition)
             GameManager.instance.currentHealth = GameManager.instance.maxHealth;
         HealthUIManager.Instance.UpdateHealthBar();
+        volume = postProcessGO.GetComponent<PostProcessVolume>();
+        volume.profile.TryGetSettings<Vignette>(out vignette);
+        if (!vignette)
+            print("Error, vignette empty");
+        else
+            vignette.enabled.Override(false);
     }
     private void Update()
     {
@@ -23,6 +34,7 @@ public class PlayerHealth : MonoBehaviour
         {
             GameManager.instance.currentHealth -= damage;
             HealthUIManager.Instance.UpdateHealthBar();
+            StartCoroutine(DamageEffect());
         }
     }
     public bool HealPlayer(float health)
@@ -59,5 +71,22 @@ public class PlayerHealth : MonoBehaviour
                 break;
             }
         }
+    }
+    IEnumerator DamageEffect()
+    {
+        intensity = 0.4f;
+        vignette.enabled.Override(true);
+        vignette.intensity.Override(0.1f); // 0.4f original
+        yield return new WaitForSeconds(0.1f); // 0.4f original
+        while(intensity > 0)
+        {
+            intensity -= 0.02f; // 0.01f original
+            if (intensity < 0)
+                intensity = 0;
+            vignette.intensity.Override(intensity);
+            yield return new WaitForSeconds(0.1f); // 0.1f original
+        }
+        vignette.enabled.Override(false);
+        yield break;
     }
 }

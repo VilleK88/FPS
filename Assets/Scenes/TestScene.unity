@@ -4497,10 +4497,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 596758123390547508, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7136351547337792650, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -4545,25 +4541,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7136351547337792651, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7136351547337792652, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136351547362206916, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 3831
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136351547968122264, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7136351547968122266, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
@@ -4583,20 +4563,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b46da92b7e230846aa648856003e8cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!136 &7136351547511556542
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7136351547511556536}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.6
-  m_Height: 3.8
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &7140282270454247441
 PrefabInstance:
   m_ObjectHideFlags: 0
