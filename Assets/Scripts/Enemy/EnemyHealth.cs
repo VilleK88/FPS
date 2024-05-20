@@ -46,5 +46,6 @@ public class EnemyHealth : MonoBehaviour
         enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
         enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
         enemy.GetComponentInChildren<Animator>().SetBool("Walk", false);
+        enemy.GetComponentInChildren<Animator>().enabled = false;
     }
 }

@@ -1501,7 +1501,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.15
+  m_Radius: 0.17
   m_Center: {x: 0, y: 0.08, z: 0.04}
 --- !u!144 &1928225998
 CharacterJoint:
