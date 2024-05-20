@@ -600,6 +600,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1041474027568359582, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
 --- !u!4 &149634727 stripped
@@ -5423,14 +5427,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 987339884}
     - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
-      propertyPath: radius
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
-      propertyPath: searchDuration
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: waypoints.Array.data[0]
       value: 
       objectReference: {fileID: 952719311}
@@ -5446,31 +5442,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 1041474028827729597, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
-      propertyPath: m_Constraints
-      value: 126
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
---- !u!1 &1041474027577360226 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1041474027568359582, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
-  m_PrefabInstance: {fileID: 1041474027577360225}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1041474027577360227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1041474027577360226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2aa7e636f9ad1448a8aa6a379bcb495, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 0
 --- !u!1001 &1692678930673034763
 PrefabInstance:
   m_ObjectHideFlags: 0
