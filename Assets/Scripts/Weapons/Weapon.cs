@@ -78,8 +78,9 @@ public class Weapon : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, rayDistance, enemyLayer))
         {
-            EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
-            if(enemyHealth != null)
+            //EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
+            EnemyHealth enemyHealth = hit.collider.GetComponentInParent<EnemyHealth>();
+            if (enemyHealth != null)
             {
                 enemyHealth.ShowHealth();
                 lastHitEnemy = enemyHealth;
@@ -102,7 +103,6 @@ public class Weapon : MonoBehaviour
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity); // instantiate the bullet
             bullet.transform.forward = shootingDirection; // Pointing the bullet to face the shooting direction
             bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse); // Shoot the bullet
-            bullet.GetComponent<Bullet>().target = "Enemy";
             bullet.GetComponent<Bullet>().damage = bulletDamage;
         }
         else
@@ -113,7 +113,6 @@ public class Weapon : MonoBehaviour
                 GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity); // instantiate the bullet
                 bullet.transform.forward = shootingDirection; // Pointing the bullet to face the shooting direction
                 bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse); // Shoot the bullet
-                bullet.GetComponent<Bullet>().target = "Enemy";
                 bullet.GetComponent<Bullet>().damage = bulletDamage;
             }
         }

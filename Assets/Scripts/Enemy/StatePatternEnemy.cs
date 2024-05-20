@@ -25,7 +25,7 @@ public class StatePatternEnemy : MonoBehaviour
     public float runningSpeed = 5f;
     [Header("Shooting")]
     public Transform shootingPoint;
-    public GameObject bulletPrefab;
+    public GameObject enemyBulletPrefab;
     public GameObject muzzleFlash;
     public float bulletVelocity = 500;
     public float bulletDamage = 2f;
@@ -60,10 +60,10 @@ public class StatePatternEnemy : MonoBehaviour
     }
     public void Shoot()
     {
-        GameObject bullet = Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation);
+        GameObject bullet = Instantiate(enemyBulletPrefab, shootingPoint.position, shootingPoint.rotation);
         bullet.GetComponent<Rigidbody>().AddForce(transform.forward * bulletVelocity, ForceMode.Impulse);
-        bullet.GetComponent<Bullet>().target = bulletTarget;
-        bullet.GetComponent<Bullet>().damage = bulletDamage;
+        bullet.GetComponent<EnemyBullet>().target = bulletTarget;
+        bullet.GetComponent<EnemyBullet>().damage = bulletDamage;
         muzzleFlash.GetComponent<ParticleSystem>().Play();
     }
 }
