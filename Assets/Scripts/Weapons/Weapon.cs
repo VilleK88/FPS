@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+
 public class Weapon : MonoBehaviour
 {
     [Header("Weapon model, shooting mode and weapon id")]
@@ -33,6 +35,10 @@ public class Weapon : MonoBehaviour
     public int tempTotalAmmo;
     public bool isReloading;
     public bool weaponCollected; // can't collect same weapon twice
+    [Header("Show Enemy Healthbar")]
+    float rayDistance = 50f;
+    public LayerMask enemyLayer;
+    public EnemyHealth lastHitEnemy;
     private void Awake()
     {
         readyToShoot = true;
@@ -64,6 +70,24 @@ public class Weapon : MonoBehaviour
         {
             AmmoManager.Instance.ammoDisplay.text = $"{bulletsLeft / bulletsPerBurst}/{totalAmmo}";
         }
+        ShowEnemyHealthBar();
+    }
+    void ShowEnemyHealthBar()
+    {
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, rayDistance, enemyLayer))
+        {
+            EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
+            if(enemyHealth != null)
+            {
+                enemyHealth.ShowHealth();
+                lastHitEnemy = enemyHealth;
+                return;
+            }
+        }
+        if (lastHitEnemy != null)
+            lastHitEnemy.HideHealth();
     }
     void FireWeapon()
     {

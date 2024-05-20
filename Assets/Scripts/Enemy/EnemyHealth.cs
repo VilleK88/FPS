@@ -7,13 +7,24 @@ public class EnemyHealth : MonoBehaviour
 {
     public float maxHealth;
     public float currentHealth;
-    public Image healthBar;
+    public GameObject healthbar;
+    public Image healthBarFill;
     float targetFillAmount;
+    public float showHealthCounter = 2f;
     private void Start()
     {
         currentHealth = maxHealth;
         targetFillAmount = currentHealth / maxHealth;
-        healthBar.fillAmount = targetFillAmount;
+        healthBarFill.fillAmount = targetFillAmount;
+        HideHealth();
+    }
+    public void ShowHealth()
+    {
+        healthbar.active = true;
+    }
+    public void HideHealth()
+    {
+        healthbar.active = false;
     }
     public void TakeDamage(float damage)
     {
@@ -22,7 +33,7 @@ public class EnemyHealth : MonoBehaviour
             currentHealth -= damage;
             Debug.Log("Enemy current health: " + currentHealth);
             targetFillAmount = currentHealth / maxHealth;
-            healthBar.fillAmount = targetFillAmount;
+            healthBarFill.fillAmount = targetFillAmount;
         }
         else
             Die();

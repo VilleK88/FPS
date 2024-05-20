@@ -31,4 +31,13 @@ public class EnemyManager : MonoBehaviour
         if(currentIndicatorText == indicatorText)
             indicatorText.text = "";
     }
+    public void CloseEnemyHealthbars()
+    {
+        for(int i = 0; i < enemies.Length; i++)
+        {
+            EnemyHealth enemyHealth = enemies[i].GetComponent<EnemyHealth>();
+            if (enemyHealth != null && enemyHealth.healthbar.activeSelf)
+                enemyHealth.HideHealth();
+        }
+    }
 }

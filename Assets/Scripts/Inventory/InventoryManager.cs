@@ -169,6 +169,7 @@ public class InventoryManager : MonoBehaviour
                 }
             }
         }
+        EnemyManager.Instance.CloseEnemyHealthbars();
     }
     void HolsterWeapons()
     {
@@ -179,6 +180,7 @@ public class InventoryManager : MonoBehaviour
             for(int i = 0; i < weaponSlots.Length; i++)
                 weaponSlots[i].SetActive(false);
         }
+        EnemyManager.Instance.CloseEnemyHealthbars();
     }
     public void SaveHowManyBulletsLeftInMagazine()
     {
