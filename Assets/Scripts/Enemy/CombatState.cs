@@ -26,6 +26,9 @@ public class CombatState : IEnemyState
     }
     public void ToAlertState()
     {
+        enemy.agent.isStopped = true;
+        enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
+        enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
         enemy.agent.speed = enemy.walkSpeed;
         EnemyManager.Instance.indicatorText.text = "Enemy is alerted";
         enemy.currentState = enemy.alertState;
@@ -38,6 +41,9 @@ public class CombatState : IEnemyState
     }
     public void ToTrackingState()
     {
+        enemy.agent.isStopped = false;
+        enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
+        enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
         enemy.agent.speed = enemy.walkSpeed;
         EnemyManager.Instance.indicatorText.text = "Enemy is tracking";
         enemy.lastKnownPlayerPosition = enemy.player.transform.position;
@@ -80,17 +86,17 @@ public class CombatState : IEnemyState
         enemy.GetComponentInChildren<Animator>().SetBool("Walk", false);
         if (enemy.distanceToPlayer > 10)
         {
+            enemy.agent.isStopped = false;
             enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
             enemy.GetComponentInChildren<Animator>().SetBool("Running", true);
             enemy.agent.SetDestination(enemy.player.transform.position);
-            enemy.agent.isStopped = false;
         }
         else
         {
+            enemy.agent.isStopped = true;
             enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
             enemy.GetComponentInChildren<Animator>().SetBool("Aiming", true);
             enemy.transform.LookAt(enemy.player.transform.position);
-            enemy.agent.isStopped = true;
             if (shootingDelay > 0)
                 shootingDelay -= Time.deltaTime;
             else

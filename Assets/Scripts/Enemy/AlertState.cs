@@ -36,6 +36,8 @@ public class AlertState : IEnemyState
     }
     public void ToChaseState()
     {
+        enemy.agent.isStopped = false;
+        enemy.GetComponentInChildren<Animator>().SetBool("running", true);
         enemy.agent.speed = enemy.runningSpeed;
         EnemyManager.Instance.indicatorText.text = "Enemy is chasing";
         searchTimer = 0;
@@ -44,6 +46,8 @@ public class AlertState : IEnemyState
     }
     public void ToPatrolState()
     {
+        enemy.agent.isStopped = false;
+        enemy.GetComponentInChildren<Animator>().SetBool("Walk", true);
         enemy.agent.speed = enemy.walkSpeed;
         EnemyManager.Instance.StartCoroutine(EnemyManager.Instance.BackToPatrol());
         searchTimer = 0;
@@ -52,6 +56,8 @@ public class AlertState : IEnemyState
     }
     public void ToTrackingState()
     {
+        enemy.agent.isStopped = false;
+        enemy.GetComponentInChildren<Animator>().SetBool("Walk", true);
         enemy.agent.speed = enemy.walkSpeed;
         EnemyManager.Instance.indicatorText.text = "Enemy is tracking";
         enemy.currentState = enemy.trackingState;

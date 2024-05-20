@@ -15,6 +15,7 @@ public class TrackingState : IEnemyState
     {
         FOVRoutine();
         enemy.distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.player.transform.position);
+        HearingArea();
         Hunt();
     }
     public void OnTriggerEnter(Collider other)
@@ -34,6 +35,7 @@ public class TrackingState : IEnemyState
     }
     public void ToChaseState()
     {
+        enemy.agent.isStopped = false;
         enemy.agent.speed = enemy.runningSpeed;
         EnemyManager.Instance.indicatorText.text = "Enemy is chasing";
         searchTimer = 0;
@@ -41,6 +43,7 @@ public class TrackingState : IEnemyState
     }
     public void ToPatrolState()
     {
+        enemy.agent.isStopped = false;
         enemy.agent.speed = enemy.walkSpeed;
         EnemyManager.Instance.StartCoroutine(EnemyManager.Instance.BackToPatrol());
         searchTimer = 0;
@@ -83,19 +86,20 @@ public class TrackingState : IEnemyState
     void Hunt()
     {
         enemy.agent.SetDestination(enemy.lastKnownPlayerPosition);
-        enemy.agent.isStopped = false;
-        if (enemy.agent.remainingDistance <= enemy.agent.stoppingDistance && !enemy.agent.pathPending)
+        if(Vector3.Distance(enemy.transform.position, enemy.lastKnownPlayerPosition) < 2f)
         {
-            if(!enemy.alertState.checkDisturbance)
+            enemy.agent.isStopped = true;
+            enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
+            enemy.GetComponentInChildren<Animator>().SetBool("Walk", false);
+            Debug.Log("TrackingState Hunt: Stop walking");
+            if (!enemy.alertState.checkDisturbance)
                 ToAlertState();
             else
             {
                 EnemyManager.Instance.indicatorText.text = "Enemy is checking disturbance";
                 searchTimer += Time.deltaTime;
                 if (searchTimer >= enemy.searchDuration)
-                {
                     ToPatrolState();
-                }
             }
         }
     }

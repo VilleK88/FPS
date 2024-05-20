@@ -5423,6 +5423,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 987339884}
     - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+      propertyPath: radius
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+      propertyPath: searchDuration
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: waypoints.Array.data[0]
       value: 
       objectReference: {fileID: 952719311}
