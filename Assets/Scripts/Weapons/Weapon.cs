@@ -20,6 +20,7 @@ public class Weapon : MonoBehaviour
     public Transform bulletSpawn;
     public float bulletVelocity = 500;
     public float bulletPrefabLifeTime = 3f;
+    public float bulletDamage;
     [Header("Particle Effect, Animation, Sound")]
     public GameObject muzzleEffect;
     Animator anim;
@@ -77,6 +78,8 @@ public class Weapon : MonoBehaviour
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity); // instantiate the bullet
             bullet.transform.forward = shootingDirection; // Pointing the bullet to face the shooting direction
             bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse); // Shoot the bullet
+            bullet.GetComponent<Bullet>().target = "Enemy";
+            bullet.GetComponent<Bullet>().damage = bulletDamage;
         }
         else
         {
@@ -86,6 +89,8 @@ public class Weapon : MonoBehaviour
                 GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity); // instantiate the bullet
                 bullet.transform.forward = shootingDirection; // Pointing the bullet to face the shooting direction
                 bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse); // Shoot the bullet
+                bullet.GetComponent<Bullet>().target = "Enemy";
+                bullet.GetComponent<Bullet>().damage = bulletDamage;
             }
         }
         if (allowReset) // Checking if we are done shooting

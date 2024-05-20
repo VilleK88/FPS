@@ -13,6 +13,8 @@ public class Bullet : MonoBehaviour
         {
             if (target == "Player")
                 objectWeHit.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+            if (target == "Enemy")
+                objectWeHit.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage);
         }
         if (objectWeHit.gameObject.CompareTag("Target"))
         {
