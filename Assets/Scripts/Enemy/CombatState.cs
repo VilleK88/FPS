@@ -78,7 +78,11 @@ public class CombatState : IEnemyState
         else if (enemy.canSeePlayer)
             enemy.canSeePlayer = false;
         if (enemy.canSeePlayer)
+        {
             ToCombatState();
+            enemy.CallHelp();
+            Debug.Log("Call Help from CombatState");
+        }
         else
             ToTrackingState();
     }

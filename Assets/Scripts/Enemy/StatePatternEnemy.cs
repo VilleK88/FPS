@@ -81,4 +81,25 @@ public class StatePatternEnemy : MonoBehaviour
         enemyHealth.takingHit = false;
         Debug.Log("Recover from hit");
     }
+    public IEnumerator CallHelp()
+    {
+        yield return new WaitForSeconds(0.5f);
+        //GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        StatePatternEnemy[] enemies = FindObjectsOfType<StatePatternEnemy>();
+        foreach (StatePatternEnemy enemy in enemies)
+        {
+            Transform enemyTransform = enemy.transform;
+            StatePatternEnemy stateEnemy = enemy.GetComponent<StatePatternEnemy>();
+            if(enemyTransform != null && stateEnemy != null)
+            {
+                float distance = Vector3.Distance(transform.position, enemyTransform.position);
+                if(distance < 30)
+                {
+                    stateEnemy.lastKnownPlayerPosition = stateEnemy.player.transform.position;
+                    stateEnemy.currentState = stateEnemy.combatState;
+                }
+            }
+        }
+        Debug.Log("Call Help");
+    }
 }
