@@ -5916,15 +5916,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 326921676706553713, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
       propertyPath: bulletVelocity
-      value: 500
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 326921676706553713, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
       propertyPath: spreadIntensity
       value: 0.06
       objectReference: {fileID: 0}
     - target: {fileID: 1514570258976943554, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
+      propertyPath: bulletVelocity
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 1514570258976943554, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
       propertyPath: spreadIntensity
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6589782245996387276, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
+      propertyPath: bulletVelocity
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 6589782245996387276, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
       propertyPath: spreadIntensity

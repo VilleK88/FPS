@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class EnemyHealth : MonoBehaviour
 {
     public float maxHealth;
@@ -11,12 +10,15 @@ public class EnemyHealth : MonoBehaviour
     public Image healthBarFill;
     float targetFillAmount;
     public float showHealthCounter = 2f;
+    Rigidbody[] rigidBodies;
     private void Start()
     {
         currentHealth = maxHealth;
         targetFillAmount = currentHealth / maxHealth;
         healthBarFill.fillAmount = targetFillAmount;
         HideHealth();
+        rigidBodies = GetComponentsInChildren<Rigidbody>();
+        DeactivateRagdoll();
     }
     public void ShowHealth()
     {
@@ -31,9 +33,11 @@ public class EnemyHealth : MonoBehaviour
         if (currentHealth > 0)
         {
             currentHealth -= damage;
-            //Debug.Log("Enemy current health: " + currentHealth);
+            Debug.Log("Enemy current health: " + currentHealth);
             targetFillAmount = currentHealth / maxHealth;
             healthBarFill.fillAmount = targetFillAmount;
+            if (currentHealth <= 0)
+                Die();
         }
         else
             Die();
@@ -43,22 +47,17 @@ public class EnemyHealth : MonoBehaviour
         Debug.Log("Enemy dead");
         StatePatternEnemy enemy = GetComponent<StatePatternEnemy>();
         enemy.enabled = false;
-        enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
-        enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
-        enemy.GetComponentInChildren<Animator>().SetBool("Walk", false);
         enemy.GetComponentInChildren<Animator>().enabled = false;
+        ActivateRagdoll();
     }
-    private void OnCollisionEnter(Collision collision)
+    void DeactivateRagdoll()
     {
-        /*if (collision.gameObject.CompareTag("Bullet"))
-        {
-            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-            if(bullet != null)
-            {
-                //if(gameObject.CompareTag("EnemyHead"))
-                    
-            }
-            Destroy(collision.gameObject);
-        }*/
+        foreach (var rigidBody in rigidBodies)
+            rigidBody.isKinematic = true;
+    }
+    void ActivateRagdoll()
+    {
+        foreach (var rigidBody in rigidBodies)
+            rigidBody.isKinematic = false;
     }
 }
