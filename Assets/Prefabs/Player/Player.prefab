@@ -633,12 +633,20 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4915713334536391105, guid: f5352dadbab532141a5b75836f568b93, type: 3}
+      propertyPath: bulletDamage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4915713334536391105, guid: f5352dadbab532141a5b75836f568b93, type: 3}
       propertyPath: shootingDelay
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4915713334536391105, guid: f5352dadbab532141a5b75836f568b93, type: 3}
       propertyPath: spreadIntensity
       value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4915713334536391105, guid: f5352dadbab532141a5b75836f568b93, type: 3}
+      propertyPath: enemyLayer.m_Bits
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 8329342291554485863, guid: f5352dadbab532141a5b75836f568b93, type: 3}
       propertyPath: m_RootOrder
@@ -726,6 +734,14 @@ PrefabInstance:
     - target: {fileID: 2431375446489821769, guid: ea6cf546127d32640b6efe4f3ffccc19, type: 3}
       propertyPath: bulletsLeft
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2431375446489821769, guid: ea6cf546127d32640b6efe4f3ffccc19, type: 3}
+      propertyPath: bulletDamage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2431375446489821769, guid: ea6cf546127d32640b6efe4f3ffccc19, type: 3}
+      propertyPath: enemyLayer.m_Bits
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 2753742725896671628, guid: ea6cf546127d32640b6efe4f3ffccc19, type: 3}
       propertyPath: m_RootOrder
@@ -861,6 +877,18 @@ PrefabInstance:
     - target: {fileID: 4550864358607795897, guid: bff73af88e1a87e4896a6106762b95ec, type: 3}
       propertyPath: bulletsLeft
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4550864358607795897, guid: bff73af88e1a87e4896a6106762b95ec, type: 3}
+      propertyPath: bulletDamage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4550864358607795897, guid: bff73af88e1a87e4896a6106762b95ec, type: 3}
+      propertyPath: spreadIntensity
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 4550864358607795897, guid: bff73af88e1a87e4896a6106762b95ec, type: 3}
+      propertyPath: enemyLayer.m_Bits
+      value: 512
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bff73af88e1a87e4896a6106762b95ec, type: 3}

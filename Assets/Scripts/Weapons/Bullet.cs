@@ -1,6 +1,4 @@
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-
 public class Bullet : MonoBehaviour
 {
     public float damage = 0;
@@ -10,21 +8,22 @@ public class Bullet : MonoBehaviour
     }
     private void OnCollisionEnter(Collision objectWeHit)
     {
-        if (objectWeHit.gameObject.CompareTag("Enemy"))
-            objectWeHit.gameObject.GetComponentInParent<EnemyHealth>().TakeDamage(damage);
-        if (objectWeHit.gameObject.CompareTag("EnemyHead"))
-            objectWeHit.gameObject.GetComponentInParent<EnemyHealth>().TakeDamage(damage * 3);
-        if (objectWeHit.gameObject.CompareTag("Target"))
+        EnemyHealth enemyHealth = objectWeHit.gameObject.GetComponentInParent<EnemyHealth>();
+        if (objectWeHit.gameObject.CompareTag("Enemy") && enemyHealth != null)
+            enemyHealth.TakeDamage(damage);
+        else if (objectWeHit.gameObject.CompareTag("EnemyHead") && enemyHealth != null)
+            enemyHealth.TakeDamage(damage * 3);
+        else if (objectWeHit.gameObject.CompareTag("Target"))
         {
             Debug.Log("hit " + objectWeHit.gameObject.name + " !");
             CreateBulletImpactEffect(objectWeHit);
         }
-        if(objectWeHit.gameObject.CompareTag("Wall"))
+        else if(objectWeHit.gameObject.CompareTag("Wall"))
         {
             Debug.Log("Hit a wall");
             CreateBulletImpactEffect(objectWeHit);
         }
-        if (objectWeHit.gameObject.CompareTag("Ground"))
+        else if (objectWeHit.gameObject.CompareTag("Ground"))
         {
             Debug.Log("Hit a ground");
             CreateBulletImpactEffect(objectWeHit);

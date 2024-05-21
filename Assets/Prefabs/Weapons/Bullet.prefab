@@ -129,7 +129,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adfc5281c7abbb7409b3d031cb2d14ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: 
   damage: 0
 --- !u!96 &-5300013659291151117
 TrailRenderer:

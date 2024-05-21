@@ -5370,10 +5370,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 312709261}
     m_Modifications:
-    - target: {fileID: 1928226000, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
-      propertyPath: m_Radius
-      value: 0.19
-      objectReference: {fileID: 0}
     - target: {fileID: 1041474027568359265, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -5919,28 +5915,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 326921676706553713, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
-      propertyPath: bulletDamage
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 326921676706553713, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
-      propertyPath: enemyLayer.m_Bits
-      value: 512
-      objectReference: {fileID: 0}
-    - target: {fileID: 1514570258976943554, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
-      propertyPath: bulletDamage
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1514570258976943554, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
-      propertyPath: enemyLayer.m_Bits
-      value: 512
-      objectReference: {fileID: 0}
-    - target: {fileID: 6589782245996387276, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
-      propertyPath: bulletDamage
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6589782245996387276, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
-      propertyPath: enemyLayer.m_Bits
-      value: 512
+      propertyPath: bulletVelocity
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 7136351547337792650, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
       propertyPath: m_RootOrder
