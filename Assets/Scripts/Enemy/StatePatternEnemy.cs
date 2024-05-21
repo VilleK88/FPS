@@ -28,8 +28,10 @@ public class StatePatternEnemy : MonoBehaviour
     public GameObject enemyBulletPrefab;
     public GameObject muzzleFlash;
     public float bulletVelocity = 500;
-    public float bulletDamage = 2f;
+    public float bulletDamage = 1f;
     public string bulletTarget = "Player";
+    public bool readyToShoot = true;
+    public float shootingDelay = 0.3f;
     [HideInInspector] public GameObject player;
     [HideInInspector] public IEnemyState currentState; // current state is defined here
     [HideInInspector] public PatrolState patrolState;
@@ -60,10 +62,16 @@ public class StatePatternEnemy : MonoBehaviour
     }
     public void Shoot()
     {
+        readyToShoot = false;
         GameObject bullet = Instantiate(enemyBulletPrefab, shootingPoint.position, shootingPoint.rotation);
         bullet.GetComponent<Rigidbody>().AddForce(transform.forward * bulletVelocity, ForceMode.Impulse);
         bullet.GetComponent<EnemyBullet>().target = bulletTarget;
         bullet.GetComponent<EnemyBullet>().damage = bulletDamage;
         muzzleFlash.GetComponent<ParticleSystem>().Play();
+        Invoke("ResetShot", shootingDelay);
+    }
+    public void ResetShot()
+    {
+        readyToShoot = true;
     }
 }

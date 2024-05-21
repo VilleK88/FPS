@@ -5,7 +5,8 @@ public class CombatState : IEnemyState
 {
     private StatePatternEnemy enemy;
     private float fovTimer = 0.1f;
-    private float shootingDelay = 1f;
+    private float shootingTime = 3f;
+    private float shootingDelay = 2f;
     public CombatState(StatePatternEnemy statePatternEnemy)
     {
         this.enemy = statePatternEnemy;
@@ -97,12 +98,20 @@ public class CombatState : IEnemyState
             enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
             enemy.GetComponentInChildren<Animator>().SetBool("Aiming", true);
             enemy.transform.LookAt(enemy.player.transform.position);
-            if (shootingDelay > 0)
-                shootingDelay -= Time.deltaTime;
+            if (shootingTime > 0)
+            {
+                shootingTime -= Time.deltaTime;
+                if(enemy.readyToShoot)
+                    enemy.Shoot();
+            }
             else
             {
-                enemy.Shoot();
-                shootingDelay = 1;
+                shootingDelay -= Time.deltaTime;
+                if(shootingDelay < 0)
+                {
+                    shootingDelay = 2;
+                    shootingTime = 3;
+                }
             }
         }
     }

@@ -6,6 +6,9 @@ public class TrackingState : IEnemyState
     private StatePatternEnemy enemy;
     private float fovTimer = 0.2f;
     private float searchTimer;
+    private float moveTimer;
+    private bool stopOnce;
+    Vector3 lastPosition;
     public TrackingState(StatePatternEnemy statePatternEnemy)
     {
         this.enemy = statePatternEnemy;
@@ -28,25 +31,36 @@ public class TrackingState : IEnemyState
     }
     public void ToAlertState()
     {
+        enemy.GetComponentInChildren<Animator>().SetBool("WalkAiming", false);
+        enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
+        enemy.agent.isStopped = true;
         enemy.agent.speed = enemy.walkSpeed;
         EnemyManager.Instance.indicatorText.text = "Enemy is alerted";
         searchTimer = 0;
+        stopOnce = false;
         enemy.currentState = enemy.alertState;
     }
     public void ToChaseState()
     {
+        enemy.GetComponentInChildren<Animator>().SetBool("WalkAiming", false);
+        enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
         enemy.agent.isStopped = false;
         enemy.agent.speed = enemy.runningSpeed;
         EnemyManager.Instance.indicatorText.text = "Enemy is chasing";
         searchTimer = 0;
+        stopOnce = false;
         enemy.currentState = enemy.chaseState;
     }
     public void ToPatrolState()
     {
+        enemy.GetComponentInChildren<Animator>().SetBool("WalkAiming", false);
+        enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
         enemy.agent.isStopped = false;
         enemy.agent.speed = enemy.walkSpeed;
         EnemyManager.Instance.StartCoroutine(EnemyManager.Instance.BackToPatrol());
         searchTimer = 0;
+        moveTimer = 0;
+        stopOnce = false;
         enemy.currentState = enemy.patrolState;
     }
     public void ToTrackingState()
@@ -85,22 +99,39 @@ public class TrackingState : IEnemyState
     }
     void Hunt()
     {
-        enemy.agent.SetDestination(enemy.lastKnownPlayerPosition);
         if(Vector3.Distance(enemy.transform.position, enemy.lastKnownPlayerPosition) < 2f)
         {
-            enemy.agent.isStopped = true;
-            enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
-            enemy.GetComponentInChildren<Animator>().SetBool("Walk", false);
-            Debug.Log("TrackingState Hunt: Stop walking");
-            if (!enemy.alertState.checkDisturbance)
-                ToAlertState();
-            else
+            if(!stopOnce)
             {
-                EnemyManager.Instance.indicatorText.text = "Enemy is checking disturbance";
-                searchTimer += Time.deltaTime;
-                if (searchTimer >= enemy.searchDuration)
-                    ToPatrolState();
+                enemy.agent.isStopped = true;
+                enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
+                enemy.GetComponentInChildren<Animator>().SetBool("Walk", false);
+                enemy.GetComponentInChildren<Animator>().SetBool("Aiming", true);
+                stopOnce = true;
             }
+            searchTimer += Time.deltaTime;
+            moveTimer += Time.deltaTime;
+            Debug.Log("moveTimer: " + moveTimer);
+            if (moveTimer > Random.Range(3, 6))
+            {
+                enemy.agent.isStopped = false;
+                enemy.GetComponentInChildren<Animator>().SetBool("WalkAiming", true);
+                float randomAngle = Random.Range(0, 360);
+                Vector3 moveDirection = new Vector3(Mathf.Cos(randomAngle), 0, Mathf.Sin(randomAngle)).normalized;
+                enemy.agent.SetDestination(enemy.transform.position + moveDirection);
+                moveTimer = 0;
+            }
+            if(enemy.agent.remainingDistance <= enemy.agent.stoppingDistance)
+            {
+                enemy.agent.isStopped = true;
+                enemy.GetComponentInChildren<Animator>().SetBool("WalkAiming", false);
+            }
+            if (searchTimer > 15)
+                ToPatrolState();
+        }
+        else
+        {
+            enemy.agent.SetDestination(enemy.lastKnownPlayerPosition);
         }
     }
 }
