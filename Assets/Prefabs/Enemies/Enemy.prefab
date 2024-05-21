@@ -1501,7 +1501,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.19
+  m_Radius: 0.23
   m_Center: {x: 0, y: 0.08, z: 0.04}
 --- !u!144 &1928225998
 CharacterJoint:
@@ -1549,6 +1549,20 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &602794837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3675934522371327971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8cc1d45ee299be418c46b2b9fe3d2ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentEnemyHealthScript: {fileID: 1041474027577360227}
+  damageMultiplier: 3
 --- !u!1 &4755164082931656764 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7657966619581158213, guid: 4f7b73753dca89f4385b3c5e3bcf5175, type: 3}

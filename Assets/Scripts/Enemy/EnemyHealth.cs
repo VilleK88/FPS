@@ -31,7 +31,7 @@ public class EnemyHealth : MonoBehaviour
         if (currentHealth > 0)
         {
             currentHealth -= damage;
-            Debug.Log("Enemy current health: " + currentHealth);
+            //Debug.Log("Enemy current health: " + currentHealth);
             targetFillAmount = currentHealth / maxHealth;
             healthBarFill.fillAmount = targetFillAmount;
         }
@@ -47,5 +47,18 @@ public class EnemyHealth : MonoBehaviour
         enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
         enemy.GetComponentInChildren<Animator>().SetBool("Walk", false);
         enemy.GetComponentInChildren<Animator>().enabled = false;
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        /*if (collision.gameObject.CompareTag("Bullet"))
+        {
+            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+            if(bullet != null)
+            {
+                //if(gameObject.CompareTag("EnemyHead"))
+                    
+            }
+            Destroy(collision.gameObject);
+        }*/
     }
 }

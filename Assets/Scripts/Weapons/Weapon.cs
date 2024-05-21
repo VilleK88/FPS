@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -251,13 +252,37 @@ public class Weapon : MonoBehaviour
         RaycastHit hit;
         Vector3 targetPoint;
         if (Physics.Raycast(ray, out hit))
+        {
             targetPoint = hit.point; // hitting something
+            /*if (hit.collider.CompareTag("Enemy"))
+            {
+                Debug.Log("Enemy body shot");
+                EnemyHealth enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealth>();
+                if (enemyHealth != null)
+                    enemyHealth.TakeDamage(bulletDamage);
+            }
+            else if(hit.collider.CompareTag("EnemyHead"))
+            {
+                Debug.Log("Enemy head shot");
+                EnemyHealth enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealth>();
+                if (enemyHealth != null)
+                    enemyHealth.TakeDamage(bulletDamage * 3);
+            }*/
+        }
+            //targetPoint = hit.point; // hitting something
         else
             targetPoint = ray.GetPoint(100); // shooting at the air
         Vector3 direction = targetPoint - bulletSpawn.position;
         float x = Random.Range(-spreadIntensity, spreadIntensity);
         float y = Random.Range(-spreadIntensity, spreadIntensity);
         return direction + new Vector3(x, y, 0); // returning the shooting direction and spread
+    }
+    void CreateBulletImpactEffect(Collision objectWeHit) // and destroy gameobject
+    {
+        ContactPoint contact = objectWeHit.contacts[0];
+        GameObject hole = Instantiate(GlobalReferences.Instance.bulletImpactEffectPrefab,
+            contact.point, Quaternion.LookRotation(contact.normal));
+        hole.transform.SetParent(objectWeHit.gameObject.transform);
     }
 }
 public enum ShootingMode

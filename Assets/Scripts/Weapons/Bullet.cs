@@ -10,25 +10,28 @@ public class Bullet : MonoBehaviour
     {
         EnemyHealth enemyHealth = objectWeHit.gameObject.GetComponentInParent<EnemyHealth>();
         if (objectWeHit.gameObject.CompareTag("Enemy") && enemyHealth != null)
+        {
             enemyHealth.TakeDamage(damage);
-        else if (objectWeHit.gameObject.CompareTag("EnemyHead") && enemyHealth != null)
-            enemyHealth.TakeDamage(damage * 3);
-        else if (objectWeHit.gameObject.CompareTag("Target"))
+            Destroy(gameObject);
+        }
+        if (objectWeHit.gameObject.CompareTag("Target"))
         {
             Debug.Log("hit " + objectWeHit.gameObject.name + " !");
             CreateBulletImpactEffect(objectWeHit);
+            Destroy(gameObject);
         }
-        else if(objectWeHit.gameObject.CompareTag("Wall"))
+        if(objectWeHit.gameObject.CompareTag("Wall"))
         {
             Debug.Log("Hit a wall");
             CreateBulletImpactEffect(objectWeHit);
+            Destroy(gameObject);
         }
-        else if (objectWeHit.gameObject.CompareTag("Ground"))
+        if (objectWeHit.gameObject.CompareTag("Ground"))
         {
             Debug.Log("Hit a ground");
             CreateBulletImpactEffect(objectWeHit);
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
     }
     void CreateBulletImpactEffect(Collision objectWeHit) // and destroy gameobject
     {
