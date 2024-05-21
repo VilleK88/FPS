@@ -34,7 +34,7 @@ public class CombatState : IEnemyState
         EnemyManager.Instance.indicatorText.text = "Enemy is alerted";
         enemy.currentState = enemy.alertState;
     }
-    public void ToChaseState()
+    public void ToCombatState()
     {
     }
     public void ToPatrolState()
@@ -78,7 +78,7 @@ public class CombatState : IEnemyState
         else if (enemy.canSeePlayer)
             enemy.canSeePlayer = false;
         if (enemy.canSeePlayer)
-            ToChaseState();
+            ToCombatState();
         else
             ToTrackingState();
     }
@@ -101,8 +101,10 @@ public class CombatState : IEnemyState
             if (shootingTime > 0)
             {
                 shootingTime -= Time.deltaTime;
-                if(enemy.readyToShoot)
+                if (enemy.readyToShoot && !enemy.enemyHealth.takingHit)
                     enemy.Shoot();
+                else if(enemy.enemyHealth.takingHit)
+                    enemy.Invoke("RecoverFromHit", 1);
             }
             else
             {

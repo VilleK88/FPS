@@ -7,6 +7,6 @@ public interface IEnemyState
     void OnTriggerEnter(Collider other);
     void ToPatrolState();
     void ToAlertState();
-    void ToChaseState();
+    void ToCombatState();
     void ToTrackingState();
 }

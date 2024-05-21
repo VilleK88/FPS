@@ -33,11 +33,11 @@ public class PatrolState : IEnemyState
         EnemyManager.Instance.indicatorText.text = "Enemy is alerted";
         enemy.currentState = enemy.alertState;
     }
-    public void ToChaseState()
+    public void ToCombatState()
     {
         enemy.agent.speed = enemy.runningSpeed;
         EnemyManager.Instance.indicatorText.text = "Enemy is chasing";
-        enemy.currentState = enemy.chaseState;
+        enemy.currentState = enemy.combatState;
     }
     public void ToPatrolState()
     {
@@ -77,7 +77,7 @@ public class PatrolState : IEnemyState
         else if (enemy.canSeePlayer)
             enemy.canSeePlayer = false;
         if (enemy.canSeePlayer)
-            ToChaseState();
+            ToCombatState();
     }
     void Patrol()
     {

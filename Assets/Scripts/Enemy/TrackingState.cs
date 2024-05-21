@@ -40,7 +40,7 @@ public class TrackingState : IEnemyState
         stopOnce = false;
         enemy.currentState = enemy.alertState;
     }
-    public void ToChaseState()
+    public void ToCombatState()
     {
         enemy.GetComponentInChildren<Animator>().SetBool("WalkAiming", false);
         enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
@@ -49,7 +49,7 @@ public class TrackingState : IEnemyState
         EnemyManager.Instance.indicatorText.text = "Enemy is chasing";
         searchTimer = 0;
         stopOnce = false;
-        enemy.currentState = enemy.chaseState;
+        enemy.currentState = enemy.combatState;
     }
     public void ToPatrolState()
     {
@@ -95,7 +95,7 @@ public class TrackingState : IEnemyState
         else if (enemy.canSeePlayer)
             enemy.canSeePlayer = false;
         if (enemy.canSeePlayer)
-            ToChaseState();
+            ToCombatState();
     }
     void Hunt()
     {

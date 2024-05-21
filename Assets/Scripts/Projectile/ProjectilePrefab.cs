@@ -15,7 +15,7 @@ public class ProjectilePrefab : MonoBehaviour
         {
             StatePatternEnemy enemy = objectWeHit.gameObject.GetComponent<StatePatternEnemy>();
             enemy.lastKnownPlayerPosition = enemy.player.transform.position;
-            enemy.currentState = enemy.chaseState;
+            enemy.currentState = enemy.combatState;
             Destroy(gameObject);
         }
         if (objectWeHit.gameObject.layer == LayerMask.NameToLayer("Ground"))

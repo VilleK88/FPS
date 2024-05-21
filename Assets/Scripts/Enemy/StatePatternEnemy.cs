@@ -32,18 +32,19 @@ public class StatePatternEnemy : MonoBehaviour
     public string bulletTarget = "Player";
     public bool readyToShoot = true;
     public float shootingDelay = 0.3f;
+    public EnemyHealth enemyHealth;
     [HideInInspector] public GameObject player;
     [HideInInspector] public IEnemyState currentState; // current state is defined here
     [HideInInspector] public PatrolState patrolState;
     [HideInInspector] public AlertState alertState;
-    [HideInInspector] public CombatState chaseState;
+    [HideInInspector] public CombatState combatState;
     [HideInInspector] public TrackingState trackingState;
     [HideInInspector] public NavMeshAgent agent;
     private void Awake()
     {
         patrolState = new PatrolState(this);
         alertState = new AlertState(this);
-        chaseState = new CombatState(this);
+        combatState = new CombatState(this);
         trackingState = new TrackingState(this);
         agent = GetComponent<NavMeshAgent>();
     }
@@ -51,6 +52,7 @@ public class StatePatternEnemy : MonoBehaviour
     {
         player = PlayerManager.instance.GetPlayer();
         currentState = patrolState;
+        enemyHealth = GetComponent<EnemyHealth>();
     }
     private void Update()
     {
@@ -73,5 +75,10 @@ public class StatePatternEnemy : MonoBehaviour
     public void ResetShot()
     {
         readyToShoot = true;
+    }
+    public void RecoverFromHit()
+    {
+        enemyHealth.takingHit = false;
+        Debug.Log("Recover from hit");
     }
 }
