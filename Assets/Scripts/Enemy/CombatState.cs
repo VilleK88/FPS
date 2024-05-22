@@ -80,8 +80,7 @@ public class CombatState : IEnemyState
         if (enemy.canSeePlayer)
         {
             ToCombatState();
-            enemy.CallHelp();
-            Debug.Log("Call Help from CombatState");
+            enemy.StartCoroutine(enemy.CallReinforcements());
         }
         else
             ToTrackingState();
