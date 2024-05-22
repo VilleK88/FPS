@@ -600,6 +600,10 @@ MonoBehaviour:
   bulletTarget: Player
   readyToShoot: 1
   shootingDelay: 0.1
+  enemyHealth: {fileID: 0}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 512
   player: {fileID: 0}
   agent: {fileID: 0}
 --- !u!114 &1041474027577360227
@@ -619,6 +623,7 @@ MonoBehaviour:
   healthbar: {fileID: 526780415}
   healthBarFill: {fileID: 523350965}
   showHealthCounter: 2
+  takingHit: 0
 --- !u!1001 &1041474028577971242
 PrefabInstance:
   m_ObjectHideFlags: 0

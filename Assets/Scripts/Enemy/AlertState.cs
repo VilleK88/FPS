@@ -58,7 +58,7 @@ public class AlertState : IEnemyState
     {
         enemy.agent.isStopped = false;
         enemy.GetComponentInChildren<Animator>().SetBool("Walk", true);
-        enemy.agent.speed = enemy.walkSpeed;
+        enemy.agent.speed = enemy.runningSpeed;
         EnemyManager.Instance.indicatorText.text = "Enemy is tracking";
         enemy.currentState = enemy.trackingState;
         searchTimer = 0;

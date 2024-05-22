@@ -45,7 +45,6 @@ public class CombatState : IEnemyState
         enemy.agent.isStopped = false;
         enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
         enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
-        enemy.agent.speed = enemy.walkSpeed;
         EnemyManager.Instance.indicatorText.text = "Enemy is tracking";
         enemy.lastKnownPlayerPosition = enemy.player.transform.position;
         enemy.currentState = enemy.trackingState;

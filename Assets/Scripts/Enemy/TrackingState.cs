@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 public class TrackingState : IEnemyState
 {
     private StatePatternEnemy enemy;
     private float fovTimer = 0.2f;
     private float searchTimer;
     private float moveTimer;
-    private bool stopOnce;
-    Vector3 lastPosition;
+    private bool startSearchTimer;
+    private float wanderingRadius = 20f;
     public TrackingState(StatePatternEnemy statePatternEnemy)
     {
         this.enemy = statePatternEnemy;
@@ -37,7 +38,7 @@ public class TrackingState : IEnemyState
         enemy.agent.speed = enemy.walkSpeed;
         EnemyManager.Instance.indicatorText.text = "Enemy is alerted";
         searchTimer = 0;
-        stopOnce = false;
+        startSearchTimer = false;
         enemy.currentState = enemy.alertState;
     }
     public void ToCombatState()
@@ -48,7 +49,7 @@ public class TrackingState : IEnemyState
         enemy.agent.speed = enemy.runningSpeed;
         EnemyManager.Instance.indicatorText.text = "Enemy is chasing";
         searchTimer = 0;
-        stopOnce = false;
+        startSearchTimer = false;
         enemy.currentState = enemy.combatState;
     }
     public void ToPatrolState()
@@ -60,7 +61,7 @@ public class TrackingState : IEnemyState
         EnemyManager.Instance.StartCoroutine(EnemyManager.Instance.BackToPatrol());
         searchTimer = 0;
         moveTimer = 0;
-        stopOnce = false;
+        startSearchTimer = false;
         enemy.currentState = enemy.patrolState;
     }
     public void ToTrackingState()
@@ -99,39 +100,37 @@ public class TrackingState : IEnemyState
     }
     void Hunt()
     {
-        if(Vector3.Distance(enemy.transform.position, enemy.lastKnownPlayerPosition) < 2f)
+        if(enemy.agent.remainingDistance <= enemy.agent.stoppingDistance)
         {
-            if(!stopOnce)
-            {
-                enemy.agent.isStopped = true;
-                enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
-                enemy.GetComponentInChildren<Animator>().SetBool("Walk", false);
-                enemy.GetComponentInChildren<Animator>().SetBool("Aiming", true);
-                stopOnce = true;
-            }
+            enemy.agent.isStopped = true;
+            enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
+            enemy.GetComponentInChildren<Animator>().SetBool("WalkAiming", false);
+            enemy.GetComponentInChildren<Animator>().SetBool("Aiming", true);
+            startSearchTimer = true;
+        }
+        if(startSearchTimer)
+        {
             searchTimer += Time.deltaTime;
             moveTimer += Time.deltaTime;
-            Debug.Log("moveTimer: " + moveTimer);
-            if (moveTimer > Random.Range(3, 6))
-            {
-                enemy.agent.isStopped = false;
-                enemy.GetComponentInChildren<Animator>().SetBool("WalkAiming", true);
-                float randomAngle = Random.Range(0, 360);
-                Vector3 moveDirection = new Vector3(Mathf.Cos(randomAngle), 0, Mathf.Sin(randomAngle)).normalized;
-                enemy.agent.SetDestination(enemy.transform.position + moveDirection);
-                moveTimer = 0;
-            }
-            if(enemy.agent.remainingDistance <= enemy.agent.stoppingDistance)
-            {
-                enemy.agent.isStopped = true;
-                enemy.GetComponentInChildren<Animator>().SetBool("WalkAiming", false);
-            }
-            if (searchTimer > 15)
-                ToPatrolState();
         }
-        else
+        if (moveTimer > Random.Range(3, 8))
         {
-            enemy.agent.SetDestination(enemy.lastKnownPlayerPosition);
+            enemy.agent.isStopped = false;
+            enemy.GetComponentInChildren<Animator>().SetBool("WalkAiming", true);
+            Vector3 newPos = RandomNavSphere(enemy.transform.position, wanderingRadius, -1);
+            enemy.agent.SetDestination(newPos);
+            moveTimer = 0;
         }
+        if (searchTimer > 20)
+            ToPatrolState();
+    }
+
+    public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
+    {
+        Vector3 randDirection = Random.insideUnitSphere * dist;
+        randDirection += origin;
+        NavMeshHit navHit;
+        NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
+        return navHit.position;
     }
 }

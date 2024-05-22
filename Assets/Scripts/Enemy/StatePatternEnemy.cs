@@ -79,7 +79,6 @@ public class StatePatternEnemy : MonoBehaviour
     public void RecoverFromHit()
     {
         enemyHealth.takingHit = false;
-        Debug.Log("Recover from hit");
     }
     public IEnumerator CallReinforcements()
     {
