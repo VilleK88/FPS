@@ -27,7 +27,8 @@ public class StatePatternEnemy : MonoBehaviour
     public Transform shootingPoint;
     public GameObject enemyBulletPrefab;
     public GameObject muzzleFlash;
-    public float bulletVelocity = 500;
+    public float bulletVelocity = 300;
+    public float spreadIntensity = 2f;
     public float bulletDamage = 1f;
     public string bulletTarget = "Player";
     public bool readyToShoot = true;
@@ -65,8 +66,10 @@ public class StatePatternEnemy : MonoBehaviour
     public void Shoot()
     {
         readyToShoot = false;
+        Vector3 shootingDirection = CalculateDirectionAndSpread().normalized;
         GameObject bullet = Instantiate(enemyBulletPrefab, shootingPoint.position, shootingPoint.rotation);
-        bullet.GetComponent<Rigidbody>().AddForce(transform.forward * bulletVelocity, ForceMode.Impulse);
+        bullet.transform.forward = shootingDirection;
+        bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse);
         bullet.GetComponent<EnemyBullet>().target = bulletTarget;
         bullet.GetComponent<EnemyBullet>().damage = bulletDamage;
         muzzleFlash.GetComponent<ParticleSystem>().Play();
@@ -79,6 +82,13 @@ public class StatePatternEnemy : MonoBehaviour
     public void RecoverFromHit()
     {
         enemyHealth.takingHit = false;
+    }
+    public Vector3 CalculateDirectionAndSpread()
+    {
+        Vector3 direction = player.transform.position - shootingPoint.position;
+        float x = Random.Range(-spreadIntensity, spreadIntensity);
+        float y = Random.Range(-spreadIntensity, spreadIntensity);
+        return direction + new Vector3(x, y, 0); // returning the shooting direction and spread
     }
     public IEnumerator CallReinforcements()
     {
