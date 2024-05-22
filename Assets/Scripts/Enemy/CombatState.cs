@@ -5,8 +5,9 @@ public class CombatState : IEnemyState
 {
     private StatePatternEnemy enemy;
     private float fovTimer = 0.1f;
-    private float shootingTime = 3f;
+    private float shootingTime = 2f;
     private float shootingDelay = 2f;
+    private float moveTimer;
     public CombatState(StatePatternEnemy statePatternEnemy)
     {
         this.enemy = statePatternEnemy;
@@ -29,6 +30,7 @@ public class CombatState : IEnemyState
     {
         enemy.agent.isStopped = true;
         enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
+        enemy.GetComponentInChildren<Animator>().SetBool("RifleRunAiming", false);
         enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
         enemy.agent.speed = enemy.walkSpeed;
         EnemyManager.Instance.indicatorText.text = "Enemy is alerted";
@@ -44,6 +46,7 @@ public class CombatState : IEnemyState
     {
         enemy.agent.isStopped = false;
         enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
+        enemy.GetComponentInChildren<Animator>().SetBool("RifleRunAiming", false);
         enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
         EnemyManager.Instance.indicatorText.text = "Enemy is tracking";
         enemy.lastKnownPlayerPosition = enemy.player.transform.position;
@@ -96,12 +99,14 @@ public class CombatState : IEnemyState
         }
         else
         {
-            enemy.agent.isStopped = true;
+            //enemy.agent.isStopped = true;
             enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
-            enemy.GetComponentInChildren<Animator>().SetBool("Aiming", true);
+            //enemy.GetComponentInChildren<Animator>().SetBool("Aiming", true);
             enemy.transform.LookAt(enemy.player.transform.position);
             if (shootingTime > 0)
             {
+                enemy.GetComponentInChildren<Animator>().SetBool("Aiming", true);
+                enemy.agent.isStopped = true;
                 shootingTime -= Time.deltaTime;
                 if (enemy.readyToShoot && !enemy.enemyHealth.takingHit)
                     enemy.Shoot();
@@ -114,7 +119,14 @@ public class CombatState : IEnemyState
                 if(shootingDelay < 0)
                 {
                     shootingDelay = 2;
-                    shootingTime = 3;
+                    shootingTime = 2;
+                }
+                moveTimer += Time.deltaTime;
+                if (moveTimer > Random.Range(1, 3))
+                {
+                    enemy.agent.isStopped = false;
+                    enemy.agent.SetDestination(enemy.transform.position + (Random.insideUnitSphere * 5));
+                    moveTimer = 0;
                 }
             }
         }

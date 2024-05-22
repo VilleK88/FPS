@@ -14,7 +14,6 @@ public class TrackingState : IEnemyState
     {
         this.enemy = statePatternEnemy;
     }
-
     public void UpdateState()
     {
         FOVRoutine();
@@ -66,7 +65,6 @@ public class TrackingState : IEnemyState
     }
     public void ToTrackingState()
     {
-
     }
     public void FOVRoutine()
     {
@@ -124,7 +122,6 @@ public class TrackingState : IEnemyState
         if (searchTimer > 20)
             ToPatrolState();
     }
-
     public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
         Vector3 randDirection = Random.insideUnitSphere * dist;
