@@ -16,8 +16,12 @@ public class EnemyManager : MonoBehaviour
     }
     #endregion
     public StatePatternEnemy[] enemies;
-    //public Image imageIndicator;
     public TextMeshProUGUI indicatorText;
+    public Image indicatorImage;
+    public Sprite patrolImage;
+    public Sprite alertImage;
+    public Sprite trackingImage;
+    public Sprite combatImage;
     private void Start()
     {
         enemies = FindObjectsOfType<StatePatternEnemy>();
@@ -25,11 +29,9 @@ public class EnemyManager : MonoBehaviour
     }
     public IEnumerator BackToPatrol()
     {
-        indicatorText.text = "Enemy goes back to patrol state...";
-        TextMeshProUGUI currentIndicatorText = indicatorText;
+        indicatorImage.sprite = patrolImage;
         yield return new WaitForSeconds(3);
-        if(currentIndicatorText == indicatorText)
-            indicatorText.text = "";
+        indicatorImage.enabled = false;
     }
     public void CloseEnemyHealthbars()
     {
@@ -39,5 +41,23 @@ public class EnemyManager : MonoBehaviour
             if (enemyHealth != null && enemyHealth.healthbar.activeSelf)
                 enemyHealth.HideHealth();
         }
+    }
+    public bool CanAnyoneSeeThePlayer()
+    {
+        for(int i = 0; i < enemies.Length; i++)
+        {
+            if (enemies[i].canSeePlayer == true)
+                return true;
+        }
+        return false;
+    }
+    public bool CloseIndicatorImage()
+    {
+        for(int i = 0; i < enemies.Length; i++)
+        {
+            if (enemies[i].currentState != enemies[i].patrolState)
+                return false;
+        }
+        return true;
     }
 }

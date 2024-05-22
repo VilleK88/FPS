@@ -33,11 +33,16 @@ public class CombatState : IEnemyState
         enemy.GetComponentInChildren<Animator>().SetBool("RunAiming", false);
         enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
         enemy.agent.speed = enemy.walkSpeed;
-        EnemyManager.Instance.indicatorText.text = "Enemy is alerted";
+        //EnemyManager.Instance.indicatorText.text = "Enemy is alerted";
+        EnemyManager.Instance.indicatorImage.enabled = true;
+        if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
+            EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.alertImage;
         enemy.currentState = enemy.alertState;
     }
     public void ToCombatState()
     {
+        EnemyManager.Instance.indicatorImage.enabled = true;
+        EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.combatImage;
     }
     public void ToPatrolState()
     {
@@ -48,7 +53,10 @@ public class CombatState : IEnemyState
         enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
         enemy.GetComponentInChildren<Animator>().SetBool("RunAiming", false);
         enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
-        EnemyManager.Instance.indicatorText.text = "Enemy is tracking";
+        //EnemyManager.Instance.indicatorText.text = "Enemy is tracking";
+        EnemyManager.Instance.indicatorImage.enabled = true;
+        if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
+            EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.trackingImage;
         enemy.lastKnownPlayerPosition = enemy.player.transform.position;
         enemy.currentState = enemy.trackingState;
     }

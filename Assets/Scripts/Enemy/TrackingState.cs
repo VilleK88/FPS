@@ -35,7 +35,9 @@ public class TrackingState : IEnemyState
         enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
         enemy.agent.isStopped = true;
         enemy.agent.speed = enemy.walkSpeed;
-        EnemyManager.Instance.indicatorText.text = "Enemy is alerted";
+        EnemyManager.Instance.indicatorImage.enabled = true;
+        if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
+            EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.alertImage;
         searchTimer = 0;
         startSearchTimer = false;
         enemy.currentState = enemy.alertState;
@@ -46,7 +48,8 @@ public class TrackingState : IEnemyState
         enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
         enemy.agent.isStopped = false;
         enemy.agent.speed = enemy.runningSpeed;
-        EnemyManager.Instance.indicatorText.text = "Enemy is chasing";
+        EnemyManager.Instance.indicatorImage.enabled = true;
+        EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.combatImage;
         searchTimer = 0;
         startSearchTimer = false;
         enemy.currentState = enemy.combatState;
@@ -57,11 +60,12 @@ public class TrackingState : IEnemyState
         enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
         enemy.agent.isStopped = false;
         enemy.agent.speed = enemy.walkSpeed;
-        EnemyManager.Instance.StartCoroutine(EnemyManager.Instance.BackToPatrol());
         searchTimer = 0;
         moveTimer = 0;
         startSearchTimer = false;
         enemy.currentState = enemy.patrolState;
+        if (EnemyManager.Instance.CloseIndicatorImage())
+            EnemyManager.Instance.StartCoroutine(EnemyManager.Instance.BackToPatrol());
     }
     public void ToTrackingState()
     {
