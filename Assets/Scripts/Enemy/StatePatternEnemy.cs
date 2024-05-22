@@ -110,4 +110,16 @@ public class StatePatternEnemy : MonoBehaviour
             }
         }
     }
+    public void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Enemy"))
+        {
+            if(currentState == trackingState)
+            {
+                agent.isStopped = false;
+                GetComponentInChildren<Animator>().SetBool("WalkAiming", true);
+                agent.SetDestination(transform.position + (Random.insideUnitSphere * 5));
+            }
+        }
+    }
 }

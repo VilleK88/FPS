@@ -7,9 +7,9 @@ public class TrackingState : IEnemyState
     private StatePatternEnemy enemy;
     private float fovTimer = 0.2f;
     private float searchTimer;
-    private float moveTimer;
+    public float moveTimer;
     private bool startSearchTimer;
-    private float wanderingRadius = 20f;
+    public float wanderingRadius = 20f;
     public TrackingState(StatePatternEnemy statePatternEnemy)
     {
         this.enemy = statePatternEnemy;
