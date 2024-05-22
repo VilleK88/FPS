@@ -104,6 +104,7 @@ public class StatePatternEnemy : MonoBehaviour
                 if(distance < 50)
                 {
                     stateEnemy.lastKnownPlayerPosition = stateEnemy.player.transform.position;
+                    stateEnemy.GetComponentInChildren<Animator>().SetBool("WalkAiming", false);
                     stateEnemy.currentState = stateEnemy.combatState;
                 }
             }
