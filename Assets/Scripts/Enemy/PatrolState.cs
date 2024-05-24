@@ -30,7 +30,6 @@ public class PatrolState : IEnemyState
     public void ToAlertState()
     {
         enemy.lastKnownPlayerPosition = enemy.player.transform.position;
-        //EnemyManager.Instance.indicatorText.text = "Enemy is alerted";
         EnemyManager.Instance.indicatorImage.enabled = true;
         if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
             EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.alertImage;
@@ -39,7 +38,6 @@ public class PatrolState : IEnemyState
     public void ToCombatState()
     {
         enemy.agent.speed = enemy.runningSpeed;
-        //EnemyManager.Instance.indicatorText.text = "Enemy is chasing";
         EnemyManager.Instance.indicatorImage.enabled = true;
         EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.combatImage;
         enemy.currentState = enemy.combatState;
@@ -49,8 +47,6 @@ public class PatrolState : IEnemyState
     }
     public void ToTrackingState()
     {
-        //EnemyManager.Instance.indicatorText.text = "Enemy is tracking";
-        //Debug.Log("Enemy starts tracking");
         EnemyManager.Instance.indicatorImage.enabled = true;
         if(!EnemyManager.Instance.CanAnyoneSeeThePlayer())
             EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.trackingImage;
