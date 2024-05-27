@@ -1,6 +1,13 @@
+using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
+[Serializable]
+public class InventoryManagerData
+{
+    public int activeWeapon;
+}
 public class InventoryManager : MonoBehaviour
 {
     #region Singleton
@@ -18,6 +25,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
     #endregion
+    public InventoryManagerData inventoryData = new InventoryManagerData();
     public Dictionary<int, InventoryItem> inventory = new Dictionary<int, InventoryItem>();
     public Item[] itemsDatabase; // where the inventory gets the item scriptable objects when loading the game
     public GameObject[] weaponPrefabs;
@@ -161,8 +169,17 @@ public class InventoryManager : MonoBehaviour
                 {
                     if (weaponSlots[i].GetComponent<Weapon>().weaponId == equipmentSlotsUI[index].slotData.itemId)
                     {
-                        weaponSlots[i].SetActive(!weaponSlots[i].activeSelf);
-                        weaponSlots[i].GetComponent<Weapon>().UpdateTotalAmmoStatus();
+                        if (!weaponSlots[i].activeSelf)
+                        {
+                            weaponSlots[i].SetActive(!weaponSlots[i].activeSelf);
+                            inventoryData.activeWeapon = index;
+                            weaponSlots[i].GetComponent<Weapon>().UpdateTotalAmmoStatus();
+                        }
+                        else
+                        {
+                            weaponSlots[i].SetActive(!weaponSlots[i].activeSelf);
+                            inventoryData.activeWeapon = 99;
+                        }
                     }
                     else
                         weaponSlots[i].SetActive(false);
@@ -171,7 +188,29 @@ public class InventoryManager : MonoBehaviour
         }
         EnemyManager.Instance.CloseEnemyHealthbars();
     }
-    void HolsterWeapons()
+    public void DrawActiveWeapon() // after closing inventory or loading game
+    {
+        player = PlayerManager.instance.GetPlayer();
+        GameObject[] weaponSlots = player.GetComponent<Player>().weaponSlots;
+        if (inventoryData.activeWeapon != 99)
+        {
+            for(int i = 0; i < equipmentSlotsUI.Length; i++)
+            {
+                if (equipmentSlotsUI[i].slotData.slotType == SlotType.Weapon && equipmentSlotsUI[i].slotData.itemId > -1 && i == inventoryData.activeWeapon)
+                {
+                    for(int secondI = 0; secondI < weaponSlots.Length; secondI++)
+                    {
+                        if (equipmentSlotsUI[i].slotData.itemId == weaponSlots[secondI].GetComponent<Weapon>().weaponId)
+                        {
+                            weaponSlots[secondI].SetActive(!weaponSlots[secondI].activeSelf);
+                            weaponSlots[secondI].GetComponent<Weapon>().UpdateTotalAmmoStatus();
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public void HolsterWeapons()
     {
         player = PlayerManager.instance.GetPlayer();
         GameObject[] weaponSlots = player.GetComponent<Player>().weaponSlots;
@@ -248,6 +287,7 @@ public class InventoryManager : MonoBehaviour
         CloseInventoryItemMenus();
         closed = true;
         HolsterWeapons();
+        DrawActiveWeapon();
         if(tempInventoryItem != null)
         {
             tempInventoryItem.GetComponentInParent<InventorySlot>().CloseTransparentBG(tempInventoryItem);
@@ -403,6 +443,7 @@ public class InventoryManager : MonoBehaviour
         {
             GameManager.instance.equipmentSlotsData[i] = equipmentSlotsUI[i].slotData;
         }
+        GameManager.instance.inventoryData = inventoryData;
     }
     public void LoadInventorySlotData() // and equipment slot data from GameManager
     {
@@ -414,6 +455,7 @@ public class InventoryManager : MonoBehaviour
         {
             equipmentSlotsUI[i].slotData = GameManager.instance.equipmentSlotsData[i];
         }
+        inventoryData = GameManager.instance.inventoryData;
     }
     public void AddSavedInventorySlotData() // to inventory
     {
@@ -476,5 +518,6 @@ public class InventoryManager : MonoBehaviour
         {
             GameManager.instance.equipmentSlotsData[i] = null;
         }
+        GameManager.instance.inventoryData = null;
     }
 }

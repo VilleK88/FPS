@@ -56,11 +56,14 @@ public class InGameMenuControls : MonoBehaviour
     }
     void ToggleInGameMenu()
     {
-        if(menuButtons != null)
+        if (menuButtons != null)
         {
+            InventoryManager.instance.HolsterWeapons();
             menuButtons.SetActive(!menuButtons.activeSelf);
             if (menuButtons.activeSelf)
                 saveButton.Select();
+            else
+                InventoryManager.instance.DrawActiveWeapon();
         }
     }
     public void SaveGame()

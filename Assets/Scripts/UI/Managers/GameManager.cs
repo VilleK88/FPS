@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     [Header("Save/load players inventory and check picked up items")]
     public InventorySlotData[] inventorySlotsData;
     public InventorySlotData[] equipmentSlotsData;
+    public InventoryManagerData inventoryData;
     public int[] bulletsLeft; // save/load how many bullets left in weapon
     public int cash;
     public string[] cashIDs;
@@ -63,6 +64,7 @@ public class GameManager : MonoBehaviour
             savedSceneID = this.savedSceneID,
             inventorySlotsData = this.inventorySlotsData,
             equipmentSlotsData = this.equipmentSlotsData,
+            inventoryData = this.inventoryData,
             bulletsLeft = this.bulletsLeft,
             cash = this.cash,
             cashIDs = this.cashIDs,
@@ -93,6 +95,7 @@ public class GameManager : MonoBehaviour
             loadInventory = true;
             inventorySlotsData = data.inventorySlotsData;
             equipmentSlotsData = data.equipmentSlotsData;
+            inventoryData = data.inventoryData;
             bulletsLeft = data.bulletsLeft;
             cash = data.cash;
             cashIDs = data.cashIDs;
@@ -118,6 +121,7 @@ class GameData
     public bool loadPlayerPosition = false;
     public InventorySlotData[] inventorySlotsData;
     public InventorySlotData[] equipmentSlotsData;
+    public InventoryManagerData inventoryData;
     public int[] bulletsLeft;
     public int cash;
     public string[] cashIDs;
