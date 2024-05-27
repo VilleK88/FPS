@@ -65,7 +65,7 @@ public class InventoryManager : MonoBehaviour
             else
                 CloseInventory();
         }
-        if (!closed)
+        if (!closed || InGameMenuControls.instance.menuButtons.activeSelf)
             return;
         EquipWeapon();
     }

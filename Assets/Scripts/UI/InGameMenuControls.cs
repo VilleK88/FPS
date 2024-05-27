@@ -25,7 +25,7 @@ public class InGameMenuControls : MonoBehaviour
     public Player player;
     [SerializeField] Button saveButton;
     public GameObject settingsMenu;
-    bool settingsMenuOpen;
+    public bool settingsMenuOpen;
     private void Start()
     {
         if (settingsMenu != null)
