@@ -105,7 +105,6 @@ public class AlertState : IEnemyState
         Quaternion targetRotation = Quaternion.LookRotation(directionToImpact);
         Quaternion newRotation = Quaternion.Slerp(currentRotation, targetRotation, 3 * Time.deltaTime);
         enemy.transform.rotation = newRotation;
-
         searchTimer += Time.deltaTime;
         if (searchTimer >= enemy.searchDuration)
         {

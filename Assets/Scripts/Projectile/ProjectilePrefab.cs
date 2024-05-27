@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 public class ProjectilePrefab : MonoBehaviour
 {
     Rigidbody rb;
@@ -22,7 +23,6 @@ public class ProjectilePrefab : MonoBehaviour
         {
             rb = GetComponent<Rigidbody>();
             rb.isKinematic = true;
-            transform.SetParent(objectWeHit.transform);
             enemies = FindObjectsOfType<StatePatternEnemy>();
             for (int i = 0; i < enemies.Length; i++)
             {
@@ -33,8 +33,7 @@ public class ProjectilePrefab : MonoBehaviour
                     float x = transform.position.x;
                     float y = transform.position.y;
                     float z = transform.position.z;
-                    //enemy.lastKnownPlayerPosition = transform.position;
-                    enemy.lastKnownPlayerPosition = new Vector3(x, y+1.5f, z);
+                    enemy.lastKnownPlayerPosition = new Vector3(x, y + 1.5f, z);
                     enemy.alertState.checkDisturbance = true;
                     enemy.alertState.searchTimer = 0;
                     EnemyManager.Instance.indicatorText.text = "Enemy is alerted";
