@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+
 public class CombatState : IEnemyState
 {
     private StatePatternEnemy enemy;
@@ -8,6 +10,7 @@ public class CombatState : IEnemyState
     private float shootingTime = 2f;
     private float shootingDelay = 2f;
     private float moveTimer;
+    public float wanderingRadius = 10f;
     public CombatState(StatePatternEnemy statePatternEnemy)
     {
         this.enemy = statePatternEnemy;
@@ -99,18 +102,16 @@ public class CombatState : IEnemyState
         if (enemy.distanceToPlayer > 15)
         {
             enemy.agent.isStopped = false;
-            enemy.GetComponentInChildren<Animator>().SetBool("RunAiming", false);
             enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
             enemy.GetComponentInChildren<Animator>().SetBool("Running", true);
             enemy.agent.SetDestination(enemy.player.transform.position);
         }
         else
         {
-            enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
-            enemy.transform.LookAt(enemy.player.transform.position);
             if (shootingTime > 0)
             {
-                enemy.GetComponentInChildren<Animator>().SetBool("RunAiming", false);
+                enemy.transform.LookAt(enemy.player.transform.position);
+                enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
                 enemy.GetComponentInChildren<Animator>().SetBool("Aiming", true);
                 enemy.agent.isStopped = true;
                 shootingTime -= Time.deltaTime;
@@ -130,12 +131,23 @@ public class CombatState : IEnemyState
                 moveTimer += Time.deltaTime;
                 if (moveTimer > Random.Range(1, 3))
                 {
-                    enemy.GetComponentInChildren<Animator>().SetBool("RunAiming", true);
+                    enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
+                    enemy.GetComponentInChildren<Animator>().SetBool("Running", true);
                     enemy.agent.isStopped = false;
-                    enemy.agent.SetDestination(enemy.transform.position + (Random.insideUnitSphere * 5));
+                    Vector3 newPos = RandomNavSphere(enemy.transform.position, wanderingRadius, -1);
+                    enemy.agent.speed = enemy.runningSpeed;
+                    enemy.agent.SetDestination(newPos);
                     moveTimer = 0;
                 }
             }
         }
+    }
+    public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
+    {
+        Vector3 randDirection = Random.insideUnitSphere * dist;
+        randDirection += origin;
+        NavMeshHit navHit;
+        NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
+        return navHit.position;
     }
 }
