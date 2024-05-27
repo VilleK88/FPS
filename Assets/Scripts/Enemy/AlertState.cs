@@ -7,7 +7,9 @@ public class AlertState : IEnemyState
     public float searchTimer;
     private float fovTimer = 0.2f;
     public float turnSpeed;
+    public bool lookAtDisturbance;
     public bool checkDisturbance;
+    float lookAtDisturbanceTimer = 2;
     public AlertState(StatePatternEnemy statePatternEnemy)
     {
         this.enemy = statePatternEnemy;
@@ -17,7 +19,12 @@ public class AlertState : IEnemyState
         FOVRoutine();
         enemy.distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.player.transform.position);
         HearingArea();
-        LookAround();
+        if(!checkDisturbance)
+            LookAround();
+        else
+        {
+            WalkToDisturbance();
+        }
     }
     public void OnTriggerEnter(Collider other)
     {
@@ -27,6 +34,8 @@ public class AlertState : IEnemyState
         if (enemy.distanceToPlayer < 8.1f && enemy.player.GetComponent<PlayerMovement>().moving && !enemy.player.GetComponent<PlayerMovement>().sneaking)
         {
             enemy.lastKnownPlayerPosition = enemy.player.transform.position;
+            lookAtDisturbance = false;
+            lookAtDisturbanceTimer = 2;
             checkDisturbance = false;
             searchTimer = 0;
         }
@@ -42,7 +51,9 @@ public class AlertState : IEnemyState
         EnemyManager.Instance.indicatorImage.enabled = true;
         EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.combatImage;
         searchTimer = 0;
+        lookAtDisturbance = false;
         checkDisturbance = false;
+        lookAtDisturbanceTimer = 2;
         enemy.currentState = enemy.combatState;
     }
     public void ToPatrolState()
@@ -50,11 +61,16 @@ public class AlertState : IEnemyState
         enemy.agent.isStopped = false;
         enemy.GetComponentInChildren<Animator>().SetBool("Walk", true);
         enemy.agent.speed = enemy.walkSpeed;
-        if (EnemyManager.Instance.CloseIndicatorImage())
-            EnemyManager.Instance.StartCoroutine(EnemyManager.Instance.BackToPatrol());
         searchTimer = 0;
+        lookAtDisturbance = false;
         checkDisturbance = false;
+        lookAtDisturbanceTimer = 2;
         enemy.currentState = enemy.patrolState;
+        if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
+        {
+            if (EnemyManager.Instance.CloseIndicatorImage())
+                EnemyManager.Instance.StartCoroutine(EnemyManager.Instance.BackToPatrol());
+        }
     }
     public void ToTrackingState()
     {
@@ -64,8 +80,10 @@ public class AlertState : IEnemyState
         EnemyManager.Instance.indicatorImage.enabled = true;
         if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
             EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.trackingImage;
-        enemy.currentState = enemy.trackingState;
         searchTimer = 0;
+        lookAtDisturbanceTimer = 2;
+        checkDisturbance = false;
+        enemy.currentState = enemy.trackingState;
     }
     public void FOVRoutine()
     {
@@ -108,10 +126,31 @@ public class AlertState : IEnemyState
         searchTimer += Time.deltaTime;
         if (searchTimer >= enemy.searchDuration)
         {
-            if (!checkDisturbance)
+            if (!lookAtDisturbance)
                 ToPatrolState();
             else
-                ToTrackingState();
+            {
+                checkDisturbance = true;
+            }
+        }
+    }
+    void WalkToDisturbance()
+    {
+        float distanceToDisturbance = Vector3.Distance(enemy.lastKnownPlayerPosition, enemy.transform.position);
+        if(distanceToDisturbance > 1.5f)
+        {
+            enemy.agent.isStopped = false;
+            enemy.GetComponentInChildren<Animator>().SetBool("Walk", true);
+            enemy.agent.SetDestination(enemy.lastKnownPlayerPosition);
+        }
+        else
+        {
+            enemy.agent.isStopped = true;
+            enemy.GetComponentInChildren<Animator>().SetBool("Walk", false);
+            if (lookAtDisturbanceTimer > 0)
+                lookAtDisturbanceTimer -= Time.deltaTime;
+            else
+                ToPatrolState();
         }
     }
 }

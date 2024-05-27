@@ -16,7 +16,6 @@ public class EnemyManager : MonoBehaviour
     }
     #endregion
     public StatePatternEnemy[] enemies;
-    public TextMeshProUGUI indicatorText;
     public Image indicatorImage;
     public Sprite patrolImage;
     public Sprite alertImage;
@@ -25,7 +24,6 @@ public class EnemyManager : MonoBehaviour
     private void Start()
     {
         enemies = FindObjectsOfType<StatePatternEnemy>();
-        indicatorText.text = "";
     }
     public IEnumerator BackToPatrol()
     {

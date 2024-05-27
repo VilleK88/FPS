@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 public class ProjectilePrefab : MonoBehaviour
 {
     Rigidbody rb;
@@ -14,8 +13,9 @@ public class ProjectilePrefab : MonoBehaviour
     {
         if (objectWeHit.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            StatePatternEnemy enemy = objectWeHit.gameObject.GetComponent<StatePatternEnemy>();
+            StatePatternEnemy enemy = objectWeHit.gameObject.GetComponentInParent<StatePatternEnemy>();
             enemy.lastKnownPlayerPosition = enemy.player.transform.position;
+            EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.combatImage;
             enemy.currentState = enemy.combatState;
             Destroy(gameObject);
         }
@@ -34,10 +34,15 @@ public class ProjectilePrefab : MonoBehaviour
                     float y = transform.position.y;
                     float z = transform.position.z;
                     enemy.lastKnownPlayerPosition = new Vector3(x, y + 1.5f, z);
-                    enemy.alertState.checkDisturbance = true;
+                    enemy.alertState.lookAtDisturbance = true;
                     enemy.alertState.searchTimer = 0;
-                    EnemyManager.Instance.indicatorText.text = "Enemy is alerted";
+                    if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
+                    {
+                        EnemyManager.Instance.indicatorImage.enabled = true;
+                        EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.alertImage;
+                    }
                     enemy.currentState = enemy.alertState;
+                    enemy.GetComponentInChildren<Animator>().SetBool("Walk", false);
                 }
             }
             Destroy(gameObject);
