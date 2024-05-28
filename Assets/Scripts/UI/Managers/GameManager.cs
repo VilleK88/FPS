@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
     public float[] enemyRotationX;
     public float[] enemyRotationY;
     public float[] enemyRotationZ;
+    public int[] patrolWaypointIndex;
     public void Save()
     {
         Debug.Log("Game Saved!");
@@ -81,7 +82,8 @@ public class GameManager : MonoBehaviour
             enemyPositionZ = this.enemyPositionZ,
             enemyRotationX = this.enemyRotationX,
             enemyRotationY = this.enemyRotationY,
-            enemyRotationZ = this.enemyRotationZ
+            enemyRotationZ = this.enemyRotationZ,
+            patrolWaypointIndex = this.patrolWaypointIndex
         }, Formatting.Indented);
         File.WriteAllText(Application.persistentDataPath + "/gameInfo.dat", json);
     }
@@ -119,6 +121,7 @@ public class GameManager : MonoBehaviour
             enemyRotationX = data.enemyRotationX;
             enemyRotationY = data.enemyRotationY;
             enemyRotationZ = data.enemyRotationZ;
+            patrolWaypointIndex = data.patrolWaypointIndex;
         }
     }
 }
@@ -151,4 +154,5 @@ class GameData
     public float[] enemyRotationX;
     public float[] enemyRotationY;
     public float[] enemyRotationZ;
+    public int[] patrolWaypointIndex;
 }

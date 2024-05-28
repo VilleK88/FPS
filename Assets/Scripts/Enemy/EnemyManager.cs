@@ -35,6 +35,7 @@ public class EnemyManager : MonoBehaviour
         GameManager.instance.enemyRotationX = new float[enemies.Length];
         GameManager.instance.enemyRotationY = new float[enemies.Length];
         GameManager.instance.enemyRotationZ = new float[enemies.Length];
+        GameManager.instance.patrolWaypointIndex = new int[enemies.Length];
         for (int i = 0; i < enemies.Length; i++)
         {
             if (enemies[i] != null)
@@ -45,7 +46,7 @@ public class EnemyManager : MonoBehaviour
                 GameManager.instance.enemyRotationX[i] = enemies[i].transform.rotation.eulerAngles.x;
                 GameManager.instance.enemyRotationY[i] = enemies[i].transform.rotation.eulerAngles.y;
                 GameManager.instance.enemyRotationZ[i] = enemies[i].transform.rotation.eulerAngles.z;
-                Debug.Log("Save enemy position");
+                GameManager.instance.patrolWaypointIndex[i] = enemies[i].patrolState.waypointIndex;
             }
         }
     }
@@ -57,9 +58,9 @@ public class EnemyManager : MonoBehaviour
             {
                 enemies[i].transform.position = new Vector3(GameManager.instance.enemyPositionX[i], GameManager.instance.enemyPositionY[i], GameManager.instance.enemyPositionZ[i]);
                 enemies[i].transform.rotation = Quaternion.Euler(GameManager.instance.enemyRotationX[i], GameManager.instance.enemyRotationY[i], GameManager.instance.enemyRotationZ[i]);
+                enemies[i].patrolState.waypointIndex = GameManager.instance.patrolWaypointIndex[i];
             }
         }
-        Debug.Log("Load enemy position");
     }
     public IEnumerator BackToPatrol()
     {

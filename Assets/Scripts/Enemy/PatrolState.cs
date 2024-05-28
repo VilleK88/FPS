@@ -5,7 +5,7 @@ public class PatrolState : IEnemyState
 {
     private StatePatternEnemy enemy;
     private float fovTimer = 0.2f;
-    int waypointIndex;
+    public int waypointIndex;
     float waypointCounter = 0;
     float waypointMaxTime = 4;
     public PatrolState(StatePatternEnemy statePatternEnemy)
