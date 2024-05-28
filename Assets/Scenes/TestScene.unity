@@ -5957,7 +5957,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1010252846, guid: 1650f0e3c15f82048a0ef798e321ceae, type: 3}
       propertyPath: enemies.Array.size
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1010252846, guid: 1650f0e3c15f82048a0ef798e321ceae, type: 3}
       propertyPath: 'enemies.Array.data[0]'

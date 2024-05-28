@@ -23,7 +23,7 @@ public class EnemyManager : MonoBehaviour
     public Sprite combatImage;
     private void Start()
     {
-        enemies = FindObjectsOfType<StatePatternEnemy>();
+        //enemies = FindObjectsOfType<StatePatternEnemy>();
         if (GameManager.instance.loadPlayerPosition)
             LoadEnemiesData();
     }
