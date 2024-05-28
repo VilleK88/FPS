@@ -45,6 +45,13 @@ public class GameManager : MonoBehaviour
     public int cash;
     public string[] cashIDs;
     public string[] itemPickUpIDs;
+    [Header("Save/load enemy parameters")]
+    public float[] enemyPositionX;
+    public float[] enemyPositionY;
+    public float[] enemyPositionZ;
+    public float[] enemyRotationX;
+    public float[] enemyRotationY;
+    public float[] enemyRotationZ;
     public void Save()
     {
         Debug.Log("Game Saved!");
@@ -68,7 +75,13 @@ public class GameManager : MonoBehaviour
             bulletsLeft = this.bulletsLeft,
             cash = this.cash,
             cashIDs = this.cashIDs,
-            itemPickUpIDs = this.itemPickUpIDs
+            itemPickUpIDs = this.itemPickUpIDs,
+            enemyPositionX = this.enemyPositionX,
+            enemyPositionY = this.enemyPositionY,
+            enemyPositionZ = this.enemyPositionZ,
+            enemyRotationX = this.enemyRotationX,
+            enemyRotationY = this.enemyRotationY,
+            enemyRotationZ = this.enemyRotationZ
         }, Formatting.Indented);
         File.WriteAllText(Application.persistentDataPath + "/gameInfo.dat", json);
     }
@@ -100,6 +113,12 @@ public class GameManager : MonoBehaviour
             cash = data.cash;
             cashIDs = data.cashIDs;
             itemPickUpIDs = data.itemPickUpIDs;
+            enemyPositionX = data.enemyPositionX;
+            enemyPositionY = data.enemyPositionY;
+            enemyPositionZ = data.enemyPositionZ;
+            enemyRotationX = data.enemyRotationX;
+            enemyRotationY = data.enemyRotationY;
+            enemyRotationZ = data.enemyRotationZ;
         }
     }
 }
@@ -126,4 +145,10 @@ class GameData
     public int cash;
     public string[] cashIDs;
     public string[] itemPickUpIDs;
+    public float[] enemyPositionX;
+    public float[] enemyPositionY;
+    public float[] enemyPositionZ;
+    public float[] enemyRotationX;
+    public float[] enemyRotationY;
+    public float[] enemyRotationZ;
 }

@@ -24,6 +24,42 @@ public class EnemyManager : MonoBehaviour
     private void Start()
     {
         enemies = FindObjectsOfType<StatePatternEnemy>();
+        if (GameManager.instance.loadPlayerPosition)
+            LoadEnemiesData();
+    }
+    public void SaveEnemiesData()
+    {
+        GameManager.instance.enemyPositionX = new float[enemies.Length];
+        GameManager.instance.enemyPositionY = new float[enemies.Length];
+        GameManager.instance.enemyPositionZ = new float[enemies.Length];
+        GameManager.instance.enemyRotationX = new float[enemies.Length];
+        GameManager.instance.enemyRotationY = new float[enemies.Length];
+        GameManager.instance.enemyRotationZ = new float[enemies.Length];
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            if (enemies[i] != null)
+            {
+                GameManager.instance.enemyPositionX[i] = enemies[i].transform.position.x;
+                GameManager.instance.enemyPositionY[i] = enemies[i].transform.position.y;
+                GameManager.instance.enemyPositionZ[i] = enemies[i].transform.position.z;
+                GameManager.instance.enemyRotationX[i] = enemies[i].transform.rotation.eulerAngles.x;
+                GameManager.instance.enemyRotationY[i] = enemies[i].transform.rotation.eulerAngles.y;
+                GameManager.instance.enemyRotationZ[i] = enemies[i].transform.rotation.eulerAngles.z;
+                Debug.Log("Save enemy position");
+            }
+        }
+    }
+    public void LoadEnemiesData()
+    {
+        for(int i = 0; i < enemies.Length; i++)
+        {
+            if (enemies[i] != null)
+            {
+                enemies[i].transform.position = new Vector3(GameManager.instance.enemyPositionX[i], GameManager.instance.enemyPositionY[i], GameManager.instance.enemyPositionZ[i]);
+                enemies[i].transform.rotation = Quaternion.Euler(GameManager.instance.enemyRotationX[i], GameManager.instance.enemyRotationY[i], GameManager.instance.enemyRotationZ[i]);
+            }
+        }
+        Debug.Log("Load enemy position");
     }
     public IEnumerator BackToPatrol()
     {

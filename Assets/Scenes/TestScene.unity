@@ -681,6 +681,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1041474027568359265, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
   m_PrefabInstance: {fileID: 149634726}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &149634728 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1041474027568359582, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+  m_PrefabInstance: {fileID: 149634726}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &177555452
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5795,6 +5800,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+--- !u!1 &1041474027577360226 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1041474027568359582, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+  m_PrefabInstance: {fileID: 1041474027577360225}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1692678930673034763
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5933,6 +5943,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1010252846, guid: 1650f0e3c15f82048a0ef798e321ceae, type: 3}
+      propertyPath: enemiesData.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010252846, guid: 1650f0e3c15f82048a0ef798e321ceae, type: 3}
+      propertyPath: 'enemiesData.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1041474027577360226}
+    - target: {fileID: 1010252846, guid: 1650f0e3c15f82048a0ef798e321ceae, type: 3}
+      propertyPath: 'enemiesData.Array.data[1]'
+      value: 
+      objectReference: {fileID: 149634728}
     - target: {fileID: 3068284386404458898, guid: 1650f0e3c15f82048a0ef798e321ceae, type: 3}
       propertyPath: m_Name
       value: UIcanvas
