@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c15ce5a88600b6c4ca3e04ba43683425
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 255996
+  packageName: Exploding Bottles
+  packageVersion: 1.0
+  assetPath: Assets/Bottle/Materials/GlassLOD0.mat
+  uploadId: 587898

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 344f2b6ade7a1c94f841578f818617ee
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 255996
+  packageName: Exploding Bottles
+  packageVersion: 1.0
+  assetPath: Assets/Bottle/Prefabs/BrokenBottle.prefab
+  uploadId: 587898

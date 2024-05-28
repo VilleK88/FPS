@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 4107df0ea14c71a4ca0efa60006090d2
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 255996
+  packageName: Exploding Bottles
+  packageVersion: 1.0
+  assetPath: Assets/Bottle/Scripts/Bottle.cs
+  uploadId: 587898
