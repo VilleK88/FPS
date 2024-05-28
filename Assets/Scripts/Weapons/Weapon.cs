@@ -50,7 +50,7 @@ public class Weapon : MonoBehaviour
     {
         if (!InventoryManager.instance.closed || InGameMenuControls.instance.menuButtons.activeSelf)
             return;
-        if (bulletsLeft == 0 && isShooting)
+        if (bulletsLeft == 0 && Input.GetKeyDown(KeyCode.Mouse0))
             AudioManager.instance.PlaySound(emptyMagazineSound);
         if (currentShootingMode == ShootingMode.Auto)
             isShooting = Input.GetKey(KeyCode.Mouse0); // holding down left mouse button
