@@ -72,9 +72,12 @@ public class EnemyManager : MonoBehaviour
     {
         for(int i = 0; i < enemies.Length; i++)
         {
-            EnemyHealth enemyHealth = enemies[i].GetComponent<EnemyHealth>();
-            if (enemyHealth != null && enemyHealth.healthbar.activeSelf)
-                enemyHealth.HideHealth();
+            if (enemies[i] != null)
+            {
+                EnemyHealth enemyHealth = enemies[i].GetComponent<EnemyHealth>();
+                if (enemyHealth != null && enemyHealth.healthbar.activeSelf)
+                    enemyHealth.HideHealth();
+            }
         }
     }
     public bool CanAnyoneSeeThePlayer()

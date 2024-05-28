@@ -26,10 +26,10 @@ namespace AQUAS_Lite
 #if UNITY_5_3 || UNITY_5_4 || UNITY_5_5
     public bool disableInEditMode;
 #endif
-
+        
         public void OnWillRenderObject()
         {
-
+            /*
 #if UNITY_5_3 || UNITY_5_4 || UNITY_5_5
         if (disableInEditMode && !Application.isPlaying)
         {
@@ -127,6 +127,7 @@ namespace AQUAS_Lite
                 QualitySettings.pixelLightCount = oldPixelLightCount;
 
             s_InsideRendering = false;
+            */
         }
         #endregion
 
