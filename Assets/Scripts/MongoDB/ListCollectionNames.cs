@@ -9,7 +9,7 @@ public class ListCollectionNames : MonoBehaviour
     Connection conn;
     private void Awake()
     {
-        conn = new Connection("scoreDB", "scoreCollection");
+        conn = new Connection("sample_mflix", "movies");
     }
     async void Start()
     {
