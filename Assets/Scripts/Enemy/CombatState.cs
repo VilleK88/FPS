@@ -129,7 +129,7 @@ public class CombatState : IEnemyState
                     shootingTime = 2;
                 }
                 moveTimer += Time.deltaTime;
-                if (moveTimer > Random.Range(1, 3))
+                if (moveTimer > Random.Range(1, 2))
                 {
                     enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
                     enemy.GetComponentInChildren<Animator>().SetBool("Running", true);
