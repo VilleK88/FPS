@@ -340,7 +340,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
         newItem.stackable = stackable;
         newItem.stackMax = maxStack;
         int tempCount = Mathf.RoundToInt(slider.value - 1);
-        if (count > 0)
+        if (count > 0 && tempCount > 0)
         {
             bool addItem = InventoryManager.instance.SplitStack(newItem, pickupItemID, tempCount);
             if (addItem)
