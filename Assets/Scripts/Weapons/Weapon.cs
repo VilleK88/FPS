@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class Weapon : MonoBehaviour
 {
     [Header("Weapon model, shooting mode and weapon id")]

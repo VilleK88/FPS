@@ -55,6 +55,13 @@ public class EnemyHealth : MonoBehaviour
         enemy.enabled = false;
         enemy.GetComponentInChildren<Animator>().enabled = false;
         ActivateRagdoll();
+        if (AccountManager.Instance != null && !dead)
+        {
+            if (AccountManager.Instance.loggedIn)
+            {
+                AccountManager.Instance.OnEnemyKilled();
+            }
+        }
         dead = true;
         healthbar.active = false;
     }

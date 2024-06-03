@@ -3,15 +3,88 @@ using TMPro;
 using System.Collections;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-public class Login : MonoBehaviour
+using System.Text.RegularExpressions;
+public class AccountManager : MonoBehaviour
 {
+    #region Singleton
+    public static AccountManager Instance;
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            Instance = this;
+        }
+        else
+            Destroy(gameObject);
+    }
+    #endregion
+    private const string passwordRegex = "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,24})";
     [SerializeField] private string loginEndpoint = "http://127.0.0.1:13756/account/login";
     [SerializeField] private string createEndpoint = "http://127.0.0.1:13756/account/create";
+    [SerializeField] private string scoreEndpoint = "http://127.0.0.1:13756/account/updateScore";
     [SerializeField] private TextMeshProUGUI alertText;
     [SerializeField] private Button loginButton;
     [SerializeField] private Button createButton;
     [SerializeField] private TMP_InputField usernameInputField;
     [SerializeField] private TMP_InputField passwordInputField;
+    public bool loggedIn;
+    public GameAccount loggedInAccount;
+    [SerializeField] private GameObject container;
+    public void ShowContainer()
+    {
+        container.active = true;
+    }
+    public void HideContainer()
+    {
+        container.active = false;
+    }
+    public GameAccount GetAccountData()
+    {
+        return loggedInAccount;
+    }
+    public void OnEnemyKilled()
+    {
+        StartCoroutine(IncrementKills());
+    }
+    private IEnumerator IncrementKills()
+    {
+        string username = usernameInputField.text;
+        if(string.IsNullOrEmpty(username))
+        {
+            alertText.text = "Invalid username";
+            yield break;
+        }
+        WWWForm form = new WWWForm();
+        form.AddField("rUsername", username);
+        UnityWebRequest request = UnityWebRequest.Post(scoreEndpoint, form);
+        yield return request.SendWebRequest();
+        if(request.result == UnityWebRequest.Result.Success)
+        {
+            CreateResponse response = JsonUtility.FromJson<CreateResponse>(request.downloadHandler.text);
+            if(response.code == 0)
+            {
+                //alertText.text = "Kills updated: " + response.data.kills;
+                Debug.Log("Kills updated: " + response.data.kills);
+                loggedInAccount.kills = response.data.kills;
+                if (Score.Instance != null)
+                {
+                    Score.Instance.killsText.text = "Kills: " + response.data.kills;
+                    Score.Instance.accountData.kills = response.data.kills;
+                }
+            }
+            else
+            {
+                //alertText.text = response.msg;
+                Debug.LogError("Error: " + response.msg);
+            }
+        }
+        else
+        {
+            //alertText.text = "Error connecting to the server...";
+            Debug.LogError("Error connecting to the server...");
+        }
+    }
     public void OnLoginClick()
     {
         alertText.text = "Signing in...";
@@ -34,9 +107,9 @@ public class Login : MonoBehaviour
             ActivateButtons(true);
             yield break;
         }
-        if (password.Length < 3 || password.Length > 24)
+        if (!Regex.IsMatch(password, passwordRegex))
         {
-            alertText.text = "Invalid password";
+            alertText.text = "Invalid credentials";
             ActivateButtons(true);
             yield break;
         }
@@ -61,6 +134,10 @@ public class Login : MonoBehaviour
             {
                 ActivateButtons(false);
                 alertText.text = "Welcome " + ((response.data.adminFlag == 1) ? " Admin" : "");
+                loggedIn = true;
+                Debug.Log("Kills: " + response.data.kills);
+                loggedInAccount.kills = response.data.kills;
+                loggedInAccount.username = response.data.username;
             }
             else
             {
@@ -94,9 +171,9 @@ public class Login : MonoBehaviour
             ActivateButtons(true);
             yield break;
         }
-        if (password.Length < 3 || password.Length > 24)
+        if (!Regex.IsMatch(password, passwordRegex))
         {
-            alertText.text = "Invalid password";
+            alertText.text = "Invalid credentials";
             ActivateButtons(true);
             yield break;
         }
@@ -132,6 +209,9 @@ public class Login : MonoBehaviour
                         alertText.text = "Username is already taken";
                         break;
                     case 3:
+                        alertText.text = "Password is unsafe";
+                        break;
+                    default:
                         alertText.text = "Corruption detected";
                         break;
                 }

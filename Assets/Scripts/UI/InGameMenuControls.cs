@@ -34,6 +34,8 @@ public class InGameMenuControls : MonoBehaviour
             menuButtons.SetActive(false);
         player.GetComponent<Player>();
         currentScene = SceneManager.GetActiveScene();
+        if (AccountManager.Instance != null)
+            AccountManager.Instance.HideContainer();
     }
     private void Update()
     {
