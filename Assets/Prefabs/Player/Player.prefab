@@ -847,9 +847,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5922622823359544968, guid: e18edc111abc77b47bbe9ffcf14ddd75, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -242165637326713887, guid: e18edc111abc77b47bbe9ffcf14ddd75, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e18edc111abc77b47bbe9ffcf14ddd75, type: 3}
       propertyPath: m_Name
       value: Shotgun
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e18edc111abc77b47bbe9ffcf14ddd75, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e18edc111abc77b47bbe9ffcf14ddd75, type: 3}
       propertyPath: m_IsActive
