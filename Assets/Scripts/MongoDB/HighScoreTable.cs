@@ -70,7 +70,7 @@ public class HighScoreTable : MonoBehaviour
             GameObject userInfo = userInfoPrefabs[i];
             TextMeshProUGUI[] textComponents = userInfo.GetComponentsInChildren<TextMeshProUGUI>();
             foreach(var textComponent in textComponents)
-                textComponent.text = $"Username: {user.username}, Kills: {user.kills}";
+                textComponent.text = $"{i+1}. {user.username}, Kills: {user.kills}";
         }
     }
 }

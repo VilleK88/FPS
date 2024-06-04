@@ -276,8 +276,11 @@ public class InventoryManager : MonoBehaviour
         equipmentAnim.GetComponent<Animator>().SetBool("EquipmentScreenOn", true);
         closed = false;
         HolsterWeapons();
-        if (Score.Instance != null)
-            Score.Instance.killsText.enabled = false;
+        if (Score.Instance != null && AccountManager.Instance != null)
+        {
+            if(AccountManager.Instance.loggedIn)
+                Score.Instance.killsText.enabled = false;
+        }
         selectSlot.Select();
         InGameMenuControls.instance.CloseSettings();
         InGameMenuControls.instance.menuButtons.SetActive(false);
@@ -290,8 +293,11 @@ public class InventoryManager : MonoBehaviour
         closed = true;
         HolsterWeapons();
         DrawActiveWeapon();
-        if (Score.Instance != null)
-            Score.Instance.killsText.enabled = true;
+        if (Score.Instance != null && AccountManager.Instance != null)
+        {
+            if (AccountManager.Instance.loggedIn)
+                Score.Instance.killsText.enabled = true;
+        }
         if (tempInventoryItem != null)
         {
             tempInventoryItem.GetComponentInParent<InventorySlot>().CloseTransparentBG(tempInventoryItem);
