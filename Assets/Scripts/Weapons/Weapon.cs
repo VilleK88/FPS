@@ -94,7 +94,7 @@ public class Weapon : MonoBehaviour
     {
         bulletsLeft--;
         muzzleEffect.GetComponent<ParticleSystem>().Play();
-        anim.SetTrigger("Recoil");
+        //anim.SetTrigger("Recoil");
         AudioManager.instance.PlaySound(shootingSound);
         readyToShoot = false;
         if(thisWeaponModel != WeaponModel.Shotgun)
