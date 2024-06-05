@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.AI;
+using UnityEngine.AI;
 public class EnemyHealth : MonoBehaviour
 {
     public float maxHealth;
@@ -14,6 +16,7 @@ public class EnemyHealth : MonoBehaviour
     public bool takingHit; // from the players bullets
     bool dead;
     StatePatternEnemy enemy;
+    NavMeshAgent agent;
     private void Start()
     {
         currentHealth = maxHealth;
@@ -23,6 +26,7 @@ public class EnemyHealth : MonoBehaviour
         rigidBodies = GetComponentsInChildren<Rigidbody>();
         DeactivateRagdoll();
         enemy = GetComponent<StatePatternEnemy>();
+        agent = GetComponent<NavMeshAgent>();
     }
     public void ShowHealth()
     {
@@ -64,6 +68,7 @@ public class EnemyHealth : MonoBehaviour
         }
         dead = true;
         healthbar.active = false;
+        agent.isStopped = true;
     }
     void DeactivateRagdoll()
     {
