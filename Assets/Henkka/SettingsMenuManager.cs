@@ -7,6 +7,10 @@ using TMPro;
 public class SettingsMenuManager : MonoBehaviour
 {
     public GameObject SettingsMenu;
+    [Header("Resolution")]
+    public TMP_Dropdown resolutionDropdown;
+    Resolution[] resolutions;
+    [Header("Sound")]
     public Slider masterVol, musicVol, sfxVol;
     public AudioMixer MainAudioMixer;
     private void Start()
@@ -20,6 +24,20 @@ public class SettingsMenuManager : MonoBehaviour
         masterVol.onValueChanged.AddListener(delegate { ChangeMasterVolume(); });
         musicVol.onValueChanged.AddListener(delegate { ChangeMusicVolume(); });
         sfxVol.onValueChanged.AddListener(delegate { ChangeSFXVolume(); });
+        resolutions = Screen.resolutions;
+        resolutionDropdown.ClearOptions();
+        List<string> options = new List<string>();
+        int currentResolutionIndex = 0;
+        for(int i = 0; i < resolutions.Length; i++)
+        {
+            string option = resolutions[i].width + " x " + resolutions[i].height;
+            options.Add(option);
+            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+                currentResolutionIndex = i;
+        }
+        resolutionDropdown.AddOptions(options);
+        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.RefreshShownValue();
     }
     public void ChangeMasterVolume()
     {
@@ -39,5 +57,12 @@ public class SettingsMenuManager : MonoBehaviour
         PlayerPrefs.SetFloat("SFXVolume", sfxVol.value);
         PlayerPrefs.Save();
     }
-
+    public void SetQuality(int qualityIndex)
+    {
+        QualitySettings.SetQualityLevel(qualityIndex);
+    }
+    public void SetFullScreen(bool isFullScreen)
+    {
+        Screen.fullScreen = isFullScreen;
+    }
 }
