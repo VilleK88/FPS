@@ -44,11 +44,17 @@ public class EnemyHealth : MonoBehaviour
             currentHealth -= damage;
             targetFillAmount = currentHealth / maxHealth;
             healthBarFill.fillAmount = targetFillAmount;
-            takingHit = true;
-            enemy.lastKnownPlayerPosition = enemy.player.transform.position;
-            enemy.currentState = enemy.combatState;
+            //takingHit = true;
+            //enemy.lastKnownPlayerPosition = enemy.player.transform.position;
+            //enemy.currentState = enemy.combatState;
             if (currentHealth <= 0)
                 Die();
+            if(!dead)
+            {
+                takingHit = true;
+                enemy.lastKnownPlayerPosition = enemy.player.transform.position;
+                enemy.currentState = enemy.combatState;
+            }
         }
         else
             Die();
