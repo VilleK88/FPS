@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
 public class CombatState : IEnemyState
 {
     private StatePatternEnemy enemy;
@@ -101,10 +100,43 @@ public class CombatState : IEnemyState
         enemy.GetComponentInChildren<Animator>().SetBool("Walk", false);
         if (enemy.distanceToPlayer > 20)
         {
-            enemy.agent.isStopped = false;
-            enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
-            enemy.GetComponentInChildren<Animator>().SetBool("Running", true);
-            enemy.agent.SetDestination(enemy.player.transform.position);
+            if (enemy.canSeePlayer)
+            {
+                if(shootingTime > 0)
+                {
+                    enemy.transform.LookAt(enemy.player.transform.position);
+                    enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
+                    enemy.GetComponentInChildren<Animator>().SetBool("Aiming", true);
+                    enemy.agent.isStopped = true;
+                    shootingTime -= Time.deltaTime;
+                    if (enemy.readyToShoot && !enemy.enemyHealth.takingHit)
+                        enemy.Shoot();
+                    else if (enemy.enemyHealth.takingHit)
+                        enemy.Invoke("RecoverFromHit", 1);
+                }
+                else
+                {
+                    shootingDelay -= Time.deltaTime;
+                    if (shootingDelay < 0)
+                    {
+                        shootingDelay = 2;
+                        shootingTime = 2;
+                    }
+                    enemy.agent.isStopped = false;
+                    enemy.agent.speed = enemy.runningSpeed;
+                    enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
+                    enemy.GetComponentInChildren<Animator>().SetBool("Running", true);
+                    enemy.agent.SetDestination(enemy.player.transform.position);
+                }
+            }
+            else
+            {
+                enemy.agent.isStopped = false;
+                enemy.agent.speed = enemy.runningSpeed;
+                enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
+                enemy.GetComponentInChildren<Animator>().SetBool("Running", true);
+                enemy.agent.SetDestination(enemy.player.transform.position);
+            }
         }
         else
         {

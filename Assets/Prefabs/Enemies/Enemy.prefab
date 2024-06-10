@@ -582,8 +582,8 @@ MonoBehaviour:
   searchDuration: 4
   randomEnemyTurn: 0
   lastKnownPlayerPosition: {x: 0, y: 0, z: 0}
-  radius: 30
-  angle: 140
+  radius: 50
+  angle: 120
   targetMask:
     serializedVersion: 2
     m_Bits: 128
@@ -601,7 +601,7 @@ MonoBehaviour:
   - {fileID: 0}
   randomPatrol: 0
   walkSpeed: 3.5
-  runningSpeed: 4
+  runningSpeed: 5
   shootingPoint: {fileID: 722350217}
   enemyBulletPrefab: {fileID: 2766855646421481491, guid: ee713e9419a48eb47a60080ac9730798, type: 3}
   muzzleFlash: {fileID: 1042445451261514066}
@@ -1805,7 +1805,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentEnemyHealthScript: {fileID: 1041474027577360227}
-  damageMultiplier: 3
 --- !u!1 &4755164082931656764 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7657966619581158213, guid: 4f7b73753dca89f4385b3c5e3bcf5175, type: 3}
