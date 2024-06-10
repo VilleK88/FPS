@@ -129,14 +129,15 @@ public class CombatState : IEnemyState
                     shootingTime = 2;
                 }
                 moveTimer += Time.deltaTime;
-                if (moveTimer > Random.Range(1, 2))
+                if (moveTimer > Random.Range(1, 3))
                 {
                     enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
                     enemy.GetComponentInChildren<Animator>().SetBool("Running", true);
-                    enemy.agent.isStopped = false;
+                    
                     Vector3 newPos = RandomNavSphere(enemy.transform.position, wanderingRadius, -1);
                     enemy.agent.speed = enemy.runningSpeed;
                     enemy.agent.SetDestination(newPos);
+                    enemy.agent.isStopped = false;
                     moveTimer = 0;
                 }
             }
@@ -145,6 +146,8 @@ public class CombatState : IEnemyState
     public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
         Vector3 randDirection = Random.insideUnitSphere * dist;
+        if(Vector3.Distance(origin, randDirection) < 5)
+            randDirection = randDirection / (Vector3.Distance(origin, randDirection) / dist);
         randDirection += origin;
         NavMeshHit navHit;
         NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
