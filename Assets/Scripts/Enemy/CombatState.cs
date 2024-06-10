@@ -99,7 +99,7 @@ public class CombatState : IEnemyState
     void Chase()
     {
         enemy.GetComponentInChildren<Animator>().SetBool("Walk", false);
-        if (enemy.distanceToPlayer > 15)
+        if (enemy.distanceToPlayer > 20)
         {
             enemy.agent.isStopped = false;
             enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);

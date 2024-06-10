@@ -8,7 +8,7 @@ public class StatePatternEnemy : MonoBehaviour
     public int randomEnemyTurn;
     public Vector3 lastKnownPlayerPosition;
     [Header("Field of View")]
-    public float radius = 20;
+    public float radius = 30;
     [Range(0, 360)] public float angle = 140;
     public LayerMask targetMask;
     public LayerMask obstructionMask;

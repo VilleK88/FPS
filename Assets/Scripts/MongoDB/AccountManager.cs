@@ -4,6 +4,8 @@ using System.Collections;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using System.Text.RegularExpressions;
+using MongoDB.Bson;
+using MongoDB.Driver;
 public class AccountManager : MonoBehaviour
 {
     #region Singleton
@@ -20,9 +22,11 @@ public class AccountManager : MonoBehaviour
     }
     #endregion
     private const string passwordRegex = "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,24})";
-    [SerializeField] private string loginEndpoint = "http://127.0.0.1:13756/account/login";
-    [SerializeField] private string createEndpoint = "http://127.0.0.1:13756/account/create";
-    [SerializeField] private string scoreEndpoint = "http://127.0.0.1:13756/account/updateScore";
+    private const string connectionString = "mongodb+srv://villekarppinen88:mongo@cluster0.y1p6lhv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+    private const string databaseName = "loginGameDatabase";
+    private const string collectionName = "accounts";
+    private IMongoDatabase database;
+    private IMongoCollection<GameAccount> accountCollection;
     [SerializeField] private TextMeshProUGUI alertText;
     [SerializeField] private Button loginButton;
     [SerializeField] private Button createButton;
@@ -31,6 +35,12 @@ public class AccountManager : MonoBehaviour
     public bool loggedIn;
     public GameAccount loggedInAccount;
     [SerializeField] private GameObject container;
+    private void Start()
+    {
+        var client = new MongoClient(connectionString);
+        database = client.GetDatabase(databaseName);
+        accountCollection = database.GetCollection<GameAccount>(collectionName);
+    }
     public void ShowContainer()
     {
         container.active = true;
@@ -55,35 +65,24 @@ public class AccountManager : MonoBehaviour
             alertText.text = "Invalid username";
             yield break;
         }
-        WWWForm form = new WWWForm();
-        form.AddField("rUsername", username);
-        UnityWebRequest request = UnityWebRequest.Post(scoreEndpoint, form);
-        yield return request.SendWebRequest();
-        if(request.result == UnityWebRequest.Result.Success)
+        var filter = Builders<GameAccount>.Filter.Eq("username", username);
+        var update = Builders<GameAccount>.Update.Inc("kills", 1);
+        var options = new FindOneAndUpdateOptions<GameAccount> { ReturnDocument = ReturnDocument.After };
+        var result = accountCollection.FindOneAndUpdate(filter, update, options);
+        if(result != null)
         {
-            CreateResponse response = JsonUtility.FromJson<CreateResponse>(request.downloadHandler.text);
-            if(response.code == 0)
+            int kills = result.kills;
+            Debug.Log("Kills updated: " + kills);
+            loggedInAccount.kills = kills;
+            if (Score.Instance != null)
             {
-                //alertText.text = "Kills updated: " + response.data.kills;
-                Debug.Log("Kills updated: " + response.data.kills);
-                loggedInAccount.kills = response.data.kills;
-                if (Score.Instance != null)
-                {
-                    Score.Instance.killsText.text = "Kills: " + response.data.kills;
-                    Score.Instance.accountData.kills = response.data.kills;
-                }
+                Score.Instance.killsText.text = "Kills: " + kills;
+                Score.Instance.accountData.kills = kills;
             }
             else
-            {
-                //alertText.text = response.msg;
-                Debug.LogError("Error: " + response.msg);
-            }
+                Debug.LogError("Error updating kills.");
         }
-        else
-        {
-            //alertText.text = "Error connecting to the server...";
-            Debug.LogError("Error connecting to the server...");
-        }
+        yield return null;
     }
     public void OnLoginClick()
     {
@@ -101,7 +100,7 @@ public class AccountManager : MonoBehaviour
     {
         string username = usernameInputField.text;
         string password = passwordInputField.text;
-        if(username.Length < 3 || username.Length > 24)
+        if (username.Length < 3 || username.Length > 24)
         {
             alertText.text = "Invalid username";
             ActivateButtons(true);
@@ -113,50 +112,23 @@ public class AccountManager : MonoBehaviour
             ActivateButtons(true);
             yield break;
         }
-        WWWForm form = new WWWForm();
-        form.AddField("rUsername", username);
-        form.AddField("rPassword", password);
-        UnityWebRequest request = UnityWebRequest.Post(loginEndpoint, form);
-        var handler = request.SendWebRequest();
-        float startTime = 0.0f;
-        while(!handler.isDone)
+        var filter = Builders<GameAccount>.Filter.Eq("username", username);
+        var account = accountCollection.Find(filter).FirstOrDefault();
+        if (account != null && account.password == password)
         {
-            startTime += Time.deltaTime;
-            if (startTime > 10.0f)
-                break;
-            yield return null;
-        }
-        if (request.result == UnityWebRequest.Result.Success)
-        {
-            //Debug.Log(request.downloadHandler.text);
-            LoginResponse response = JsonUtility.FromJson<LoginResponse>(request.downloadHandler.text);
-            if (response.code == 0) // login success?
+            ActivateButtons(false);
+            alertText.text = "Welcome " + username;
+            loggedIn = true;
+            loggedInAccount = new GameAccount
             {
-                ActivateButtons(false);
-                alertText.text = "Welcome " + ((response.data.adminFlag == 1) ? " Admin" : "");
-                loggedIn = true;
-                Debug.Log("Kills: " + response.data.kills);
-                loggedInAccount.kills = response.data.kills;
-                loggedInAccount.username = response.data.username;
-            }
-            else
-            {
-                switch (response.code)
-                {
-                    case 1:
-                        alertText.text = "Invalid credentials";
-                        ActivateButtons(true);
-                        break;
-                    default:
-                        alertText.text = "Corruption detected";
-                        ActivateButtons(false);
-                        break;
-                }
-            }
+                username = username,
+                kills = account.kills,
+            };
+            Debug.Log("Kills: " + loggedInAccount.kills);
         }
         else
         {
-            alertText.text = "Error connecting to the server...";
+            alertText.text = "Invalid credentials";
             ActivateButtons(true);
         }
         yield return null;
@@ -177,50 +149,21 @@ public class AccountManager : MonoBehaviour
             ActivateButtons(true);
             yield break;
         }
-        WWWForm form = new WWWForm();
-        form.AddField("rUsername", username);
-        form.AddField("rPassword", password);
-        UnityWebRequest request = UnityWebRequest.Post(createEndpoint, form);
-        var handler = request.SendWebRequest();
-        float startTime = 0.0f;
-        while (!handler.isDone)
+        var filter = Builders<GameAccount>.Filter.Eq("username", username);
+        var account = accountCollection.Find(filter).FirstOrDefault();
+        if (account == null)
         {
-            startTime += Time.deltaTime;
-            if (startTime > 10.0f)
-                break;
-            yield return null;
-        }
-        if (request.result == UnityWebRequest.Result.Success)
-        {
-            Debug.Log(request.downloadHandler.text);
-            CreateResponse response = JsonUtility.FromJson<CreateResponse>(request.downloadHandler.text);
-            if (response.code == 0)
+            var newAccount = new BsonDocument
             {
-                alertText.text = "Account has been created";
-            }
-            else
-            {
-                switch(response.code)
-                {
-                    case 1:
-                        alertText.text = "Invalid credentials";
-                        break;
-                    case 2:
-                        alertText.text = "Username is already taken";
-                        break;
-                    case 3:
-                        alertText.text = "Password is unsafe";
-                        break;
-                    default:
-                        alertText.text = "Corruption detected";
-                        break;
-                }
-            }
+                {"username", username },
+                {"password", password },
+                {"kills", 0 }
+            };
+            //accountCollection.InsertOne(newAccount);
+            alertText.text = "Account has been created";
         }
         else
-        {
-            alertText.text = "Error connecting to the server...";
-        }
+            alertText.text = "Username is already taken";
         ActivateButtons(true);
         yield return null;
     }
