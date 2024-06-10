@@ -28,6 +28,15 @@ public class TrackingState : IEnemyState
     {
         if (enemy.distanceToPlayer < 8.1f && enemy.player.GetComponent<PlayerMovement>().moving && !enemy.player.GetComponent<PlayerMovement>().sneaking)
             ToAlertState();
+        if (enemy.distanceToPlayer <= enemy.hearingPlayerShootRadius)
+        {
+            Weapon weaponScript = enemy.player.GetComponentInChildren<Weapon>();
+            if (weaponScript != null)
+            {
+                if (weaponScript.isShooting && !weaponScript.silenced)
+                    ToCombatState();
+            }
+        }
     }
     public void ToAlertState()
     {

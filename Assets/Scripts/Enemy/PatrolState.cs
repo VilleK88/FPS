@@ -26,6 +26,15 @@ public class PatrolState : IEnemyState
     {
         if (enemy.distanceToPlayer < 8.1f && enemy.player.GetComponent<PlayerMovement>().moving && !enemy.player.GetComponent<PlayerMovement>().sneaking)
             ToAlertState();
+        if (enemy.distanceToPlayer <= enemy.hearingPlayerShootRadius)
+        {
+            Weapon weaponScript = enemy.player.GetComponentInChildren<Weapon>();
+            if(weaponScript != null)
+            {
+                if(weaponScript.isShooting && !weaponScript.silenced)
+                    ToCombatState();
+            }
+        }
     }
     public void ToAlertState()
     {
@@ -37,6 +46,7 @@ public class PatrolState : IEnemyState
     }
     public void ToCombatState()
     {
+        enemy.lastKnownPlayerPosition = enemy.player.transform.position;
         enemy.agent.speed = enemy.runningSpeed;
         EnemyManager.Instance.indicatorImage.enabled = true;
         EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.combatImage;
