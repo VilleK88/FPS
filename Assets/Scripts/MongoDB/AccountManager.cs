@@ -1,11 +1,11 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 using System.Text.RegularExpressions;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Bson.Serialization;
 public class AccountManager : MonoBehaviour
 {
     #region Singleton
@@ -26,7 +26,7 @@ public class AccountManager : MonoBehaviour
     private const string databaseName = "loginGameDatabase";
     private const string collectionName = "accounts";
     private IMongoDatabase database;
-    private IMongoCollection<GameAccount> accountCollection;
+    private IMongoCollection<BsonDocument> accountCollection;
     [SerializeField] private TextMeshProUGUI alertText;
     [SerializeField] private Button loginButton;
     [SerializeField] private Button createButton;
@@ -39,7 +39,7 @@ public class AccountManager : MonoBehaviour
     {
         var client = new MongoClient(connectionString);
         database = client.GetDatabase(databaseName);
-        accountCollection = database.GetCollection<GameAccount>(collectionName);
+        accountCollection = database.GetCollection<BsonDocument>(collectionName);
     }
     public void ShowContainer()
     {
@@ -65,13 +65,14 @@ public class AccountManager : MonoBehaviour
             alertText.text = "Invalid username";
             yield break;
         }
-        var filter = Builders<GameAccount>.Filter.Eq("username", username);
-        var update = Builders<GameAccount>.Update.Inc("kills", 1);
-        var options = new FindOneAndUpdateOptions<GameAccount> { ReturnDocument = ReturnDocument.After };
+        var filter = Builders<BsonDocument>.Filter.Eq("username", username);
+        var update = Builders<BsonDocument>.Update.Inc("kills", 1);
+        var options = new FindOneAndUpdateOptions<BsonDocument> { ReturnDocument = ReturnDocument.After };
         var result = accountCollection.FindOneAndUpdate(filter, update, options);
         if(result != null)
         {
-            int kills = result.kills;
+            var updatedAccount = BsonSerializer.Deserialize<GameAccount>(result);
+            int kills = updatedAccount.kills;
             Debug.Log("Kills updated: " + kills);
             loggedInAccount.kills = kills;
             if (Score.Instance != null)
@@ -112,19 +113,24 @@ public class AccountManager : MonoBehaviour
             ActivateButtons(true);
             yield break;
         }
-        var filter = Builders<GameAccount>.Filter.Eq("username", username);
-        var account = accountCollection.Find(filter).FirstOrDefault();
-        if (account != null && account.password == password)
+        var filter = Builders<BsonDocument>.Filter.Eq("username", username);
+        var accountDoc = accountCollection.Find(filter).FirstOrDefault();
+        if(accountDoc != null)
         {
-            ActivateButtons(false);
-            alertText.text = "Welcome " + username;
-            loggedIn = true;
-            loggedInAccount = new GameAccount
+            var account = BsonSerializer.Deserialize<GameAccount>(accountDoc);
+            if(account.password == password)
             {
-                username = username,
-                kills = account.kills,
-            };
-            Debug.Log("Kills: " + loggedInAccount.kills);
+                loggedInAccount = account;
+                ActivateButtons(false);
+                alertText.text = "Welcome " + username;
+                loggedIn = true;
+                Debug.Log("Kills: " + loggedInAccount.kills);
+            }
+            else
+            {
+                alertText.text = "Invalid credentials";
+                ActivateButtons(true);
+            }
         }
         else
         {
@@ -149,17 +155,17 @@ public class AccountManager : MonoBehaviour
             ActivateButtons(true);
             yield break;
         }
-        var filter = Builders<GameAccount>.Filter.Eq("username", username);
+        var filter = Builders<BsonDocument>.Filter.Eq("username", username);
         var account = accountCollection.Find(filter).FirstOrDefault();
         if (account == null)
         {
-            var newAccount = new BsonDocument
+            var newAccount = new GameAccount
             {
-                {"username", username },
-                {"password", password },
-                {"kills", 0 }
+                username = username,
+                password = password,
+                kills = 0,
             };
-            //accountCollection.InsertOne(newAccount);
+            accountCollection.InsertOne(newAccount.ToBsonDocument());
             alertText.text = "Account has been created";
         }
         else

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -56,13 +55,6 @@ public class HighScoreTable : MonoBehaviour
     }
     private void DisplayLeaderboard(List<User> leaderboard)
     {
-        /*foreach(var user in leaderboard)
-        {
-            //GameObject userInfo = Instantiate(userInfoPrefab, content.transform);
-            //TextMeshProUGUI[] textComponents = userInfo.GetComponentsInChildren<TextMeshProUGUI>();
-            //foreach(var textComponent in textComponents)
-                //textComponent.text = $"Username: {user.username}, Kills: {user.kills}";
-        }*/
         int count = Math.Min(leaderboard.Count, userInfoPrefabs.Length);
         for(int i = 0; i < count; i++)
         {

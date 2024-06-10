@@ -1,10 +1,15 @@
 using UnityEngine;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 [System.Serializable]
 public class GameAccount
 {
-    public string _id;
-    public int adminFlag;
-    public string username;
-    public string password;
-    public int kills;
+    [BsonId]
+    [BsonRepresentation(BsonType.ObjectId)]
+    [BsonIgnoreIfDefault]
+    public string _id { get; set; }
+    public int adminFlag { get; set; }
+    public string username { get; set; }
+    public string password { get; set; }
+    public int kills { get; set; }
 }
