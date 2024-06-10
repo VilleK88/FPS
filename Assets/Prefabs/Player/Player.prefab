@@ -957,6 +957,7 @@ MonoBehaviour:
   isShooting: 0
   readyToShoot: 0
   shootingDelay: 0.5
+  silenced: 0
   bulletsPerBurst: 1
   burstBulletsLeft: 0
   spreadIntensity: 0.3
@@ -1174,6 +1175,7 @@ MonoBehaviour:
   isShooting: 0
   readyToShoot: 0
   shootingDelay: 0.1
+  silenced: 0
   bulletsPerBurst: 1
   burstBulletsLeft: 0
   spreadIntensity: 0.15
@@ -1401,6 +1403,7 @@ MonoBehaviour:
   isShooting: 0
   readyToShoot: 0
   shootingDelay: 0.3
+  silenced: 1
   bulletsPerBurst: 1
   burstBulletsLeft: 0
   spreadIntensity: 0.06

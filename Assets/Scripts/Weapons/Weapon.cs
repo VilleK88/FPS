@@ -12,6 +12,7 @@ public class Weapon : MonoBehaviour
     public bool isShooting, readyToShoot;
     bool allowReset = true;
     public float shootingDelay = 0.3f;
+    public bool silenced;
     [Header("Burst")]
     public int bulletsPerBurst = 1;
     public int burstBulletsLeft;
@@ -54,7 +55,11 @@ public class Weapon : MonoBehaviour
         if (currentShootingMode == ShootingMode.Auto)
             isShooting = Input.GetKey(KeyCode.Mouse0); // holding down left mouse button
         else if(currentShootingMode == ShootingMode.Single || currentShootingMode == ShootingMode.Burst)
+        {
             isShooting = Input.GetKeyDown(KeyCode.Mouse0); // clicking left mouse button once
+            Debug.Log("IsShooting: " + isShooting);
+        }
+            //isShooting = Input.GetKeyDown(KeyCode.Mouse0); // clicking left mouse button once
         if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !isReloading) // reload weapon
         {
             CheckAmmoStatus();

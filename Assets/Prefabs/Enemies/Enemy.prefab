@@ -611,6 +611,7 @@ MonoBehaviour:
   bulletTarget: Player
   readyToShoot: 1
   shootingDelay: 0.1
+  hearingPlayerShootRadius: 80
   enemyHealth: {fileID: 0}
   player: {fileID: 0}
   agent: {fileID: 0}

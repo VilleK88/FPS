@@ -39,6 +39,15 @@ public class AlertState : IEnemyState
             checkDisturbance = false;
             searchTimer = 0;
         }
+        if (enemy.distanceToPlayer <= enemy.hearingPlayerShootRadius)
+        {
+            Weapon weaponScript = enemy.player.GetComponentInChildren<Weapon>();
+            if (weaponScript != null)
+            {
+                if (weaponScript.isShooting && !weaponScript.silenced)
+                    ToCombatState();
+            }
+        }
     }
     public void ToAlertState()
     {
