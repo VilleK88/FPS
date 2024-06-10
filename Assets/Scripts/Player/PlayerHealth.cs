@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
-
 public class PlayerHealth : MonoBehaviour
 {
     public GameObject postProcessGO;
     PostProcessVolume volume;
     Vignette vignette;
     public float intensity = 0;
+    public float armorMultiplier;
     private void Start()
     {
         if(!GameManager.instance.loadPlayerPosition)
@@ -32,7 +32,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if(GameManager.instance.currentHealth > 0)
         {
-            GameManager.instance.currentHealth -= damage;
+            GameManager.instance.currentHealth -= damage -armorMultiplier;
             HealthUIManager.Instance.UpdateHealthBar();
             StartCoroutine(DamageEffect());
         }

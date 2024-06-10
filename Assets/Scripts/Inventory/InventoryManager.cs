@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 [Serializable]
@@ -57,6 +56,7 @@ public class InventoryManager : MonoBehaviour
             AddSavedInventorySlotData();
             WeaponCollected();
             LoadHowManyBulletsLeftInMagazine();
+            InitializeArmor();
             GameManager.instance.loadInventory = false;
         }
         else
@@ -103,7 +103,7 @@ public class InventoryManager : MonoBehaviour
     {
         tempInventoryItem = inventoryItemInTransfer;
     }
-    public bool CheckIfArmorSlotEmpty(InventoryItem newArmorItem)
+    public bool CheckIfArmorSlotEmpty(InventoryItem newArmorItem) // when putting armor on armor slot
     {
         InventoryItem armorItem = equipmentSlotsUI[0].GetComponentInChildren<InventoryItem>();
         if (armorItem == null)
@@ -122,6 +122,19 @@ public class InventoryManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+    public void InitializeArmor()
+    {
+        InventoryItem armorItem = equipmentSlotsUI[0].GetComponentInChildren<InventoryItem>();
+        if(armorItem != null)
+        {
+            Armor armorSO = armorItem.item as Armor;
+            PlayerHealth playerHealthScript = player.GetComponent<PlayerHealth>();
+            if(playerHealthScript != null)
+            {
+                playerHealthScript.armorMultiplier = armorSO.armorMultiplier;
+            }
+        }
     }
     public bool CheckIfRoomInWeaponSlots(InventoryItem newWeaponItem)
     {
@@ -293,6 +306,7 @@ public class InventoryManager : MonoBehaviour
         closed = true;
         HolsterWeapons();
         DrawActiveWeapon();
+        InitializeArmor();
         if (Score.Instance != null && AccountManager.Instance != null)
         {
             if (AccountManager.Instance.loggedIn)

@@ -139,10 +139,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionTransform: {fileID: 3953386803886043185}
-  item: {fileID: 11400000, guid: ef635ea7dc59070488bf5b6b672191d4, type: 2}
+  item: {fileID: 11400000, guid: 4c1327bb6509e5a47b9dbe3be8fe199b, type: 2}
   secondItem: {fileID: 0}
   itemName: Default armor
-  pickUpItemID: 0
+  pickUpItemID: 5673435
   count: 1
   collectOnTouch: 1
   weaponIDsList: 
