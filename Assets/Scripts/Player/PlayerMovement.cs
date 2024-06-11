@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
     float x, z;
     Vector3 move;
     float speed = 8;
-    float sneakSpeed = 4;
+    float sneakSpeed = 5.5f;
     float runningSpeed = 15;
     float originalSpeed;
     public bool moving;

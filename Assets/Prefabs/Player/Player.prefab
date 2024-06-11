@@ -398,6 +398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   postProcessGO: {fileID: 380693321}
   intensity: 0
+  armorMultiplier: 0
 --- !u!136 &7136351547511556542
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -531,6 +532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a481d81c1f11c439614ebd6eba1ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouseSensitivity: 4000
   playerBody: {fileID: 7136351547337792650}
 --- !u!114 &7136351547511556540
 MonoBehaviour:
@@ -1309,7 +1311,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 91431706cd0061b4093cacf929d2cf13, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.25
+      value: -1.29
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 91431706cd0061b4093cacf929d2cf13, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1411,7 +1413,7 @@ MonoBehaviour:
   bulletSpawn: {fileID: 5436707624281562661}
   bulletVelocity: 300
   bulletPrefabLifeTime: 3
-  bulletDamage: 5
+  bulletDamage: 7
   muzzleEffect: {fileID: 4924008343123128217}
   shootingSound: {fileID: 8300000, guid: 6ce333f2ebe665a41a9d8e496f4d8e1c, type: 3}
   reloadingSound: {fileID: 8300000, guid: ce40518724ad6c942b03b09248ffefcd, type: 3}

@@ -26,7 +26,7 @@ public class TrackingState : IEnemyState
     }
     public void HearingArea()
     {
-        if (enemy.distanceToPlayer < 8.1f && enemy.player.GetComponent<PlayerMovement>().moving && !enemy.player.GetComponent<PlayerMovement>().sneaking)
+        if (enemy.distanceToPlayer < 6f && enemy.player.GetComponent<PlayerMovement>().moving && !enemy.player.GetComponent<PlayerMovement>().sneaking)
             ToAlertState();
         if (enemy.distanceToPlayer <= enemy.hearingPlayerShootRadius)
         {
