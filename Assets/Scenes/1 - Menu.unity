@@ -304,7 +304,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000009059906, y: 0.030269343}
+  m_AnchoredPosition: {x: 0.000009059906, y: 0.0009059501}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &211380637
@@ -1523,8 +1523,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 510289366}
   m_HandleRect: {fileID: 510289365}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 0.9999999
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2120,6 +2120,8 @@ MonoBehaviour:
   musicVol: {fileID: 2024822929}
   sfxVol: {fileID: 2024822928}
   MainAudioMixer: {fileID: 24100000, guid: 5e5e3fc38ca5310468991786d5830774, type: 2}
+  mouseSensitivity: 4000
+  mouseSensitivitySlider: {fileID: 1883407952}
 --- !u!1 &901963296
 GameObject:
   m_ObjectHideFlags: 0
@@ -2886,20 +2888,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bc06eedf57d6af4a9585b1211c21f53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loginEndpoint: http://127.0.0.1:13756/account/login
-  createEndpoint: http://127.0.0.1:13756/account/create
-  scoreEndpoint: http://127.0.0.1:13756/account/updateScore
   alertText: {fileID: 2049423038}
   loginButton: {fileID: 352600176}
   createButton: {fileID: 516927162}
   usernameInputField: {fileID: 901963297}
   passwordInputField: {fileID: 2113584310}
   loggedIn: 0
-  loggedInAccount:
-    _id: 
-    adminFlag: 0
-    username: 
-    kills: 0
   container: {fileID: 1361120577}
 --- !u!1001 &1059449934
 PrefabInstance:
@@ -5046,6 +5040,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4342573816140017557, guid: 4835afc409725f44aaae4a7ba7749992, type: 3}
   m_PrefabInstance: {fileID: 1820457423}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1883407952 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6826825245672606635, guid: c5116424812556b418581a31b88ff286, type: 3}
+  m_PrefabInstance: {fileID: 2024822926}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1899160723
 GameObject:
   m_ObjectHideFlags: 0
@@ -5429,6 +5434,14 @@ PrefabInstance:
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 775049601}
+    - target: {fileID: 4757100577906866975, guid: c5116424812556b418581a31b88ff286, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757100577906866975, guid: c5116424812556b418581a31b88ff286, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4860527267660335101, guid: c5116424812556b418581a31b88ff286, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -5476,6 +5489,26 @@ PrefabInstance:
     - target: {fileID: 6455926681963505514, guid: c5116424812556b418581a31b88ff286, type: 3}
       propertyPath: m_LocalPosition.x
       value: 91.01165
+      objectReference: {fileID: 0}
+    - target: {fileID: 6826825245672606635, guid: c5116424812556b418581a31b88ff286, type: 3}
+      propertyPath: m_Value
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6826825245672606635, guid: c5116424812556b418581a31b88ff286, type: 3}
+      propertyPath: m_MaxValue
+      value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6826825245672606635, guid: c5116424812556b418581a31b88ff286, type: 3}
+      propertyPath: m_MinValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6854537183672113927, guid: c5116424812556b418581a31b88ff286, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6854537183672113927, guid: c5116424812556b418581a31b88ff286, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7353850074556911955, guid: c5116424812556b418581a31b88ff286, type: 3}
       propertyPath: m_AnchorMax.y
@@ -5763,7 +5796,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1411469763}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999167
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
