@@ -86,9 +86,9 @@ public class CombatState : IEnemyState
                     PlayerMovement playerMovementScript = enemy.player.GetComponent<PlayerMovement>();
                     if (playerMovementScript != null)
                     {
-                        if (enemy.distanceToPlayer < enemy.radius && !playerMovementScript.sneaking)
+                        if (enemy.distanceToPlayer < enemy.battleRadius && !playerMovementScript.sneaking)
                             enemy.canSeePlayer = true;
-                        else if (enemy.distanceToPlayer < enemy.sneakRadius && playerMovementScript.sneaking)
+                        else if (enemy.distanceToPlayer < enemy.radius && playerMovementScript.sneaking)
                             enemy.canSeePlayer = true;
                     }
                 }
