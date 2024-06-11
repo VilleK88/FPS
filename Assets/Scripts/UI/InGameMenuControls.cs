@@ -63,9 +63,15 @@ public class InGameMenuControls : MonoBehaviour
             InventoryManager.instance.HolsterWeapons();
             menuButtons.SetActive(!menuButtons.activeSelf);
             if (menuButtons.activeSelf)
+            {
                 saveButton.Select();
+                InventoryManager.instance.PauseGame();
+            }
             else
+            {
                 InventoryManager.instance.DrawActiveWeapon();
+                InventoryManager.instance.StopPause();
+            }
         }
     }
     public void SaveGame()
@@ -82,6 +88,7 @@ public class InGameMenuControls : MonoBehaviour
         ClearAndDestroyInventory();
         GameManager.instance.Load();
         LoadSceneID();
+        Time.timeScale = 1f;
     }
     public void SaveSceneID()
     {
