@@ -32,7 +32,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if(GameManager.instance.currentHealth > 0)
         {
-            GameManager.instance.currentHealth -= damage -armorMultiplier;
+            GameManager.instance.currentHealth -= damage / armorMultiplier;
             HealthUIManager.Instance.UpdateHealthBar();
             StartCoroutine(DamageEffect());
         }

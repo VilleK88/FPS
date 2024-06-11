@@ -82,7 +82,16 @@ public class PatrolState : IEnemyState
             if (Vector3.Angle(enemy.transform.forward, enemy.directionToTarget) < enemy.angle / 2)
             {
                 if (!Physics.Raycast(enemy.transform.position, enemy.directionToTarget, enemy.distanceToPlayer, enemy.obstructionMask))
-                    enemy.canSeePlayer = true;
+                {
+                    PlayerMovement playerMovementScript = enemy.player.GetComponent<PlayerMovement>();
+                    if(playerMovementScript != null)
+                    {
+                        if(enemy.distanceToPlayer < 50 && !playerMovementScript.sneaking)
+                            enemy.canSeePlayer = true;
+                        else if(enemy.distanceToPlayer < 30 && playerMovementScript.sneaking)
+                            enemy.canSeePlayer = true;
+                    }
+                }
                 else
                     enemy.canSeePlayer = false;
             }
