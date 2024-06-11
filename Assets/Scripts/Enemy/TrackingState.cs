@@ -146,7 +146,12 @@ public class TrackingState : IEnemyState
     }
     public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
-        Vector3 randDirection = Random.insideUnitSphere * dist;
+        Vector3 randDirection;
+        do
+        {
+            randDirection = Random.insideUnitSphere * dist;
+        }
+        while (randDirection.magnitude < 5.0f);
         randDirection += origin;
         NavMeshHit navHit;
         NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);

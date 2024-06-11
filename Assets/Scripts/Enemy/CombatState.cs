@@ -186,9 +186,12 @@ public class CombatState : IEnemyState
     }
     public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
-        Vector3 randDirection = Random.insideUnitSphere * dist;
-        if(Vector3.Distance(origin, randDirection) < 5)
-            randDirection = randDirection / (Vector3.Distance(origin, randDirection) / dist);
+        Vector3 randDirection;
+        do
+        {
+            randDirection = Random.insideUnitSphere * dist;
+        }
+        while (randDirection.magnitude < 5.0f);
         randDirection += origin;
         NavMeshHit navHit;
         NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
