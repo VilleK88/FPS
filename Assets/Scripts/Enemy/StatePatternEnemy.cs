@@ -24,6 +24,7 @@ public class StatePatternEnemy : MonoBehaviour
     [Header("Patrol")]
     public Transform[] waypoints;
     public bool randomPatrol = false;
+    float callReinforcementsDistance = 20;
     [Header("Move Speed")]
     public float walkSpeed = 3.5f;
     public float runningSpeed = 5f;
@@ -37,7 +38,7 @@ public class StatePatternEnemy : MonoBehaviour
     public string bulletTarget = "Player";
     public bool readyToShoot = true;
     public float shootingDelay = 0.3f;
-    public float hearingPlayerShootRadius = 80f;
+    public float hearingPlayerShootRadius = 30f;
     public EnemyHealth enemyHealth;
     [HideInInspector] public GameObject player;
     [HideInInspector] public IEnemyState currentState; // current state is defined here
@@ -106,7 +107,7 @@ public class StatePatternEnemy : MonoBehaviour
             if(enemyTransform != null && stateEnemy != null)
             {
                 float distance = Vector3.Distance(transform.position, enemyTransform.position);
-                if(distance < 50)
+                if(distance < callReinforcementsDistance)
                 {
                     stateEnemy.lastKnownPlayerPosition = stateEnemy.player.transform.position;
                     stateEnemy.GetComponentInChildren<Animator>().SetBool("WalkAiming", false);

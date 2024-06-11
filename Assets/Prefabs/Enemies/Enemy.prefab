@@ -550,9 +550,6 @@ MonoBehaviour:
   obstructionMask:
     serializedVersion: 2
     m_Bits: 1024
-  secondObstructionMask:
-    serializedVersion: 2
-    m_Bits: 64
   canSeePlayer: 0
   closeColor: {r: 0.4716981, g: 0, b: 0, a: 1}
   farColor: {r: 0.4745098, g: 0, b: 0, a: 0}
@@ -564,7 +561,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  randomPatrol: 0
+  randomPatrol: 1
   walkSpeed: 3.5
   runningSpeed: 5
   shootingPoint: {fileID: 722350217}
@@ -576,7 +573,7 @@ MonoBehaviour:
   bulletTarget: Player
   readyToShoot: 1
   shootingDelay: 0.1
-  hearingPlayerShootRadius: 80
+  hearingPlayerShootRadius: 30
   enemyHealth: {fileID: 0}
   player: {fileID: 0}
   agent: {fileID: 0}
