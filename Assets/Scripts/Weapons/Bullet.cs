@@ -12,6 +12,7 @@ public class Bullet : MonoBehaviour
         if (objectWeHit.gameObject.CompareTag("Enemy") && enemyHealth != null)
         {
             enemyHealth.TakeDamage(damage);
+            CreateBlootSplatterEffect(objectWeHit);
             Destroy(gameObject);
         }
         if (objectWeHit.gameObject.CompareTag("Target"))
@@ -37,6 +38,13 @@ public class Bullet : MonoBehaviour
     {
         ContactPoint contact = objectWeHit.contacts[0];
         GameObject hole = Instantiate(GlobalReferences.Instance.bulletImpactEffectPrefab,
+            contact.point, Quaternion.LookRotation(contact.normal));
+        hole.transform.SetParent(objectWeHit.gameObject.transform);
+    }
+    void CreateBlootSplatterEffect(Collision objectWeHit)
+    {
+        ContactPoint contact = objectWeHit.contacts[0];
+        GameObject hole = Instantiate(GlobalReferences.Instance.bloodSplatterEffectPrefab,
             contact.point, Quaternion.LookRotation(contact.normal));
         hole.transform.SetParent(objectWeHit.gameObject.transform);
     }
