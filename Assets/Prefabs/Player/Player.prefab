@@ -1413,7 +1413,7 @@ MonoBehaviour:
   bulletSpawn: {fileID: 5436707624281562661}
   bulletVelocity: 300
   bulletPrefabLifeTime: 3
-  bulletDamage: 7
+  bulletDamage: 8
   muzzleEffect: {fileID: 4924008343123128217}
   shootingSound: {fileID: 8300000, guid: 6ce333f2ebe665a41a9d8e496f4d8e1c, type: 3}
   reloadingSound: {fileID: 8300000, guid: ce40518724ad6c942b03b09248ffefcd, type: 3}

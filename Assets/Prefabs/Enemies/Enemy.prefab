@@ -569,7 +569,7 @@ MonoBehaviour:
   muzzleFlash: {fileID: 1042445451261514066}
   bulletVelocity: 300
   spreadIntensity: 2
-  bulletDamage: 2.5
+  bulletDamage: 3
   bulletTarget: Player
   readyToShoot: 1
   shootingDelay: 0.1
