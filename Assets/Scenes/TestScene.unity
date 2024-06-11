@@ -7474,18 +7474,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1041474027568359266, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
-      propertyPath: 'waypoints.Array.data[0]'
-      value: 
-      objectReference: {fileID: 952719311}
-    - target: {fileID: 1041474027568359266, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
-      propertyPath: 'waypoints.Array.data[1]'
-      value: 
-      objectReference: {fileID: 1423951323}
-    - target: {fileID: 1041474027568359266, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
-      propertyPath: 'waypoints.Array.data[2]'
-      value: 
-      objectReference: {fileID: 987339884}
     - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: 'waypoints.Array.data[0]'
       value: 

@@ -17,19 +17,19 @@ public class Bullet : MonoBehaviour
         }
         if (objectWeHit.gameObject.CompareTag("Target"))
         {
-            Debug.Log("hit " + objectWeHit.gameObject.name + " !");
+            //Debug.Log("hit " + objectWeHit.gameObject.name + " !");
             CreateBulletImpactEffect(objectWeHit);
             Destroy(gameObject);
         }
         if(objectWeHit.gameObject.CompareTag("Wall"))
         {
-            Debug.Log("Hit a wall");
+            //Debug.Log("Hit a wall");
             CreateBulletImpactEffect(objectWeHit);
             Destroy(gameObject);
         }
         if (objectWeHit.gameObject.CompareTag("Ground"))
         {
-            Debug.Log("Hit a ground");
+            //Debug.Log("Hit a ground");
             CreateBulletImpactEffect(objectWeHit);
             Destroy(gameObject);
         }

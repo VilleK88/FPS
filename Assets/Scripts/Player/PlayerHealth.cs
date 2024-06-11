@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.SceneManagement;
 public class PlayerHealth : MonoBehaviour
 {
     public GameObject postProcessGO;
@@ -30,11 +31,13 @@ public class PlayerHealth : MonoBehaviour
     }
     public void TakeDamage(float damage)
     {
-        if(GameManager.instance.currentHealth > 0)
+        if (GameManager.instance.currentHealth > 0)
         {
-            GameManager.instance.currentHealth -= damage / armorMultiplier;
+            GameManager.instance.currentHealth -= damage - armorMultiplier;
             HealthUIManager.Instance.UpdateHealthBar();
             StartCoroutine(DamageEffect());
+            if (GameManager.instance.currentHealth <= 0)
+                StartCoroutine(Die());
         }
     }
     public bool HealPlayer(float health)
@@ -88,5 +91,10 @@ public class PlayerHealth : MonoBehaviour
         }
         vignette.enabled.Override(false);
         yield break;
+    }
+    IEnumerator Die()
+    {
+        yield return new WaitForSeconds(0.2f);
+        SceneManager.LoadScene("1 - Menu");
     }
 }
