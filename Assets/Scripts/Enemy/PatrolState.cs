@@ -14,8 +14,8 @@ public class PatrolState : IEnemyState
     }
     public void UpdateState()
     {
-        FOVRoutine();
         enemy.distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.player.transform.position);
+        FOVRoutine();
         HearingArea();
         Patrol();
     }
@@ -71,6 +71,8 @@ public class PatrolState : IEnemyState
             FieldOfViewCheck();
             fovTimer = 0;
         }
+        if(enemy.distanceToPlayer < 50)
+            SneakIndicatorImageLogic();
     }
     void FieldOfViewCheck()
     {
@@ -86,9 +88,9 @@ public class PatrolState : IEnemyState
                     PlayerMovement playerMovementScript = enemy.player.GetComponent<PlayerMovement>();
                     if(playerMovementScript != null)
                     {
-                        if(enemy.distanceToPlayer < enemy.radius && !playerMovementScript.sneaking)
+                        if (enemy.distanceToPlayer < enemy.radius && !playerMovementScript.sneaking)
                             enemy.canSeePlayer = true;
-                        else if(enemy.distanceToPlayer < enemy.sneakRadius && playerMovementScript.sneaking)
+                        else if (enemy.distanceToPlayer < enemy.sneakRadius && playerMovementScript.sneaking)
                             enemy.canSeePlayer = true;
                     }
                 }
@@ -100,6 +102,11 @@ public class PatrolState : IEnemyState
             enemy.canSeePlayer = false;
         if (enemy.canSeePlayer)
             ToCombatState();
+    }
+    void SneakIndicatorImageLogic()
+    {
+        float t = Mathf.Clamp01(enemy.distanceToPlayer / 50);
+        PlayerManager.instance.sneakIndicatorImage.color = Color.Lerp(enemy.closeColor, enemy.farColor, t);
     }
     void Patrol()
     {

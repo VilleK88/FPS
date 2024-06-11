@@ -88,6 +88,8 @@ public class TrackingState : IEnemyState
             FieldOfViewCheck();
             fovTimer = 0;
         }
+        if (enemy.distanceToPlayer < 50)
+            SneakIndicatorImageLogic();
     }
     void FieldOfViewCheck()
     {
@@ -117,6 +119,11 @@ public class TrackingState : IEnemyState
             enemy.canSeePlayer = false;
         if (enemy.canSeePlayer)
             ToCombatState();
+    }
+    void SneakIndicatorImageLogic()
+    {
+        float t = Mathf.Clamp01(enemy.distanceToPlayer / 50);
+        PlayerManager.instance.sneakIndicatorImage.color = Color.Lerp(enemy.closeColor, enemy.farColor, t);
     }
     void Hunt()
     {

@@ -7664,10 +7664,6 @@ PrefabInstance:
       propertyPath: 'enemies.Array.data[1]'
       value: 
       objectReference: {fileID: 149634728}
-    - target: {fileID: 2050896847, guid: 1650f0e3c15f82048a0ef798e321ceae, type: 3}
-      propertyPath: bloodSplatterEffectPrefab
-      value: 
-      objectReference: {fileID: 8323304687520461810, guid: 77f805b037dd88343b78bfa422f68809, type: 3}
     - target: {fileID: 3068284386404458898, guid: 1650f0e3c15f82048a0ef798e321ceae, type: 3}
       propertyPath: m_Name
       value: UIcanvas

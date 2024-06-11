@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class PlayerManager : MonoBehaviour
 {
     #region Singleton
@@ -22,6 +22,7 @@ public class PlayerManager : MonoBehaviour
     #endregion
     public GameObject player;
     public TextMeshProUGUI sneakIndicatorText;
+    public Image sneakIndicatorImage;
     public GameObject GetPlayer()
     {
         return player;

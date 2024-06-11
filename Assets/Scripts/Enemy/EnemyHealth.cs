@@ -62,6 +62,7 @@ public class EnemyHealth : MonoBehaviour
     void Die()
     {
         StatePatternEnemy enemy = GetComponent<StatePatternEnemy>();
+        enemy.canSeePlayer = false;
         enemy.enabled = false;
         enemy.GetComponentInChildren<Animator>().enabled = false;
         ActivateRagdoll();
@@ -72,6 +73,8 @@ public class EnemyHealth : MonoBehaviour
                 AccountManager.Instance.OnEnemyKilled();
             }
         }
+        if(!EnemyManager.Instance.CanAnyoneSeeThePlayer())
+            PlayerManager.instance.sneakIndicatorImage.color = new Color(0, 0, 0, 0f);
         dead = true;
         healthbar.active = false;
         agent.isStopped = true;

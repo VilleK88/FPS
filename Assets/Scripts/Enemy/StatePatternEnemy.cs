@@ -14,6 +14,8 @@ public class StatePatternEnemy : MonoBehaviour
     public LayerMask targetMask;
     public LayerMask obstructionMask;
     public bool canSeePlayer;
+    public Color closeColor = new Color(0, 0, 0, 1f);
+    public Color farColor = new Color(0, 0, 0, 0f);
     [HideInInspector] public Collider[] rangeChecks;
     [HideInInspector] public Transform target;
     [HideInInspector] public Vector3 directionToTarget;
