@@ -8,7 +8,8 @@ public class StatePatternEnemy : MonoBehaviour
     public int randomEnemyTurn;
     public Vector3 lastKnownPlayerPosition;
     [Header("Field of View")]
-    public float radius = 30;
+    public float radius = 50; // radius enemy is seeing the player if he's not sneaking
+    public float sneakRadius = 30; // radius enemy is seeing the player if he's sneaking
     [Range(0, 360)] public float angle = 140;
     public LayerMask targetMask;
     public LayerMask obstructionMask;

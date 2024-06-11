@@ -103,9 +103,9 @@ public class TrackingState : IEnemyState
                     PlayerMovement playerMovementScript = enemy.player.GetComponent<PlayerMovement>();
                     if (playerMovementScript != null)
                     {
-                        if (enemy.distanceToPlayer < 50 && !playerMovementScript.sneaking)
+                        if (enemy.distanceToPlayer < enemy.radius && !playerMovementScript.sneaking)
                             enemy.canSeePlayer = true;
-                        else if (enemy.distanceToPlayer < 30 && playerMovementScript.sneaking)
+                        else if (enemy.distanceToPlayer < enemy.sneakRadius && playerMovementScript.sneaking)
                             enemy.canSeePlayer = true;
                     }
                 }
