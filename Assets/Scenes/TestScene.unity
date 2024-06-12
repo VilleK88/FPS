@@ -4414,6 +4414,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+      propertyPath: radius
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: randomPatrol
       value: 1
       objectReference: {fileID: 0}
@@ -8846,6 +8850,10 @@ PrefabInstance:
     - target: {fileID: 1041474027568359265, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+      propertyPath: radius
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: randomPatrol
@@ -15195,6 +15203,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+      propertyPath: radius
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: randomPatrol
       value: 1
       objectReference: {fileID: 0}
@@ -15834,6 +15846,10 @@ PrefabInstance:
     - target: {fileID: 1041474027568359265, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+      propertyPath: radius
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: randomPatrol
@@ -18298,6 +18314,10 @@ PrefabInstance:
     - target: {fileID: 1041474027568359265, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+      propertyPath: radius
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: randomPatrol
@@ -21237,6 +21257,10 @@ PrefabInstance:
     - target: {fileID: 1041474027568359265, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+      propertyPath: radius
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: randomPatrol
@@ -33492,7 +33516,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c22777d6e868e4f2fb421913386b154e, type: 2}
+  - {fileID: 2100000, guid: 416af6899aa70884cbc9313c559b8329, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
