@@ -759,7 +759,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 980835708}
+  m_Father: {fileID: 235133206}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9099264 stripped
 Transform:
@@ -1231,7 +1231,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1328,7 +1328,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1838,7 +1838,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -2254,7 +2254,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -2351,7 +2351,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -2723,7 +2723,7 @@ PrefabInstance:
       objectReference: {fileID: 987339884}
     - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: radius
-      value: 30
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: waypoints.Array.size
@@ -2753,6 +2753,10 @@ PrefabInstance:
       propertyPath: 'waypoints.Array.data[5]'
       value: 
       objectReference: {fileID: 1198508146}
+    - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+      propertyPath: hearingPlayerShootRadius
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 1041474027568359582, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: m_Name
       value: Enemy (1)
@@ -2821,7 +2825,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -2988,7 +2992,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -3116,7 +3120,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -3213,7 +3217,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -3416,7 +3420,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -3513,7 +3517,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -3651,7 +3655,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -3845,7 +3849,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -3899,6 +3903,49 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &235133205
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 235133206}
+  m_Layer: 0
+  m_Name: Doors
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &235133206
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235133205}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 672186804}
+  - {fileID: 2184970}
+  - {fileID: 1127588720}
+  - {fileID: 2096357178}
+  - {fileID: 1404697401}
+  - {fileID: 1786400953}
+  - {fileID: 1621397189}
+  - {fileID: 702834196}
+  - {fileID: 1072940713}
+  - {fileID: 315670543}
+  - {fileID: 457058516}
+  - {fileID: 870764068}
+  m_Father: {fileID: 1690570873}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &238975047
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4120,7 +4167,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -4561,6 +4608,10 @@ PrefabInstance:
       propertyPath: 'waypoints.Array.data[6]'
       value: 
       objectReference: {fileID: 1092977148}
+    - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+      propertyPath: hearingPlayerShootRadius
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 1041474027568359582, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: m_Name
       value: Enemy (7)
@@ -5071,12 +5122,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 315670542}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 2.78, y: 10.641431, z: 8.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 980835708}
+  m_Father: {fileID: 235133206}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!64 &315670544
 MeshCollider:
@@ -5803,6 +5854,10 @@ PrefabInstance:
       propertyPath: 'waypoints.Array.data[4]'
       value: 
       objectReference: {fileID: 1023657067}
+    - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+      propertyPath: hearingPlayerShootRadius
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 1041474027568359582, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: m_Name
       value: Enemy (5)
@@ -7156,7 +7211,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -7452,7 +7507,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -7549,7 +7604,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -7993,7 +8048,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -8090,7 +8145,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -8343,12 +8398,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 457058515}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 26.99, y: 10.641431, z: 8.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 980835708}
+  m_Father: {fileID: 235133206}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!64 &457058517
 MeshCollider:
@@ -8930,7 +8985,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -9027,7 +9082,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -9194,7 +9249,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -9751,7 +9806,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -9875,7 +9930,7 @@ PrefabInstance:
       objectReference: {fileID: 987339884}
     - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: radius
-      value: 30
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: waypoints.Array.size
@@ -9905,6 +9960,10 @@ PrefabInstance:
       propertyPath: 'waypoints.Array.data[5]'
       value: 
       objectReference: {fileID: 1198508146}
+    - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+      propertyPath: hearingPlayerShootRadius
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 1041474027568359582, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: m_Name
       value: Enemy (2)
@@ -10348,7 +10407,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -10482,6 +10541,10 @@ PrefabInstance:
       propertyPath: 'waypoints.Array.data[4]'
       value: 
       objectReference: {fileID: 1023657067}
+    - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+      propertyPath: hearingPlayerShootRadius
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 1041474027568359582, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: m_Name
       value: Enemy (6)
@@ -10715,7 +10778,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -10920,7 +10983,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -11017,7 +11080,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -11114,7 +11177,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -12054,7 +12117,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 980835708}
+  m_Father: {fileID: 235133206}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &673975297
 Mesh:
@@ -12362,7 +12425,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -12543,7 +12606,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -13168,7 +13231,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 980835708}
+  m_Father: {fileID: 235133206}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
@@ -14185,7 +14248,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -14943,7 +15006,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -16223,7 +16286,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 980835708}
+  m_Father: {fileID: 235133206}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &881353943
 Mesh:
@@ -16470,7 +16533,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -16567,7 +16630,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -16664,7 +16727,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -17550,7 +17613,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -18036,6 +18099,10 @@ PrefabInstance:
       propertyPath: 'waypoints.Array.data[4]'
       value: 
       objectReference: {fileID: 1023657067}
+    - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+      propertyPath: hearingPlayerShootRadius
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 1041474027568359582, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: m_Name
       value: Enemy (8)
@@ -18162,18 +18229,6 @@ Transform:
   m_Children:
   - {fileID: 2126561703}
   - {fileID: 2006957136}
-  - {fileID: 870764068}
-  - {fileID: 672186804}
-  - {fileID: 2184970}
-  - {fileID: 1127588720}
-  - {fileID: 2096357178}
-  - {fileID: 1404697401}
-  - {fileID: 1786400953}
-  - {fileID: 1621397189}
-  - {fileID: 702834196}
-  - {fileID: 1072940713}
-  - {fileID: 315670543}
-  - {fileID: 457058516}
   m_Father: {fileID: 1690570873}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &981291368
@@ -18644,7 +18699,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -18778,6 +18833,10 @@ PrefabInstance:
       propertyPath: 'waypoints.Array.data[4]'
       value: 
       objectReference: {fileID: 1023657067}
+    - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+      propertyPath: hearingPlayerShootRadius
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 1041474027568359582, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: m_Name
       value: Enemy (3)
@@ -20155,7 +20214,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -20307,12 +20366,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1072940712}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -9.49, y: 10.641431, z: -3.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 980835708}
+  m_Father: {fileID: 235133206}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!64 &1072940714
 MeshCollider:
@@ -21235,6 +21294,10 @@ PrefabInstance:
       propertyPath: 'waypoints.Array.data[4]'
       value: 
       objectReference: {fileID: 1023657067}
+    - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+      propertyPath: hearingPlayerShootRadius
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 1041474027568359582, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: m_Name
       value: Enemy (7)
@@ -21986,7 +22049,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -22611,7 +22674,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 980835708}
+  m_Father: {fileID: 235133206}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1134101596
 GameObject:
@@ -24165,6 +24228,10 @@ PrefabInstance:
       propertyPath: 'waypoints.Array.data[4]'
       value: 
       objectReference: {fileID: 1023657067}
+    - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+      propertyPath: hearingPlayerShootRadius
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 1041474027568359582, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: m_Name
       value: Enemy (4)
@@ -24454,7 +24521,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -25370,7 +25437,7 @@ PrefabInstance:
       objectReference: {fileID: 987339884}
     - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: radius
-      value: 30
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: waypoints.Array.size
@@ -25400,6 +25467,10 @@ PrefabInstance:
       propertyPath: 'waypoints.Array.data[5]'
       value: 
       objectReference: {fileID: 1198508146}
+    - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+      propertyPath: hearingPlayerShootRadius
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 1041474027568359582, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: m_Name
       value: Enemy (4)
@@ -27386,7 +27457,7 @@ PrefabInstance:
       objectReference: {fileID: 987339884}
     - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: radius
-      value: 30
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: waypoints.Array.size
@@ -27416,6 +27487,10 @@ PrefabInstance:
       propertyPath: 'waypoints.Array.data[5]'
       value: 
       objectReference: {fileID: 1198508146}
+    - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+      propertyPath: hearingPlayerShootRadius
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 1041474027568359582, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: m_Name
       value: Enemy (3)
@@ -27860,7 +27935,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -28537,6 +28612,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3620132177701510139, guid: 0d46a1b42c9de164db01d6a88134508c, type: 3}
   m_PrefabInstance: {fileID: 1356616594}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1360670711 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 380693321, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
+  m_PrefabInstance: {fileID: 7136351547511556535}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1361149976
 GameObject:
   m_ObjectHideFlags: 0
@@ -28963,7 +29043,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -29805,7 +29885,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 980835708}
+  m_Father: {fileID: 235133206}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1408211406
 GameObject:
@@ -30090,7 +30170,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -30678,7 +30758,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -31905,7 +31985,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -32331,7 +32411,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -33336,7 +33416,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -34313,7 +34393,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 980835708}
+  m_Father: {fileID: 235133206}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1644784166
 GameObject:
@@ -35424,6 +35504,7 @@ Transform:
   - {fileID: 803276130}
   - {fileID: 980835708}
   - {fileID: 965370168}
+  - {fileID: 235133206}
   m_Father: {fileID: 1361149977}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1700633422
@@ -35469,7 +35550,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -39469,7 +39550,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -40414,7 +40495,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 980835708}
+  m_Father: {fileID: 235133206}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1794062503
 Mesh:
@@ -41474,7 +41555,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -41571,7 +41652,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -41668,7 +41749,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -41765,7 +41846,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -41862,7 +41943,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -42025,6 +42106,10 @@ PrefabInstance:
       propertyPath: 'waypoints.Array.data[6]'
       value: 
       objectReference: {fileID: 1092977148}
+    - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+      propertyPath: hearingPlayerShootRadius
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 1041474027568359582, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: m_Name
       value: Enemy (6)
@@ -42093,7 +42178,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -42872,7 +42957,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -43474,6 +43559,10 @@ PrefabInstance:
       propertyPath: 'waypoints.Array.data[6]'
       value: 
       objectReference: {fileID: 1092977148}
+    - target: {fileID: 1041474027568359270, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
+      propertyPath: hearingPlayerShootRadius
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 1041474027568359582, guid: bb9372e0f5f0e26449e0a894139f0c7f, type: 3}
       propertyPath: m_Name
       value: Enemy (5)
@@ -43542,7 +43631,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -44314,7 +44403,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -45187,7 +45276,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 0.97495157, b: 0.8254717, a: 1}
-  m_Intensity: 1.64
+  m_Intensity: 1
   m_Range: 11.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -46051,7 +46140,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 980835708}
+  m_Father: {fileID: 235133206}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2117129636
 PrefabInstance:
@@ -47553,6 +47642,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 380693321, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7136351547337792650, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
       propertyPath: m_LocalPosition.x
       value: -40.68
@@ -47609,6 +47702,10 @@ PrefabInstance:
       propertyPath: m_RenderingPath
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7136351547511556538, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
+      propertyPath: postProcessGO
+      value: 
+      objectReference: {fileID: 1360670711}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

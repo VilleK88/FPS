@@ -38,7 +38,7 @@ public class StatePatternEnemy : MonoBehaviour
     public string bulletTarget = "Player";
     public bool readyToShoot = true;
     public float shootingDelay = 0.3f;
-    public float hearingPlayerShootRadius = 30f;
+    public float hearingPlayerShootRadius = 40f;
     public EnemyHealth enemyHealth;
     [HideInInspector] public GameObject player;
     [HideInInspector] public IEnemyState currentState; // current state is defined here

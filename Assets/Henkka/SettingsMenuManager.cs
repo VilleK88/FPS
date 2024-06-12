@@ -107,6 +107,17 @@ public class SettingsMenuManager : MonoBehaviour
     {
         PlayerPrefs.SetFloat(SensitivityPrefKey, mouseSensitivity);
         PlayerPrefs.Save();
+        if (PlayerManager.instance != null)
+        {
+            player = PlayerManager.instance.GetPlayer();
+            if (player != null)
+            {
+                mouseLookScript = player.GetComponentInChildren<MouseLook>();
+                if (mouseLookScript != null)
+                    mouseLookScript.mouseSensitivity = mouseSensitivity;
+            }
+        }
+
     }
     void LoadSensitivity()
     {

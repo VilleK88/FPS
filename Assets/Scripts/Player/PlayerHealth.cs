@@ -17,10 +17,10 @@ public class PlayerHealth : MonoBehaviour
         HealthUIManager.Instance.UpdateHealthBar();
         volume = postProcessGO.GetComponent<PostProcessVolume>();
         volume.profile.TryGetSettings<Vignette>(out vignette);
-        if (!vignette)
+        /*if (!vignette)
             print("Error, vignette empty");
         else
-            vignette.enabled.Override(false);
+            vignette.enabled.Override(false);*/
     }
     private void Update()
     {
@@ -77,6 +77,8 @@ public class PlayerHealth : MonoBehaviour
     }
     IEnumerator DamageEffect()
     {
+        ChangeVignetteColorToRed();
+        ChangeVignetteSmoothness(1);
         intensity = 0.4f;
         vignette.enabled.Override(true);
         vignette.intensity.Override(0.1f); // 0.4f original
@@ -90,7 +92,21 @@ public class PlayerHealth : MonoBehaviour
             yield return new WaitForSeconds(0.1f); // 0.1f original
         }
         vignette.enabled.Override(false);
+        ChangeVignetteColorToBlack();
+        ChangeVignetteSmoothness(0.4f);
         yield break;
+    }
+    void ChangeVignetteColorToRed()
+    {
+        vignette.color.Override(new Color32(172, 0, 0, 255));
+    }
+    void ChangeVignetteColorToBlack()
+    {
+        vignette.color.Override(Color.black);
+    }
+    void ChangeVignetteSmoothness(float smoothness)
+    {
+        vignette.smoothness.Override(smoothness);
     }
     IEnumerator Die()
     {
