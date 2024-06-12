@@ -540,7 +540,7 @@ MonoBehaviour:
   searchDuration: 4
   randomEnemyTurn: 0
   lastKnownPlayerPosition: {x: 0, y: 0, z: 0}
-  radius: 30
+  radius: 40
   sneakRadius: 20
   battleRadius: 50
   angle: 120
@@ -557,6 +557,9 @@ MonoBehaviour:
   target: {fileID: 0}
   directionToTarget: {x: 0, y: 0, z: 0}
   distanceToPlayer: 0
+  canSeePlayerTimer: 0
+  canSeePlayerMaxTime: 1.5
+  playerMovementScript: {fileID: 0}
   waypoints:
   - {fileID: 0}
   - {fileID: 0}

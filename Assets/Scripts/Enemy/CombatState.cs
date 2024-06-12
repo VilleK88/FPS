@@ -83,12 +83,12 @@ public class CombatState : IEnemyState
             {
                 if (!Physics.Raycast(enemy.transform.position, enemy.directionToTarget, enemy.distanceToPlayer, enemy.obstructionMask))
                 {
-                    PlayerMovement playerMovementScript = enemy.player.GetComponent<PlayerMovement>();
-                    if (playerMovementScript != null)
+                    enemy.playerMovementScript = enemy.player.GetComponent<PlayerMovement>();
+                    if (enemy.playerMovementScript != null)
                     {
-                        if (enemy.distanceToPlayer < enemy.battleRadius && !playerMovementScript.sneaking)
+                        if (enemy.distanceToPlayer < enemy.battleRadius && !enemy.playerMovementScript.sneaking)
                             enemy.canSeePlayer = true;
-                        else if (enemy.distanceToPlayer < enemy.radius && playerMovementScript.sneaking)
+                        else if (enemy.distanceToPlayer < enemy.radius && enemy.playerMovementScript.sneaking)
                             enemy.canSeePlayer = true;
                     }
                 }

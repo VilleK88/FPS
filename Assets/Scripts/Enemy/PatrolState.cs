@@ -18,6 +18,15 @@ public class PatrolState : IEnemyState
         FOVRoutine();
         HearingArea();
         Patrol();
+        if (enemy.canSeePlayer)
+        {
+            if (!enemy.playerMovementScript.sneaking)
+                ToCombatState();
+            else if (enemy.canSeePlayerTimer < enemy.canSeePlayerMaxTime)
+                enemy.canSeePlayerTimer += Time.deltaTime;
+            else
+                ToCombatState();
+        }
     }
     public void OnTriggerEnter(Collider other)
     {
@@ -40,6 +49,7 @@ public class PatrolState : IEnemyState
     {
         enemy.lastKnownPlayerPosition = enemy.player.transform.position;
         EnemyManager.Instance.indicatorImage.enabled = true;
+        enemy.canSeePlayerTimer = 0;
         if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
             EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.alertImage;
         enemy.currentState = enemy.alertState;
@@ -50,6 +60,7 @@ public class PatrolState : IEnemyState
         enemy.agent.speed = enemy.runningSpeed;
         EnemyManager.Instance.indicatorImage.enabled = true;
         EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.combatImage;
+        enemy.canSeePlayerTimer = 0;
         enemy.currentState = enemy.combatState;
     }
     public void ToPatrolState()
@@ -58,7 +69,8 @@ public class PatrolState : IEnemyState
     public void ToTrackingState()
     {
         EnemyManager.Instance.indicatorImage.enabled = true;
-        if(!EnemyManager.Instance.CanAnyoneSeeThePlayer())
+        enemy.canSeePlayerTimer = 0;
+        if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
             EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.trackingImage;
         enemy.currentState = enemy.trackingState;
     }
@@ -85,12 +97,12 @@ public class PatrolState : IEnemyState
             {
                 if (!Physics.Raycast(enemy.transform.position, enemy.directionToTarget, enemy.distanceToPlayer, enemy.obstructionMask))
                 {
-                    PlayerMovement playerMovementScript = enemy.player.GetComponent<PlayerMovement>();
-                    if(playerMovementScript != null)
+                    enemy.playerMovementScript = enemy.player.GetComponent<PlayerMovement>();
+                    if(enemy.playerMovementScript != null)
                     {
-                        if (enemy.distanceToPlayer < enemy.radius && !playerMovementScript.sneaking)
+                        if (enemy.distanceToPlayer < enemy.radius && !enemy.playerMovementScript.sneaking)
                             enemy.canSeePlayer = true;
-                        else if (enemy.distanceToPlayer < enemy.sneakRadius && playerMovementScript.sneaking)
+                        else if (enemy.distanceToPlayer < enemy.sneakRadius && enemy.playerMovementScript.sneaking)
                             enemy.canSeePlayer = true;
                     }
                 }
@@ -100,8 +112,8 @@ public class PatrolState : IEnemyState
         }
         else if (enemy.canSeePlayer)
             enemy.canSeePlayer = false;
-        if (enemy.canSeePlayer)
-            ToCombatState();
+        //if (enemy.canSeePlayer)
+            //ToCombatState();
     }
     void SneakIndicatorImageLogic()
     {

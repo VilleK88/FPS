@@ -21,6 +21,9 @@ public class StatePatternEnemy : MonoBehaviour
     [HideInInspector] public Transform target;
     [HideInInspector] public Vector3 directionToTarget;
     public float distanceToPlayer;
+    public float canSeePlayerTimer = 0;
+    public float canSeePlayerMaxTime = 2f;
+    public PlayerMovement playerMovementScript;
     [Header("Patrol")]
     public Transform[] waypoints;
     public bool randomPatrol = false;
