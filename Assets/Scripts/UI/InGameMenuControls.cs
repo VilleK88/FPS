@@ -76,12 +76,15 @@ public class InGameMenuControls : MonoBehaviour
     }
     public void SaveGame()
     {
-        SaveSceneID();
-        player.GetComponent<Player>().SavePlayerTransformPosition();
-        InventoryManager.instance.SaveInventory();
-        InventoryManager.instance.SaveHowManyBulletsLeftInMagazine();
-        EnemyManager.Instance.SaveEnemiesData();
-        GameManager.instance.Save();
+        if(!EnemyManager.Instance.CanAnyoneSeeThePlayer())
+        {
+            SaveSceneID();
+            player.GetComponent<Player>().SavePlayerTransformPosition();
+            InventoryManager.instance.SaveInventory();
+            InventoryManager.instance.SaveHowManyBulletsLeftInMagazine();
+            EnemyManager.Instance.SaveEnemiesData();
+            GameManager.instance.Save();
+        }
     }
     public void LoadGame()
     {

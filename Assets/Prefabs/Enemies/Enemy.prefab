@@ -540,7 +540,7 @@ MonoBehaviour:
   searchDuration: 4
   randomEnemyTurn: 0
   lastKnownPlayerPosition: {x: 0, y: 0, z: 0}
-  radius: 40
+  radius: 30
   sneakRadius: 20
   battleRadius: 50
   angle: 120
@@ -561,6 +561,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   randomPatrol: 1
   walkSpeed: 3.5
   runningSpeed: 5
@@ -569,7 +572,7 @@ MonoBehaviour:
   muzzleFlash: {fileID: 1042445451261514066}
   bulletVelocity: 300
   spreadIntensity: 2
-  bulletDamage: 3
+  bulletDamage: 4
   bulletTarget: Player
   readyToShoot: 1
   shootingDelay: 0.1
