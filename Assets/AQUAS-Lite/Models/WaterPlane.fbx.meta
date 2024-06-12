@@ -85,3 +85,10 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 53519
+  packageName: AQUAS Water LITE
+  packageVersion: 1.2.1
+  assetPath: Assets/AQUAS-Lite/Models/WaterPlane.fbx
+  uploadId: 335520
