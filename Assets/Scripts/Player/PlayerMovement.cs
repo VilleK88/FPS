@@ -47,8 +47,12 @@ public class PlayerMovement : MonoBehaviour
             else
                 StopSneaking();
         }
-        if (Input.GetKey(KeyCode.LeftShift) && !sneaking)
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
             speed = runningSpeed;
+            if (sneaking)
+                StopSneaking();
+        }
         else if(!sneaking)
             speed = originalSpeed;
         x = Input.GetAxis("Horizontal");
