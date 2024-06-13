@@ -33162,12 +33162,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1103164941}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.4136877, y: 3.4831338, z: -55.919456}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1690570873}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1111840445 stripped
 Transform:
@@ -50856,6 +50856,7 @@ Transform:
   - {fileID: 980835708}
   - {fileID: 965370168}
   - {fileID: 235133206}
+  - {fileID: 1103164947}
   m_Father: {fileID: 1361149977}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1700633422
@@ -62648,6 +62649,22 @@ PrefabInstance:
       propertyPath: 'enemies.Array.data[16]'
       value: 
       objectReference: {fileID: 974166067}
+    - target: {fileID: 1168594968941996965, guid: 1650f0e3c15f82048a0ef798e321ceae, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1168594968941996965, guid: 1650f0e3c15f82048a0ef798e321ceae, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1168594968941996965, guid: 1650f0e3c15f82048a0ef798e321ceae, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1168594968941996965, guid: 1650f0e3c15f82048a0ef798e321ceae, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3068284386404458898, guid: 1650f0e3c15f82048a0ef798e321ceae, type: 3}
       propertyPath: m_Name
       value: UIcanvas
@@ -63295,4 +63312,3 @@ SceneRoots:
   - {fileID: 312709261}
   - {fileID: 424733219}
   - {fileID: 122027608}
-  - {fileID: 1103164947}

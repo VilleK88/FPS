@@ -22,12 +22,19 @@ public class TrackingState : IEnemyState
         Hunt();
         if (enemy.canSeePlayer)
         {
+            DetectionTimeUI();
             if (!enemy.playerMovementScript.sneaking)
                 ToCombatState();
             else if(enemy.canSeePlayerTimer < enemy.canSeePlayerMaxTime)
                 enemy.canSeePlayerTimer += Time.deltaTime;
             else
                 ToCombatState();
+        }
+        else if (!enemy.canSeePlayer && enemy.canSeePlayerTimer != 0)
+        {
+            enemy.canSeePlayerTimer = 0;
+            if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
+                PlayerManager.instance.sneakIndicatorImage.color = new Color(0f, 0f, 0f, 0f);
         }
     }
     public void OnTriggerEnter(Collider other)
@@ -100,8 +107,6 @@ public class TrackingState : IEnemyState
             FieldOfViewCheck();
             fovTimer = 0;
         }
-        if (enemy.distanceToPlayer < 50)
-            SneakIndicatorImageLogic();
     }
     void FieldOfViewCheck()
     {
@@ -129,13 +134,11 @@ public class TrackingState : IEnemyState
         }
         else if (enemy.canSeePlayer)
             enemy.canSeePlayer = false;
-        //if (enemy.canSeePlayer)
-            //ToCombatState();
     }
-    void SneakIndicatorImageLogic()
+    void DetectionTimeUI()
     {
-        float t = Mathf.Clamp01(enemy.distanceToPlayer / 50);
-        PlayerManager.instance.sneakIndicatorImage.color = Color.Lerp(enemy.closeColor, enemy.farColor, t);
+        float alpha = Mathf.Clamp01(enemy.canSeePlayerTimer / enemy.canSeePlayerMaxTime);
+        PlayerManager.instance.sneakIndicatorImage.color = new Color(0f + alpha, 0f + alpha, 0f + alpha, 1f);
     }
     void Hunt()
     {

@@ -73,8 +73,11 @@ public class EnemyHealth : MonoBehaviour
                 AccountManager.Instance.OnEnemyKilled();
             }
         }
-        if(!EnemyManager.Instance.CanAnyoneSeeThePlayer())
-            PlayerManager.instance.sneakIndicatorImage.color = new Color(0, 0, 0, 0f);
+        if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
+        {
+            PlayerManager.instance.sneakIndicatorImage.color = new Color(0f, 0f, 0f, 0f);
+            EnemyManager.Instance.indicatorImage.enabled = false;
+        }
         dead = true;
         healthbar.active = false;
         agent.isStopped = true;

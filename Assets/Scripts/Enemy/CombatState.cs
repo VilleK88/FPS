@@ -37,7 +37,10 @@ public class CombatState : IEnemyState
         enemy.agent.speed = enemy.walkSpeed;
         EnemyManager.Instance.indicatorImage.enabled = true;
         if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
+        {
             EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.alertImage;
+            PlayerManager.instance.sneakIndicatorImage.color = new Color(0f, 0f, 0f, 0f);
+        }
         enemy.currentState = enemy.alertState;
     }
     public void ToCombatState()
@@ -56,7 +59,10 @@ public class CombatState : IEnemyState
         enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
         EnemyManager.Instance.indicatorImage.enabled = true;
         if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
+        {
             EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.trackingImage;
+            PlayerManager.instance.sneakIndicatorImage.color = new Color(0f, 0f, 0f, 0f);
+        }
         enemy.lastKnownPlayerPosition = enemy.player.transform.position;
         enemy.currentState = enemy.trackingState;
     }
@@ -69,8 +75,6 @@ public class CombatState : IEnemyState
             FieldOfViewCheck();
             fovTimer = 0;
         }
-        if (enemy.distanceToPlayer < 50)
-            SneakIndicatorImageLogic();
     }
     void FieldOfViewCheck()
     {
@@ -105,11 +109,6 @@ public class CombatState : IEnemyState
         }
         else
             ToTrackingState();
-    }
-    void SneakIndicatorImageLogic()
-    {
-        float t = Mathf.Clamp01(enemy.distanceToPlayer / 50);
-        PlayerManager.instance.sneakIndicatorImage.color = Color.Lerp(enemy.closeColor, enemy.farColor, t);
     }
     void Chase()
     {
