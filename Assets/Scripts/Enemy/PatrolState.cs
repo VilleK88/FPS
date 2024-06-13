@@ -90,8 +90,6 @@ public class PatrolState : IEnemyState
             FieldOfViewCheck();
             fovTimer = 0;
         }
-        //if(enemy.distanceToPlayer < 50)
-            //SneakIndicatorImageLogic();
     }
     void FieldOfViewCheck()
     {
@@ -117,13 +115,6 @@ public class PatrolState : IEnemyState
                     enemy.canSeePlayer = false;
             }
         }
-        else if (enemy.canSeePlayer)
-            enemy.canSeePlayer = false;
-    }
-    void SneakIndicatorImageLogic()
-    {
-        float t = Mathf.Clamp01(enemy.distanceToPlayer / 50);
-        PlayerManager.instance.sneakIndicatorImage.color = Color.Lerp(enemy.closeColor, enemy.farColor, t);
     }
     void DetectionTimeUI()
     {

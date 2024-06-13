@@ -547,6 +547,9 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 128
+  secondTargetMask:
+    serializedVersion: 2
+    m_Bits: 512
   obstructionMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -554,9 +557,13 @@ MonoBehaviour:
   closeColor: {r: 0.4716981, g: 0, b: 0, a: 1}
   farColor: {r: 0.4745098, g: 0, b: 0, a: 0}
   rangeChecks: []
+  secondaryRangeChecks: []
   target: {fileID: 0}
+  secondaryTarget: {fileID: 0}
   directionToTarget: {x: 0, y: 0, z: 0}
+  directionToSecondaryTarget: {x: 0, y: 0, z: 0}
   distanceToPlayer: 0
+  distanceToSecondaryTarget: 0
   canSeePlayerTimer: 0
   canSeePlayerMaxTime: 1.5
   playerMovementScript: {fileID: 0}
@@ -601,6 +608,8 @@ MonoBehaviour:
   healthBarFill: {fileID: 523350965}
   showHealthCounter: 2
   takingHit: 0
+  dead: 0
+  body: {fileID: 6378709734291913174}
 --- !u!1001 &1041474028577971242
 PrefabInstance:
   m_ObjectHideFlags: 0

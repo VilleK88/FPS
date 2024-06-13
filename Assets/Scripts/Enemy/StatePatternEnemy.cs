@@ -12,7 +12,7 @@ public class StatePatternEnemy : MonoBehaviour
     public float sneakRadius = 20; // radius enemy is seeing the player if he's sneaking
     public float battleRadius = 50;
     [Range(0, 360)] public float angle = 140;
-    public LayerMask targetMask;
+    public LayerMask targetMask; // player
     public LayerMask obstructionMask;
     public bool canSeePlayer;
     public Color closeColor = new Color(0, 0, 0, 1f);
@@ -27,7 +27,7 @@ public class StatePatternEnemy : MonoBehaviour
     [Header("Patrol")]
     public Transform[] waypoints;
     public bool randomPatrol = false;
-    float callReinforcementsDistance = 30;
+    float callReinforcementsDistance = 35;
     [Header("Move Speed")]
     public float walkSpeed = 3.5f;
     public float runningSpeed = 5f;
@@ -107,14 +107,18 @@ public class StatePatternEnemy : MonoBehaviour
         {
             Transform enemyTransform = enemy.transform;
             StatePatternEnemy stateEnemy = enemy.GetComponent<StatePatternEnemy>();
-            if(enemyTransform != null && stateEnemy != null)
+            EnemyHealth enemyHealthScript = enemy.GetComponent<EnemyHealth>();
+            if(enemyTransform != null && stateEnemy != null && enemyHealthScript != null)
             {
-                float distance = Vector3.Distance(transform.position, enemyTransform.position);
-                if(distance < callReinforcementsDistance)
+                if(!enemyHealthScript.dead)
                 {
-                    stateEnemy.lastKnownPlayerPosition = stateEnemy.player.transform.position;
-                    stateEnemy.GetComponentInChildren<Animator>().SetBool("WalkAiming", false);
-                    stateEnemy.currentState = stateEnemy.combatState;
+                    float distance = Vector3.Distance(transform.position, enemyTransform.position);
+                    if (distance < callReinforcementsDistance)
+                    {
+                        stateEnemy.lastKnownPlayerPosition = stateEnemy.player.transform.position;
+                        stateEnemy.GetComponentInChildren<Animator>().SetBool("WalkAiming", false);
+                        stateEnemy.currentState = stateEnemy.combatState;
+                    }
                 }
             }
         }
