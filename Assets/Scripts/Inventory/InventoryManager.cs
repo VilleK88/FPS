@@ -202,6 +202,8 @@ public class InventoryManager : MonoBehaviour
                             weaponSlots[i].SetActive(!weaponSlots[i].activeSelf);
                             inventoryData.activeWeapon = index;
                             weaponSlots[i].GetComponent<Weapon>().UpdateTotalAmmoStatus();
+                            if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.Shotgun)
+                                weaponSlots[i].GetComponent<Weapon>().anim.SetTrigger("Equip");
                         }
                         else
                         {
