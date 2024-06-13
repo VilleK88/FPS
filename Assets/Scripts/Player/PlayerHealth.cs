@@ -81,7 +81,7 @@ public class PlayerHealth : MonoBehaviour
         ChangeVignetteSmoothness(1);
         intensity = 0.4f;
         vignette.enabled.Override(true);
-        vignette.intensity.Override(0.1f); // 0.4f original
+        vignette.intensity.Override(0.4f); // 0.4f original
         yield return new WaitForSeconds(0.1f); // 0.4f original
         while(intensity > 0)
         {
