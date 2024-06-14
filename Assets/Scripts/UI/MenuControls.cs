@@ -25,6 +25,7 @@ public class MenuControls : MonoBehaviour
         GameManager.instance.loadPlayerPosition = false;
         //GameManager.instance.loadInventory = false;
         SceneManager.LoadScene("TestScene");
+        Time.timeScale = 1f;
     }
     public void ClearTablesInGameManager()
     {
@@ -37,6 +38,7 @@ public class MenuControls : MonoBehaviour
         GameManager.instance.loadPlayerPosition = true;
         GameManager.instance.Load();
         LoadSceneID();
+        Time.timeScale = 1f;
     }
     public void LoadSceneID()
     {

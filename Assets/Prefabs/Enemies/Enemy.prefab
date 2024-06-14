@@ -399,7 +399,6 @@ GameObject:
   - component: {fileID: 1041474027568359271}
   - component: {fileID: 1041474027568359268}
   - component: {fileID: 1041474027568359269}
-  - component: {fileID: 1041474027568359266}
   - component: {fileID: 1041474027568359264}
   - component: {fileID: 1041474027568359270}
   - component: {fileID: 1041474027577360227}
@@ -504,47 +503,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1041474027568359266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1041474027568359582}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5db513ee9d984da45bcb1536ba01c9a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 0}
-  radius: 20
-  angle: 140
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 128
-  obstructionMask:
-    serializedVersion: 2
-    m_Bits: 0
-  canSeePlayer: 0
-  isAgro: 0
-  agroCounter: 0
-  distanceToPlayer: 0
-  stoppingDistance: 5
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  waypointCounter: 0
-  randomPatrol: 0
-  disturbance: 0
-  lookAtDisturbanceCounter: 0
-  lookAroundCounter: 0
-  startRotation: {x: 0, y: 0, z: 0, w: 0}
-  currentRotation: {x: 0, y: 0, z: 0, w: 0}
-  startRotationY: 0
-  currentRotationY: 0
-  disturbanceTimes: 0
-  disturbanceTimesCount: 10
 --- !u!195 &1041474027568359264
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -583,6 +541,8 @@ MonoBehaviour:
   randomEnemyTurn: 0
   lastKnownPlayerPosition: {x: 0, y: 0, z: 0}
   radius: 50
+  sneakRadius: 20
+  battleRadius: 60
   angle: 120
   targetMask:
     serializedVersion: 2
@@ -591,15 +551,23 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   canSeePlayer: 0
+  closeColor: {r: 0.4716981, g: 0, b: 0, a: 1}
+  farColor: {r: 0.4745098, g: 0, b: 0, a: 0}
   rangeChecks: []
   target: {fileID: 0}
   directionToTarget: {x: 0, y: 0, z: 0}
   distanceToPlayer: 0
+  canSeePlayerTimer: 0
+  canSeePlayerMaxTime: 1.5
+  playerMovementScript: {fileID: 0}
   waypoints:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  randomPatrol: 0
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  randomPatrol: 1
   walkSpeed: 3.5
   runningSpeed: 5
   shootingPoint: {fileID: 722350217}
@@ -607,11 +575,11 @@ MonoBehaviour:
   muzzleFlash: {fileID: 1042445451261514066}
   bulletVelocity: 300
   spreadIntensity: 2
-  bulletDamage: 1
+  bulletDamage: 4
   bulletTarget: Player
   readyToShoot: 1
   shootingDelay: 0.1
-  hearingPlayerShootRadius: 80
+  hearingPlayerShootRadius: 30
   enemyHealth: {fileID: 0}
   player: {fileID: 0}
   agent: {fileID: 0}
@@ -633,6 +601,8 @@ MonoBehaviour:
   healthBarFill: {fileID: 523350965}
   showHealthCounter: 2
   takingHit: 0
+  dead: 0
+  body: {fileID: 6378709734291913174}
 --- !u!1001 &1041474028577971242
 PrefabInstance:
   m_ObjectHideFlags: 0

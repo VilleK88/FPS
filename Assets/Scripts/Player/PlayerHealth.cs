@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.SceneManagement;
 public class PlayerHealth : MonoBehaviour
 {
     public GameObject postProcessGO;
@@ -16,10 +17,10 @@ public class PlayerHealth : MonoBehaviour
         HealthUIManager.Instance.UpdateHealthBar();
         volume = postProcessGO.GetComponent<PostProcessVolume>();
         volume.profile.TryGetSettings<Vignette>(out vignette);
-        if (!vignette)
+        /*if (!vignette)
             print("Error, vignette empty");
         else
-            vignette.enabled.Override(false);
+            vignette.enabled.Override(false);*/
     }
     private void Update()
     {
@@ -30,11 +31,13 @@ public class PlayerHealth : MonoBehaviour
     }
     public void TakeDamage(float damage)
     {
-        if(GameManager.instance.currentHealth > 0)
+        if (GameManager.instance.currentHealth > 0)
         {
-            GameManager.instance.currentHealth -= damage -armorMultiplier;
+            GameManager.instance.currentHealth -= damage - armorMultiplier;
             HealthUIManager.Instance.UpdateHealthBar();
             StartCoroutine(DamageEffect());
+            if (GameManager.instance.currentHealth <= 0)
+                StartCoroutine(Die());
         }
     }
     public bool HealPlayer(float health)
@@ -74,9 +77,11 @@ public class PlayerHealth : MonoBehaviour
     }
     IEnumerator DamageEffect()
     {
+        ChangeVignetteColorToRed();
+        ChangeVignetteSmoothness(1);
         intensity = 0.4f;
         vignette.enabled.Override(true);
-        vignette.intensity.Override(0.1f); // 0.4f original
+        vignette.intensity.Override(0.4f); // 0.4f original
         yield return new WaitForSeconds(0.1f); // 0.4f original
         while(intensity > 0)
         {
@@ -87,6 +92,25 @@ public class PlayerHealth : MonoBehaviour
             yield return new WaitForSeconds(0.1f); // 0.1f original
         }
         vignette.enabled.Override(false);
+        ChangeVignetteColorToBlack();
+        ChangeVignetteSmoothness(0.4f);
         yield break;
+    }
+    void ChangeVignetteColorToRed()
+    {
+        vignette.color.Override(new Color32(172, 0, 0, 255));
+    }
+    void ChangeVignetteColorToBlack()
+    {
+        vignette.color.Override(Color.black);
+    }
+    void ChangeVignetteSmoothness(float smoothness)
+    {
+        vignette.smoothness.Override(smoothness);
+    }
+    IEnumerator Die()
+    {
+        yield return new WaitForSeconds(0.2f);
+        SceneManager.LoadScene("1 - Menu");
     }
 }

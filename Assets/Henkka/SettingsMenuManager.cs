@@ -6,6 +6,16 @@ using UnityEngine.Audio;
 using TMPro;
 public class SettingsMenuManager : MonoBehaviour
 {
+    #region Singleton
+    public static SettingsMenuManager Instance;
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+            Destroy(this);
+        else
+            Instance = this;
+    }
+    #endregion
     public GameObject SettingsMenu;
     [Header("Resolution")]
     public TMP_Dropdown resolutionDropdown;
@@ -13,6 +23,12 @@ public class SettingsMenuManager : MonoBehaviour
     [Header("Sound")]
     public Slider masterVol, musicVol, sfxVol;
     public AudioMixer MainAudioMixer;
+    [Header("Mouse Sensitivity")]
+    public float mouseSensitivity;
+    public Slider mouseSensitivitySlider;
+    private const string SensitivityPrefKey = "MouseSensitivity";
+    GameObject player;
+    MouseLook mouseLookScript;
     private void Start()
     {
         masterVol.value = PlayerPrefs.GetFloat("MasterVolume", masterVol.value);
@@ -38,6 +54,22 @@ public class SettingsMenuManager : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
+        LoadSensitivity();
+        if(mouseSensitivitySlider != null)
+        {
+            mouseSensitivitySlider.value = mouseSensitivity;
+            mouseSensitivitySlider.onValueChanged.AddListener(OnSensivityChanged);
+        }
+        if(PlayerManager.instance != null)
+        {
+            player = PlayerManager.instance.GetPlayer();
+            if (player != null)
+            {
+                mouseLookScript = player.GetComponentInChildren<MouseLook>();
+                if (mouseLookScript != null)
+                    mouseLookScript.mouseSensitivity = mouseSensitivity;
+            }
+        }
     }
     public void ChangeMasterVolume()
     {
@@ -64,5 +96,32 @@ public class SettingsMenuManager : MonoBehaviour
     public void SetFullScreen(bool isFullScreen)
     {
         Screen.fullScreen = isFullScreen;
+    }
+    void OnSensivityChanged(float value)
+    {
+        mouseSensitivity = value;
+        SaveSensitivity();
+
+    }
+    void SaveSensitivity()
+    {
+        PlayerPrefs.SetFloat(SensitivityPrefKey, mouseSensitivity);
+        PlayerPrefs.Save();
+        if (PlayerManager.instance != null)
+        {
+            player = PlayerManager.instance.GetPlayer();
+            if (player != null)
+            {
+                mouseLookScript = player.GetComponentInChildren<MouseLook>();
+                if (mouseLookScript != null)
+                    mouseLookScript.mouseSensitivity = mouseSensitivity;
+            }
+        }
+
+    }
+    void LoadSensitivity()
+    {
+        if (PlayerPrefs.HasKey(SensitivityPrefKey))
+            mouseSensitivity = PlayerPrefs.GetFloat(SensitivityPrefKey);
     }
 }

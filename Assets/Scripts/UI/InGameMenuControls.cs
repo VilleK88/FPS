@@ -63,25 +63,35 @@ public class InGameMenuControls : MonoBehaviour
             InventoryManager.instance.HolsterWeapons();
             menuButtons.SetActive(!menuButtons.activeSelf);
             if (menuButtons.activeSelf)
+            {
                 saveButton.Select();
+                InventoryManager.instance.PauseGame();
+            }
             else
+            {
                 InventoryManager.instance.DrawActiveWeapon();
+                InventoryManager.instance.StopPause();
+            }
         }
     }
     public void SaveGame()
     {
-        SaveSceneID();
-        player.GetComponent<Player>().SavePlayerTransformPosition();
-        InventoryManager.instance.SaveInventory();
-        InventoryManager.instance.SaveHowManyBulletsLeftInMagazine();
-        EnemyManager.Instance.SaveEnemiesData();
-        GameManager.instance.Save();
+        if(!EnemyManager.Instance.CanAnyoneSeeThePlayer())
+        {
+            SaveSceneID();
+            player.GetComponent<Player>().SavePlayerTransformPosition();
+            InventoryManager.instance.SaveInventory();
+            InventoryManager.instance.SaveHowManyBulletsLeftInMagazine();
+            EnemyManager.Instance.SaveEnemiesData();
+            GameManager.instance.Save();
+        }
     }
     public void LoadGame()
     {
         ClearAndDestroyInventory();
         GameManager.instance.Load();
         LoadSceneID();
+        Time.timeScale = 1f;
     }
     public void SaveSceneID()
     {

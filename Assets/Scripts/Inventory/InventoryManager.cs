@@ -41,6 +41,7 @@ public class InventoryManager : MonoBehaviour
     public List<int> weaponIDsList = new List<int>();
     public Button selectSlot; // for keyboard use
     public InventoryItem tempInventoryItem; // for keyboard use
+    public bool isPaused;
     private void Start()
     {
         inventorySlotsUI = new InventorySlot[20];
@@ -69,13 +70,27 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab))
         {
             if (closed)
+            {
                 OpenInventory();
+                PauseGame();
+            }
             else
+            {
                 CloseInventory();
+                StopPause();
+            }
         }
         if (!closed || InGameMenuControls.instance.menuButtons.activeSelf)
             return;
         EquipWeapon();
+    }
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+    public void StopPause()
+    {
+        Time.timeScale = 1;
     }
     public void CancelKeyboardItemTransfer()
     {
@@ -187,6 +202,8 @@ public class InventoryManager : MonoBehaviour
                             weaponSlots[i].SetActive(!weaponSlots[i].activeSelf);
                             inventoryData.activeWeapon = index;
                             weaponSlots[i].GetComponent<Weapon>().UpdateTotalAmmoStatus();
+                            //if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.Shotgun)
+                                //weaponSlots[i].GetComponent<Weapon>().anim.SetTrigger("Equip");
                         }
                         else
                         {

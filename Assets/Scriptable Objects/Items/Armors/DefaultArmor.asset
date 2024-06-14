@@ -20,4 +20,4 @@ MonoBehaviour:
   stackMax: 1
   icon: {fileID: 21300000, guid: e4426bbc3625b9f40b2bd35e8f8a88c4, type: 3}
   description: Default armor
-  armorMultiplier: 3
+  armorMultiplier: 1.5

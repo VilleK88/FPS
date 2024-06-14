@@ -12,14 +12,14 @@ public class EnemyHeadCollider : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Bullet") && enemy.canSeePlayer)
+        if(collision.gameObject.CompareTag("Bullet") && enemy.currentState == enemy.combatState)
         {
             Bullet bullet = collision.gameObject.GetComponent<Bullet>();
             if(bullet != null)
                 parentEnemyHealthScript.TakeDamage(bullet.damage * damageMultiplier);
             Destroy(collision.gameObject);
         }
-        else if(collision.gameObject.CompareTag("Bullet") && !enemy.canSeePlayer)
+        else if(collision.gameObject.CompareTag("Bullet") && enemy.currentState != enemy.combatState)
         {
             Bullet bullet = collision.gameObject.GetComponent<Bullet>();
             if (bullet != null)
