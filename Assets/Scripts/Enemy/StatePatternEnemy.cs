@@ -27,7 +27,7 @@ public class StatePatternEnemy : MonoBehaviour
     [Header("Patrol")]
     public Transform[] waypoints;
     public bool randomPatrol = false;
-    float callReinforcementsDistance = 35;
+    float callReinforcementsDistance = 40;
     [Header("Move Speed")]
     public float walkSpeed = 3.5f;
     public float runningSpeed = 5f;

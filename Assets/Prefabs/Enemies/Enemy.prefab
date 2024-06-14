@@ -540,16 +540,13 @@ MonoBehaviour:
   searchDuration: 4
   randomEnemyTurn: 0
   lastKnownPlayerPosition: {x: 0, y: 0, z: 0}
-  radius: 40
+  radius: 50
   sneakRadius: 20
-  battleRadius: 50
+  battleRadius: 60
   angle: 120
   targetMask:
     serializedVersion: 2
     m_Bits: 128
-  secondTargetMask:
-    serializedVersion: 2
-    m_Bits: 512
   obstructionMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -557,13 +554,9 @@ MonoBehaviour:
   closeColor: {r: 0.4716981, g: 0, b: 0, a: 1}
   farColor: {r: 0.4745098, g: 0, b: 0, a: 0}
   rangeChecks: []
-  secondaryRangeChecks: []
   target: {fileID: 0}
-  secondaryTarget: {fileID: 0}
   directionToTarget: {x: 0, y: 0, z: 0}
-  directionToSecondaryTarget: {x: 0, y: 0, z: 0}
   distanceToPlayer: 0
-  distanceToSecondaryTarget: 0
   canSeePlayerTimer: 0
   canSeePlayerMaxTime: 1.5
   playerMovementScript: {fileID: 0}
