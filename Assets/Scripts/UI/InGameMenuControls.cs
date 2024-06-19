@@ -95,7 +95,7 @@ public class InGameMenuControls : MonoBehaviour
     }
     public void SaveSceneID()
     {
-        if (currentScene.name == "TestScene")
+        if (currentScene.name == "2 - Prison")
             GameManager.instance.savedSceneID = 0;
         if (currentScene.name == "TestScene2")
             GameManager.instance.savedSceneID = 1;
@@ -103,7 +103,7 @@ public class InGameMenuControls : MonoBehaviour
     public void LoadSceneID()
     {
         if (GameManager.instance.savedSceneID == 0)
-            SceneManager.LoadScene("TestScene");
+            SceneManager.LoadScene("2 - Prison");
         if (GameManager.instance.savedSceneID == 1)
             SceneManager.LoadScene("TestScene2");
     }
