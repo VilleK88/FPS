@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 [Serializable]
@@ -41,7 +42,6 @@ public class InventoryManager : MonoBehaviour
     public List<int> weaponIDsList = new List<int>();
     public Button selectSlot; // for keyboard use
     public InventoryItem tempInventoryItem; // for keyboard use
-    public bool isPaused;
     private void Start()
     {
         inventorySlotsUI = new InventorySlot[20];
@@ -57,7 +57,6 @@ public class InventoryManager : MonoBehaviour
             AddSavedInventorySlotData();
             WeaponCollected();
             LoadHowManyBulletsLeftInMagazine();
-            InitializeArmor();
             GameManager.instance.loadInventory = false;
         }
         else
@@ -70,27 +69,13 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab))
         {
             if (closed)
-            {
                 OpenInventory();
-                PauseGame();
-            }
             else
-            {
                 CloseInventory();
-                StopPause();
-            }
         }
         if (!closed || InGameMenuControls.instance.menuButtons.activeSelf)
             return;
         EquipWeapon();
-    }
-    public void PauseGame()
-    {
-        Time.timeScale = 0;
-    }
-    public void StopPause()
-    {
-        Time.timeScale = 1;
     }
     public void CancelKeyboardItemTransfer()
     {
@@ -118,7 +103,7 @@ public class InventoryManager : MonoBehaviour
     {
         tempInventoryItem = inventoryItemInTransfer;
     }
-    public bool CheckIfArmorSlotEmpty(InventoryItem newArmorItem) // when putting armor on armor slot
+    public bool CheckIfArmorSlotEmpty(InventoryItem newArmorItem)
     {
         InventoryItem armorItem = equipmentSlotsUI[0].GetComponentInChildren<InventoryItem>();
         if (armorItem == null)
@@ -137,19 +122,6 @@ public class InventoryManager : MonoBehaviour
             return true;
         }
         return false;
-    }
-    public void InitializeArmor()
-    {
-        InventoryItem armorItem = equipmentSlotsUI[0].GetComponentInChildren<InventoryItem>();
-        if(armorItem != null)
-        {
-            Armor armorSO = armorItem.item as Armor;
-            PlayerHealth playerHealthScript = player.GetComponent<PlayerHealth>();
-            if(playerHealthScript != null)
-            {
-                playerHealthScript.armorMultiplier = armorSO.armorMultiplier;
-            }
-        }
     }
     public bool CheckIfRoomInWeaponSlots(InventoryItem newWeaponItem)
     {
@@ -202,8 +174,6 @@ public class InventoryManager : MonoBehaviour
                             weaponSlots[i].SetActive(!weaponSlots[i].activeSelf);
                             inventoryData.activeWeapon = index;
                             weaponSlots[i].GetComponent<Weapon>().UpdateTotalAmmoStatus();
-                            //if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.Shotgun)
-                                //weaponSlots[i].GetComponent<Weapon>().anim.SetTrigger("Equip");
                         }
                         else
                         {
@@ -306,11 +276,6 @@ public class InventoryManager : MonoBehaviour
         equipmentAnim.GetComponent<Animator>().SetBool("EquipmentScreenOn", true);
         closed = false;
         HolsterWeapons();
-        if (Score.Instance != null && AccountManager.Instance != null)
-        {
-            if(AccountManager.Instance.loggedIn)
-                Score.Instance.killsText.enabled = false;
-        }
         selectSlot.Select();
         InGameMenuControls.instance.CloseSettings();
         InGameMenuControls.instance.menuButtons.SetActive(false);
@@ -323,13 +288,7 @@ public class InventoryManager : MonoBehaviour
         closed = true;
         HolsterWeapons();
         DrawActiveWeapon();
-        InitializeArmor();
-        if (Score.Instance != null && AccountManager.Instance != null)
-        {
-            if (AccountManager.Instance.loggedIn)
-                Score.Instance.killsText.enabled = true;
-        }
-        if (tempInventoryItem != null)
+        if(tempInventoryItem != null)
         {
             tempInventoryItem.GetComponentInParent<InventorySlot>().CloseTransparentBG(tempInventoryItem);
             tempInventoryItem = null;

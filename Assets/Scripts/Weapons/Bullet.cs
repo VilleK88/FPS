@@ -12,24 +12,23 @@ public class Bullet : MonoBehaviour
         if (objectWeHit.gameObject.CompareTag("Enemy") && enemyHealth != null)
         {
             enemyHealth.TakeDamage(damage);
-            CreateBlootSplatterEffect(objectWeHit);
             Destroy(gameObject);
         }
         if (objectWeHit.gameObject.CompareTag("Target"))
         {
-            //Debug.Log("hit " + objectWeHit.gameObject.name + " !");
+            Debug.Log("hit " + objectWeHit.gameObject.name + " !");
             CreateBulletImpactEffect(objectWeHit);
             Destroy(gameObject);
         }
         if(objectWeHit.gameObject.CompareTag("Wall"))
         {
-            //Debug.Log("Hit a wall");
+            Debug.Log("Hit a wall");
             CreateBulletImpactEffect(objectWeHit);
             Destroy(gameObject);
         }
         if (objectWeHit.gameObject.CompareTag("Ground"))
         {
-            //Debug.Log("Hit a ground");
+            Debug.Log("Hit a ground");
             CreateBulletImpactEffect(objectWeHit);
             Destroy(gameObject);
         }
@@ -38,13 +37,6 @@ public class Bullet : MonoBehaviour
     {
         ContactPoint contact = objectWeHit.contacts[0];
         GameObject hole = Instantiate(GlobalReferences.Instance.bulletImpactEffectPrefab,
-            contact.point, Quaternion.LookRotation(contact.normal));
-        hole.transform.SetParent(objectWeHit.gameObject.transform);
-    }
-    void CreateBlootSplatterEffect(Collision objectWeHit)
-    {
-        ContactPoint contact = objectWeHit.contacts[0];
-        GameObject hole = Instantiate(GlobalReferences.Instance.bloodSplatterEffectPrefab,
             contact.point, Quaternion.LookRotation(contact.normal));
         hole.transform.SetParent(objectWeHit.gameObject.transform);
     }

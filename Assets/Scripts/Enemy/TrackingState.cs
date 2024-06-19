@@ -20,39 +20,14 @@ public class TrackingState : IEnemyState
         enemy.distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.player.transform.position);
         HearingArea();
         Hunt();
-        if (enemy.canSeePlayer)
-        {
-            DetectionTimeUI();
-            if (!enemy.playerMovementScript.sneaking)
-                ToCombatState();
-            else if(enemy.canSeePlayerTimer < enemy.canSeePlayerMaxTime)
-                enemy.canSeePlayerTimer += Time.deltaTime;
-            else
-                ToCombatState();
-        }
-        else if (!enemy.canSeePlayer && enemy.canSeePlayerTimer != 0)
-        {
-            enemy.canSeePlayerTimer = 0;
-            if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
-                PlayerManager.instance.sneakIndicatorImage.color = new Color(0f, 0f, 0f, 0f);
-        }
     }
     public void OnTriggerEnter(Collider other)
     {
     }
     public void HearingArea()
     {
-        if (enemy.distanceToPlayer < 6f && enemy.player.GetComponent<PlayerMovement>().moving && !enemy.player.GetComponent<PlayerMovement>().sneaking)
+        if (enemy.distanceToPlayer < 8.1f && enemy.player.GetComponent<PlayerMovement>().moving && !enemy.player.GetComponent<PlayerMovement>().sneaking)
             ToAlertState();
-        if (enemy.distanceToPlayer <= enemy.hearingPlayerShootRadius)
-        {
-            Weapon weaponScript = enemy.player.GetComponentInChildren<Weapon>();
-            if (weaponScript != null)
-            {
-                if (weaponScript.isShooting && !weaponScript.silenced)
-                    ToCombatState();
-            }
-        }
     }
     public void ToAlertState()
     {
@@ -65,7 +40,6 @@ public class TrackingState : IEnemyState
             EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.alertImage;
         searchTimer = 0;
         startSearchTimer = false;
-        enemy.canSeePlayerTimer = 0;
         enemy.currentState = enemy.alertState;
     }
     public void ToCombatState()
@@ -78,7 +52,6 @@ public class TrackingState : IEnemyState
         EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.combatImage;
         searchTimer = 0;
         startSearchTimer = false;
-        enemy.canSeePlayerTimer = 0;
         enemy.currentState = enemy.combatState;
     }
     public void ToPatrolState()
@@ -90,7 +63,6 @@ public class TrackingState : IEnemyState
         searchTimer = 0;
         moveTimer = 0;
         startSearchTimer = false;
-        enemy.canSeePlayerTimer = 0;
         enemy.currentState = enemy.patrolState;
         if (EnemyManager.Instance.CloseIndicatorImage())
             EnemyManager.Instance.StartCoroutine(EnemyManager.Instance.BackToPatrol());
@@ -118,27 +90,15 @@ public class TrackingState : IEnemyState
             if (Vector3.Angle(enemy.transform.forward, enemy.directionToTarget) < enemy.angle / 2)
             {
                 if (!Physics.Raycast(enemy.transform.position, enemy.directionToTarget, enemy.distanceToPlayer, enemy.obstructionMask))
-                {
-                    enemy.playerMovementScript = enemy.player.GetComponent<PlayerMovement>();
-                    if (enemy.playerMovementScript != null)
-                    {
-                        if (enemy.distanceToPlayer < enemy.radius && !enemy.playerMovementScript.sneaking)
-                            enemy.canSeePlayer = true;
-                        else if (enemy.distanceToPlayer < enemy.sneakRadius && enemy.playerMovementScript.sneaking)
-                            enemy.canSeePlayer = true;
-                    }
-                }
+                    enemy.canSeePlayer = true;
                 else
                     enemy.canSeePlayer = false;
             }
         }
         else if (enemy.canSeePlayer)
             enemy.canSeePlayer = false;
-    }
-    void DetectionTimeUI()
-    {
-        float alpha = Mathf.Clamp01(enemy.canSeePlayerTimer / enemy.canSeePlayerMaxTime);
-        PlayerManager.instance.sneakIndicatorImage.color = new Color(0f + alpha, 0f + alpha, 0f + alpha, 1f);
+        if (enemy.canSeePlayer)
+            ToCombatState();
     }
     void Hunt()
     {
@@ -168,12 +128,7 @@ public class TrackingState : IEnemyState
     }
     public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
-        Vector3 randDirection;
-        do
-        {
-            randDirection = Random.insideUnitSphere * dist;
-        }
-        while (randDirection.magnitude < 5.0f);
+        Vector3 randDirection = Random.insideUnitSphere * dist;
         randDirection += origin;
         NavMeshHit navHit;
         NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);

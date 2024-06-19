@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+
 public class CombatState : IEnemyState
 {
     private StatePatternEnemy enemy;
@@ -25,7 +26,7 @@ public class CombatState : IEnemyState
     }
     public void HearingArea()
     {
-        if (enemy.distanceToPlayer < 6f && enemy.player.GetComponent<PlayerMovement>().moving && !enemy.player.GetComponent<PlayerMovement>().sneaking)
+        if (enemy.distanceToPlayer < 8.1f && enemy.player.GetComponent<PlayerMovement>().moving && !enemy.player.GetComponent<PlayerMovement>().sneaking)
             ToAlertState();
     }
     public void ToAlertState()
@@ -37,10 +38,7 @@ public class CombatState : IEnemyState
         enemy.agent.speed = enemy.walkSpeed;
         EnemyManager.Instance.indicatorImage.enabled = true;
         if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
-        {
             EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.alertImage;
-            PlayerManager.instance.sneakIndicatorImage.color = new Color(0f, 0f, 0f, 0f);
-        }
         enemy.currentState = enemy.alertState;
     }
     public void ToCombatState()
@@ -59,10 +57,7 @@ public class CombatState : IEnemyState
         enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
         EnemyManager.Instance.indicatorImage.enabled = true;
         if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
-        {
             EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.trackingImage;
-            PlayerManager.instance.sneakIndicatorImage.color = new Color(0f, 0f, 0f, 0f);
-        }
         enemy.lastKnownPlayerPosition = enemy.player.transform.position;
         enemy.currentState = enemy.trackingState;
     }
@@ -86,16 +81,7 @@ public class CombatState : IEnemyState
             if (Vector3.Angle(enemy.transform.forward, enemy.directionToTarget) < enemy.angle / 2)
             {
                 if (!Physics.Raycast(enemy.transform.position, enemy.directionToTarget, enemy.distanceToPlayer, enemy.obstructionMask))
-                {
-                    enemy.playerMovementScript = enemy.player.GetComponent<PlayerMovement>();
-                    if (enemy.playerMovementScript != null)
-                    {
-                        if (enemy.distanceToPlayer < enemy.battleRadius && !enemy.playerMovementScript.sneaking)
-                            enemy.canSeePlayer = true;
-                        else if (enemy.distanceToPlayer < enemy.radius && enemy.playerMovementScript.sneaking)
-                            enemy.canSeePlayer = true;
-                    }
-                }
+                    enemy.canSeePlayer = true;
                 else
                     enemy.canSeePlayer = false;
             }
@@ -113,45 +99,12 @@ public class CombatState : IEnemyState
     void Chase()
     {
         enemy.GetComponentInChildren<Animator>().SetBool("Walk", false);
-        if (enemy.distanceToPlayer > 20)
+        if (enemy.distanceToPlayer > 15)
         {
-            if (enemy.canSeePlayer)
-            {
-                if(shootingTime > 0)
-                {
-                    enemy.transform.LookAt(enemy.player.transform.position);
-                    enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
-                    enemy.GetComponentInChildren<Animator>().SetBool("Aiming", true);
-                    enemy.agent.isStopped = true;
-                    shootingTime -= Time.deltaTime;
-                    if (enemy.readyToShoot && !enemy.enemyHealth.takingHit)
-                        enemy.Shoot();
-                    else if (enemy.enemyHealth.takingHit)
-                        enemy.Invoke("RecoverFromHit", 1);
-                }
-                else
-                {
-                    shootingDelay -= Time.deltaTime;
-                    if (shootingDelay < 0)
-                    {
-                        shootingDelay = 2;
-                        shootingTime = 2;
-                    }
-                    enemy.agent.isStopped = false;
-                    enemy.agent.speed = enemy.runningSpeed;
-                    enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
-                    enemy.GetComponentInChildren<Animator>().SetBool("Running", true);
-                    enemy.agent.SetDestination(enemy.player.transform.position);
-                }
-            }
-            else
-            {
-                enemy.agent.isStopped = false;
-                enemy.agent.speed = enemy.runningSpeed;
-                enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
-                enemy.GetComponentInChildren<Animator>().SetBool("Running", true);
-                enemy.agent.SetDestination(enemy.player.transform.position);
-            }
+            enemy.agent.isStopped = false;
+            enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
+            enemy.GetComponentInChildren<Animator>().SetBool("Running", true);
+            enemy.agent.SetDestination(enemy.player.transform.position);
         }
         else
         {
@@ -180,11 +133,10 @@ public class CombatState : IEnemyState
                 {
                     enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
                     enemy.GetComponentInChildren<Animator>().SetBool("Running", true);
-                    
+                    enemy.agent.isStopped = false;
                     Vector3 newPos = RandomNavSphere(enemy.transform.position, wanderingRadius, -1);
                     enemy.agent.speed = enemy.runningSpeed;
                     enemy.agent.SetDestination(newPos);
-                    enemy.agent.isStopped = false;
                     moveTimer = 0;
                 }
             }
@@ -192,12 +144,7 @@ public class CombatState : IEnemyState
     }
     public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
-        Vector3 randDirection;
-        do
-        {
-            randDirection = Random.insideUnitSphere * dist;
-        }
-        while (randDirection.magnitude < 5.0f);
+        Vector3 randDirection = Random.insideUnitSphere * dist;
         randDirection += origin;
         NavMeshHit navHit;
         NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);

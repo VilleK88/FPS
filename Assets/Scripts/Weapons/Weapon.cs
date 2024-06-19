@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class Weapon : MonoBehaviour
 {
     [Header("Weapon model, shooting mode and weapon id")]
@@ -12,7 +13,6 @@ public class Weapon : MonoBehaviour
     public bool isShooting, readyToShoot;
     bool allowReset = true;
     public float shootingDelay = 0.3f;
-    public bool silenced;
     [Header("Burst")]
     public int bulletsPerBurst = 1;
     public int burstBulletsLeft;
@@ -26,7 +26,7 @@ public class Weapon : MonoBehaviour
     public float bulletDamage;
     [Header("Particle Effect, Animation, Sound")]
     public GameObject muzzleEffect;
-    [SerializeField] public Animator anim;
+    Animator anim;
     [SerializeField] AudioClip shootingSound;
     [SerializeField] AudioClip reloadingSound;
     [SerializeField] AudioClip emptyMagazineSound;
@@ -44,7 +44,7 @@ public class Weapon : MonoBehaviour
     {
         readyToShoot = true;
         burstBulletsLeft = bulletsPerBurst;
-        //anim = GetComponentInChildren<Animator>();
+        anim = GetComponent<Animator>();
     }
     private void Update()
     {
@@ -95,9 +95,7 @@ public class Weapon : MonoBehaviour
     {
         bulletsLeft--;
         muzzleEffect.GetComponent<ParticleSystem>().Play();
-        if (thisWeaponModel == WeaponModel.Shotgun)
-            anim.SetTrigger("Shoot");
-        //anim.SetTrigger("Recoil");
+        anim.SetTrigger("Recoil");
         AudioManager.instance.PlaySound(shootingSound);
         readyToShoot = false;
         if(thisWeaponModel != WeaponModel.Shotgun)
@@ -229,8 +227,6 @@ public class Weapon : MonoBehaviour
     {
         UpdateTotalAmmoStatus();
         AudioManager.instance.PlaySound(reloadingSound);
-        if (thisWeaponModel == WeaponModel.Shotgun)
-            anim.SetTrigger("Reload");
         //anim.SetTrigger("Reload"); // reload animation not yet made
         isReloading = true;
         Invoke("ReloadCompleted", reloadTime);

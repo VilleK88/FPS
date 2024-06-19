@@ -34,8 +34,6 @@ public class InGameMenuControls : MonoBehaviour
             menuButtons.SetActive(false);
         player.GetComponent<Player>();
         currentScene = SceneManager.GetActiveScene();
-        if (AccountManager.Instance != null)
-            AccountManager.Instance.HideContainer();
     }
     private void Update()
     {
@@ -63,35 +61,24 @@ public class InGameMenuControls : MonoBehaviour
             InventoryManager.instance.HolsterWeapons();
             menuButtons.SetActive(!menuButtons.activeSelf);
             if (menuButtons.activeSelf)
-            {
                 saveButton.Select();
-                InventoryManager.instance.PauseGame();
-            }
             else
-            {
                 InventoryManager.instance.DrawActiveWeapon();
-                InventoryManager.instance.StopPause();
-            }
         }
     }
     public void SaveGame()
     {
-        if(!EnemyManager.Instance.CanAnyoneSeeThePlayer())
-        {
-            SaveSceneID();
-            player.GetComponent<Player>().SavePlayerTransformPosition();
-            InventoryManager.instance.SaveInventory();
-            InventoryManager.instance.SaveHowManyBulletsLeftInMagazine();
-            EnemyManager.Instance.SaveEnemiesData();
-            GameManager.instance.Save();
-        }
+        SaveSceneID();
+        player.GetComponent<Player>().SavePlayerTransformPosition();
+        InventoryManager.instance.SaveInventory();
+        InventoryManager.instance.SaveHowManyBulletsLeftInMagazine();
+        GameManager.instance.Save();
     }
     public void LoadGame()
     {
         ClearAndDestroyInventory();
         GameManager.instance.Load();
         LoadSceneID();
-        Time.timeScale = 1f;
     }
     public void SaveSceneID()
     {
