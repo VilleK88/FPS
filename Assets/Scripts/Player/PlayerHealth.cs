@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
+
 public class PlayerHealth : MonoBehaviour
 {
     public GameObject postProcessGO;
@@ -17,10 +18,10 @@ public class PlayerHealth : MonoBehaviour
         HealthUIManager.Instance.UpdateHealthBar();
         volume = postProcessGO.GetComponent<PostProcessVolume>();
         volume.profile.TryGetSettings<Vignette>(out vignette);
-        /*if (!vignette)
+        if (!vignette)
             print("Error, vignette empty");
         else
-            vignette.enabled.Override(false);*/
+            vignette.enabled.Override(false);
     }
     private void Update()
     {
@@ -36,13 +37,13 @@ public class PlayerHealth : MonoBehaviour
             GameManager.instance.currentHealth -= damage - armorMultiplier;
             HealthUIManager.Instance.UpdateHealthBar();
             StartCoroutine(DamageEffect());
-            if (GameManager.instance.currentHealth <= 0)
-                StartCoroutine(Die());
+            //if (GameManager.instance.currentHealth <= 0)
+                //StartCoroutine(Die());
         }
     }
     public bool HealPlayer(float health)
     {
-        if(GameManager.instance.maxHealth > GameManager.instance.currentHealth)
+        if (GameManager.instance.maxHealth > GameManager.instance.currentHealth)
         {
             GameManager.instance.currentHealth += health;
             if (GameManager.instance.currentHealth > GameManager.instance.maxHealth)
@@ -54,15 +55,15 @@ public class PlayerHealth : MonoBehaviour
     }
     void CheckHealthItemStatus()
     {
-        for(int i = 0; i < InventoryManager.instance.inventorySlotsUI.Length; i++)
+        for (int i = 0; i < InventoryManager.instance.inventorySlotsUI.Length; i++)
         {
             InventoryItem inventoryItem = InventoryManager.instance.inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
-            if(inventoryItem != null && inventoryItem.itemType == ItemType.Medpack)
+            if (inventoryItem != null && inventoryItem.itemType == ItemType.Medpack)
             {
                 Item item = inventoryItem.item;
                 Medpack medPack = item as Medpack;
                 bool healing = HealPlayer(medPack.healthAmount);
-                if(healing)
+                if (healing)
                 {
                     inventoryItem.count--;
                     inventoryItem.GetComponentInParent<InventorySlot>().slotData.count--;
@@ -83,7 +84,7 @@ public class PlayerHealth : MonoBehaviour
         vignette.enabled.Override(true);
         vignette.intensity.Override(0.4f); // 0.4f original
         yield return new WaitForSeconds(0.1f); // 0.4f original
-        while(intensity > 0)
+        while (intensity > 0)
         {
             intensity -= 0.02f; // 0.01f original
             if (intensity < 0)

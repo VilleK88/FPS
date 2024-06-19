@@ -108,9 +108,9 @@ public class StatePatternEnemy : MonoBehaviour
             Transform enemyTransform = enemy.transform;
             StatePatternEnemy stateEnemy = enemy.GetComponent<StatePatternEnemy>();
             EnemyHealth enemyHealthScript = enemy.GetComponent<EnemyHealth>();
-            if(enemyTransform != null && stateEnemy != null && enemyHealthScript != null)
+            if (enemyTransform != null && stateEnemy != null && enemyHealthScript != null)
             {
-                if(!enemyHealthScript.dead)
+                if (!enemyHealthScript.dead)
                 {
                     float distance = Vector3.Distance(transform.position, enemyTransform.position);
                     if (distance < callReinforcementsDistance)
@@ -125,9 +125,9 @@ public class StatePatternEnemy : MonoBehaviour
     }
     public void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            if(currentState == trackingState)
+            if (currentState == trackingState)
             {
                 agent.isStopped = false;
                 GetComponentInChildren<Animator>().SetBool("WalkAiming", true);

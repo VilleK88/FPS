@@ -52,7 +52,7 @@ public class EnemyManager : MonoBehaviour
     }
     public void LoadEnemiesData()
     {
-        for(int i = 0; i < enemies.Length; i++)
+        for (int i = 0; i < enemies.Length; i++)
         {
             if (enemies[i] != null)
             {
@@ -70,7 +70,7 @@ public class EnemyManager : MonoBehaviour
     }
     public void CloseEnemyHealthbars()
     {
-        for(int i = 0; i < enemies.Length; i++)
+        for (int i = 0; i < enemies.Length; i++)
         {
             if (enemies[i] != null)
             {
@@ -82,7 +82,7 @@ public class EnemyManager : MonoBehaviour
     }
     public bool CanAnyoneSeeThePlayer()
     {
-        for(int i = 0; i < enemies.Length; i++)
+        for (int i = 0; i < enemies.Length; i++)
         {
             if (enemies[i].canSeePlayer == true)
                 return true;
@@ -91,7 +91,7 @@ public class EnemyManager : MonoBehaviour
     }
     public bool CloseIndicatorImage()
     {
-        for(int i = 0; i < enemies.Length; i++)
+        for (int i = 0; i < enemies.Length; i++)
         {
             if (enemies[i].currentState != enemies[i].patrolState)
                 return false;

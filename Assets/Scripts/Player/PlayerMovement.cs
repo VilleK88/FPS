@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
             if (sneaking)
                 StopSneaking();
         }
-        else if(!sneaking)
+        else if (!sneaking)
             speed = originalSpeed;
         x = Input.GetAxis("Horizontal");
         z = Input.GetAxis("Vertical");

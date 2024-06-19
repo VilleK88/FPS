@@ -108,7 +108,7 @@ public class Player : MonoBehaviour
     public void SavePlayerTransformPosition()
     {
         GameManager.instance.x = transform.position.x;
-        GameManager.instance.y = transform.position.y + 2;
+        GameManager.instance.y = 4;
         GameManager.instance.z = transform.position.z;
         GameManager.instance.xRotation = transform.rotation.eulerAngles.x;
         GameManager.instance.yRotation = transform.rotation.eulerAngles.y;

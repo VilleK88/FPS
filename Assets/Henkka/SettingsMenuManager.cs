@@ -44,7 +44,7 @@ public class SettingsMenuManager : MonoBehaviour
         resolutionDropdown.ClearOptions();
         List<string> options = new List<string>();
         int currentResolutionIndex = 0;
-        for(int i = 0; i < resolutions.Length; i++)
+        for (int i = 0; i < resolutions.Length; i++)
         {
             string option = resolutions[i].width + " x " + resolutions[i].height;
             options.Add(option);
@@ -55,12 +55,12 @@ public class SettingsMenuManager : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
         LoadSensitivity();
-        if(mouseSensitivitySlider != null)
+        if (mouseSensitivitySlider != null)
         {
             mouseSensitivitySlider.value = mouseSensitivity;
             mouseSensitivitySlider.onValueChanged.AddListener(OnSensivityChanged);
         }
-        if(PlayerManager.instance != null)
+        if (PlayerManager.instance != null)
         {
             player = PlayerManager.instance.GetPlayer();
             if (player != null)

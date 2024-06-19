@@ -19,7 +19,7 @@ public class AlertState : IEnemyState
         FOVRoutine();
         enemy.distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.player.transform.position);
         HearingArea();
-        if(!checkDisturbance)
+        if (!checkDisturbance)
             LookAround();
         else
         {
@@ -177,7 +177,7 @@ public class AlertState : IEnemyState
     void WalkToDisturbance()
     {
         float distanceToDisturbance = Vector3.Distance(enemy.lastKnownPlayerPosition, enemy.transform.position);
-        if(distanceToDisturbance > 1.5f)
+        if (distanceToDisturbance > 1.5f)
         {
             enemy.agent.isStopped = false;
             enemy.GetComponentInChildren<Animator>().SetBool("Walk", true);

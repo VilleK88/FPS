@@ -19,13 +19,13 @@ public class Score : MonoBehaviour
     //public TextMeshProUGUI goldText;
     private void Start()
     {
-        if(AccountManager.Instance != null)
+        if (AccountManager.Instance != null)
         {
             if (AccountManager.Instance.loggedIn)
             {
                 accountData.kills = AccountManager.Instance.loggedInAccount.kills;
                 killsText.enabled = true;
-                if(killsText.enabled)
+                if (killsText.enabled)
                     killsText.text = "Kills: " + accountData.kills;
             }
         }

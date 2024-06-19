@@ -9,7 +9,7 @@ public class MenuControls : MonoBehaviour
     private void Start()
     {
         GameObject inventoryCanvas = GameObject.Find("InventoryCanvas");
-        if(inventoryCanvas != null)
+        if (inventoryCanvas != null)
             Destroy(inventoryCanvas);
         if (AccountManager.Instance != null)
             AccountManager.Instance.ShowContainer();
@@ -24,7 +24,7 @@ public class MenuControls : MonoBehaviour
         ClearTablesInGameManager();
         GameManager.instance.loadPlayerPosition = false;
         //GameManager.instance.loadInventory = false;
-        SceneManager.LoadScene("TestScene");
+        SceneManager.LoadScene("2 - Prison");
         Time.timeScale = 1f;
     }
     public void ClearTablesInGameManager()
@@ -43,7 +43,7 @@ public class MenuControls : MonoBehaviour
     public void LoadSceneID()
     {
         if (GameManager.instance.savedSceneID == 0)
-            SceneManager.LoadScene("TestScene");
+            SceneManager.LoadScene("2 - Prison");
         if (GameManager.instance.savedSceneID == 1)
             SceneManager.LoadScene("TestScene2");
     }

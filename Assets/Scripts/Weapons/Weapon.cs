@@ -54,7 +54,7 @@ public class Weapon : MonoBehaviour
             AudioManager.instance.PlaySound(emptyMagazineSound);
         if (currentShootingMode == ShootingMode.Auto)
             isShooting = Input.GetKey(KeyCode.Mouse0); // holding down left mouse button
-        else if(currentShootingMode == ShootingMode.Single || currentShootingMode == ShootingMode.Burst)
+        else if (currentShootingMode == ShootingMode.Single || currentShootingMode == ShootingMode.Burst)
             isShooting = Input.GetKeyDown(KeyCode.Mouse0); // clicking left mouse button once
         if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !isReloading) // reload weapon
         {
@@ -67,6 +67,8 @@ public class Weapon : MonoBehaviour
             burstBulletsLeft = bulletsPerBurst;
             FireWeapon();
         }
+        else if (thisWeaponModel == WeaponModel.AssaultRifle && !isShooting)
+            anim.SetBool("Shoot", false);
         if (AmmoManager.Instance.ammoDisplay != null)
         {
             AmmoManager.Instance.ammoDisplay.text = $"{bulletsLeft / bulletsPerBurst}/{totalAmmo}";
@@ -95,12 +97,16 @@ public class Weapon : MonoBehaviour
     {
         bulletsLeft--;
         muzzleEffect.GetComponent<ParticleSystem>().Play();
-        if (thisWeaponModel == WeaponModel.Shotgun)
+        if(thisWeaponModel != WeaponModel.AssaultRifle)
             anim.SetTrigger("Shoot");
-        //anim.SetTrigger("Recoil");
+        else
+        {
+            anim.SetBool("Shoot", true);
+        }
+        //anim.SetTrigger("Shoot");
         AudioManager.instance.PlaySound(shootingSound);
         readyToShoot = false;
-        if(thisWeaponModel != WeaponModel.Shotgun)
+        if (thisWeaponModel != WeaponModel.Shotgun)
         {
             Vector3 shootingDirection = CalculateDirectionAndSpread().normalized;
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity); // instantiate the bullet
@@ -110,7 +116,7 @@ public class Weapon : MonoBehaviour
         }
         else
         {
-            for(int i = 0; i < 12; i++)
+            for (int i = 0; i < 12; i++)
             {
                 Vector3 shootingDirection = CalculateDirectionAndSpread().normalized;
                 GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity); // instantiate the bullet
@@ -124,7 +130,7 @@ public class Weapon : MonoBehaviour
             Invoke("ResetShot", shootingDelay);
             allowReset = false;
         }
-        if(currentShootingMode == ShootingMode.Burst && burstBulletsLeft > 1) // Burst mode
+        if (currentShootingMode == ShootingMode.Burst && burstBulletsLeft > 1) // Burst mode
         {
             burstBulletsLeft--;
             Invoke("FireWeapon", shootingDelay);
@@ -136,7 +142,7 @@ public class Weapon : MonoBehaviour
         for (int i = 0; i < InventoryManager.instance.inventorySlotsUI.Length; i++)
         {
             InventoryItem inventoryItem = InventoryManager.instance.inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
-            if(inventoryItem != null && inventoryItem.itemType == ItemType.Ammo)
+            if (inventoryItem != null && inventoryItem.itemType == ItemType.Ammo)
             {
                 Ammo ammo = inventoryItem.item as Ammo;
                 if (ammo.ammoType == ammoType)
@@ -174,7 +180,7 @@ public class Weapon : MonoBehaviour
     }
     public void DecreaseAmmoCountOnNextAmmoItem(int decreaseAmount, int itemCount)
     {
-        for (int i = itemCount+1; i < InventoryManager.instance.inventorySlotsUI.Length; i++)
+        for (int i = itemCount + 1; i < InventoryManager.instance.inventorySlotsUI.Length; i++)
         {
             InventoryItem inventoryItem = InventoryManager.instance.inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
             if (inventoryItem != null && inventoryItem.itemType == ItemType.Ammo)
@@ -212,7 +218,7 @@ public class Weapon : MonoBehaviour
             {
                 Item item = inventoryItem.item;
                 Ammo ammo = item as Ammo;
-                if(item != null && ammo != null)
+                if (item != null && ammo != null)
                 {
                     if (ammo.ammoType == ammoType)
                     {
@@ -240,7 +246,7 @@ public class Weapon : MonoBehaviour
         int tempTotalBulletsLeft = tempTotalAmmo + bulletsLeft;
         if (tempTotalBulletsLeft >= magazineSize)
             bulletsLeft = magazineSize;
-        else if(tempTotalBulletsLeft < magazineSize)
+        else if (tempTotalBulletsLeft < magazineSize)
             bulletsLeft = tempTotalAmmo + bulletsLeft;
         isReloading = false;
         UpdateTotalAmmoStatus();

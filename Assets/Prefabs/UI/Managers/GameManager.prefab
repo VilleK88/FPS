@@ -61,7 +61,16 @@ MonoBehaviour:
   changeScene: 0
   inventorySlotsData: []
   equipmentSlotsData: []
+  inventoryData:
+    activeWeapon: 0
   bulletsLeft: 
   cash: 0
-  cashIDs: 
-  itemPickUpIDs: 
+  cashIDs: []
+  itemPickUpIDs: []
+  enemyPositionX: []
+  enemyPositionY: []
+  enemyPositionZ: []
+  enemyRotationX: []
+  enemyRotationY: []
+  enemyRotationZ: []
+  patrolWaypointIndex: 

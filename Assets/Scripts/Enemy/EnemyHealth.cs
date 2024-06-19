@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Unity.AI;
 using UnityEngine.AI;
 public class EnemyHealth : MonoBehaviour
 {
@@ -33,7 +32,7 @@ public class EnemyHealth : MonoBehaviour
     }
     public void ShowHealth()
     {
-        if(!dead)
+        if (!dead)
             healthbar.active = true;
     }
     public void HideHealth()
@@ -52,7 +51,7 @@ public class EnemyHealth : MonoBehaviour
             //enemy.currentState = enemy.combatState;
             if (currentHealth <= 0)
                 Die();
-            if(!dead)
+            if (!dead)
             {
                 takingHit = true;
                 enemy.lastKnownPlayerPosition = enemy.player.transform.position;

@@ -25,7 +25,7 @@ public class TrackingState : IEnemyState
             DetectionTimeUI();
             if (!enemy.playerMovementScript.sneaking)
                 ToCombatState();
-            else if(enemy.canSeePlayerTimer < enemy.canSeePlayerMaxTime)
+            else if (enemy.canSeePlayerTimer < enemy.canSeePlayerMaxTime)
                 enemy.canSeePlayerTimer += Time.deltaTime;
             else
                 ToCombatState();
@@ -142,7 +142,7 @@ public class TrackingState : IEnemyState
     }
     void Hunt()
     {
-        if(enemy.agent.remainingDistance <= enemy.agent.stoppingDistance)
+        if (enemy.agent.remainingDistance <= enemy.agent.stoppingDistance)
         {
             enemy.agent.isStopped = true;
             enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
@@ -150,7 +150,7 @@ public class TrackingState : IEnemyState
             enemy.GetComponentInChildren<Animator>().SetBool("Aiming", true);
             startSearchTimer = true;
         }
-        if(startSearchTimer)
+        if (startSearchTimer)
         {
             searchTimer += Time.deltaTime;
             moveTimer += Time.deltaTime;

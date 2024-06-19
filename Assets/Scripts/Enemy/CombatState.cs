@@ -117,7 +117,7 @@ public class CombatState : IEnemyState
         {
             if (enemy.canSeePlayer)
             {
-                if(shootingTime > 0)
+                if (shootingTime > 0)
                 {
                     enemy.transform.LookAt(enemy.player.transform.position);
                     enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
@@ -164,13 +164,13 @@ public class CombatState : IEnemyState
                 shootingTime -= Time.deltaTime;
                 if (enemy.readyToShoot && !enemy.enemyHealth.takingHit)
                     enemy.Shoot();
-                else if(enemy.enemyHealth.takingHit)
+                else if (enemy.enemyHealth.takingHit)
                     enemy.Invoke("RecoverFromHit", 1);
             }
             else
             {
                 shootingDelay -= Time.deltaTime;
-                if(shootingDelay < 0)
+                if (shootingDelay < 0)
                 {
                     shootingDelay = 2;
                     shootingTime = 2;
@@ -180,7 +180,7 @@ public class CombatState : IEnemyState
                 {
                     enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
                     enemy.GetComponentInChildren<Animator>().SetBool("Running", true);
-                    
+
                     Vector3 newPos = RandomNavSphere(enemy.transform.position, wanderingRadius, -1);
                     enemy.agent.speed = enemy.runningSpeed;
                     enemy.agent.SetDestination(newPos);

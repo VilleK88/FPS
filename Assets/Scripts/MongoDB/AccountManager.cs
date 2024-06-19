@@ -60,7 +60,7 @@ public class AccountManager : MonoBehaviour
     private IEnumerator IncrementKills()
     {
         string username = usernameInputField.text;
-        if(string.IsNullOrEmpty(username))
+        if (string.IsNullOrEmpty(username))
         {
             alertText.text = "Invalid username";
             yield break;
@@ -69,7 +69,7 @@ public class AccountManager : MonoBehaviour
         var update = Builders<BsonDocument>.Update.Inc("kills", 1);
         var options = new FindOneAndUpdateOptions<BsonDocument> { ReturnDocument = ReturnDocument.After };
         var result = accountCollection.FindOneAndUpdate(filter, update, options);
-        if(result != null)
+        if (result != null)
         {
             var updatedAccount = BsonSerializer.Deserialize<GameAccount>(result);
             int kills = updatedAccount.kills;
@@ -115,10 +115,10 @@ public class AccountManager : MonoBehaviour
         }
         var filter = Builders<BsonDocument>.Filter.Eq("username", username);
         var accountDoc = accountCollection.Find(filter).FirstOrDefault();
-        if(accountDoc != null)
+        if (accountDoc != null)
         {
             var account = BsonSerializer.Deserialize<GameAccount>(accountDoc);
-            if(account.password == password)
+            if (account.password == password)
             {
                 loggedInAccount = account;
                 ActivateButtons(false);

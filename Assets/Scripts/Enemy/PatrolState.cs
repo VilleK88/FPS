@@ -28,10 +28,10 @@ public class PatrolState : IEnemyState
             else
                 ToCombatState();
         }
-        else if(!enemy.canSeePlayer && enemy.canSeePlayerTimer != 0)
+        else if (!enemy.canSeePlayer && enemy.canSeePlayerTimer != 0)
         {
             enemy.canSeePlayerTimer = 0;
-            if(!EnemyManager.Instance.CanAnyoneSeeThePlayer())
+            if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
                 PlayerManager.instance.sneakIndicatorImage.color = new Color(0f, 0f, 0f, 0f);
         }
     }
@@ -45,9 +45,9 @@ public class PatrolState : IEnemyState
         if (enemy.distanceToPlayer <= enemy.hearingPlayerShootRadius)
         {
             Weapon weaponScript = enemy.player.GetComponentInChildren<Weapon>();
-            if(weaponScript != null)
+            if (weaponScript != null)
             {
-                if(weaponScript.isShooting && !weaponScript.silenced)
+                if (weaponScript.isShooting && !weaponScript.silenced)
                     ToCombatState();
             }
         }
@@ -103,7 +103,7 @@ public class PatrolState : IEnemyState
                 if (!Physics.Raycast(enemy.transform.position, enemy.directionToTarget, enemy.distanceToPlayer, enemy.obstructionMask))
                 {
                     enemy.playerMovementScript = enemy.player.GetComponent<PlayerMovement>();
-                    if(enemy.playerMovementScript != null)
+                    if (enemy.playerMovementScript != null)
                     {
                         if (enemy.distanceToPlayer < enemy.radius && !enemy.playerMovementScript.sneaking)
                             enemy.canSeePlayer = true;
