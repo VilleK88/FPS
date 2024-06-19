@@ -37,8 +37,8 @@ public class PlayerHealth : MonoBehaviour
             GameManager.instance.currentHealth -= damage - armorMultiplier;
             HealthUIManager.Instance.UpdateHealthBar();
             StartCoroutine(DamageEffect());
-            if (GameManager.instance.currentHealth <= 0)
-                StartCoroutine(Die());
+            //if (GameManager.instance.currentHealth <= 0)
+                //StartCoroutine(Die());
         }
     }
     public bool HealPlayer(float health)

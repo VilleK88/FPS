@@ -530,9 +530,9 @@ MonoBehaviour:
   searchDuration: 4
   randomEnemyTurn: 0
   lastKnownPlayerPosition: {x: 0, y: 0, z: 0}
-  radius: 20
+  radius: 50
   sneakRadius: 20
-  battleRadius: 50
+  battleRadius: 60
   angle: 140
   targetMask:
     serializedVersion: 2
