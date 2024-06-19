@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
     float x, z;
     Vector3 move;
     float speed = 8;
-    float sneakSpeed = 4;
+    float sneakSpeed = 5.5f;
     float runningSpeed = 15;
     float originalSpeed;
     public bool moving;
@@ -47,9 +47,13 @@ public class PlayerMovement : MonoBehaviour
             else
                 StopSneaking();
         }
-        if (Input.GetKey(KeyCode.LeftShift) && !sneaking)
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
             speed = runningSpeed;
-        else if(!sneaking)
+            if (sneaking)
+                StopSneaking();
+        }
+        else if (!sneaking)
             speed = originalSpeed;
         x = Input.GetAxis("Horizontal");
         z = Input.GetAxis("Vertical");

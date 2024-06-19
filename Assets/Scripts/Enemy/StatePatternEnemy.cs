@@ -8,18 +8,26 @@ public class StatePatternEnemy : MonoBehaviour
     public int randomEnemyTurn;
     public Vector3 lastKnownPlayerPosition;
     [Header("Field of View")]
-    public float radius = 20;
+    public float radius = 40; // radius enemy is seeing the player if he's not sneaking
+    public float sneakRadius = 20; // radius enemy is seeing the player if he's sneaking
+    public float battleRadius = 50;
     [Range(0, 360)] public float angle = 140;
-    public LayerMask targetMask;
+    public LayerMask targetMask; // player
     public LayerMask obstructionMask;
     public bool canSeePlayer;
+    public Color closeColor = new Color(0, 0, 0, 1f);
+    public Color farColor = new Color(0, 0, 0, 0f);
     [HideInInspector] public Collider[] rangeChecks;
     [HideInInspector] public Transform target;
     [HideInInspector] public Vector3 directionToTarget;
     public float distanceToPlayer;
+    public float canSeePlayerTimer = 0;
+    public float canSeePlayerMaxTime = 2f;
+    public PlayerMovement playerMovementScript;
     [Header("Patrol")]
     public Transform[] waypoints;
     public bool randomPatrol = false;
+    float callReinforcementsDistance = 40;
     [Header("Move Speed")]
     public float walkSpeed = 3.5f;
     public float runningSpeed = 5f;
@@ -33,6 +41,7 @@ public class StatePatternEnemy : MonoBehaviour
     public string bulletTarget = "Player";
     public bool readyToShoot = true;
     public float shootingDelay = 0.3f;
+    public float hearingPlayerShootRadius = 40f;
     public EnemyHealth enemyHealth;
     [HideInInspector] public GameObject player;
     [HideInInspector] public IEnemyState currentState; // current state is defined here
@@ -98,23 +107,27 @@ public class StatePatternEnemy : MonoBehaviour
         {
             Transform enemyTransform = enemy.transform;
             StatePatternEnemy stateEnemy = enemy.GetComponent<StatePatternEnemy>();
-            if(enemyTransform != null && stateEnemy != null)
+            EnemyHealth enemyHealthScript = enemy.GetComponent<EnemyHealth>();
+            if (enemyTransform != null && stateEnemy != null && enemyHealthScript != null)
             {
-                float distance = Vector3.Distance(transform.position, enemyTransform.position);
-                if(distance < 50)
+                if (!enemyHealthScript.dead)
                 {
-                    stateEnemy.lastKnownPlayerPosition = stateEnemy.player.transform.position;
-                    stateEnemy.GetComponentInChildren<Animator>().SetBool("WalkAiming", false);
-                    stateEnemy.currentState = stateEnemy.combatState;
+                    float distance = Vector3.Distance(transform.position, enemyTransform.position);
+                    if (distance < callReinforcementsDistance)
+                    {
+                        stateEnemy.lastKnownPlayerPosition = stateEnemy.player.transform.position;
+                        stateEnemy.GetComponentInChildren<Animator>().SetBool("WalkAiming", false);
+                        stateEnemy.currentState = stateEnemy.combatState;
+                    }
                 }
             }
         }
     }
     public void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            if(currentState == trackingState)
+            if (currentState == trackingState)
             {
                 agent.isStopped = false;
                 GetComponentInChildren<Animator>().SetBool("WalkAiming", true);

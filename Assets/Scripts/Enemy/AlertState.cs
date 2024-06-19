@@ -19,11 +19,27 @@ public class AlertState : IEnemyState
         FOVRoutine();
         enemy.distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.player.transform.position);
         HearingArea();
-        if(!checkDisturbance)
+        if (!checkDisturbance)
             LookAround();
         else
         {
             WalkToDisturbance();
+        }
+        if (enemy.canSeePlayer)
+        {
+            DetectionTimeUI();
+            if (!enemy.playerMovementScript.sneaking)
+                ToCombatState();
+            else if (enemy.canSeePlayerTimer < enemy.canSeePlayerMaxTime)
+                enemy.canSeePlayerTimer += Time.deltaTime;
+            else
+                ToCombatState();
+        }
+        else if (!enemy.canSeePlayer && enemy.canSeePlayerTimer != 0)
+        {
+            enemy.canSeePlayerTimer = 0;
+            if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
+                PlayerManager.instance.sneakIndicatorImage.color = new Color(0f, 0f, 0f, 0f);
         }
     }
     public void OnTriggerEnter(Collider other)
@@ -31,13 +47,22 @@ public class AlertState : IEnemyState
     }
     public void HearingArea()
     {
-        if (enemy.distanceToPlayer < 8.1f && enemy.player.GetComponent<PlayerMovement>().moving && !enemy.player.GetComponent<PlayerMovement>().sneaking)
+        if (enemy.distanceToPlayer < 6f && enemy.player.GetComponent<PlayerMovement>().moving && !enemy.player.GetComponent<PlayerMovement>().sneaking)
         {
             enemy.lastKnownPlayerPosition = enemy.player.transform.position;
             lookAtDisturbance = false;
             lookAtDisturbanceTimer = 2;
             checkDisturbance = false;
             searchTimer = 0;
+        }
+        if (enemy.distanceToPlayer <= enemy.hearingPlayerShootRadius)
+        {
+            Weapon weaponScript = enemy.player.GetComponentInChildren<Weapon>();
+            if (weaponScript != null)
+            {
+                if (weaponScript.isShooting && !weaponScript.silenced)
+                    ToCombatState();
+            }
         }
     }
     public void ToAlertState()
@@ -54,6 +79,7 @@ public class AlertState : IEnemyState
         lookAtDisturbance = false;
         checkDisturbance = false;
         lookAtDisturbanceTimer = 2;
+        enemy.canSeePlayerTimer = 0;
         enemy.currentState = enemy.combatState;
     }
     public void ToPatrolState()
@@ -65,6 +91,7 @@ public class AlertState : IEnemyState
         lookAtDisturbance = false;
         checkDisturbance = false;
         lookAtDisturbanceTimer = 2;
+        enemy.canSeePlayerTimer = 0;
         enemy.currentState = enemy.patrolState;
         if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
         {
@@ -83,6 +110,7 @@ public class AlertState : IEnemyState
         searchTimer = 0;
         lookAtDisturbanceTimer = 2;
         checkDisturbance = false;
+        enemy.canSeePlayerTimer = 0;
         enemy.currentState = enemy.trackingState;
     }
     public void FOVRoutine()
@@ -105,15 +133,27 @@ public class AlertState : IEnemyState
             if (Vector3.Angle(enemy.transform.forward, enemy.directionToTarget) < enemy.angle / 2)
             {
                 if (!Physics.Raycast(enemy.transform.position, enemy.directionToTarget, enemy.distanceToPlayer, enemy.obstructionMask))
-                    enemy.canSeePlayer = true;
+                {
+                    enemy.playerMovementScript = enemy.player.GetComponent<PlayerMovement>();
+                    if (enemy.playerMovementScript != null)
+                    {
+                        if (enemy.distanceToPlayer < enemy.radius && !enemy.playerMovementScript.sneaking)
+                            enemy.canSeePlayer = true;
+                        else if (enemy.distanceToPlayer < enemy.sneakRadius && enemy.playerMovementScript.sneaking)
+                            enemy.canSeePlayer = true;
+                    }
+                }
                 else
                     enemy.canSeePlayer = false;
             }
         }
         else if (enemy.canSeePlayer)
             enemy.canSeePlayer = false;
-        if (enemy.canSeePlayer)
-            ToCombatState();
+    }
+    void DetectionTimeUI()
+    {
+        float alpha = Mathf.Clamp01(enemy.canSeePlayerTimer / enemy.canSeePlayerMaxTime);
+        PlayerManager.instance.sneakIndicatorImage.color = new Color(0f + alpha, 0f + alpha, 0f + alpha, 1f);
     }
     void LookAround()
     {
@@ -137,7 +177,7 @@ public class AlertState : IEnemyState
     void WalkToDisturbance()
     {
         float distanceToDisturbance = Vector3.Distance(enemy.lastKnownPlayerPosition, enemy.transform.position);
-        if(distanceToDisturbance > 1.5f)
+        if (distanceToDisturbance > 1.5f)
         {
             enemy.agent.isStopped = false;
             enemy.GetComponentInChildren<Animator>().SetBool("Walk", true);
