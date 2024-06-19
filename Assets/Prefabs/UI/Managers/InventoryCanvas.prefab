@@ -1042,6 +1042,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf52ae93dedd8849b2c36743113f4db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryData:
+    activeWeapon: 0
   itemsDatabase:
   - {fileID: 11400000, guid: 446a2986bf96dd842a51f25aa4737cd3, type: 2}
   - {fileID: 11400000, guid: ef635ea7dc59070488bf5b6b672191d4, type: 2}
@@ -1075,6 +1077,7 @@ MonoBehaviour:
   weaponIDsList: 
   selectSlot: {fileID: 0}
   tempInventoryItem: {fileID: 0}
+  isPaused: 0
 --- !u!1001 &967399350864966322
 PrefabInstance:
   m_ObjectHideFlags: 0

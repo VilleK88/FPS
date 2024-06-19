@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 [Serializable]
@@ -15,7 +14,7 @@ public class InventoryManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance != null && instance != this)
+        if (instance != null && instance != this)
         {
             Destroy(this);
         }
@@ -42,21 +41,23 @@ public class InventoryManager : MonoBehaviour
     public List<int> weaponIDsList = new List<int>();
     public Button selectSlot; // for keyboard use
     public InventoryItem tempInventoryItem; // for keyboard use
+    public bool isPaused;
     private void Start()
     {
         inventorySlotsUI = new InventorySlot[20];
-        for(int i = 0; i < 20; i++)
+        for (int i = 0; i < 20; i++)
         {
             InventorySlot slot = Instantiate(slotPrefab, inventoryTransform);
             inventorySlotsUI[i] = slot;
             slot.InitializeButton();
         }
-        if(GameManager.instance.loadInventory)
+        if (GameManager.instance.loadInventory)
         {
             LoadInventorySlotData();
             AddSavedInventorySlotData();
             WeaponCollected();
             LoadHowManyBulletsLeftInMagazine();
+            InitializeArmor();
             GameManager.instance.loadInventory = false;
         }
         else
@@ -69,21 +70,35 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab))
         {
             if (closed)
+            {
                 OpenInventory();
+                PauseGame();
+            }
             else
+            {
                 CloseInventory();
+                StopPause();
+            }
         }
         if (!closed || InGameMenuControls.instance.menuButtons.activeSelf)
             return;
         EquipWeapon();
     }
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+    public void StopPause()
+    {
+        Time.timeScale = 1;
+    }
     public void CancelKeyboardItemTransfer()
     {
         tempInventoryItem = null;
-        for(int i = 0; i < inventorySlotsUI.Length; i++)
+        for (int i = 0; i < inventorySlotsUI.Length; i++)
         {
             InventoryItem cancelItemTransfer = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
-            if(cancelItemTransfer != null)
+            if (cancelItemTransfer != null)
             {
                 cancelItemTransfer.transparent.SetActive(false);
                 cancelItemTransfer.CloseItemMenus();
@@ -103,7 +118,7 @@ public class InventoryManager : MonoBehaviour
     {
         tempInventoryItem = inventoryItemInTransfer;
     }
-    public bool CheckIfArmorSlotEmpty(InventoryItem newArmorItem)
+    public bool CheckIfArmorSlotEmpty(InventoryItem newArmorItem) // when putting armor on armor slot
     {
         InventoryItem armorItem = equipmentSlotsUI[0].GetComponentInChildren<InventoryItem>();
         if (armorItem == null)
@@ -123,12 +138,25 @@ public class InventoryManager : MonoBehaviour
         }
         return false;
     }
+    public void InitializeArmor()
+    {
+        InventoryItem armorItem = equipmentSlotsUI[0].GetComponentInChildren<InventoryItem>();
+        if (armorItem != null)
+        {
+            Armor armorSO = armorItem.item as Armor;
+            PlayerHealth playerHealthScript = player.GetComponent<PlayerHealth>();
+            if (playerHealthScript != null)
+            {
+                playerHealthScript.armorMultiplier = armorSO.armorMultiplier;
+            }
+        }
+    }
     public bool CheckIfRoomInWeaponSlots(InventoryItem newWeaponItem)
     {
-        for(int i = 1; i < equipmentSlotsUI.Length; i++)
+        for (int i = 1; i < equipmentSlotsUI.Length; i++)
         {
             InventoryItem weaponItem = equipmentSlotsUI[i].GetComponentInChildren<InventoryItem>();
-            if(weaponItem == null)
+            if (weaponItem == null)
             {
                 InventoryItem thisItemWeapon = Instantiate(inventoryItem, equipmentSlotsUI[i].transform);
                 thisItemWeapon.item = newWeaponItem.item;
@@ -148,7 +176,7 @@ public class InventoryManager : MonoBehaviour
     }
     void EquipWeapon()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
             DrawWeapon(1);
         if (Input.GetKeyDown(KeyCode.Alpha2))
             DrawWeapon(2);
@@ -165,7 +193,7 @@ public class InventoryManager : MonoBehaviour
         {
             if (equipmentSlotsUI[index].slotData.itemId > -1)
             {
-                for(int i = 0; i < weaponSlots.Length; i++)
+                for (int i = 0; i < weaponSlots.Length; i++)
                 {
                     if (weaponSlots[i].GetComponent<Weapon>().weaponId == equipmentSlotsUI[index].slotData.itemId)
                     {
@@ -174,6 +202,8 @@ public class InventoryManager : MonoBehaviour
                             weaponSlots[i].SetActive(!weaponSlots[i].activeSelf);
                             inventoryData.activeWeapon = index;
                             weaponSlots[i].GetComponent<Weapon>().UpdateTotalAmmoStatus();
+                            //if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.Shotgun)
+                            //weaponSlots[i].GetComponent<Weapon>().anim.SetTrigger("Equip");
                         }
                         else
                         {
@@ -194,11 +224,11 @@ public class InventoryManager : MonoBehaviour
         GameObject[] weaponSlots = player.GetComponent<Player>().weaponSlots;
         if (inventoryData.activeWeapon != 99)
         {
-            for(int i = 0; i < equipmentSlotsUI.Length; i++)
+            for (int i = 0; i < equipmentSlotsUI.Length; i++)
             {
                 if (equipmentSlotsUI[i].slotData.slotType == SlotType.Weapon && equipmentSlotsUI[i].slotData.itemId > -1 && i == inventoryData.activeWeapon)
                 {
-                    for(int secondI = 0; secondI < weaponSlots.Length; secondI++)
+                    for (int secondI = 0; secondI < weaponSlots.Length; secondI++)
                     {
                         if (equipmentSlotsUI[i].slotData.itemId == weaponSlots[secondI].GetComponent<Weapon>().weaponId)
                         {
@@ -216,7 +246,7 @@ public class InventoryManager : MonoBehaviour
         GameObject[] weaponSlots = player.GetComponent<Player>().weaponSlots;
         if (player != null)
         {
-            for(int i = 0; i < weaponSlots.Length; i++)
+            for (int i = 0; i < weaponSlots.Length; i++)
                 weaponSlots[i].SetActive(false);
         }
         EnemyManager.Instance.CloseEnemyHealthbars();
@@ -256,12 +286,12 @@ public class InventoryManager : MonoBehaviour
         foreach (var slotData in GameManager.instance.equipmentSlotsData)
             weaponIDsList.Add(slotData.itemId);
         GameObject[] weaponSlots = player.GetComponent<Player>().weaponSlots;
-        foreach(var weaponSlot in weaponSlots)
+        foreach (var weaponSlot in weaponSlots)
         {
             Weapon weaponScript = weaponSlot.GetComponent<Weapon>();
             if (weaponScript != null)
             {
-                if(weaponIDsList.Contains(weaponScript.weaponId))
+                if (weaponIDsList.Contains(weaponScript.weaponId))
                 {
                     weaponSlot.SetActive(true);
                     weaponScript.weaponCollected = true;
@@ -276,6 +306,11 @@ public class InventoryManager : MonoBehaviour
         equipmentAnim.GetComponent<Animator>().SetBool("EquipmentScreenOn", true);
         closed = false;
         HolsterWeapons();
+        if (Score.Instance != null && AccountManager.Instance != null)
+        {
+            if (AccountManager.Instance.loggedIn)
+                Score.Instance.killsText.enabled = false;
+        }
         selectSlot.Select();
         InGameMenuControls.instance.CloseSettings();
         InGameMenuControls.instance.menuButtons.SetActive(false);
@@ -288,7 +323,13 @@ public class InventoryManager : MonoBehaviour
         closed = true;
         HolsterWeapons();
         DrawActiveWeapon();
-        if(tempInventoryItem != null)
+        InitializeArmor();
+        if (Score.Instance != null && AccountManager.Instance != null)
+        {
+            if (AccountManager.Instance.loggedIn)
+                Score.Instance.killsText.enabled = true;
+        }
+        if (tempInventoryItem != null)
         {
             tempInventoryItem.GetComponentInParent<InventorySlot>().CloseTransparentBG(tempInventoryItem);
             tempInventoryItem = null;
@@ -296,10 +337,10 @@ public class InventoryManager : MonoBehaviour
     }
     void CloseInventoryItemMenus() // when closing inventory
     {
-        for(int i = 0; i < inventorySlotsUI.Length; i++)
+        for (int i = 0; i < inventorySlotsUI.Length; i++)
         {
             InventoryItem thisItem = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
-            if(thisItem != null)
+            if (thisItem != null)
             {
                 thisItem.sliderBG.SetActive(false);
                 thisItem.itemMenuMoreThanOne.SetActive(false);
@@ -310,15 +351,15 @@ public class InventoryManager : MonoBehaviour
     public bool AddInventoryItem(Item newItem, string pickupItemID, int count)
     {
         // add to stackable
-        for(int i = 0; i < inventorySlotsUI.Length; i++)
+        for (int i = 0; i < inventorySlotsUI.Length; i++)
         {
-            if(inventorySlotsUI[i].slotData.itemId == newItem.itemID && inventorySlotsUI[i].slotData.stackable == true)
+            if (inventorySlotsUI[i].slotData.itemId == newItem.itemID && inventorySlotsUI[i].slotData.stackable == true)
             {
                 InventoryItem itemInSlot = inventorySlotsUI[i].GetComponentInChildren<InventoryItem>();
-                if(newItem.stackMax > inventorySlotsUI[i].slotData.count)
+                if (newItem.stackMax > inventorySlotsUI[i].slotData.count)
                 {
                     int tempTotalCount = itemInSlot.count + count;
-                    if(itemInSlot.maxStack >= tempTotalCount)
+                    if (itemInSlot.maxStack >= tempTotalCount)
                     {
                         inventorySlotsUI[i].slotData.count += count;
                         itemInSlot.count += count;
@@ -353,7 +394,7 @@ public class InventoryManager : MonoBehaviour
                                 InventorySlot slot = thisInventoryItem.GetComponentInParent<InventorySlot>();
                                 slot.slotData.count = thisInventoryItem.count;
                                 thisInventoryItem.RefreshCount();
-                                if(thisInventoryItem.count > 1)
+                                if (thisInventoryItem.count > 1)
                                     thisInventoryItem.InitializeSlider();
                                 thisInventoryItem.InitializeAmmoStatus();
                                 break;
@@ -447,7 +488,7 @@ public class InventoryManager : MonoBehaviour
     }
     public void LoadInventorySlotData() // and equipment slot data from GameManager
     {
-        for(int i = 0; i < inventorySlotsUI.Length; i++)
+        for (int i = 0; i < inventorySlotsUI.Length; i++)
         {
             inventorySlotsUI[i].slotData = GameManager.instance.inventorySlotsData[i];
         }
@@ -510,7 +551,7 @@ public class InventoryManager : MonoBehaviour
     }
     public void ClearInventory() // and equipment
     {
-        for(int i = 0; i < GameManager.instance.inventorySlotsData.Length; i++)
+        for (int i = 0; i < GameManager.instance.inventorySlotsData.Length; i++)
         {
             GameManager.instance.inventorySlotsData[i] = null;
         }

@@ -3,7 +3,7 @@ public class MouseLook : MonoBehaviour
 {
     float mouseX;
     float mouseY;
-    float mouseSensitivity = 7000; // 4000 editor
+    public float mouseSensitivity = 4000; // 4000 editor
     [SerializeField] Transform playerBody;
     float xRotation = 0;
     private void Start()
