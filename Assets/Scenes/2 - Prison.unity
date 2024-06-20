@@ -1215,7 +1215,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -2359,12 +2359,12 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.9764706, b: 0.8235294, a: 1}
   m_Intensity: 1
-  m_Range: 11.9
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -7245,7 +7245,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -7498,12 +7498,12 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.9764706, b: 0.8235294, a: 1}
   m_Intensity: 1
-  m_Range: 11.9
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -11184,7 +11184,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -11518,9 +11518,9 @@ Mesh:
       format: 0
       dimension: 2
     - stream: 0
-      offset: 0
+      offset: 48
       format: 0
-      dimension: 0
+      dimension: 2
     - stream: 0
       offset: 0
       format: 0
@@ -11553,8 +11553,8 @@ Mesh:
       offset: 0
       format: 0
       dimension: 0
-    m_DataSize: 1152
-    _typelessdata: 5817c240c0524ebfa0092f4100000000000000000000803f000080bf0000000000000000000080bf5817c2c0c0524ebf5817e240c0524ebfa0092f4100000000000000000000803f000080bf0000000000000000000080bf5817e2c0c0524ebf5817c240a835c640a0092f4100000000000000000000803f000080bf0000000000000000000080bf5817c2c0a835c6405817e240a835c640a0092f4100000000000000000000803f000080bf0000000000000000000080bf5817e2c0a835c6405817e240c0524ebfa0092f410000803f000000000000000000000000000000000000803f000080bfa0092f41c0524ebf5817e240c0524ebf60f610c10000803f000000000000000000000000000000000000803f000080bf60f610c1c0524ebf5817e240a835c640a0092f410000803f000000000000000000000000000000000000803f000080bfa0092f41a835c6405817e240a835c64060f610c10000803f000000000000000000000000000000000000803f000080bf60f610c1a835c6405817e240c0524ebf60f610c10000000000000000000080bf0000803f0000000000000000000080bf5817e240c0524ebf5817c240c0524ebf60f610c10000000000000000000080bf0000803f0000000000000000000080bf5817c240c0524ebf5817e240a835c64060f610c10000000000000000000080bf0000803f0000000000000000000080bf5817e240a835c6405817c240a835c64060f610c10000000000000000000080bf0000803f0000000000000000000080bf5817c240a835c6405817c240c0524ebf60f610c1000080bf00000000000000000000000000000000000080bf000080bf60f61041c0524ebf5817c240c0524ebfa0092f41000080bf00000000000000000000000000000000000080bf000080bfa0092fc1c0524ebf5817c240a835c64060f610c1000080bf00000000000000000000000000000000000080bf000080bf60f61041a835c6405817c240a835c640a0092f41000080bf00000000000000000000000000000000000080bf000080bfa0092fc1a835c6405817c240a835c640a0092f41000000000000803f000000000000803f0000000000000000000080bf5817c240a0092f415817e240a835c640a0092f41000000000000803f000000000000803f0000000000000000000080bf5817e240a0092f415817c240a835c64060f610c1000000000000803f000000000000803f0000000000000000000080bf5817c24060f610c15817e240a835c64060f610c1000000000000803f000000000000803f0000000000000000000080bf5817e24060f610c15817c240c0524ebf60f610c100000000000080bf00000000000080bf0000000000000000000080bf5817c2c060f610c15817e240c0524ebf60f610c100000000000080bf00000000000080bf0000000000000000000080bf5817e2c060f610c15817c240c0524ebfa0092f4100000000000080bf00000000000080bf0000000000000000000080bf5817c2c0a0092f415817e240c0524ebfa0092f4100000000000080bf00000000000080bf0000000000000000000080bf5817e2c0a0092f41
+    m_DataSize: 1344
+    _typelessdata: 5817c240c0524ebfa0092f4100000000000000000000803f000080bf0000000000000000000080bf5817c2c0c0524ebf358cb63ee9855e3f5817e240c0524ebfa0092f4100000000000000000000803f000080bf0000000000000000000080bf5817e2c0c0524ebf358cb63eadd46a3f5817c240a835c640a0092f4100000000000000000000803f000080bf0000000000000000000080bf5817c2c0a835c6400bd7a33ce9855e3f5817e240a835c640a0092f4100000000000000000000803f000080bf0000000000000000000080bf5817e2c0a835c6400fd7a33cadd46a3f5817e240c0524ebfa0092f410000803f000000000000000000000000000000000000803f000080bfa0092f41c0524ebfaed8a33c0bd7a33c5817e240c0524ebf60f610c10000803f000000000000000000000000000000000000803f000080bf60f610c1c0524ebf1a467b3f0bd7a33c5817e240a835c640a0092f410000803f000000000000000000000000000000000000803f000080bfa0092f41a835c6400bd7a33c368cb63e5817e240a835c64060f610c10000803f000000000000000000000000000000000000803f000080bf60f610c1a835c6400d467b3f368cb63e5817e240c0524ebf60f610c10000000000000000000080bf0000803f0000000000000000000080bf5817e240c0524ebf0fd7a33c2a427c3f5817c240c0524ebf60f610c10000000000000000000080bf0000803f0000000000000000000080bf5817c240c0524ebf0bd7a33c66f36f3f5817e240a835c64060f610c10000000000000000000080bf0000803f0000000000000000000080bf5817e240a835c640358cb63e2a427c3f5817c240a835c64060f610c10000000000000000000080bf0000803f0000000000000000000080bf5817c240a835c640358cb63e66f36f3f5817c240c0524ebf60f610c1000080bf00000000000000000000000000000000000080bf000080bf60f61041c0524ebfaed8a33ca6c9c03e5817c240c0524ebfa0092f41000080bf00000000000000000000000000000000000080bf000080bfa0092fc1c0524ebf1a467b3fa6c9c03e5817c240a835c64060f610c1000080bf00000000000000000000000000000000000080bf000080bf60f61041a835c6400bd7a33c368c363f5817c240a835c640a0092f41000080bf00000000000000000000000000000000000080bf000080bfa0092fc1a835c6400d467b3f368c363f5817c240a835c640a0092f41000000000000803f000000000000803f0000000000000000000080bf5817c240a0092f4111467b3f6c184d3f5817e240a835c640a0092f41000000000000803f000000000000803f0000000000000000000080bf5817e240a0092f4111467b3f3167593f5817c240a835c64060f610c1000000000000803f000000000000803f0000000000000000000080bf5817c24060f610c10bd7a33c6c184d3f5817e240a835c64060f610c1000000000000803f000000000000803f0000000000000000000080bf5817e24060f610c113d7a33c3067593f5817c240c0524ebf60f610c100000000000080bf00000000000080bf0000000000000000000080bf5817c2c060f610c111467b3feeaa3b3f5817e240c0524ebf60f610c100000000000080bf00000000000080bf0000000000000000000080bf5817e2c060f610c111467b3fb3f9473f5817c240c0524ebfa0092f4100000000000080bf00000000000080bf0000000000000000000080bf5817c2c0a0092f410bd7a33ceeaa3b3f5817e240c0524ebfa0092f4100000000000080bf00000000000080bf0000000000000000000080bf5817e2c0a0092f4114d7a33cb3f9473f
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
@@ -11614,7 +11614,7 @@ Mesh:
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
   m_MeshMetrics[0]: 1
-  m_MeshMetrics[1]: 367.86414
+  m_MeshMetrics[1]: 432.64038
   m_MeshOptimizationFlags: 1
   m_StreamData:
     serializedVersion: 2
@@ -13302,7 +13302,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -15752,12 +15752,12 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.9764706, b: 0.8235294, a: 1}
   m_Intensity: 1
-  m_Range: 11.9
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -16475,12 +16475,12 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.9764706, b: 0.8235294, a: 1}
   m_Intensity: 1
-  m_Range: 11.9
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -16871,7 +16871,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!64 &447579936
 MeshCollider:
@@ -17537,7 +17537,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -17708,6 +17708,10 @@ PrefabInstance:
     - target: {fileID: 7136351547337792652, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7136351547511556540, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
+      propertyPath: volumeLayer.m_Bits
+      value: 4224
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
@@ -18663,7 +18667,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -19992,7 +19996,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -21817,7 +21821,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -22239,7 +22243,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -23219,7 +23223,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -25059,6 +25063,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -11
       objectReference: {fileID: 0}
+    - target: {fileID: 4148687429997466993, guid: 5cdee1933a92e8c43a8488b376fd44f7, type: 3}
+      propertyPath: m_Intensity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4148687429997466993, guid: 5cdee1933a92e8c43a8488b376fd44f7, type: 3}
+      propertyPath: m_BounceIntensity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4148687430061704303, guid: 5cdee1933a92e8c43a8488b376fd44f7, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -25906,7 +25918,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -26005,7 +26017,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -27551,7 +27563,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -28198,7 +28210,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -28383,7 +28395,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -28955,12 +28967,12 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.9764706, b: 0.8235294, a: 1}
   m_Intensity: 1
-  m_Range: 11.9
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -29218,7 +29230,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -33020,12 +33032,12 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.9764706, b: 0.8235294, a: 1}
   m_Intensity: 1
-  m_Range: 11.9
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -34011,12 +34023,12 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.9764706, b: 0.8235294, a: 1}
   m_Intensity: 1
-  m_Range: 11.9
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -34597,12 +34609,12 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.9764706, b: 0.8235294, a: 1}
   m_Intensity: 1
-  m_Range: 11.9
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -35669,12 +35681,12 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.9764706, b: 0.8235294, a: 1}
   m_Intensity: 1
-  m_Range: 11.9
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -36681,7 +36693,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -37729,12 +37741,12 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.9764706, b: 0.8235294, a: 1}
   m_Intensity: 1
-  m_Range: 11.9
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -37823,12 +37835,12 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.9764706, b: 0.8235294, a: 1}
   m_Intensity: 1
-  m_Range: 11.9
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -38576,7 +38588,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -38834,7 +38846,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -40717,9 +40729,9 @@ Mesh:
       format: 0
       dimension: 2
     - stream: 0
-      offset: 0
+      offset: 48
       format: 0
-      dimension: 0
+      dimension: 2
     - stream: 0
       offset: 0
       format: 0
@@ -40752,8 +40764,8 @@ Mesh:
       offset: 0
       format: 0
       dimension: 0
-    m_DataSize: 1152
-    _typelessdata: 0000bec2000000000000704200000000000000000000803f000080bf0000000000000000000080bf0000be420000000000000000000000000000704200000000000000000000803f000080bf0000000000000000000080bf00000000000000000000bec20000803f0000704200000000000000000000803f000080bf0000000000000000000080bf0000be420000803f000000000000803f0000704200000000000000000000803f000080bf0000000000000000000080bf000000000000803f0000000000000000000070420000803f000000000000000000000000000000000000803f000080bf00007042000000000000000000000000000000000000803f000000000000000000000000000000000000803f000080bf0000000000000000000000000000803f000070420000803f000000000000000000000000000000000000803f000080bf000070420000803f000000000000803f000000000000803f000000000000000000000000000000000000803f000080bf000000000000803f0000000000000000000000000000000000000000000080bf0000803f0000000000000000000080bf00000000000000000000bec200000000000000000000000000000000000080bf0000803f0000000000000000000080bf0000bec200000000000000000000803f000000000000000000000000000080bf0000803f0000000000000000000080bf000000000000803f0000bec20000803f000000000000000000000000000080bf0000803f0000000000000000000080bf0000bec20000803f0000bec20000000000000000000080bf00000000000000000000000000000000000080bf000080bf00000000000000000000bec20000000000007042000080bf00000000000000000000000000000000000080bf000080bf000070c2000000000000bec20000803f00000000000080bf00000000000000000000000000000000000080bf000080bf000000000000803f0000bec20000803f00007042000080bf00000000000000000000000000000000000080bf000080bf000070c20000803f0000bec20000803f00007042000000000000803f000000000000803f0000000000000000000080bf0000bec200007042000000000000803f00007042000000000000803f000000000000803f0000000000000000000080bf00000000000070420000bec20000803f00000000000000000000803f000000000000803f0000000000000000000080bf0000bec200000000000000000000803f00000000000000000000803f000000000000803f0000000000000000000080bf00000000000000000000bec2000000000000000000000000000080bf00000000000080bf0000000000000000000080bf0000be420000000000000000000000000000000000000000000080bf00000000000080bf0000000000000000000080bf00000000000000000000bec2000000000000704200000000000080bf00000000000080bf0000000000000000000080bf0000be420000704200000000000000000000704200000000000080bf00000000000080bf0000000000000000000080bf0000000000007042
+    m_DataSize: 1344
+    _typelessdata: 0000bec2000000000000704200000000000000000000803f000080bf0000000000000000000080bf0000be42000000000bd7a33c0bd7a33c00000000000000000000704200000000000000000000803f000080bf0000000000000000000080bf0000000000000000aba92c3f0bd7a33c0000bec20000803f0000704200000000000000000000803f000080bf0000000000000000000080bf0000be420000803ffed7a33c8246dc3c000000000000803f0000704200000000000000000000803f000080bf0000000000000000000080bf000000000000803fb2a92c3f8246dc3c0000000000000000000070420000803f000000000000000000000000000000000000803f000080bf00007042000000000bd7a33ccca4773f0000000000000000000000000000803f000000000000000000000000000000000000803f000080bf00000000000000007adfdd3ecca4773f000000000000803f000070420000803f000000000000000000000000000000000000803f000080bf000070420000803f96d7a33c4868793f000000000000803f000000000000803f000000000000000000000000000000000000803f000080bf000000000000803f82dfdd3e4868793f0000000000000000000000000000000000000000000080bf0000803f0000000000000000000080bf00000000000000000bd7a33cc60e403d0000bec200000000000000000000000000000000000080bf0000803f0000000000000000000080bf0000bec200000000aba92c3fc60e403d000000000000803f000000000000000000000000000080bf0000803f0000000000000000000080bf000000000000803ffed7a33c82465c3d0000bec20000803f000000000000000000000000000080bf0000803f0000000000000000000080bf0000bec20000803fb2a92c3f82465c3d0000bec20000000000000000000080bf00000000000000000000000000000000000080bf000080bf00000000000000000bd7a33c98c2703f0000bec20000000000007042000080bf00000000000000000000000000000000000080bf000080bf000070c2000000007adfdd3e98c2703f0000bec20000803f00000000000080bf00000000000000000000000000000000000080bf000080bf000000000000803f96d7a33c1486723f0000bec20000803f00007042000080bf00000000000000000000000000000000000080bf000080bf000070c20000803f82dfdd3e1486723f0000bec20000803f00007042000000000000803f000000000000803f0000000000000000000080bf0000bec200007042a5a92c3fe0a36b3f000000000000803f00007042000000000000803f000000000000803f0000000000000000000080bf00000000000070420bd7a33ce0a36b3f0000bec20000803f00000000000000000000803f000000000000803f0000000000000000000080bf0000bec200000000a8a92c3fdcd2013f000000000000803f00000000000000000000803f000000000000803f0000000000000000000080bf000000000000000061d7a33cdcd2013f0000bec2000000000000000000000000000080bf00000000000080bf0000000000000000000080bf0000be420000000061d7a33c0319973d00000000000000000000000000000000000080bf00000000000080bf0000000000000000000080bf0000000000000000a8a92c3f0319973d0000bec2000000000000704200000000000080bf00000000000080bf0000000000000000000080bf0000be42000070420bd7a33c4868f93e00000000000000000000704200000000000080bf00000000000080bf0000000000000000000080bf0000000000007042a5a92c3f4868f93e
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
@@ -40813,7 +40825,7 @@ Mesh:
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
   m_MeshMetrics[0]: 1
-  m_MeshMetrics[1]: 1
+  m_MeshMetrics[1]: 21070.56
   m_MeshOptimizationFlags: 1
   m_StreamData:
     serializedVersion: 2
@@ -41526,7 +41538,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -43233,7 +43245,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -44376,7 +44388,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -46371,7 +46383,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -48216,7 +48228,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -48939,7 +48951,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -49192,12 +49204,12 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.9764706, b: 0.8235294, a: 1}
   m_Intensity: 1
-  m_Range: 11.9
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -50494,7 +50506,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -50824,12 +50836,12 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.9764706, b: 0.8235294, a: 1}
   m_Intensity: 1
-  m_Range: 11.9
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -52666,7 +52678,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -55303,12 +55315,12 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.9764706, b: 0.8235294, a: 1}
   m_Intensity: 1
-  m_Range: 11.9
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -57635,7 +57647,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -58138,7 +58150,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -58232,7 +58244,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -61290,7 +61302,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -62669,6 +62681,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4148687430641634131, guid: 5cdee1933a92e8c43a8488b376fd44f7, type: 3}
   m_PrefabInstance: {fileID: 630183418}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1788196254 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7136351547362206918, guid: 2d18372c903399a4ba55e627d8b71658, type: 3}
+  m_PrefabInstance: {fileID: 480894465}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1788196260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788196254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: bf6c36130cbe1524bb5144bef726c2ed, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 1
+  priority: 0
 --- !u!1 &1789514817
 GameObject:
   m_ObjectHideFlags: 0
@@ -64470,7 +64504,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -64559,12 +64593,12 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.9764706, b: 0.8235294, a: 1}
   m_Intensity: 1
-  m_Range: 11.9
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -64986,7 +65020,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -66242,7 +66276,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -69998,7 +70032,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -71235,12 +71269,12 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.9764706, b: 0.8235294, a: 1}
   m_Intensity: 1
-  m_Range: 11.9
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -74989,7 +75023,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -75996,7 +76030,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
