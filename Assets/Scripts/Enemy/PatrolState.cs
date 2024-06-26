@@ -15,7 +15,7 @@ public class PatrolState : IEnemyState
     public void UpdateState()
     {
         enemy.distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.player.transform.position);
-        FOVRoutine();
+        //FOVRoutine();
         HearingArea();
         Patrol();
         if (enemy.canSeePlayer)

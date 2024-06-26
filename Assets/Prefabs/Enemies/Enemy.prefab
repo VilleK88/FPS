@@ -389,6 +389,62 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
+--- !u!1 &537387109948155269
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6787882482878720257}
+  - component: {fileID: 2827071339999454792}
+  m_Layer: 9
+  m_Name: FOV
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6787882482878720257
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537387109948155269}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.274, z: 0.59}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1041474027568359265}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2827071339999454792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537387109948155269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f64a80c2a3fb6704ebcb4897254068ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 1041474027568359270}
+  distance: 50
+  angle: 50
+  height: 6
+  meshColor: {r: 1, g: 0, b: 0, a: 0.60784316}
+  scanFrequency: 30
+  layers:
+    serializedVersion: 2
+    m_Bits: 128
+  occlusionLayers:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1 &1041474027568359582
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,7 +460,6 @@ GameObject:
   - component: {fileID: 1041474027568359264}
   - component: {fileID: 1041474027568359270}
   - component: {fileID: 1041474027577360227}
-  - component: {fileID: 1955094199}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
@@ -427,6 +482,7 @@ Transform:
   - {fileID: 6038880808230183788}
   - {fileID: 722350217}
   - {fileID: 1738602307}
+  - {fileID: 6787882482878720257}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -570,7 +626,7 @@ MonoBehaviour:
   enemyHealth: {fileID: 1041474027577360227}
   player: {fileID: 0}
   agent: {fileID: 0}
-  sensor: {fileID: 1955094199}
+  sensor: {fileID: 2827071339999454792}
 --- !u!114 &1041474027577360227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -591,30 +647,6 @@ MonoBehaviour:
   takingHit: 0
   dead: 0
   body: {fileID: 1041474027568359582}
---- !u!114 &1955094199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1041474027568359582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f64a80c2a3fb6704ebcb4897254068ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  distance: 20
-  angle: 30
-  height: 2
-  meshColor: {r: 1, g: 0, b: 0, a: 1}
-  scanFrequency: 30
-  layers:
-    serializedVersion: 2
-    m_Bits: 128
-  occlusionLayers:
-    serializedVersion: 2
-    m_Bits: 1024
-  Objects: []
 --- !u!1001 &1041474028577971242
 PrefabInstance:
   m_ObjectHideFlags: 0

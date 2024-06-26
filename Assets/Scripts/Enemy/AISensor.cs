@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 public class AISensor : MonoBehaviour
 {
+    public StatePatternEnemy enemy;
     public float distance = 10;
     public float angle = 30;
     public float height = 1.0f;
@@ -16,7 +17,7 @@ public class AISensor : MonoBehaviour
     int count;
     float scanInterval;
     float scanTimer;
-    public List<GameObject> Objects = new List<GameObject>();
+    //public List<GameObject> Objects = new List<GameObject>();
     private void Start()
     {
         scanInterval = 1.0f / scanFrequency;
@@ -32,7 +33,7 @@ public class AISensor : MonoBehaviour
     }
     private void Scan()
     {
-        count = Physics.OverlapSphereNonAlloc(transform.position, distance, colliders, layers, QueryTriggerInteraction.Collide);
+        /*count = Physics.OverlapSphereNonAlloc(transform.position, distance, colliders, layers, QueryTriggerInteraction.Collide);
         Objects.Clear();
         for(int i = 0; i < count; i++)
         {
@@ -41,7 +42,10 @@ public class AISensor : MonoBehaviour
             {
                 Objects.Add(obj);
             }
-        }
+        }*/
+        enemy.rangeChecks = Physics.OverlapSphere(transform.position, distance, layers);
+        GameObject player = enemy.player;
+        IsInSight(player);
     }
     public bool IsInSight(GameObject obj)
     {
@@ -49,15 +53,29 @@ public class AISensor : MonoBehaviour
         Vector3 dest = obj.transform.position;
         Vector3 direction = dest - origin;
         if(direction.y < 0 || direction.y > height)
+        {
+            enemy.canSeePlayer = false;
             return false;
+        }
         direction.y = 0;
         float deltaAngle = Vector3.Angle(direction, transform.forward);
         if (deltaAngle > angle)
+        {
+            enemy.canSeePlayer = false;
             return false;
+        }
         origin.y += height / 2;
         dest.y = origin.y;
-        if (Physics.Linecast(origin, dest, occlusionLayers))
+        /*if (Physics.Linecast(origin, dest, occlusionLayers))
+        {
+            enemy.canSeePlayer = false;
             return false;
+        }*/
+        if(!Physics.Linecast(origin, dest, occlusionLayers))
+        {
+            enemy.canSeePlayer = true;
+            Debug.Log("Can see player");
+        }
         return true;
     }
     Mesh CreateWedgeMesh()
@@ -140,10 +158,10 @@ public class AISensor : MonoBehaviour
         {
             Gizmos.DrawSphere(colliders[i].transform.position, 0.2f);
         }
-        Gizmos.color = Color.green;
+        /*Gizmos.color = Color.green;
         foreach(var obj in Objects)
         {
             Gizmos.DrawSphere(obj.transform.position, 0.2f);
-        }
+        }*/
     }
 }
