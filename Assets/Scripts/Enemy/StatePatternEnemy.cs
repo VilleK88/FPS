@@ -50,6 +50,7 @@ public class StatePatternEnemy : MonoBehaviour
     [HideInInspector] public CombatState combatState;
     [HideInInspector] public TrackingState trackingState;
     [HideInInspector] public NavMeshAgent agent;
+    public AISensor sensor;
     private void Awake()
     {
         patrolState = new PatrolState(this);

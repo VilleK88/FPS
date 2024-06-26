@@ -404,6 +404,7 @@ GameObject:
   - component: {fileID: 1041474027568359264}
   - component: {fileID: 1041474027568359270}
   - component: {fileID: 1041474027577360227}
+  - component: {fileID: 1955094199}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
@@ -553,7 +554,6 @@ MonoBehaviour:
   waypoints:
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
   randomPatrol: 0
   walkSpeed: 3.5
   runningSpeed: 4
@@ -570,6 +570,7 @@ MonoBehaviour:
   enemyHealth: {fileID: 1041474027577360227}
   player: {fileID: 0}
   agent: {fileID: 0}
+  sensor: {fileID: 1955094199}
 --- !u!114 &1041474027577360227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -590,6 +591,30 @@ MonoBehaviour:
   takingHit: 0
   dead: 0
   body: {fileID: 1041474027568359582}
+--- !u!114 &1955094199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041474027568359582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f64a80c2a3fb6704ebcb4897254068ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 20
+  angle: 30
+  height: 2
+  meshColor: {r: 1, g: 0, b: 0, a: 1}
+  scanFrequency: 30
+  layers:
+    serializedVersion: 2
+    m_Bits: 128
+  occlusionLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  Objects: []
 --- !u!1001 &1041474028577971242
 PrefabInstance:
   m_ObjectHideFlags: 0
