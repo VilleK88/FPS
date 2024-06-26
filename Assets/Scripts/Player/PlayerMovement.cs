@@ -2,6 +2,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] CharacterController controller;
+    [SerializeField] CapsuleCollider capsuleCollider;
     [Header("Movement")]
     float x, z;
     Vector3 move;
@@ -77,6 +78,7 @@ public class PlayerMovement : MonoBehaviour
         speed = sneakSpeed;
         PlayerManager.instance.sneakIndicatorText.text = "Sneaking";
         controller.height = characterControllerSneakingHeight;
+        capsuleCollider.height = characterControllerSneakingHeight;
     }
     void StopSneaking()
     {
@@ -84,6 +86,7 @@ public class PlayerMovement : MonoBehaviour
         speed = originalSpeed;
         PlayerManager.instance.sneakIndicatorText.text = "";
         controller.height = characterControllerOriginalHeight;
+        capsuleCollider.height = characterControllerOriginalHeight;
     }
     bool IsGrounded()
     {
