@@ -4,7 +4,7 @@ using UnityEditor;
 [CustomEditor(typeof(StatePatternEnemy))]
 public class FieldOfViewEditor : Editor
 {
-    private void OnSceneGUI()
+    /*private void OnSceneGUI()
     {
         //Enemy fov = (Enemy)target;
         StatePatternEnemy fov = (StatePatternEnemy)target;
@@ -20,5 +20,5 @@ public class FieldOfViewEditor : Editor
     {
         angleInDegrees += eulerY;
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
-    }
+    }*/
 }

@@ -119,13 +119,63 @@ public class AlertState : IEnemyState
             fovTimer -= Time.deltaTime;
         else
         {
-            FieldOfViewCheck();
+            // FieldOfViewCheck();
+            Scan();
             fovTimer = 0;
         }
+        /*enemy.scanTimer -= Time.deltaTime;
+        if (enemy.scanTimer < 0)
+        {
+            enemy.scanTimer += enemy.scanInterval;
+            Scan();
+        }*/
+    }
+    void Scan()
+    {
+        enemy.rangeChecks = Physics.OverlapSphere(enemy.sensor.transform.position, enemy.distance, enemy.layers);
+        GameObject player = enemy.player;
+        IsInSight(player);
+    }
+    public bool IsInSight(GameObject obj)
+    {
+        Vector3 origin = enemy.sensor.transform.position;
+        Vector3 dest = obj.transform.position;
+        Vector3 direction = dest - origin;
+        if (direction.y < 0 || direction.y > enemy.height)
+        {
+            enemy.canSeePlayer = false;
+            return false;
+        }
+        direction.y = 0;
+        float deltaAngle = Vector3.Angle(direction, enemy.sensor.transform.forward);
+        if (deltaAngle > enemy.angle)
+        {
+            enemy.canSeePlayer = false;
+            return false;
+        }
+        origin.y += enemy.height / 2;
+        dest.y = origin.y;
+        if (!Physics.Linecast(origin, dest, enemy.occlusionLayers))
+        {
+            enemy.playerMovementScript = enemy.player.GetComponent<PlayerMovement>();
+            if (enemy.playerMovementScript != null)
+            {
+                if (enemy.distanceToPlayer < enemy.radius && !enemy.playerMovementScript.sneaking)
+                    enemy.canSeePlayer = true;
+                else if (enemy.distanceToPlayer < enemy.sneakRadius && enemy.playerMovementScript.sneaking)
+                    enemy.canSeePlayer = true;
+            }
+        }
+        else
+        {
+            enemy.canSeePlayer = false;
+            return false;
+        }
+        return true;
     }
     void FieldOfViewCheck()
     {
-        enemy.rangeChecks = Physics.OverlapSphere(enemy.transform.position, enemy.radius, enemy.targetMask);
+        /*enemy.rangeChecks = Physics.OverlapSphere(enemy.transform.position, enemy.radius, enemy.targetMask);
         if (enemy.rangeChecks.Length != 0)
         {
             enemy.target = enemy.rangeChecks[0].transform;
@@ -148,7 +198,7 @@ public class AlertState : IEnemyState
             }
         }
         else if (enemy.canSeePlayer)
-            enemy.canSeePlayer = false;
+            enemy.canSeePlayer = false;*/
     }
     void DetectionTimeUI()
     {
