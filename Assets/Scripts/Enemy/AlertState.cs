@@ -16,7 +16,6 @@ public class AlertState : IEnemyState
     }
     public void UpdateState()
     {
-        FOVRoutine();
         enemy.distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.player.transform.position);
         HearingArea();
         if (!checkDisturbance)
@@ -119,16 +118,9 @@ public class AlertState : IEnemyState
             fovTimer -= Time.deltaTime;
         else
         {
-            // FieldOfViewCheck();
             Scan();
             fovTimer = 0;
         }
-        /*enemy.scanTimer -= Time.deltaTime;
-        if (enemy.scanTimer < 0)
-        {
-            enemy.scanTimer += enemy.scanInterval;
-            Scan();
-        }*/
     }
     void Scan()
     {
@@ -172,33 +164,6 @@ public class AlertState : IEnemyState
             return false;
         }
         return true;
-    }
-    void FieldOfViewCheck()
-    {
-        /*enemy.rangeChecks = Physics.OverlapSphere(enemy.transform.position, enemy.radius, enemy.targetMask);
-        if (enemy.rangeChecks.Length != 0)
-        {
-            enemy.target = enemy.rangeChecks[0].transform;
-            enemy.directionToTarget = (enemy.target.position - enemy.transform.position).normalized;
-            if (Vector3.Angle(enemy.transform.forward, enemy.directionToTarget) < enemy.angle / 2)
-            {
-                if (!Physics.Raycast(enemy.transform.position, enemy.directionToTarget, enemy.distanceToPlayer, enemy.obstructionMask))
-                {
-                    enemy.playerMovementScript = enemy.player.GetComponent<PlayerMovement>();
-                    if (enemy.playerMovementScript != null)
-                    {
-                        if (enemy.distanceToPlayer < enemy.radius && !enemy.playerMovementScript.sneaking)
-                            enemy.canSeePlayer = true;
-                        else if (enemy.distanceToPlayer < enemy.sneakRadius && enemy.playerMovementScript.sneaking)
-                            enemy.canSeePlayer = true;
-                    }
-                }
-                else
-                    enemy.canSeePlayer = false;
-            }
-        }
-        else if (enemy.canSeePlayer)
-            enemy.canSeePlayer = false;*/
     }
     void DetectionTimeUI()
     {

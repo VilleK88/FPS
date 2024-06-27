@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 public class StatePatternEnemy : MonoBehaviour
@@ -9,6 +8,7 @@ public class StatePatternEnemy : MonoBehaviour
     public int randomEnemyTurn;
     public Vector3 lastKnownPlayerPosition;
     [Header("Field of View")]
+    private float fovTimer = 0.2f;
     public float radius = 50; // radius enemy is seeing the player if he's not sneaking
     public float sneakRadius = 20; // radius enemy is seeing the player if he's sneaking
     public float battleRadius = 60;
@@ -32,7 +32,7 @@ public class StatePatternEnemy : MonoBehaviour
     //public float scanTimer;
     [HideInInspector] public Collider[] rangeChecks;
     [HideInInspector] public Transform target;
-    [HideInInspector] public Vector3 directionToTarget;
+    [HideInInspector] public Vector3 directionToPlayer;
     public float distanceToPlayer;
     public float canSeePlayerTimer = 0;
     public float canSeePlayerMaxTime = 2f; // not alerted
@@ -64,8 +64,8 @@ public class StatePatternEnemy : MonoBehaviour
     [HideInInspector] public CombatState combatState;
     [HideInInspector] public TrackingState trackingState;
     [HideInInspector] public NavMeshAgent agent;
-    //public AISensor sensor;
     public GameObject sensor;
+    public GameObject eyes;
     private void Awake()
     {
         patrolState = new PatrolState(this);
@@ -82,11 +82,65 @@ public class StatePatternEnemy : MonoBehaviour
     }
     private void Update()
     {
+        directionToPlayer = player.transform.position - transform.position;
+        distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+        FOVRoutine();
+        Debug.DrawRay(eyes.transform.position, directionToPlayer, Color.green);
         currentState.UpdateState();
     }
     private void OnTriggerEnter(Collider other)
     {
         currentState.OnTriggerEnter(other);
+    }
+    public void FOVRoutine()
+    {
+        if (fovTimer > 0)
+            fovTimer -= Time.deltaTime;
+        else
+        {
+            Scan();
+            fovTimer = 0;
+        }
+    }
+    void Scan()
+    {
+        rangeChecks = Physics.OverlapSphere(sensor.transform.position, distance, layers);
+        GameObject playerObj = player;
+        IsInSight(playerObj);
+    }
+    public bool IsInSight(GameObject obj)
+    {
+        Vector3 origin = sensor.transform.position;
+        Vector3 dest = obj.transform.position;
+        Vector3 direction = dest - origin;
+        if (direction.y < 0 || direction.y > height)
+        {
+            canSeePlayer = false;
+            return false;
+        }
+        direction.y = 0;
+        float deltaAngle = Vector3.Angle(direction, sensor.transform.forward);
+        if (deltaAngle > angle)
+        {
+            canSeePlayer = false;
+            return false;
+        }
+        origin.y += height / 2;
+        dest.y = origin.y;
+        if(!Physics.Raycast(eyes.transform.position, directionToPlayer, distanceToPlayer, occlusionLayers))
+        {
+            playerMovementScript = player.GetComponent<PlayerMovement>();
+            if (playerMovementScript != null)
+            {
+                if (distanceToPlayer < radius && !playerMovementScript.sneaking)
+                    canSeePlayer = true;
+                else if (distanceToPlayer < sneakRadius && playerMovementScript.sneaking)
+                    canSeePlayer = true;
+                return true;
+            }
+        }
+        canSeePlayer = false;
+        return false;
     }
     public void Shoot()
     {

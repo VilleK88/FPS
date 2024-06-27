@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sneaking")]
     public bool sneaking;
     float characterControllerOriginalHeight = 3.8f;
-    float characterControllerSneakingHeight = 3.2f;
+    float characterControllerSneakingHeight = 1.2f;
     [Header("Jumping")]
     Vector3 velocity;
     float gravity = -19.62f;
