@@ -8,13 +8,12 @@ public class StatePatternEnemy : MonoBehaviour
     public int randomEnemyTurn;
     public Vector3 lastKnownPlayerPosition;
     [Header("Field of View")]
+    public GameObject sensor;
+    public GameObject eyes;
     private float fovTimer = 0.2f;
     public float radius = 50; // radius enemy is seeing the player if he's not sneaking
     public float sneakRadius = 20; // radius enemy is seeing the player if he's sneaking
     public float battleRadius = 60;
-    //[Range(0, 360)] public float angle = 140;
-    //public LayerMask targetMask; // player
-    //public LayerMask obstructionMask;
     public bool canSeePlayer;
     public Color closeColor = new Color(0, 0, 0, 1f);
     public Color farColor = new Color(0, 0, 0, 0f);
@@ -22,14 +21,11 @@ public class StatePatternEnemy : MonoBehaviour
     public float angle = 30;
     public float height = 1.0f;
     public Color meshColor = Color.red;
-    //public int scanFrequency = 30;
     public LayerMask layers;
     public LayerMask occlusionLayers;
     Collider[] colliders = new Collider[50];
     [HideInInspector] public Mesh mesh;
     [HideInInspector] public int count;
-    //public float scanInterval;
-    //public float scanTimer;
     [HideInInspector] public Collider[] rangeChecks;
     [HideInInspector] public Transform target;
     [HideInInspector] public Vector3 directionToPlayer;
@@ -64,8 +60,6 @@ public class StatePatternEnemy : MonoBehaviour
     [HideInInspector] public CombatState combatState;
     [HideInInspector] public TrackingState trackingState;
     [HideInInspector] public NavMeshAgent agent;
-    public GameObject sensor;
-    public GameObject eyes;
     private void Awake()
     {
         patrolState = new PatrolState(this);
@@ -271,7 +265,6 @@ public class StatePatternEnemy : MonoBehaviour
     private void OnValidate()
     {
         mesh = CreateWedgeMesh();
-        //scanInterval = 1.0f / scanFrequency;
     }
     private void OnDrawGizmos()
     {
@@ -285,10 +278,5 @@ public class StatePatternEnemy : MonoBehaviour
         {
             Gizmos.DrawSphere(colliders[i].transform.position, 0.2f);
         }
-        /*Gizmos.color = Color.green;
-        foreach(var obj in Objects)
-        {
-            Gizmos.DrawSphere(obj.transform.position, 0.2f);
-        }*/
     }
 }
