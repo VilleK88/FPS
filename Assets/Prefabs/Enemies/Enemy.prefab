@@ -606,12 +606,15 @@ MonoBehaviour:
   angle: 70
   height: 6
   meshColor: {r: 1, g: 0, b: 0, a: 0}
-  layers:
+  playerLayer:
     serializedVersion: 2
     m_Bits: 128
-  occlusionLayers:
+  obstructionLayer:
     serializedVersion: 2
     m_Bits: 1024
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 512
   mesh: {fileID: 0}
   count: 0
   rangeChecks: []

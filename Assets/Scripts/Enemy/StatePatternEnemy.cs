@@ -21,8 +21,9 @@ public class StatePatternEnemy : MonoBehaviour
     public float angle = 30;
     public float height = 1.0f;
     public Color meshColor = Color.red;
-    public LayerMask layers;
-    public LayerMask occlusionLayers;
+    public LayerMask playerLayer;
+    public LayerMask obstructionLayer;
+    public LayerMask enemyLayer;
     Collider[] colliders = new Collider[50];
     [HideInInspector] public Mesh mesh;
     [HideInInspector] public int count;
@@ -98,7 +99,7 @@ public class StatePatternEnemy : MonoBehaviour
     }
     void Scan()
     {
-        rangeChecks = Physics.OverlapSphere(sensor.transform.position, distance, layers);
+        rangeChecks = Physics.OverlapSphere(sensor.transform.position, distance, playerLayer);
         GameObject playerObj = player;
         IsInSight(playerObj);
     }
@@ -121,7 +122,7 @@ public class StatePatternEnemy : MonoBehaviour
         }
         origin.y += height / 2;
         dest.y = origin.y;
-        if(!Physics.Raycast(eyes.transform.position, directionToPlayer, distanceToPlayer, occlusionLayers))
+        if(!Physics.Raycast(eyes.transform.position, directionToPlayer, distanceToPlayer, obstructionLayer))
         {
             playerMovementScript = player.GetComponent<PlayerMovement>();
             if (playerMovementScript != null)

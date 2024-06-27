@@ -14,6 +14,7 @@ public class EnemyHealth : MonoBehaviour
     Rigidbody[] rigidBodies;
     public bool takingHit; // from the players bullets
     public bool dead;
+    public bool alreadyFoundDead;
     StatePatternEnemy enemy;
     NavMeshAgent agent;
     [SerializeField] private GameObject body;
@@ -87,7 +88,7 @@ public class EnemyHealth : MonoBehaviour
     }
     public IEnumerator Vanish()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(30f);
         body.SetActive(false);
         collider.enabled = false;
     }
