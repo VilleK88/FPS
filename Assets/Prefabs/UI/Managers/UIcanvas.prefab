@@ -489,6 +489,8 @@ MonoBehaviour:
   enemies:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   indicatorImage: {fileID: 1477985186}
   patrolImage: {fileID: 21300000, guid: 673ea26a53f027648b54565ef8266c7b, type: 3}
   alertImage: {fileID: 21300000, guid: 1228c94abb597384fbd460e81f031b21, type: 3}

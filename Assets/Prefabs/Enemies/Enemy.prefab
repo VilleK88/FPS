@@ -605,7 +605,7 @@ MonoBehaviour:
   distance: 60
   angle: 70
   height: 6
-  meshColor: {r: 1, g: 0, b: 0, a: 0.60784316}
+  meshColor: {r: 1, g: 0, b: 0, a: 0}
   layers:
     serializedVersion: 2
     m_Bits: 128
@@ -623,6 +623,7 @@ MonoBehaviour:
   canSeePlayerAlertedMaxTime: 1
   playerMovementScript: {fileID: 0}
   waypoints:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   randomPatrol: 0
