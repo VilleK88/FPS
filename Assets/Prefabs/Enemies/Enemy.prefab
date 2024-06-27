@@ -571,7 +571,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0.5
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -596,6 +596,7 @@ MonoBehaviour:
   lastKnownPlayerPosition: {x: 0, y: 0, z: 0}
   sensor: {fileID: 537387109948155269}
   eyes: {fileID: 1766695834}
+  Objects: []
   radius: 50
   sneakRadius: 20
   battleRadius: 60
@@ -626,7 +627,6 @@ MonoBehaviour:
   canSeePlayerAlertedMaxTime: 1
   playerMovementScript: {fileID: 0}
   waypoints:
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   randomPatrol: 0
@@ -664,6 +664,7 @@ MonoBehaviour:
   showHealthCounter: 2
   takingHit: 0
   dead: 0
+  alreadyFoundDead: 0
   body: {fileID: 1041474027568359582}
 --- !u!1001 &1041474028577971242
 PrefabInstance:

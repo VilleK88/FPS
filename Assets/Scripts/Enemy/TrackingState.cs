@@ -5,10 +5,10 @@ using UnityEngine.AI;
 public class TrackingState : IEnemyState
 {
     private StatePatternEnemy enemy;
-    private float fovTimer = 0.2f;
-    private float searchTimer;
+    public float fovTimer = 0.2f;
+    public float searchTimer;
     public float moveTimer;
-    private bool startSearchTimer;
+    public bool startSearchTimer;
     public float wanderingRadius = 20f;
     public TrackingState(StatePatternEnemy statePatternEnemy)
     {
@@ -21,7 +21,7 @@ public class TrackingState : IEnemyState
         if (enemy.canSeePlayer)
         {
             DetectionTimeUI();
-            if (!enemy.playerMovementScript.sneaking)
+            if (!enemy.playerMovementScript.sneaking && enemy.currentState != enemy.combatState)
                 ToCombatState();
             else if (enemy.canSeePlayerTimer < enemy.canSeePlayerAlertedMaxTime)
                 enemy.canSeePlayerTimer += Time.deltaTime;
@@ -83,6 +83,7 @@ public class TrackingState : IEnemyState
     {
         enemy.GetComponentInChildren<Animator>().SetBool("WalkAiming", false);
         enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
+        enemy.GetComponentInChildren<Animator>().SetBool("Walk", true);
         enemy.agent.isStopped = false;
         enemy.agent.speed = enemy.walkSpeed;
         searchTimer = 0;

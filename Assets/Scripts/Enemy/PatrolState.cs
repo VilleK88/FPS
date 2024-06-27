@@ -52,6 +52,7 @@ public class PatrolState : IEnemyState
     }
     public void ToAlertState()
     {
+        enemy.GetComponentInChildren<Animator>().SetBool("Walk", false);
         enemy.lastKnownPlayerPosition = enemy.player.transform.position;
         EnemyManager.Instance.indicatorImage.enabled = true;
         enemy.canSeePlayerTimer = 0;
@@ -73,6 +74,9 @@ public class PatrolState : IEnemyState
     }
     public void ToTrackingState()
     {
+        enemy.GetComponentInChildren<Animator>().SetBool("Walk", false);
+        enemy.GetComponentInChildren<Animator>().SetBool("Aiming", true);
+        enemy.GetComponentInChildren<Animator>().SetBool("WalkAiming", true);
         EnemyManager.Instance.indicatorImage.enabled = true;
         enemy.canSeePlayerTimer = 0;
         if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())

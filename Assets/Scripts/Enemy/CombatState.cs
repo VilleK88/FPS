@@ -57,9 +57,8 @@ public class CombatState : IEnemyState
     {
         enemy.agent.isStopped = false;
         enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
-        enemy.GetComponentInChildren<Animator>().SetBool("RunAiming", false);
-        enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
-        enemy.GetComponentInChildren<Animator>().SetBool("Running", true);
+        enemy.GetComponentInChildren<Animator>().SetBool("Aiming", true);
+        enemy.GetComponentInChildren<Animator>().SetBool("WalkAiming", true);
         enemy.agent.speed = enemy.runningSpeed;
         EnemyManager.Instance.indicatorImage.enabled = true;
         if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
@@ -78,7 +77,6 @@ public class CombatState : IEnemyState
         {
             if (enemy.canSeePlayer)
             {
-                enemy.StartCoroutine(enemy.CallReinforcementsToCombat());
                 if (shootingTime > 0 && enemy.canSeePlayer)
                 {
                     enemy.transform.LookAt(enemy.player.transform.position);

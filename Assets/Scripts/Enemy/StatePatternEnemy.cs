@@ -39,7 +39,7 @@ public class StatePatternEnemy : MonoBehaviour
     [Header("Patrol")]
     public Transform[] waypoints;
     public bool randomPatrol = false;
-    float callReinforcementsDistance = 40;
+    float callReinforcementsDistance = 50;
     [Header("Move Speed")]
     public float walkSpeed = 3.5f;
     public float runningSpeed = 6f;
@@ -113,6 +113,8 @@ public class StatePatternEnemy : MonoBehaviour
                 Objects.Add(obj);
             }
         }
+        if (canSeePlayer)
+            StartCoroutine(CallReinforcementsToCombat());
     }
     public bool IsPlayerInSight(GameObject obj)
     {
@@ -171,15 +173,18 @@ public class StatePatternEnemy : MonoBehaviour
             EnemyHealth enemyHealthScript = obj.GetComponent<EnemyHealth>();
             if(enemyHealthScript != null)
             {
-                if(distanceToEnemy < 30 && !enemyHealthScript.alreadyFoundDead)
+                if(distanceToEnemy < 30 && !enemyHealthScript.alreadyFoundDead && enemyHealthScript.dead)
                 {
                     enemyHealthScript.alreadyFoundDead = true;
                     enemyHealthScript.StartCoroutine(enemyHealthScript.Vanish());
-                    if(currentState != combatState)
+                    if(currentState != combatState && !canSeePlayer)
                     {
                         lastKnownPlayerPosition = enemyHealthScript.transform.position;
                         Debug.Log("Dead enemy found");
-                        ToTracking();
+                        if (currentState == patrolState)
+                            patrolState.ToTrackingState();
+                        else if (currentState == alertState)
+                            patrolState.ToTrackingState();
                         StartCoroutine(CallReinforcements());
                     }
                     return true;
@@ -187,22 +192,6 @@ public class StatePatternEnemy : MonoBehaviour
             }
         }
         return false;
-    }
-    void ToTracking() // state
-    {
-        agent.isStopped = false;
-        GetComponentInChildren<Animator>().SetBool("Walk", false);
-        GetComponentInChildren<Animator>().SetBool("Running", true);
-        agent.speed = runningSpeed;
-        EnemyManager.Instance.indicatorImage.enabled = true;
-        canSeePlayerTimer = 0;
-        if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
-            EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.trackingImage;
-        alertState.searchTimer = 0;
-        alertState.lookAtDisturbanceTimer = 2;
-        alertState.checkDisturbance = false;
-        canSeePlayerTimer = 0;
-        currentState = trackingState;
     }
     public void Shoot()
     {
@@ -245,11 +234,14 @@ public class StatePatternEnemy : MonoBehaviour
                 if (!enemyHealthScript.dead)
                 {
                     float distance = Vector3.Distance(transform.position, enemyTransform.position);
-                    if (distance < callReinforcementsDistance)
+                    if (distance < callReinforcementsDistance && stateEnemy.currentState != stateEnemy.combatState)
                     {
-                        stateEnemy.lastKnownPlayerPosition = stateEnemy.player.transform.position;
-                        //stateEnemy.GetComponentInChildren<Animator>().SetBool("WalkAiming", false);
-                        stateEnemy.currentState = stateEnemy.combatState;
+                        if (stateEnemy.currentState == stateEnemy.patrolState)
+                            stateEnemy.patrolState.ToCombatState();
+                        else if (stateEnemy.currentState == stateEnemy.alertState)
+                            stateEnemy.alertState.ToCombatState();
+                        else if (stateEnemy.currentState == stateEnemy.trackingState)
+                            stateEnemy.trackingState.ToCombatState();
                     }
                 }
             }
@@ -274,7 +266,10 @@ public class StatePatternEnemy : MonoBehaviour
                         if(stateEnemy.currentState != combatState && stateEnemy.currentState != trackingState)
                         {
                             stateEnemy.lastKnownPlayerPosition = transform.position;
-                            stateEnemy.ToTracking();
+                            if (stateEnemy.currentState == stateEnemy.patrolState)
+                                stateEnemy.patrolState.ToTrackingState();
+                            else if (stateEnemy.currentState == stateEnemy.alertState)
+                                stateEnemy.alertState.ToTrackingState();
                         }
                     }
                 }

@@ -69,7 +69,7 @@ public class AlertState : IEnemyState
     public void ToCombatState()
     {
         enemy.agent.isStopped = false;
-        enemy.GetComponentInChildren<Animator>().SetBool("running", true);
+        enemy.GetComponentInChildren<Animator>().SetBool("Running", true);
         enemy.agent.speed = enemy.runningSpeed;
         EnemyManager.Instance.indicatorImage.enabled = true;
         EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.combatImage;
@@ -100,7 +100,9 @@ public class AlertState : IEnemyState
     public void ToTrackingState()
     {
         enemy.agent.isStopped = false;
-        enemy.GetComponentInChildren<Animator>().SetBool("Walk", true);
+        enemy.GetComponentInChildren<Animator>().SetBool("Walk", false);
+        enemy.GetComponentInChildren<Animator>().SetBool("Aiming", true);
+        enemy.GetComponentInChildren<Animator>().SetBool("WalkAiming", true);
         enemy.agent.speed = enemy.runningSpeed;
         EnemyManager.Instance.indicatorImage.enabled = true;
         if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
