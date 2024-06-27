@@ -9,7 +9,7 @@ public class AlertState : IEnemyState
     public float turnSpeed;
     public bool lookAtDisturbance;
     public bool checkDisturbance;
-    float lookAtDisturbanceTimer = 2;
+    public float lookAtDisturbanceTimer = 2;
     public AlertState(StatePatternEnemy statePatternEnemy)
     {
         this.enemy = statePatternEnemy;

@@ -84,7 +84,7 @@ public class EnemyHealth : MonoBehaviour
         dead = true;
         healthbar.active = false;
         agent.isStopped = true;
-        StartCoroutine(Vanish());
+        //StartCoroutine(Vanish());
     }
     public IEnumerator Vanish()
     {

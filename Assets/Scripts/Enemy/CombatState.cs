@@ -18,7 +18,6 @@ public class CombatState : IEnemyState
     }
     public void UpdateState()
     {
-        enemy.distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.player.transform.position);
         Chase();
     }
     public void OnTriggerEnter(Collider other)
@@ -79,6 +78,7 @@ public class CombatState : IEnemyState
         {
             if (enemy.canSeePlayer)
             {
+                enemy.StartCoroutine(enemy.CallReinforcementsToCombat());
                 if (shootingTime > 0 && enemy.canSeePlayer)
                 {
                     enemy.transform.LookAt(enemy.player.transform.position);

@@ -10,6 +10,7 @@ public class StatePatternEnemy : MonoBehaviour
     [Header("Field of View")]
     public GameObject sensor;
     public GameObject eyes;
+    public List<GameObject> Objects = new List<GameObject>();
     private float fovTimer = 0.2f;
     public float radius = 50; // radius enemy is seeing the player if he's not sneaking
     public float sneakRadius = 20; // radius enemy is seeing the player if he's sneaking
@@ -101,9 +102,19 @@ public class StatePatternEnemy : MonoBehaviour
     {
         rangeChecks = Physics.OverlapSphere(sensor.transform.position, distance, playerLayer);
         GameObject playerObj = player;
-        IsInSight(playerObj);
+        IsPlayerInSight(playerObj);
+        count = Physics.OverlapSphereNonAlloc(transform.position, distance, colliders, enemyLayer, QueryTriggerInteraction.Collide);
+        Objects.Clear();
+        for (int i = 0; i < count; i++)
+        {
+            GameObject obj = colliders[i].gameObject;
+            if (IsDeadEnemyInSight(obj))
+            {
+                Objects.Add(obj);
+            }
+        }
     }
-    public bool IsInSight(GameObject obj)
+    public bool IsPlayerInSight(GameObject obj)
     {
         Vector3 origin = sensor.transform.position;
         Vector3 dest = obj.transform.position;
@@ -137,6 +148,62 @@ public class StatePatternEnemy : MonoBehaviour
         canSeePlayer = false;
         return false;
     }
+    public bool IsDeadEnemyInSight(GameObject obj)
+    {
+        Vector3 origin = sensor.transform.position;
+        Vector3 dest = obj.transform.position;
+        Vector3 direction = dest - origin;
+        float distanceToEnemy = Vector3.Distance(transform.position, dest);
+        if (direction.y < 0 || direction.y > height)
+        {
+            return false;
+        }
+        direction.y = 0;
+        float deltaAngle = Vector3.Angle(direction, sensor.transform.forward);
+        if (deltaAngle > angle)
+        {
+            return false;
+        }
+        origin.y += height / 2;
+        dest.y = origin.y;
+        if (!Physics.Raycast(eyes.transform.position, direction, distanceToEnemy, obstructionLayer))
+        {
+            EnemyHealth enemyHealthScript = obj.GetComponent<EnemyHealth>();
+            if(enemyHealthScript != null)
+            {
+                if(distanceToEnemy < 30 && !enemyHealthScript.alreadyFoundDead)
+                {
+                    enemyHealthScript.alreadyFoundDead = true;
+                    enemyHealthScript.StartCoroutine(enemyHealthScript.Vanish());
+                    if(currentState != combatState)
+                    {
+                        lastKnownPlayerPosition = enemyHealthScript.transform.position;
+                        Debug.Log("Dead enemy found");
+                        ToTracking();
+                        StartCoroutine(CallReinforcements());
+                    }
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    void ToTracking() // state
+    {
+        agent.isStopped = false;
+        GetComponentInChildren<Animator>().SetBool("Walk", false);
+        GetComponentInChildren<Animator>().SetBool("Running", true);
+        agent.speed = runningSpeed;
+        EnemyManager.Instance.indicatorImage.enabled = true;
+        canSeePlayerTimer = 0;
+        if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
+            EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.trackingImage;
+        alertState.searchTimer = 0;
+        alertState.lookAtDisturbanceTimer = 2;
+        alertState.checkDisturbance = false;
+        canSeePlayerTimer = 0;
+        currentState = trackingState;
+    }
     public void Shoot()
     {
         readyToShoot = false;
@@ -164,7 +231,7 @@ public class StatePatternEnemy : MonoBehaviour
         float y = Random.Range(-spreadIntensity, spreadIntensity);
         return direction + new Vector3(x, y, 0); // returning the shooting direction and spread
     }
-    public IEnumerator CallReinforcements()
+    public IEnumerator CallReinforcementsToCombat() // to combat
     {
         yield return new WaitForSeconds(0.5f);
         StatePatternEnemy[] enemies = FindObjectsOfType<StatePatternEnemy>();
@@ -181,8 +248,34 @@ public class StatePatternEnemy : MonoBehaviour
                     if (distance < callReinforcementsDistance)
                     {
                         stateEnemy.lastKnownPlayerPosition = stateEnemy.player.transform.position;
-                        stateEnemy.GetComponentInChildren<Animator>().SetBool("WalkAiming", false);
+                        //stateEnemy.GetComponentInChildren<Animator>().SetBool("WalkAiming", false);
                         stateEnemy.currentState = stateEnemy.combatState;
+                    }
+                }
+            }
+        }
+    }
+    public IEnumerator CallReinforcements() // when dead body found
+    {
+        yield return new WaitForSeconds(0.5f);
+        StatePatternEnemy[] enemies = FindObjectsOfType<StatePatternEnemy>();
+        foreach (StatePatternEnemy enemy in enemies)
+        {
+            Transform enemyTransform = enemy.transform;
+            StatePatternEnemy stateEnemy = enemy.GetComponent<StatePatternEnemy>();
+            EnemyHealth enemyHealthScript = enemy.GetComponent<EnemyHealth>();
+            if (enemyTransform != null && stateEnemy != null && enemyHealthScript != null)
+            {
+                if (!enemyHealthScript.dead)
+                {
+                    float distance = Vector3.Distance(transform.position, enemyTransform.position);
+                    if (distance < callReinforcementsDistance)
+                    {
+                        if(stateEnemy.currentState != combatState && stateEnemy.currentState != trackingState)
+                        {
+                            stateEnemy.lastKnownPlayerPosition = transform.position;
+                            stateEnemy.ToTracking();
+                        }
                     }
                 }
             }
