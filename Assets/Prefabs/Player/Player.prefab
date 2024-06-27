@@ -362,7 +362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 7136351547337792651}
-  capsuleCollider: {fileID: 0}
+  capsuleCollider: {fileID: 7136351547511556542}
   moving: 0
   sneaking: 0
   groundCheck: {fileID: 7136351547477869760}
