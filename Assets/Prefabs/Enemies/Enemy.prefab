@@ -594,6 +594,8 @@ MonoBehaviour:
   searchDuration: 4
   randomEnemyTurn: 0
   lastKnownPlayerPosition: {x: 0, y: 0, z: 0}
+  sensor: {fileID: 537387109948155269}
+  eyes: {fileID: 1766695834}
   radius: 50
   sneakRadius: 20
   battleRadius: 60
@@ -639,8 +641,6 @@ MonoBehaviour:
   enemyHealth: {fileID: 1041474027577360227}
   player: {fileID: 0}
   agent: {fileID: 0}
-  sensor: {fileID: 537387109948155269}
-  eyes: {fileID: 1766695834}
 --- !u!114 &1041474027577360227
 MonoBehaviour:
   m_ObjectHideFlags: 0
