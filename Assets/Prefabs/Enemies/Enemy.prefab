@@ -624,20 +624,20 @@ MonoBehaviour:
   distanceToPlayer: 0
   canSeePlayerTimer: 0
   canSeePlayerMaxTime: 2
-  canSeePlayerAlertedMaxTime: 1
+  canSeePlayerAlertedMaxTime: 1.5
   playerMovementScript: {fileID: 0}
   waypoints:
   - {fileID: 0}
   - {fileID: 0}
   randomPatrol: 0
   walkSpeed: 3.5
-  runningSpeed: 5.5
+  runningSpeed: 6
   shootingPoint: {fileID: 722350217}
   enemyBulletPrefab: {fileID: 2766855646421481491, guid: ee713e9419a48eb47a60080ac9730798, type: 3}
   muzzleFlash: {fileID: 1042445451261514066}
   bulletVelocity: 300
   spreadIntensity: 2
-  bulletDamage: 1
+  bulletDamage: 3
   bulletTarget: Player
   readyToShoot: 1
   shootingDelay: 0.1

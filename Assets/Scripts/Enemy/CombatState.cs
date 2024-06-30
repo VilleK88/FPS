@@ -46,6 +46,7 @@ public class CombatState : IEnemyState
     }
     public void ToCombatState()
     {
+        enemy.lastKnownPlayerPosition = enemy.player.transform.position;
         EnemyManager.Instance.indicatorImage.enabled = true;
         EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.combatImage;
         startSearchingTimer = 0;
@@ -66,7 +67,6 @@ public class CombatState : IEnemyState
             EnemyManager.Instance.indicatorImage.sprite = EnemyManager.Instance.trackingImage;
             PlayerManager.instance.sneakIndicatorImage.color = new Color(0f, 0f, 0f, 0f);
         }
-        enemy.lastKnownPlayerPosition = enemy.player.transform.position;
         startSearchingTimer = 0;
         enemy.currentState = enemy.trackingState;
     }
@@ -77,6 +77,7 @@ public class CombatState : IEnemyState
         {
             if (enemy.canSeePlayer)
             {
+                ToCombatState();
                 if (shootingTime > 0 && enemy.canSeePlayer)
                 {
                     enemy.transform.LookAt(enemy.player.transform.position);
@@ -120,6 +121,7 @@ public class CombatState : IEnemyState
         {
             if (shootingTime > 0 && enemy.canSeePlayer)
             {
+                ToCombatState();
                 enemy.transform.LookAt(enemy.player.transform.position);
                 enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
                 enemy.GetComponentInChildren<Animator>().SetBool("Aiming", true);
@@ -132,6 +134,7 @@ public class CombatState : IEnemyState
             }
             else if(enemy.canSeePlayer)
             {
+                ToCombatState();
                 shootingDelay -= Time.deltaTime;
                 if (shootingDelay < 0)
                 {

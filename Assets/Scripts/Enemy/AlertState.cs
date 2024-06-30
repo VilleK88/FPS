@@ -27,11 +27,17 @@ public class AlertState : IEnemyState
         {
             DetectionTimeUI();
             if (!enemy.playerMovementScript.sneaking)
+            {
+                enemy.lastKnownPlayerPosition = enemy.player.transform.position;
                 ToCombatState();
+            }
             else if (enemy.canSeePlayerTimer < enemy.canSeePlayerMaxTime)
                 enemy.canSeePlayerTimer += Time.deltaTime;
             else
+            {
+                enemy.lastKnownPlayerPosition = enemy.player.transform.position;
                 ToCombatState();
+            }
         }
         else if (!enemy.canSeePlayer && enemy.canSeePlayerTimer != 0)
         {
@@ -59,7 +65,10 @@ public class AlertState : IEnemyState
             if (weaponScript != null)
             {
                 if (weaponScript.isShooting && !weaponScript.silenced)
+                {
+                    enemy.lastKnownPlayerPosition = enemy.player.transform.position;
                     ToCombatState();
+                }
             }
         }
     }

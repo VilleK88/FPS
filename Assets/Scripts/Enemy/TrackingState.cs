@@ -22,11 +22,17 @@ public class TrackingState : IEnemyState
         {
             DetectionTimeUI();
             if (!enemy.playerMovementScript.sneaking && enemy.currentState != enemy.combatState)
+            {
+                enemy.lastKnownPlayerPosition = enemy.player.transform.position;
                 ToCombatState();
+            }
             else if (enemy.canSeePlayerTimer < enemy.canSeePlayerAlertedMaxTime)
                 enemy.canSeePlayerTimer += Time.deltaTime;
             else
+            {
+                enemy.lastKnownPlayerPosition = enemy.player.transform.position;
                 ToCombatState();
+            }
         }
         else if (!enemy.canSeePlayer && enemy.canSeePlayerTimer != 0)
         {
@@ -48,7 +54,10 @@ public class TrackingState : IEnemyState
             if (weaponScript != null)
             {
                 if (weaponScript.isShooting && !weaponScript.silenced)
+                {
+                    enemy.lastKnownPlayerPosition = enemy.player.transform.position;
                     ToCombatState();
+                }
             }
         }
     }

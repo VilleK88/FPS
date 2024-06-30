@@ -34,7 +34,7 @@ public class StatePatternEnemy : MonoBehaviour
     public float distanceToPlayer;
     public float canSeePlayerTimer = 0;
     public float canSeePlayerMaxTime = 2f; // not alerted
-    public float canSeePlayerAlertedMaxTime = 1f;
+    public float canSeePlayerAlertedMaxTime = 1f; // alerted
     public PlayerMovement playerMovementScript;
     [Header("Patrol")]
     public Transform[] waypoints;
@@ -236,6 +236,7 @@ public class StatePatternEnemy : MonoBehaviour
                     float distance = Vector3.Distance(transform.position, enemyTransform.position);
                     if (distance < callReinforcementsDistance && stateEnemy.currentState != stateEnemy.combatState)
                     {
+                        stateEnemy.lastKnownPlayerPosition = stateEnemy.player.transform.position;
                         if (stateEnemy.currentState == stateEnemy.patrolState)
                             stateEnemy.patrolState.ToCombatState();
                         else if (stateEnemy.currentState == stateEnemy.alertState)
@@ -267,9 +268,9 @@ public class StatePatternEnemy : MonoBehaviour
                         {
                             stateEnemy.lastKnownPlayerPosition = transform.position;
                             if (stateEnemy.currentState == stateEnemy.patrolState)
-                                stateEnemy.patrolState.ToTrackingState();
+                                stateEnemy.patrolState.ToCombatState();
                             else if (stateEnemy.currentState == stateEnemy.alertState)
-                                stateEnemy.alertState.ToTrackingState();
+                                stateEnemy.alertState.ToCombatState();
                         }
                     }
                 }
