@@ -12,5 +12,6 @@ public class LookAtPlayer : MonoBehaviour
     private void LateUpdate()
     {
         transform.LookAt(cam);
+        transform.rotation = cam.rotation;
     }
 }

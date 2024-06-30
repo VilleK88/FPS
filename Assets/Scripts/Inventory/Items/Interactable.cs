@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 public class Interactable : MonoBehaviour
 {
     float radius = 3;
@@ -9,6 +10,7 @@ public class Interactable : MonoBehaviour
     Transform player;
     bool hasInteracted = false;
     float distance;
+    public GameObject imgObject;
     public virtual void Interact()
     {
         Debug.Log("Interacting with " + transform.name);

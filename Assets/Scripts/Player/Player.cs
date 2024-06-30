@@ -93,6 +93,7 @@ public class Player : MonoBehaviour
     {
         if (newFocus != focus)
         {
+            newFocus.imgObject.SetActive(true);
             if (focus != null)
                 focus.OnDefocused();
             focus = newFocus;
