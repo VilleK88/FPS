@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     RaycastHit hit;
     Vector3 cursorPosition;
     [SerializeField] LayerMask groundLayer;
+    [SerializeField] LayerMask interactableLayer;
     public VectorValue startingPosition;
     public GameObject[] weaponSlots;
     [Header("References")]
@@ -71,7 +72,7 @@ public class Player : MonoBehaviour
     }
     void MouseInteraction()
     {
-        if(Input.GetMouseButtonDown(0))
+        /*if(Input.GetMouseButtonDown(0))
         {
             ray = cam.ScreenPointToRay(Input.mousePosition);
             
@@ -87,13 +88,25 @@ public class Player : MonoBehaviour
                 if(interactable != null)
                     SetFocus(interactable);
             }
+        }*/
+
+        Ray ray = cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        if (Physics.Raycast(ray, out hit, 3, interactableLayer))
+        {
+            PlayerManager.instance.interactableIconObject.SetActive(true);
+            PlayerManager.instance.middlePoint.enabled = false;
+            Interactable interactable = hit.collider.GetComponent<Interactable>();
+            if (interactable != null)
+                SetFocus(interactable);
         }
+        else
+            RemoveFocus();
     }
     void SetFocus(Interactable newFocus)
     {
         if (newFocus != focus)
         {
-            newFocus.imgObject.SetActive(true);
+            //newFocus.imgObject.SetActive(true);
             if (focus != null)
                 focus.OnDefocused();
             focus = newFocus;
@@ -102,6 +115,8 @@ public class Player : MonoBehaviour
     }
     void RemoveFocus()
     {
+        PlayerManager.instance.interactableIconObject.SetActive(false);
+        PlayerManager.instance.middlePoint.enabled = true;
         if (focus != null)
             focus.OnDefocused();
         focus = null;

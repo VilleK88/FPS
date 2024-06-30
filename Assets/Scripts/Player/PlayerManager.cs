@@ -23,6 +23,8 @@ public class PlayerManager : MonoBehaviour
     public GameObject player;
     public TextMeshProUGUI sneakIndicatorText;
     public Image sneakIndicatorImage;
+    public GameObject interactableIconObject;
+    public Image middlePoint;
     public GameObject GetPlayer()
     {
         return player;
