@@ -123,7 +123,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 380693321}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
@@ -387,6 +387,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 16384
   startingPosition: {fileID: 11400000, guid: 1d53bbfa6e9197a4c9b3a9bab7972c2d, type: 2}
   weaponSlots:
   - {fileID: 3779780764690711742}
@@ -498,7 +501,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 7927
+    m_Bits: 24311
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -943,7 +946,7 @@ MonoBehaviour:
   bulletSpawn: {fileID: 6380544563583594348}
   bulletVelocity: 300
   bulletPrefabLifeTime: 3
-  bulletDamage: 8
+  bulletDamage: 9
   muzzleEffect: {fileID: 4117161509704360153}
   anim: {fileID: 7136351547511556544}
   shootingSound: {fileID: 8300000, guid: 6ce333f2ebe665a41a9d8e496f4d8e1c, type: 3}
@@ -1267,7 +1270,7 @@ MonoBehaviour:
   bulletSpawn: {fileID: 3926446331360797960}
   bulletVelocity: 300
   bulletPrefabLifeTime: 3
-  bulletDamage: 5
+  bulletDamage: 5.1
   muzzleEffect: {fileID: 2556316286667509952}
   anim: {fileID: 746197944271989346}
   shootingSound: {fileID: 8300000, guid: 76c9958914cb27d4ba5875508377b7c6, type: 3}
@@ -1427,7 +1430,7 @@ MonoBehaviour:
   bulletSpawn: {fileID: 6233423318611083374}
   bulletVelocity: 300
   bulletPrefabLifeTime: 3
-  bulletDamage: 11
+  bulletDamage: 12
   muzzleEffect: {fileID: 6343193652187824674}
   anim: {fileID: 1430718465725756594}
   shootingSound: {fileID: 8300000, guid: edd9d760cb028f049b9d88f6fd61b0c2, type: 3}
