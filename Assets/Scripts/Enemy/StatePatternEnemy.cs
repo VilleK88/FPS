@@ -113,7 +113,7 @@ public class StatePatternEnemy : MonoBehaviour
                 Objects.Add(obj);
             }
         }
-        if (canSeePlayer)
+        if (canSeePlayer && currentState == combatState)
             StartCoroutine(CallReinforcementsToCombat());
     }
     public bool IsPlayerInSight(GameObject obj)

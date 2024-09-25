@@ -10,7 +10,7 @@ public class CombatState : IEnemyState
     private float shootingDelay = 2f;
     private float moveTimer;
     public float wanderingRadius = 10f;
-    private float startSearchingMaxTime = 3f;
+    private float startSearchingMaxTime = 0.5f;
     private float startSearchingTimer = 0;
     public CombatState(StatePatternEnemy statePatternEnemy)
     {

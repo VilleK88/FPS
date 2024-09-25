@@ -623,10 +623,11 @@ MonoBehaviour:
   directionToPlayer: {x: 0, y: 0, z: 0}
   distanceToPlayer: 0
   canSeePlayerTimer: 0
-  canSeePlayerMaxTime: 2
+  canSeePlayerMaxTime: 1.5
   canSeePlayerAlertedMaxTime: 1.5
   playerMovementScript: {fileID: 0}
   waypoints:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   randomPatrol: 0
