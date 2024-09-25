@@ -17,11 +17,11 @@ public class TrackingState : IEnemyState
     public void UpdateState()
     {
         HearingArea();
-        Hunt();
+        Tracking();
         if (enemy.canSeePlayer)
         {
             DetectionTimeUI();
-            if (!enemy.playerMovementScript.sneaking && enemy.currentState != enemy.combatState)
+            if (!enemy.playerMovementScript.sneaking || enemy.distanceToPlayer < 3)
             {
                 enemy.lastKnownPlayerPosition = enemy.player.transform.position;
                 ToCombatState();
@@ -111,7 +111,7 @@ public class TrackingState : IEnemyState
         float alpha = Mathf.Clamp01(enemy.canSeePlayerTimer / enemy.canSeePlayerMaxTime);
         PlayerManager.instance.sneakIndicatorImage.color = new Color(0f + alpha, 0f + alpha, 0f + alpha, 1f);
     }
-    void Hunt()
+    void Tracking()
     {
         if (enemy.agent.remainingDistance <= enemy.agent.stoppingDistance)
         {

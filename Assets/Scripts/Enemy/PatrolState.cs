@@ -19,7 +19,7 @@ public class PatrolState : IEnemyState
         if (enemy.canSeePlayer)
         {
             DetectionTimeUI();
-            if (!enemy.playerMovementScript.sneaking)
+            if (!enemy.playerMovementScript.sneaking || enemy.distanceToPlayer < 3)
             {
                 enemy.lastKnownPlayerPosition = enemy.player.transform.position;
                 ToCombatState();
