@@ -630,7 +630,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  randomPatrol: 0
+  - {fileID: 0}
+  - {fileID: 0}
+  randomPatrol: 1
   walkSpeed: 3.5
   runningSpeed: 6
   shootingPoint: {fileID: 722350217}
@@ -638,7 +640,7 @@ MonoBehaviour:
   muzzleFlash: {fileID: 1042445451261514066}
   bulletVelocity: 300
   spreadIntensity: 2
-  bulletDamage: 3
+  bulletDamage: 4
   bulletTarget: Player
   readyToShoot: 1
   shootingDelay: 0.1
