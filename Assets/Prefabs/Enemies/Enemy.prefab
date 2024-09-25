@@ -623,10 +623,15 @@ MonoBehaviour:
   directionToPlayer: {x: 0, y: 0, z: 0}
   distanceToPlayer: 0
   canSeePlayerTimer: 0
-  canSeePlayerMaxTime: 1.5
-  canSeePlayerAlertedMaxTime: 1.5
+  canSeePlayerMaxTime: 2
+  canSeePlayerAlertedMaxTime: 1
   playerMovementScript: {fileID: 0}
   waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -640,7 +645,7 @@ MonoBehaviour:
   muzzleFlash: {fileID: 1042445451261514066}
   bulletVelocity: 300
   spreadIntensity: 2
-  bulletDamage: 4
+  bulletDamage: 5
   bulletTarget: Player
   readyToShoot: 1
   shootingDelay: 0.1
