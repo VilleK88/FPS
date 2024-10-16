@@ -4,16 +4,25 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Interactable : MonoBehaviour
 {
-    float radius = 3;
+    public float radius = 3; // 3 original radius
     public Transform interactionTransform;
     bool isFocus = false;
     Transform player;
     bool hasInteracted = false;
     float distance;
     public GameObject imgObject;
+    public Animator anim;
+    public Door door;
+    private void Start()
+    {
+        if (anim != null)
+            anim.GetComponent<Animator>();
+        if (door != null)
+            door.GetComponent<Door>();
+    }
     public virtual void Interact()
     {
-        Debug.Log("Interacting with " + transform.name);
+        //Debug.Log("Interacting with " + transform.name);
     }
     private void Update()
     {

@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - EnemyHead
   - Bullet
+  - Door
   layers:
   - Default
   - TransparentFX

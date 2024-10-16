@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     public float throwForce;
     public float throwUpwardForce;
     bool readyToThrow = true;
+    float pressingCooldown = 0;
     private void Start()
     {
         if (GameManager.instance.changeScene)
@@ -55,6 +56,8 @@ public class Player : MonoBehaviour
         MouseInteraction();
         if(Input.GetKeyDown(throwKey) && readyToThrow && totalThrows > 0)
             Throw();
+        if (pressingCooldown > 0)
+            pressingCooldown -= Time.deltaTime;
     }
     void Throw()
     {
@@ -96,8 +99,19 @@ public class Player : MonoBehaviour
             PlayerManager.instance.interactableIconObject.SetActive(true);
             PlayerManager.instance.middlePoint.enabled = false;
             Interactable interactable = hit.collider.GetComponent<Interactable>();
+            Door door = hit.collider.GetComponent<Door>();
+            if(door != null)
+            {
+                if (Input.GetKeyDown(KeyCode.E) && pressingCooldown <= 0)
+                {
+                    door.InteractWithDoor();
+                    pressingCooldown = 1;
+                }
+            }
             if (interactable != null)
+            {
                 SetFocus(interactable);
+            }
         }
         else
             RemoveFocus();
