@@ -92,6 +92,7 @@ public class GameManager : MonoBehaviour
         string filePath = Application.persistentDataPath + "/gameInfo.dat";
         if (File.Exists(filePath))
         {
+            Debug.Log("Game loaded");
             string json = File.ReadAllText(filePath);
             GameData data = JsonConvert.DeserializeObject<GameData>(json);
             health = data.health;
