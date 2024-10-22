@@ -40,6 +40,10 @@ public class Weapon : MonoBehaviour
     float rayDistance = 50f;
     public LayerMask enemyLayer;
     public EnemyHealth lastHitEnemy;
+    [Header("Knife")]
+    float nextAttackCooldown = 0;
+    bool secondKnifeAttack = false;
+    bool thirdKnifeAttack = false;
     private void Awake()
     {
         readyToShoot = true;
@@ -50,6 +54,14 @@ public class Weapon : MonoBehaviour
     {
         if (!InventoryManager.instance.closed || InGameMenuControls.instance.menuButtons.activeSelf)
             return;
+        if (thisWeaponModel != WeaponModel.Knife)
+            RangedWeapon();
+        else
+            Knife();
+        ShowEnemyHealthBar();
+    }
+    void RangedWeapon()
+    {
         if (bulletsLeft == 0 && Input.GetKeyDown(KeyCode.Mouse0))
             AudioManager.instance.PlaySound(emptyMagazineSound);
         if (currentShootingMode == ShootingMode.Auto)
@@ -73,7 +85,38 @@ public class Weapon : MonoBehaviour
         {
             AmmoManager.Instance.ammoDisplay.text = $"{bulletsLeft / bulletsPerBurst}/{totalAmmo}";
         }
-        ShowEnemyHealthBar();
+    }
+    void Knife()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            if (!secondKnifeAttack && !thirdKnifeAttack)
+            {
+                anim.SetTrigger("Attack1");
+                secondKnifeAttack = true;
+                nextAttackCooldown = 1.2f;
+            }
+            else if(secondKnifeAttack && !thirdKnifeAttack)
+            {
+                anim.SetTrigger("Attack2");
+                thirdKnifeAttack = true;
+                nextAttackCooldown = 1.2f;
+            }
+            else if(secondKnifeAttack && thirdKnifeAttack)
+            {
+                anim.SetTrigger("Attack3");
+                nextAttackCooldown = 1.2f;
+                secondKnifeAttack = false;
+                thirdKnifeAttack = false;
+            }
+        }
+        if (nextAttackCooldown > 0)
+            nextAttackCooldown -= Time.deltaTime;
+        else
+        {
+            secondKnifeAttack = false;
+            thirdKnifeAttack = false;
+        }
     }
     void ShowEnemyHealthBar()
     {
@@ -283,5 +326,6 @@ public enum WeaponModel
 {
     Pistol,
     AssaultRifle,
-    Shotgun
+    Shotgun,
+    Knife
 }

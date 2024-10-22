@@ -203,7 +203,7 @@ public class InventoryManager : MonoBehaviour
                             inventoryData.activeWeapon = index;
                             weaponSlots[i].GetComponent<Weapon>().UpdateTotalAmmoStatus();
                             //if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.Shotgun)
-                            //weaponSlots[i].GetComponent<Weapon>().anim.SetTrigger("Equip");
+                            weaponSlots[i].GetComponent<Weapon>().anim.SetTrigger("Equip");
                         }
                         else
                         {
