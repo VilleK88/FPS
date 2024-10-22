@@ -209,6 +209,8 @@ public class InventoryManager : MonoBehaviour
                                 currentlyEquipedWeapon.secondKnifeAttack = false;
                                 currentlyEquipedWeapon.thirdKnifeAttack = false;
                                 currentlyEquipedWeapon.nextAttackCooldown = 0;
+                                currentlyEquipedWeapon.knifeScript.boxCollider.enabled = false;
+                                currentlyEquipedWeapon.knifeScript.damage = currentlyEquipedWeapon.bulletDamage;
                             }
                         }
                         else

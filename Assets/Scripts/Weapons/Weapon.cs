@@ -44,6 +44,7 @@ public class Weapon : MonoBehaviour
     [HideInInspector] public float nextAttackCooldown = 0;
     [HideInInspector] public bool secondKnifeAttack = false;
     [HideInInspector] public bool thirdKnifeAttack = false;
+    public KnifeHitbox knifeScript;
     private void Awake()
     {
         readyToShoot = true;
