@@ -75,37 +75,22 @@ public class Player : MonoBehaviour
     }
     void MouseInteraction()
     {
-        /*if(Input.GetMouseButtonDown(0))
-        {
-            ray = cam.ScreenPointToRay(Input.mousePosition);
-            
-            if(Physics.Raycast(ray, out hit, 100, groundLayer))
-                RemoveFocus();
-        }
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            ray = cam.ScreenPointToRay(Input.mousePosition);
-            if(Physics.Raycast(ray, out hit, 100))
-            {
-                Interactable interactable = hit.collider.GetComponent<Interactable>();
-                if(interactable != null)
-                    SetFocus(interactable);
-            }
-        }*/
-
         Ray ray = cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         if (Physics.Raycast(ray, out hit, 3, interactableLayer))
         {
             PlayerManager.instance.interactableIconObject.SetActive(true);
             PlayerManager.instance.middlePoint.enabled = false;
             Interactable interactable = hit.collider.GetComponent<Interactable>();
-            Door door = hit.collider.GetComponent<Door>();
-            if(door != null)
+            if(hit.collider.CompareTag("Door"))
             {
-                if (Input.GetKeyDown(KeyCode.E) && pressingCooldown <= 0)
+                Door door = hit.collider.GetComponentInParent<Door>();
+                if (door != null)
                 {
-                    door.InteractWithDoor();
-                    pressingCooldown = 1;
+                    if (Input.GetKeyDown(KeyCode.E) && pressingCooldown <= 0)
+                    {
+                        door.InteractWithDoor();
+                        pressingCooldown = 1;
+                    }
                 }
             }
             if (interactable != null)

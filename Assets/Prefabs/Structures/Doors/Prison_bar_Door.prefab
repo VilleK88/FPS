@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5605605684851695464}
   - component: {fileID: 5078116873544658389}
   - component: {fileID: 8317780463639130435}
-  - component: {fileID: 901556786}
   m_Layer: 14
   m_Name: Door
   m_TagString: Door
@@ -99,21 +98,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.002194475, y: 0.029233806, z: 0.062000033}
   m_Center: {x: -0.000071481176, y: -0.014017947, z: -0.030980391}
---- !u!114 &901556786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3293663153670897124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 586e18d0fa93a6c4a8de0cbf1d7ae6fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boxCollider: {fileID: 8317780463639130435}
-  anim: {fileID: 3565840720823013977}
-  open: 0
 --- !u!1 &3510376940665584261
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,8 +191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4195025617470032098}
   - component: {fileID: 3565840720823013977}
-  - component: {fileID: 1617379279}
-  - component: {fileID: 1617379280}
+  - component: {fileID: 749321208}
   m_Layer: 14
   m_Name: Prison_bar_Door
   m_TagString: Door
@@ -254,20 +237,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!65 &1617379279
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3565840720823013976}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 6.2, z: 3}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1617379280
+--- !u!114 &749321208
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -276,14 +246,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 3565840720823013976}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f85179d3f719e9a4d91a0c863fefe8e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 586e18d0fa93a6c4a8de0cbf1d7ae6fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 3
   interactionTransform: {fileID: 4195025617470032098}
-  imgObject: {fileID: 0}
   anim: {fileID: 3565840720823013977}
-  door: {fileID: 901556786}
+  door: {fileID: 749321208}
+  boxCollider: {fileID: 8317780463639130435}
+  open: 0
 --- !u!1 &4547301016983874311
 GameObject:
   m_ObjectHideFlags: 0

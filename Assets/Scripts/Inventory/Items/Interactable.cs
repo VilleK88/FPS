@@ -10,16 +10,7 @@ public class Interactable : MonoBehaviour
     Transform player;
     bool hasInteracted = false;
     float distance;
-    public GameObject imgObject;
-    public Animator anim;
-    public Door door;
-    private void Start()
-    {
-        if (anim != null)
-            anim.GetComponent<Animator>();
-        if (door != null)
-            door.GetComponent<Door>();
-    }
+    //public GameObject imgObject;
     public virtual void Interact()
     {
         //Debug.Log("Interacting with " + transform.name);

@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : MonoBehaviour
+public class Door : Interactable
 {
-    public BoxCollider boxCollider;
     public Animator anim;
-    public bool open= false;
+    public Door door;
+    public BoxCollider boxCollider;
+    public bool open = false;
     private void Start()
     {
-        boxCollider.GetComponent<BoxCollider>();
+        boxCollider.GetComponentInChildren<BoxCollider>();
         anim.GetComponentInParent<Animator>();
     }
     public void InteractWithDoor()
