@@ -210,7 +210,9 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHand
             return;
         CleanSlot();
         parentAfterDrag = transform.parent;
-        transform.SetParent(transform.root);
+        //transform.SetParent(transform.root);
+        Transform secondToRoot = transform.root.GetChild(0);
+        transform.SetParent(secondToRoot);
         transform.SetAsLastSibling();
         img.raycastTarget = false;
         countText.raycastTarget = false;
