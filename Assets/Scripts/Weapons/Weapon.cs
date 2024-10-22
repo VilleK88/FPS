@@ -41,9 +41,9 @@ public class Weapon : MonoBehaviour
     public LayerMask enemyLayer;
     public EnemyHealth lastHitEnemy;
     [Header("Knife")]
-    float nextAttackCooldown = 0;
-    bool secondKnifeAttack = false;
-    bool thirdKnifeAttack = false;
+    [HideInInspector] public float nextAttackCooldown = 0;
+    [HideInInspector] public bool secondKnifeAttack = false;
+    [HideInInspector] public bool thirdKnifeAttack = false;
     private void Awake()
     {
         readyToShoot = true;

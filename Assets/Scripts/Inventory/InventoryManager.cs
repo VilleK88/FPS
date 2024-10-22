@@ -201,9 +201,15 @@ public class InventoryManager : MonoBehaviour
                         {
                             weaponSlots[i].SetActive(!weaponSlots[i].activeSelf);
                             inventoryData.activeWeapon = index;
-                            weaponSlots[i].GetComponent<Weapon>().UpdateTotalAmmoStatus();
-                            //if (weaponSlots[i].GetComponent<Weapon>().thisWeaponModel == WeaponModel.Shotgun)
-                            weaponSlots[i].GetComponent<Weapon>().anim.SetTrigger("Equip");
+                            Weapon currentlyEquipedWeapon = weaponSlots[i].GetComponent<Weapon>();
+                            currentlyEquipedWeapon.UpdateTotalAmmoStatus();
+                            currentlyEquipedWeapon.anim.SetTrigger("Equip");
+                            if(currentlyEquipedWeapon.thisWeaponModel == WeaponModel.Knife)
+                            {
+                                currentlyEquipedWeapon.secondKnifeAttack = false;
+                                currentlyEquipedWeapon.thirdKnifeAttack = false;
+                                currentlyEquipedWeapon.nextAttackCooldown = 0;
+                            }
                         }
                         else
                         {

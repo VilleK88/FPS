@@ -27,7 +27,7 @@ TagManager:
   - PostProcessing
   - Collectable
   - Interactable
-  - 
+  - PlayersMeleeHitbox
   - 
   - 
   - 
