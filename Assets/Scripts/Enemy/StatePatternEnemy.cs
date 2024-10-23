@@ -185,7 +185,7 @@ public class StatePatternEnemy : MonoBehaviour
                             patrolState.ToTrackingState();
                         else if (currentState == alertState)
                             patrolState.ToTrackingState();
-                        StartCoroutine(CallReinforcements());
+                        //StartCoroutine(CallReinforcements());
                     }
                     return true;
                 }
