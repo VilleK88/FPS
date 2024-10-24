@@ -78,11 +78,14 @@ public class Player : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         if (Physics.Raycast(ray, out hit, 3, interactableLayer))
         {
-            PlayerManager.instance.interactableIconObject.SetActive(true);
-            PlayerManager.instance.middlePoint.enabled = false;
             Interactable interactable = hit.collider.GetComponent<Interactable>();
             if(hit.collider.CompareTag("Door"))
             {
+                if (!InventoryManager.instance.isPaused)
+                {
+                    PlayerManager.instance.TurnOnOrOffInteractable(true);
+                }
+                PlayerManager.instance.middlePoint.enabled = false;
                 Door door = hit.collider.GetComponentInParent<Door>();
                 if (door != null)
                 {
@@ -114,8 +117,9 @@ public class Player : MonoBehaviour
     }
     void RemoveFocus()
     {
-        PlayerManager.instance.interactableIconObject.SetActive(false);
-        PlayerManager.instance.middlePoint.enabled = true;
+        PlayerManager.instance.TurnOnOrOffInteractable(false);
+        if(!InventoryManager.instance.isPaused)
+            PlayerManager.instance.middlePoint.enabled = true;
         if (focus != null)
             focus.OnDefocused();
         focus = null;

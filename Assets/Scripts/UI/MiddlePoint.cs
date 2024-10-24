@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class MiddlePoint : MonoBehaviour
 {
-    Image img;
+    public Image img;
 
     private void Start()
     {
-        img = GetComponent<Image>();
+        //img = GetComponent<Image>();
     }
 
-    private void Update()
+    /*private void Update()
     {
         if (!InventoryManager.instance.closed || InGameMenuControls.instance.menuButtons.activeSelf)
         {
@@ -24,5 +24,5 @@ public class MiddlePoint : MonoBehaviour
             img.enabled = true;
             img.raycastTarget = true;
         }
-    }
+    }*/
 }

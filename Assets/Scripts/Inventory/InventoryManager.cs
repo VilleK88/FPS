@@ -37,7 +37,8 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] Animator equipmentAnim; // equipment screen
     public bool closed = true; // inventory ui closed or not
     public GameObject player;
-    public GameObject middlePoint; // crosshair
+    public MiddlePoint middlePoint; // crosshair
+    public GameObject interactableIcon;
     public List<int> weaponIDsList = new List<int>();
     public Button selectSlot; // for keyboard use
     public InventoryItem tempInventoryItem; // for keyboard use
@@ -86,11 +87,17 @@ public class InventoryManager : MonoBehaviour
     }
     public void PauseGame()
     {
+        PlayerManager.instance.MiddlePointTurnOnOff(false);
+        PlayerManager.instance.TurnOnOrOffInteractable(false);
+        isPaused = true;
         Time.timeScale = 0;
     }
     public void StopPause()
     {
         Time.timeScale = 1;
+        isPaused = false;
+        PlayerManager.instance.MiddlePointTurnOnOff(true);
+        PlayerManager.instance.TurnOnOrOffInteractable(true);
     }
     public void CancelKeyboardItemTransfer()
     {
