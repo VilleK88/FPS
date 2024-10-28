@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
-
 public class SaveMenu : MonoBehaviour
 {
     [SerializeField] public Transform content;
@@ -39,8 +38,12 @@ public class SaveMenu : MonoBehaviour
     public void DisplaySaveFiles()
     {
         foreach (Transform child in content)
-            Destroy(child.gameObject);
-        NewSave newSaveObject = Instantiate(newSave, content);
+        {
+            NewSave dontDestroySave = child.GetComponent<NewSave>();
+            if (dontDestroySave == null) Destroy(child.gameObject);
+            //Destroy(child.gameObject);
+        }
+        //NewSave newSaveObject = Instantiate(newSave, content);
         List<string> saveFiles = GetSaveFiles();
         foreach (string saveFilePath in saveFiles)
             CreateSavePrefab(saveFilePath);

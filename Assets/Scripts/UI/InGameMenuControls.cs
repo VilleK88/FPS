@@ -30,6 +30,8 @@ public class InGameMenuControls : MonoBehaviour
     public bool saveMenuOpen;
     public GameObject loadMenu;
     public bool loadMenuOpen;
+    public GameObject newSaveInputMenu;
+    public bool newSaveInputMenuOpen;
     private void Start()
     {
         if (settingsMenu != null)
@@ -53,12 +55,14 @@ public class InGameMenuControls : MonoBehaviour
                 OnToggleMenuStatic?.Invoke(menuButtons.activeSelf);
                 ToggleInGameMenu();
             }
-            else if (settingsMenuOpen && !saveMenuOpen && !loadMenuOpen)
+            else if (settingsMenuOpen && !saveMenuOpen && !loadMenuOpen && !newSaveInputMenuOpen)
                 CloseSettings();
-            else if (!settingsMenuOpen && saveMenuOpen && !loadMenuOpen)
+            else if (!settingsMenuOpen && saveMenuOpen && !loadMenuOpen && !newSaveInputMenuOpen)
                 CloseSaveMenu();
-            else if (!settingsMenuOpen && !saveMenuOpen && loadMenuOpen)
+            else if (!settingsMenuOpen && !saveMenuOpen && loadMenuOpen && !newSaveInputMenuOpen)
                 CloseLoadMenu();
+            else if (!settingsMenuOpen && saveMenuOpen && !loadMenuOpen && newSaveInputMenuOpen)
+                CloseNewSaveInputMenu();
             else if (InventoryManager.instance.tempInventoryItem != null)
                 InventoryManager.instance.CancelKeyboardItemTransfer();
         }
@@ -152,6 +156,16 @@ public class InGameMenuControls : MonoBehaviour
             SceneManager.LoadScene("2 - Prison");
         if (GameManager.instance.savedSceneID == 1)
             SceneManager.LoadScene("TestScene2");
+    }
+    public void OpenNewSaveInputMenu()
+    {
+        newSaveInputMenu.SetActive(true);
+        newSaveInputMenuOpen = true;
+    }
+    public void CloseNewSaveInputMenu()
+    {
+        newSaveInputMenu.SetActive(false);
+        newSaveInputMenuOpen = false;
     }
     public void Settings()
     {

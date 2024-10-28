@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
             enemyDead = this.enemyDead,
             enemyFoundDead = this.enemyFoundDead,
             timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
-    }, Formatting.Indented); ;
+        }, Formatting.Indented);
         if(quickSave)
             File.WriteAllText(Application.persistentDataPath + "/gameInfo.dat", json);
         else
@@ -206,5 +206,6 @@ public class GameData
     public int[] patrolWaypointIndex;
     public bool enemyDead;
     public bool enemyFoundDead;
+    public Image saveImage;
     public string timestamp;
 }
