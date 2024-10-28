@@ -3,6 +3,8 @@ using System;
 using System.IO;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -59,7 +61,11 @@ public class GameManager : MonoBehaviour
     public int[] patrolWaypointIndex;
     public bool enemyDead;
     public bool enemyFoundDead;
-    public void Save()
+    [Header("Multisave System")]
+    public Image saveImage;
+    public string saveName;
+    public string timestamp;
+    public void Save(bool quickSave)
     {
         Debug.Log("Game Saved!");
         string json = JsonConvert.SerializeObject(new GameData
@@ -93,55 +99,81 @@ public class GameManager : MonoBehaviour
             enemyRotationZ = this.enemyRotationZ,
             patrolWaypointIndex = this.patrolWaypointIndex,
             enemyDead = this.enemyDead,
-            enemyFoundDead = this.enemyFoundDead
-        }, Formatting.Indented);
-        File.WriteAllText(Application.persistentDataPath + "/gameInfo.dat", json);
-    }
-    public void Load()
-    {
-        string filePath = Application.persistentDataPath + "/gameInfo.dat";
-        if (File.Exists(filePath))
+            enemyFoundDead = this.enemyFoundDead,
+            timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+    }, Formatting.Indented); ;
+        if(quickSave)
+            File.WriteAllText(Application.persistentDataPath + "/gameInfo.dat", json);
+        else
         {
-            Debug.Log("Game loaded");
-            string json = File.ReadAllText(filePath);
-            GameData data = JsonConvert.DeserializeObject<GameData>(json);
-            health = data.health;
-            currentHealth = data.currentHealth;
-            maxHealth = data.maxHealth;
-            stamina = data.stamina;
-            armor = data.armor;
-            x = data.x;
-            y = data.y;
-            z = data.z;
-            xRotation = data.xRotation;
-            yRotation = data.yRotation;
-            zRotation = data.zRotation;
-            savedSceneID = data.savedSceneID;
-            loadPlayerPosition = true;
-            loadInventory = true;
-            inventorySlotsData = data.inventorySlotsData;
-            equipmentSlotsData = data.equipmentSlotsData;
-            inventoryData = data.inventoryData;
-            bulletsLeft = data.bulletsLeft;
-            cash = data.cash;
-            cashIDs = data.cashIDs;
-            itemPickUpIDs = data.itemPickUpIDs;
-            nearbyEnemies = data.nearbyEnemies;
-            enemyDataID = data.enemyDataID;
-            enemyPositionX = data.enemyPositionX;
-            enemyPositionY = data.enemyPositionY;
-            enemyPositionZ = data.enemyPositionZ;
-            enemyRotationX = data.enemyRotationX;
-            enemyRotationY = data.enemyRotationY;
-            enemyRotationZ = data.enemyRotationZ;
-            patrolWaypointIndex = data.patrolWaypointIndex;
-            enemyDead = data.enemyDead;
-            enemyFoundDead = data.enemyFoundDead;
+            string directory = Application.persistentDataPath;
+            string filePrefix = "gameInfo";
+            string fileExtension = ".dat";
+            string[] existingFiles = Directory.GetFiles(directory, filePrefix + "*" + fileExtension);
+            int maxSaveNumber = 0;
+            Regex regex = new Regex(@"gameInfo(\d+)\.dat");
+            foreach (string filePath in existingFiles)
+            {
+                Match match = regex.Match(Path.GetFileName(filePath));
+                if (match.Success && int.TryParse(match.Groups[1].Value, out int fileNumber))
+                {
+                    if (fileNumber > maxSaveNumber)
+                        maxSaveNumber = fileNumber;
+                }
+            }
+            int nextSaveNumber = maxSaveNumber + 1;
+            string newFilePath = Path.Combine(directory, $"{filePrefix}{nextSaveNumber}{fileExtension}");
+            File.WriteAllText(newFilePath, json);
+        }
+    }
+    public void Load(bool quickLoad)
+    {
+        if(quickLoad)
+        {
+            string filePath = Application.persistentDataPath + "/gameInfo.dat";
+            if (File.Exists(filePath))
+            {
+                Debug.Log("Game loaded");
+                string json = File.ReadAllText(filePath);
+                GameData data = JsonConvert.DeserializeObject<GameData>(json);
+                health = data.health;
+                currentHealth = data.currentHealth;
+                maxHealth = data.maxHealth;
+                stamina = data.stamina;
+                armor = data.armor;
+                x = data.x;
+                y = data.y;
+                z = data.z;
+                xRotation = data.xRotation;
+                yRotation = data.yRotation;
+                zRotation = data.zRotation;
+                savedSceneID = data.savedSceneID;
+                loadPlayerPosition = true;
+                loadInventory = true;
+                inventorySlotsData = data.inventorySlotsData;
+                equipmentSlotsData = data.equipmentSlotsData;
+                inventoryData = data.inventoryData;
+                bulletsLeft = data.bulletsLeft;
+                cash = data.cash;
+                cashIDs = data.cashIDs;
+                itemPickUpIDs = data.itemPickUpIDs;
+                nearbyEnemies = data.nearbyEnemies;
+                enemyDataID = data.enemyDataID;
+                enemyPositionX = data.enemyPositionX;
+                enemyPositionY = data.enemyPositionY;
+                enemyPositionZ = data.enemyPositionZ;
+                enemyRotationX = data.enemyRotationX;
+                enemyRotationY = data.enemyRotationY;
+                enemyRotationZ = data.enemyRotationZ;
+                patrolWaypointIndex = data.patrolWaypointIndex;
+                enemyDead = data.enemyDead;
+                enemyFoundDead = data.enemyFoundDead;
+            }
         }
     }
 }
 [Serializable] // Toinen luokka, joka voidaan serialisoida. Pit‰‰ sis‰ll‰‰n vaan sen datan mit‰ halutaan serialisoida ja tallentaa.
-class GameData
+public class GameData
 {
     public float health;
     public float currentHealth;
@@ -174,4 +206,5 @@ class GameData
     public int[] patrolWaypointIndex;
     public bool enemyDead;
     public bool enemyFoundDead;
+    public string timestamp;
 }
