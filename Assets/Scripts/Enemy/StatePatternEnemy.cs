@@ -1,7 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+[Serializable]
+public class EnemyData
+{
+    public string enemyDataID;
+    public float enemyPositionX;
+    public float enemyPositionY;
+    public float enemyPositionZ;
+    public float enemyRotationX;
+    public float enemyRotationY;
+    public float enemyRotationZ;
+    public int waypointIndexData;
+    public bool dead;
+    public bool alreadyFoundDead;
+}
 public class StatePatternEnemy : MonoBehaviour
 {
     public float searchDuration; // AlertState searching time
@@ -62,6 +77,7 @@ public class StatePatternEnemy : MonoBehaviour
     [HideInInspector] public CombatState combatState;
     [HideInInspector] public TrackingState trackingState;
     [HideInInspector] public NavMeshAgent agent;
+    public string enemyID;
     private void Awake()
     {
         patrolState = new PatrolState(this);
@@ -86,7 +102,8 @@ public class StatePatternEnemy : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        currentState.OnTriggerEnter(other);
+        if (!enemyHealth.dead)
+            currentState.OnTriggerEnter(other);
     }
     public void FOVRoutine()
     {
@@ -216,8 +233,8 @@ public class StatePatternEnemy : MonoBehaviour
     public Vector3 CalculateDirectionAndSpread()
     {
         Vector3 direction = player.transform.position - shootingPoint.position;
-        float x = Random.Range(-spreadIntensity, spreadIntensity);
-        float y = Random.Range(-spreadIntensity, spreadIntensity);
+        float x = UnityEngine.Random.Range(-spreadIntensity, spreadIntensity);
+        float y = UnityEngine.Random.Range(-spreadIntensity, spreadIntensity);
         return direction + new Vector3(x, y, 0); // returning the shooting direction and spread
     }
     public IEnumerator CallReinforcementsToCombat() // to combat
@@ -285,7 +302,7 @@ public class StatePatternEnemy : MonoBehaviour
             {
                 agent.isStopped = false;
                 GetComponentInChildren<Animator>().SetBool("WalkAiming", true);
-                agent.SetDestination(transform.position + (Random.insideUnitSphere * 5));
+                agent.SetDestination(transform.position + (UnityEngine.Random.insideUnitSphere * 5));
             }
         }
     }
@@ -368,5 +385,10 @@ public class StatePatternEnemy : MonoBehaviour
         {
             Gizmos.DrawSphere(colliders[i].transform.position, 0.2f);
         }
+    }
+    [ContextMenu("Generate GUID FOR ID")]
+    public void GenerateID()
+    {
+        enemyID = System.Guid.NewGuid().ToString();
     }
 }

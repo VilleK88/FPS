@@ -2,6 +2,8 @@ using UnityEngine;
 using System;
 using System.IO;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+
 public class GameManager : MonoBehaviour
 {
     #region Singleton
@@ -46,6 +48,8 @@ public class GameManager : MonoBehaviour
     public string[] cashIDs;
     public string[] itemPickUpIDs;
     [Header("Save/load enemy parameters")]
+    public List<EnemyData> nearbyEnemies = new List<EnemyData>();
+    public string enemyDataID;
     public float[] enemyPositionX;
     public float[] enemyPositionY;
     public float[] enemyPositionZ;
@@ -53,6 +57,8 @@ public class GameManager : MonoBehaviour
     public float[] enemyRotationY;
     public float[] enemyRotationZ;
     public int[] patrolWaypointIndex;
+    public bool enemyDead;
+    public bool enemyFoundDead;
     public void Save()
     {
         Debug.Log("Game Saved!");
@@ -77,13 +83,17 @@ public class GameManager : MonoBehaviour
             cash = this.cash,
             cashIDs = this.cashIDs,
             itemPickUpIDs = this.itemPickUpIDs,
+            nearbyEnemies = this.nearbyEnemies,
+            enemyDataID = this.enemyDataID,
             enemyPositionX = this.enemyPositionX,
             enemyPositionY = this.enemyPositionY,
             enemyPositionZ = this.enemyPositionZ,
             enemyRotationX = this.enemyRotationX,
             enemyRotationY = this.enemyRotationY,
             enemyRotationZ = this.enemyRotationZ,
-            patrolWaypointIndex = this.patrolWaypointIndex
+            patrolWaypointIndex = this.patrolWaypointIndex,
+            enemyDead = this.enemyDead,
+            enemyFoundDead = this.enemyFoundDead
         }, Formatting.Indented);
         File.WriteAllText(Application.persistentDataPath + "/gameInfo.dat", json);
     }
@@ -116,6 +126,8 @@ public class GameManager : MonoBehaviour
             cash = data.cash;
             cashIDs = data.cashIDs;
             itemPickUpIDs = data.itemPickUpIDs;
+            nearbyEnemies = data.nearbyEnemies;
+            enemyDataID = data.enemyDataID;
             enemyPositionX = data.enemyPositionX;
             enemyPositionY = data.enemyPositionY;
             enemyPositionZ = data.enemyPositionZ;
@@ -123,6 +135,8 @@ public class GameManager : MonoBehaviour
             enemyRotationY = data.enemyRotationY;
             enemyRotationZ = data.enemyRotationZ;
             patrolWaypointIndex = data.patrolWaypointIndex;
+            enemyDead = data.enemyDead;
+            enemyFoundDead = data.enemyFoundDead;
         }
     }
 }
@@ -149,6 +163,8 @@ class GameData
     public int cash;
     public string[] cashIDs;
     public string[] itemPickUpIDs;
+    public List<EnemyData> nearbyEnemies = new List<EnemyData>();
+    public string enemyDataID;
     public float[] enemyPositionX;
     public float[] enemyPositionY;
     public float[] enemyPositionZ;
@@ -156,4 +172,6 @@ class GameData
     public float[] enemyRotationY;
     public float[] enemyRotationZ;
     public int[] patrolWaypointIndex;
+    public bool enemyDead;
+    public bool enemyFoundDead;
 }

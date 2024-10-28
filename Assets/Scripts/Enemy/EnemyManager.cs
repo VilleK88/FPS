@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 public class EnemyManager : MonoBehaviour
 {
     #region Singleton
@@ -21,15 +22,41 @@ public class EnemyManager : MonoBehaviour
     public Sprite alertImage;
     public Sprite trackingImage;
     public Sprite combatImage;
+    Player player;
+    public LayerMask enemyLayer;
+    public float enemyDataRadius = 100f;
     private void Start()
     {
+        player = PlayerManager.instance.GetPlayer().GetComponent<Player>();
         //enemies = FindObjectsOfType<StatePatternEnemy>();
         if (GameManager.instance.loadPlayerPosition)
             LoadEnemiesData();
     }
     public void SaveEnemiesData()
     {
-        GameManager.instance.enemyPositionX = new float[enemies.Length];
+        GameManager.instance.nearbyEnemies.Clear();
+        Vector3 playerPosition = player.transform.position;
+        Collider[] colliders = Physics.OverlapSphere(playerPosition, enemyDataRadius, enemyLayer);
+        foreach(Collider collider in colliders)
+        {
+            StatePatternEnemy enemy = collider.GetComponent<StatePatternEnemy>();
+            if (enemy != null)
+            {
+                EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+                EnemyData enemyData = new EnemyData
+                {
+                    enemyDataID = enemy.enemyID,
+                    enemyPositionX = enemy.transform.position.x,
+                    enemyPositionY = enemy.transform.position.y,
+                    enemyPositionZ = enemy.transform.position.z,
+                    waypointIndexData = enemy.patrolState.waypointIndex,
+                    dead = enemyHealth.dead,
+                    alreadyFoundDead = enemyHealth.alreadyFoundDead
+                };
+                GameManager.instance.nearbyEnemies.Add(enemyData);
+            }
+        }
+        /*GameManager.instance.enemyPositionX = new float[enemies.Length];
         GameManager.instance.enemyPositionY = new float[enemies.Length];
         GameManager.instance.enemyPositionZ = new float[enemies.Length];
         GameManager.instance.enemyRotationX = new float[enemies.Length];
@@ -48,11 +75,31 @@ public class EnemyManager : MonoBehaviour
                 GameManager.instance.enemyRotationZ[i] = enemies[i].transform.rotation.eulerAngles.z;
                 GameManager.instance.patrolWaypointIndex[i] = enemies[i].patrolState.waypointIndex;
             }
-        }
+        }*/
     }
     public void LoadEnemiesData()
     {
-        for (int i = 0; i < enemies.Length; i++)
+        Vector3 playerPosition = player.transform.position;
+        Collider[] colliders = Physics.OverlapSphere(playerPosition, enemyDataRadius, enemyLayer);
+        foreach (Collider collider in colliders)
+        {
+            StatePatternEnemy enemy = collider.GetComponent<StatePatternEnemy>();
+            if (enemy != null)
+            {
+                EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+                EnemyData enemyData = GameManager.instance.nearbyEnemies.Find(enemyData => enemyData.enemyDataID == enemy.enemyID);
+                if(enemyData != null)
+                {
+                    enemy.transform.position = new Vector3(enemyData.enemyPositionX, enemyData.enemyPositionY, enemyData.enemyPositionZ);
+                    enemy.patrolState.waypointIndex = enemyData.waypointIndexData;
+                    enemyHealth.dead = enemyData.dead;
+                    enemyHealth.alreadyFoundDead = enemyData.alreadyFoundDead;
+                    if (enemyHealth.dead)
+                        enemyHealth.DieData();
+                }
+            }
+        }
+        /*for (int i = 0; i < enemies.Length; i++)
         {
             if (enemies[i] != null)
             {
@@ -60,7 +107,7 @@ public class EnemyManager : MonoBehaviour
                 enemies[i].transform.rotation = Quaternion.Euler(GameManager.instance.enemyRotationX[i], GameManager.instance.enemyRotationY[i], GameManager.instance.enemyRotationZ[i]);
                 enemies[i].patrolState.waypointIndex = GameManager.instance.patrolWaypointIndex[i];
             }
-        }
+        }*/
     }
     public IEnumerator BackToPatrol()
     {

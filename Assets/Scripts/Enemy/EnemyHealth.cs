@@ -21,15 +21,18 @@ public class EnemyHealth : MonoBehaviour
     private CapsuleCollider collider;
     private void Start()
     {
-        currentHealth = maxHealth;
-        targetFillAmount = currentHealth / maxHealth;
-        healthBarFill.fillAmount = targetFillAmount;
-        HideHealth();
-        rigidBodies = GetComponentsInChildren<Rigidbody>();
-        DeactivateRagdoll();
-        enemy = GetComponent<StatePatternEnemy>();
-        agent = GetComponent<NavMeshAgent>();
-        collider = GetComponent<CapsuleCollider>();
+        if(!dead)
+        {
+            currentHealth = maxHealth;
+            targetFillAmount = currentHealth / maxHealth;
+            healthBarFill.fillAmount = targetFillAmount;
+            HideHealth();
+            rigidBodies = GetComponentsInChildren<Rigidbody>();
+            DeactivateRagdoll();
+            enemy = GetComponent<StatePatternEnemy>();
+            agent = GetComponent<NavMeshAgent>();
+            collider = GetComponent<CapsuleCollider>();
+        }
     }
     public void ShowHealth()
     {
@@ -85,6 +88,25 @@ public class EnemyHealth : MonoBehaviour
         healthbar.active = false;
         agent.isStopped = true;
         //StartCoroutine(Vanish());
+    }
+    public void DieData()
+    {
+        currentHealth = 0;
+        StatePatternEnemy enemy = GetComponent<StatePatternEnemy>();
+        enemy.canSeePlayer = false;
+        enemy.enabled = false;
+        enemy.GetComponentInChildren<Animator>().enabled = false;
+        if(rigidBodies == null) rigidBodies = GetComponentsInChildren<Rigidbody>();
+        ActivateRagdoll();
+        if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
+        {
+            PlayerManager.instance.sneakIndicatorImage.color = new Color(0f, 0f, 0f, 0f);
+            EnemyManager.Instance.indicatorImage.enabled = false;
+        }
+        dead = true;
+        healthbar.active = false;
+        if (agent == null) agent = GetComponent<NavMeshAgent>();
+        agent.isStopped = true;
     }
     public IEnumerator Vanish()
     {
