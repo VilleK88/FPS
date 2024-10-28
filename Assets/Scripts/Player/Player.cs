@@ -82,14 +82,12 @@ public class Player : MonoBehaviour
             if(hit.collider.CompareTag("Door"))
             {
                 if (!InventoryManager.instance.isPaused)
-                {
                     PlayerManager.instance.TurnOnOrOffInteractable(true);
-                }
                 PlayerManager.instance.middlePoint.enabled = false;
-                Door door = hit.collider.GetComponentInParent<Door>();
-                if (door != null)
+                if (Input.GetKeyDown(KeyCode.E) && pressingCooldown <= 0)
                 {
-                    if (Input.GetKeyDown(KeyCode.E) && pressingCooldown <= 0)
+                    Door door = hit.collider.GetComponentInParent<Door>();
+                    if(door != null)
                     {
                         door.InteractWithDoor();
                         pressingCooldown = 1;

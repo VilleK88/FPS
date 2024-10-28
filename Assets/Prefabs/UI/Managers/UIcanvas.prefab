@@ -376,7 +376,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &380024597
 RectTransform:
   m_ObjectHideFlags: 0
@@ -416,7 +416,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 380024596}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -992,7 +992,6 @@ GameObject:
   - component: {fileID: 1120298734}
   - component: {fileID: 1120298736}
   - component: {fileID: 1120298735}
-  - component: {fileID: 3068284387711587388}
   m_Layer: 5
   m_Name: MiddlePoint
   m_TagString: Untagged
@@ -1058,19 +1057,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3068284387711587388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1120298733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de9c22f68ff96fe47899260294585978, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  img: {fileID: 0}
 --- !u!1 &1245379994
 GameObject:
   m_ObjectHideFlags: 0
@@ -1674,7 +1660,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1818767544}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -2688,6 +2674,7 @@ MonoBehaviour:
   sneakIndicatorText: {fileID: 1316381434}
   sneakIndicatorImage: {fileID: 1472885860}
   interactableIconObject: {fileID: 380024596}
+  interactableText: {fileID: 1818767546}
   middlePoint: {fileID: 1120298735}
 --- !u!1 &3068284386692213766
 GameObject:
