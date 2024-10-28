@@ -328,6 +328,8 @@ public class InventoryManager : MonoBehaviour
         }
         selectSlot.Select();
         InGameMenuControls.instance.CloseSettings();
+        InGameMenuControls.instance.CloseLoadMenu();
+        InGameMenuControls.instance.CloseSaveMenu();
         InGameMenuControls.instance.menuButtons.SetActive(false);
     }
     public void CloseInventory()
