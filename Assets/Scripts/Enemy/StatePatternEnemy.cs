@@ -16,6 +16,23 @@ public class EnemyData
     public int waypointIndexData;
     public bool dead;
     public bool alreadyFoundDead;
+    public RagdollData ragdollData;
+}
+[Serializable]
+public class BoneData
+{
+    public string boneName;
+    public float bonePositionX;
+    public float bonePositionY;
+    public float bonePositionZ;
+    public float boneRotationX;
+    public float boneRotationY;
+    public float boneRotationZ;
+}
+[Serializable]
+public class RagdollData
+{
+    public List<BoneData> bones = new List<BoneData>();
 }
 public class StatePatternEnemy : MonoBehaviour
 {

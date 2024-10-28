@@ -11,7 +11,7 @@ public class EnemyHealth : MonoBehaviour
     public Image healthBarFill;
     float targetFillAmount;
     public float showHealthCounter = 2f;
-    Rigidbody[] rigidBodies;
+    [HideInInspector] public Rigidbody[] rigidBodies;
     public bool takingHit; // from the players bullets
     public bool dead;
     public bool alreadyFoundDead;
@@ -96,8 +96,8 @@ public class EnemyHealth : MonoBehaviour
         enemy.canSeePlayer = false;
         enemy.enabled = false;
         enemy.GetComponentInChildren<Animator>().enabled = false;
-        if(rigidBodies == null) rigidBodies = GetComponentsInChildren<Rigidbody>();
-        ActivateRagdoll();
+        //if(rigidBodies == null) rigidBodies = GetComponentsInChildren<Rigidbody>();
+        //ActivateRagdoll();
         if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
         {
             PlayerManager.instance.sneakIndicatorImage.color = new Color(0f, 0f, 0f, 0f);
@@ -119,7 +119,7 @@ public class EnemyHealth : MonoBehaviour
         foreach (var rigidBody in rigidBodies)
             rigidBody.isKinematic = true;
     }
-    void ActivateRagdoll()
+    public void ActivateRagdoll()
     {
         foreach (var rigidBody in rigidBodies)
             rigidBody.isKinematic = false;

@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
 public class EnemyManager : MonoBehaviour
 {
     #region Singleton
@@ -28,7 +26,7 @@ public class EnemyManager : MonoBehaviour
     private void Start()
     {
         player = PlayerManager.instance.GetPlayer().GetComponent<Player>();
-        //enemies = FindObjectsOfType<StatePatternEnemy>();
+        enemies = FindObjectsOfType<StatePatternEnemy>();
         if (GameManager.instance.loadPlayerPosition)
             LoadEnemiesData();
     }
@@ -51,31 +49,12 @@ public class EnemyManager : MonoBehaviour
                     enemyPositionZ = enemy.transform.position.z,
                     waypointIndexData = enemy.patrolState.waypointIndex,
                     dead = enemyHealth.dead,
-                    alreadyFoundDead = enemyHealth.alreadyFoundDead
+                    alreadyFoundDead = enemyHealth.alreadyFoundDead,
+                    ragdollData = SaveRagdollTransforms(enemy.transform) 
                 };
                 GameManager.instance.nearbyEnemies.Add(enemyData);
             }
         }
-        /*GameManager.instance.enemyPositionX = new float[enemies.Length];
-        GameManager.instance.enemyPositionY = new float[enemies.Length];
-        GameManager.instance.enemyPositionZ = new float[enemies.Length];
-        GameManager.instance.enemyRotationX = new float[enemies.Length];
-        GameManager.instance.enemyRotationY = new float[enemies.Length];
-        GameManager.instance.enemyRotationZ = new float[enemies.Length];
-        GameManager.instance.patrolWaypointIndex = new int[enemies.Length];
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            if (enemies[i] != null)
-            {
-                GameManager.instance.enemyPositionX[i] = enemies[i].transform.position.x;
-                GameManager.instance.enemyPositionY[i] = enemies[i].transform.position.y;
-                GameManager.instance.enemyPositionZ[i] = enemies[i].transform.position.z;
-                GameManager.instance.enemyRotationX[i] = enemies[i].transform.rotation.eulerAngles.x;
-                GameManager.instance.enemyRotationY[i] = enemies[i].transform.rotation.eulerAngles.y;
-                GameManager.instance.enemyRotationZ[i] = enemies[i].transform.rotation.eulerAngles.z;
-                GameManager.instance.patrolWaypointIndex[i] = enemies[i].patrolState.waypointIndex;
-            }
-        }*/
     }
     public void LoadEnemiesData()
     {
@@ -95,19 +74,61 @@ public class EnemyManager : MonoBehaviour
                     enemyHealth.dead = enemyData.dead;
                     enemyHealth.alreadyFoundDead = enemyData.alreadyFoundDead;
                     if (enemyHealth.dead)
+                    {
+                        if (enemyHealth.rigidBodies == null) enemyHealth.rigidBodies = enemyHealth.GetComponentsInChildren<Rigidbody>();
+                        enemyHealth.ActivateRagdoll();
                         enemyHealth.DieData();
+                        LoadRagdollTransforms(enemy.transform, enemyData.ragdollData);
+                    }
                 }
             }
         }
-        /*for (int i = 0; i < enemies.Length; i++)
+    }
+    public RagdollData SaveRagdollTransforms(Transform rootBone)
+    {
+        RagdollData ragdollData = new RagdollData();
+        SaveBoneTransforms(rootBone, ragdollData);
+        return ragdollData;
+    }
+    void SaveBoneTransforms(Transform bone, RagdollData ragdollData)
+    {
+        BoneData boneData = new BoneData
         {
-            if (enemies[i] != null)
+            boneName = bone.name,
+            bonePositionX = bone.localPosition.x,
+            bonePositionY = bone.localPosition.y,
+            bonePositionZ = bone.localPosition.z,
+            boneRotationX = bone.localEulerAngles.x,
+            boneRotationY = bone.localEulerAngles.y,
+            boneRotationZ = bone.localEulerAngles.z
+        };
+        ragdollData.bones.Add(boneData);
+        foreach (Transform child in bone)
+            SaveBoneTransforms(child, ragdollData);
+    }
+    public void LoadRagdollTransforms(Transform rootBone, RagdollData ragdollData)
+    {
+        foreach(BoneData boneData in ragdollData.bones)
+        {
+            Transform bone = FindBoneByName(rootBone, boneData.boneName);
+            if(bone != null)
             {
-                enemies[i].transform.position = new Vector3(GameManager.instance.enemyPositionX[i], GameManager.instance.enemyPositionY[i], GameManager.instance.enemyPositionZ[i]);
-                enemies[i].transform.rotation = Quaternion.Euler(GameManager.instance.enemyRotationX[i], GameManager.instance.enemyRotationY[i], GameManager.instance.enemyRotationZ[i]);
-                enemies[i].patrolState.waypointIndex = GameManager.instance.patrolWaypointIndex[i];
+                bone.localPosition = new Vector3(boneData.bonePositionX, boneData.bonePositionY, boneData.bonePositionZ);
+                bone.localEulerAngles = new Vector3(boneData.boneRotationX, boneData.boneRotationY, boneData.boneRotationZ);
             }
-        }*/
+        }
+    }
+    Transform FindBoneByName(Transform parent, string name)
+    {
+        if (parent.name == name)
+            return parent;
+        foreach(Transform child in parent)
+        {
+            Transform found = FindBoneByName(child, name);
+            if (found != null)
+                return found;
+        }
+        return null;
     }
     public IEnumerator BackToPatrol()
     {
