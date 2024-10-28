@@ -25,9 +25,14 @@ public class Player : MonoBehaviour
     public float throwForce;
     public float throwUpwardForce;
     bool readyToThrow = true;
-    float pressingCooldown = 0;
+    [Header("Mouse interactions")]
+    float pressingCooldown = 0f;
+    float raycastCooldown = 0.1f;
+    float lastRaycastTime = 0f;
+    Vector3 screenCenter;
     private void Start()
     {
+        screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
         if (GameManager.instance.changeScene)
         {
             InventoryManager.instance.LoadHowManyBulletsLeftInMagazine();
@@ -54,7 +59,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         MouseInteraction();
-        if(Input.GetKeyDown(throwKey) && readyToThrow && totalThrows > 0)
+        if (Input.GetKeyDown(throwKey) && readyToThrow && totalThrows > 0)
             Throw();
         if (pressingCooldown > 0)
             pressingCooldown -= Time.deltaTime;
@@ -75,7 +80,7 @@ public class Player : MonoBehaviour
     }
     void MouseInteraction()
     {
-        Ray ray = cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        Ray ray = cam.ScreenPointToRay(screenCenter);
         if (Physics.Raycast(ray, out hit, 3, interactableLayer))
         {
             Interactable interactable = hit.collider.GetComponent<Interactable>();
