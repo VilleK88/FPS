@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     public bool loadPlayerPosition = false;
     public bool loadInventory = false;
     public bool changeScene = false; // check if scene is changing. not serialized.
-    public bool loadEnemiesData = false;
+    public bool ifSneaking;
     [Header("Save/load players inventory and check picked up items")]
     public InventorySlotData[] inventorySlotsData;
     public InventorySlotData[] equipmentSlotsData;
@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
     public int[] patrolWaypointIndex;
     public bool enemyDead;
     public bool enemyFoundDead;
+    public bool loadEnemiesData = false;
     [Header("Multisave System")]
     public Image saveImage;
     public string saveName;
@@ -72,6 +73,8 @@ public class GameManager : MonoBehaviour
     private IEnumerator SaveGameWithScreenshot(bool quicksave, string newFilePath)
     {
         Debug.Log("Saving game with screenshot....");
+        GameObject playerObject = PlayerManager.instance.GetPlayer();
+        PlayerMovement playerMovementScript = playerObject.GetComponent<PlayerMovement>();
         Texture2D screenshotTexture = null;
         yield return StartCoroutine(TakeScreenshot(texture => screenshotTexture = texture));
         string json = JsonConvert.SerializeObject(new GameData
@@ -88,6 +91,7 @@ public class GameManager : MonoBehaviour
             yRotation = this.yRotation,
             zRotation = this.zRotation,
             savedSceneID = this.savedSceneID,
+            ifSneaking = playerMovementScript.sneaking,
             inventorySlotsData = this.inventorySlotsData,
             equipmentSlotsData = this.equipmentSlotsData,
             inventoryData = this.inventoryData,
@@ -169,6 +173,7 @@ public class GameManager : MonoBehaviour
                 yRotation = data.yRotation;
                 zRotation = data.zRotation;
                 savedSceneID = data.savedSceneID;
+                ifSneaking = data.ifSneaking;
                 //loadPlayerPosition = true;
                 //loadInventory = true;
                 inventorySlotsData = data.inventorySlotsData;
@@ -212,6 +217,7 @@ public class GameManager : MonoBehaviour
                 yRotation = data.yRotation;
                 zRotation = data.zRotation;
                 savedSceneID = data.savedSceneID;
+                ifSneaking = data.ifSneaking;
                 //loadPlayerPosition = true;
                 //loadInventory = true;
                 inventorySlotsData = data.inventorySlotsData;
@@ -252,6 +258,7 @@ public class GameData
     public float zRotation;
     public int savedSceneID;
     public bool loadPlayerPosition = false;
+    public bool ifSneaking;
     public InventorySlotData[] inventorySlotsData;
     public InventorySlotData[] equipmentSlotsData;
     public InventoryManagerData inventoryData;

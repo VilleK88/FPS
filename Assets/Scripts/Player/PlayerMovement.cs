@@ -25,6 +25,11 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         originalSpeed = speed;
+        if(GameManager.instance.ifSneaking)
+        {
+            Sneak();
+            GameManager.instance.ifSneaking = false;
+        }
     }
     private void Update()
     {

@@ -47,6 +47,9 @@ public class EnemyManager : MonoBehaviour
                     enemyPositionX = enemy.transform.position.x,
                     enemyPositionY = enemy.transform.position.y,
                     enemyPositionZ = enemy.transform.position.z,
+                    enemyRotationX = enemy.transform.eulerAngles.x,
+                    enemyRotationY = enemy.transform.eulerAngles.y,
+                    enemyRotationZ = enemy.transform.eulerAngles.z,
                     waypointIndexData = enemy.patrolState.waypointIndex,
                     dead = enemyHealth.dead,
                     alreadyFoundDead = enemyHealth.alreadyFoundDead,
@@ -70,6 +73,7 @@ public class EnemyManager : MonoBehaviour
                 if(enemyData != null)
                 {
                     enemy.transform.position = new Vector3(enemyData.enemyPositionX, enemyData.enemyPositionY, enemyData.enemyPositionZ);
+                    enemy.transform.eulerAngles = new Vector3(enemyData.enemyRotationX, enemyData.enemyRotationY, enemyData.enemyRotationZ);
                     enemy.patrolState.waypointIndex = enemyData.waypointIndexData;
                     enemyHealth.dead = enemyData.dead;
                     enemyHealth.alreadyFoundDead = enemyData.alreadyFoundDead;
