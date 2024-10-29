@@ -70,7 +70,7 @@ public class InventoryManager : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab))
+        if ((Input.GetKeyDown(KeyCode.I) && !InGameMenuControls.instance.saveMenu.GetComponent<SaveMenu>().inputFieldOn) || Input.GetKeyDown(KeyCode.Tab))
         {
             if (closed)
             {

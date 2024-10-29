@@ -161,11 +161,13 @@ public class InGameMenuControls : MonoBehaviour
     {
         newSaveInputMenu.SetActive(true);
         newSaveInputMenuOpen = true;
+        saveMenu.GetComponent<SaveMenu>().InitializeInputField();
     }
     public void CloseNewSaveInputMenu()
     {
         newSaveInputMenu.SetActive(false);
         newSaveInputMenuOpen = false;
+        saveMenu.GetComponent<SaveMenu>().inputFieldOn = false;
     }
     public void Settings()
     {

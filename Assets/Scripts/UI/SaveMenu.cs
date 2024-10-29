@@ -5,11 +5,20 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 public class SaveMenu : MonoBehaviour
 {
     [SerializeField] public Transform content;
     [SerializeField] private SavePrefab savePrefab;
     [SerializeField] private NewSave newSave;
+    [SerializeField] private TMP_InputField inputField;
+    public bool inputFieldOn;
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+            CheckInputField();
+    }
     public List<string> GetSaveFiles()
     {
         string directory = Application.persistentDataPath;
@@ -41,9 +50,7 @@ public class SaveMenu : MonoBehaviour
         {
             NewSave dontDestroySave = child.GetComponent<NewSave>();
             if (dontDestroySave == null) Destroy(child.gameObject);
-            //Destroy(child.gameObject);
         }
-        //NewSave newSaveObject = Instantiate(newSave, content);
         List<string> saveFiles = GetSaveFiles();
         foreach (string saveFilePath in saveFiles)
             CreateSavePrefab(saveFilePath);
@@ -53,10 +60,15 @@ public class SaveMenu : MonoBehaviour
         string json = File.ReadAllText(saveFilePath);
         GameData gameData = JsonUtility.FromJson<GameData>(json);
         SavePrefab saveObject = Instantiate(savePrefab, content);
-        //SavePrefab savePrefabComponent = saveObject.GetComponent<SavePrefab>();
         savePrefab.saveName.text = $"Save {Path.GetFileName(saveFilePath)}";
         savePrefab.timeDate.text = gameData.timestamp;
         savePrefab.gameData = gameData;
+    }
+    public void InitializeInputField()
+    {
+        inputFieldOn = true;
+        inputField.text = "";
+        inputField.Select();
     }
     public int GetSaveCount()
     {
@@ -73,8 +85,40 @@ public class SaveMenu : MonoBehaviour
             Debug.Log($"Save file path: {file}");
         }
     }
-    public void InitializeSaveMenu()
+    public void CheckInputField()
     {
-
+        string fileName = inputField.text;
+        if(string.IsNullOrEmpty(fileName))
+        {
+            Debug.Log("File name is empty. Name the file so it can be saved.");
+            return;
+        }
+        if(hasInvalidFileNameChars(fileName))
+        {
+            Debug.Log("Invalid characters used in the file name.");
+            return;
+        }
+        if (!fileName.EndsWith(".dat"))
+            fileName += ".dat";
+        string filePath = Path.Combine(Application.persistentDataPath, fileName);
+        if(File.Exists(filePath))
+        {
+            Debug.Log("File name " + fileName + " has already been taken.");
+        }
+        else
+        {
+            Debug.Log("File name is free to be saved.");
+            inputFieldOn = false;
+        }
+    }
+    bool hasInvalidFileNameChars(string fileName)
+    {
+        char[] invalidChars = Path.GetInvalidFileNameChars();
+        foreach(char c in fileName)
+        {
+            if (invalidChars.Contains(c))
+                return true;
+        }
+        return false;
     }
 }
