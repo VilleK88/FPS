@@ -36,7 +36,7 @@ public class MenuControls : MonoBehaviour
     public void LoadGame()
     {
         GameManager.instance.loadPlayerPosition = true;
-        GameManager.instance.Load(false);
+        GameManager.instance.Load(false, "no");
         LoadSceneID();
         Time.timeScale = 1f;
     }

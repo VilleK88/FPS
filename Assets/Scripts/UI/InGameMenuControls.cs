@@ -44,6 +44,10 @@ public class InGameMenuControls : MonoBehaviour
         currentScene = SceneManager.GetActiveScene();
         if (AccountManager.Instance != null)
             AccountManager.Instance.HideContainer();
+        OpenSaveMenu();
+        CloseSaveMenu();
+        OpenLoadMenu();
+        CloseLoadMenu();
     }
     private void Update()
     {
@@ -71,7 +75,7 @@ public class InGameMenuControls : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F5))
             QuickSave();
         if (Input.GetKeyDown(KeyCode.F8))
-            LoadGame();
+            QuickLoadGame();
     }
     void ToggleInGameMenu()
     {
@@ -129,10 +133,17 @@ public class InGameMenuControls : MonoBehaviour
             GameManager.instance.Save(true, "no");
         }
     }
-    public void LoadGame()
+    public void LoadGame(string filePath)
     {
         ClearAndDestroyInventory();
-        GameManager.instance.Load(true);
+        GameManager.instance.Load(false, filePath);
+        LoadSceneID();
+        Time.timeScale = 1f;
+    }
+    public void QuickLoadGame()
+    {
+        ClearAndDestroyInventory();
+        GameManager.instance.Load(true, "no");
         LoadSceneID();
         Time.timeScale = 1f;
     }

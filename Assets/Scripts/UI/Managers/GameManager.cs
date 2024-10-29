@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     public bool loadPlayerPosition = false;
     public bool loadInventory = false;
     public bool changeScene = false; // check if scene is changing. not serialized.
+    public bool loadEnemiesData = false;
     [Header("Save/load players inventory and check picked up items")]
     public InventorySlotData[] inventorySlotsData;
     public InventorySlotData[] equipmentSlotsData;
@@ -121,6 +122,7 @@ public class GameManager : MonoBehaviour
             SaveMenu saveMenu = InGameMenuControls.instance.saveMenu.GetComponent<SaveMenu>();
             saveMenu.DisplaySaveFiles();
         }
+        loadEnemiesData = true;
         Debug.Log("Game and screenshot saved!");
     }
     public IEnumerator TakeScreenshot(System.Action<Texture2D> callback)
@@ -143,14 +145,16 @@ public class GameManager : MonoBehaviour
         Destroy(renderTexture);
         callback?.Invoke(screenshotTexture);
     }
-    public void Load(bool quickLoad)
+    public void Load(bool quickLoad, string newFilePath)
     {
         if(quickLoad)
         {
             string filePath = Application.persistentDataPath + "/quicksave.dat";
             if (File.Exists(filePath))
             {
-                Debug.Log("Game loaded");
+                Debug.Log("Quick save loaded");
+                loadPlayerPosition = true;
+                loadInventory = true;
                 string json = File.ReadAllText(filePath);
                 GameData data = JsonConvert.DeserializeObject<GameData>(json);
                 health = data.health;
@@ -165,8 +169,51 @@ public class GameManager : MonoBehaviour
                 yRotation = data.yRotation;
                 zRotation = data.zRotation;
                 savedSceneID = data.savedSceneID;
+                //loadPlayerPosition = true;
+                //loadInventory = true;
+                inventorySlotsData = data.inventorySlotsData;
+                equipmentSlotsData = data.equipmentSlotsData;
+                inventoryData = data.inventoryData;
+                bulletsLeft = data.bulletsLeft;
+                cash = data.cash;
+                cashIDs = data.cashIDs;
+                itemPickUpIDs = data.itemPickUpIDs;
+                nearbyEnemies = data.nearbyEnemies;
+                enemyDataID = data.enemyDataID;
+                enemyPositionX = data.enemyPositionX;
+                enemyPositionY = data.enemyPositionY;
+                enemyPositionZ = data.enemyPositionZ;
+                enemyRotationX = data.enemyRotationX;
+                enemyRotationY = data.enemyRotationY;
+                enemyRotationZ = data.enemyRotationZ;
+                patrolWaypointIndex = data.patrolWaypointIndex;
+                enemyDead = data.enemyDead;
+                enemyFoundDead = data.enemyFoundDead;
+            }
+        }
+        else
+        {
+            if (File.Exists(newFilePath))
+            {
+                Debug.Log("Save loaded");
                 loadPlayerPosition = true;
                 loadInventory = true;
+                string json = File.ReadAllText(newFilePath);
+                GameData data = JsonConvert.DeserializeObject<GameData>(json);
+                health = data.health;
+                currentHealth = data.currentHealth;
+                maxHealth = data.maxHealth;
+                stamina = data.stamina;
+                armor = data.armor;
+                x = data.x;
+                y = data.y;
+                z = data.z;
+                xRotation = data.xRotation;
+                yRotation = data.yRotation;
+                zRotation = data.zRotation;
+                savedSceneID = data.savedSceneID;
+                //loadPlayerPosition = true;
+                //loadInventory = true;
                 inventorySlotsData = data.inventorySlotsData;
                 equipmentSlotsData = data.equipmentSlotsData;
                 inventoryData = data.inventoryData;

@@ -2,41 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using UnityEngine;
 public class LoadMenu : MonoBehaviour
 {
     [SerializeField] public Transform content;
-    [SerializeField] private SavePrefab savePrefab;
+    [SerializeField] private LoadPrefab loadPrefab;
     public List<string> GetSaveFiles()
     {
         string directory = Application.persistentDataPath;
-        string filePrefix = "gameInfo";
-        string fileExtension = ".dat";
-        string[] files = Directory.GetFiles(directory, filePrefix + "*" + fileExtension);
-        Dictionary<int, string> sortedFiles = new Dictionary<int, string>();
-        Regex regex = new Regex(@"gameInfo(\d+)\.dat");
-        foreach (string filePath in files)
-        {
-            string fileName = Path.GetFileName(filePath);
-            Match match = regex.Match(fileName);
-            if (match.Success && int.TryParse(match.Groups[1].Value, out int saveNumber))
-            {
-                sortedFiles[saveNumber] = filePath;
-            }
-        }
-        List<string> orderedSaveFiles = sortedFiles
-            .OrderBy(pair => pair.Key)
-            .Select(pair => pair.Value)
+        string[] files = Directory.GetFiles(directory, "*.dat");
+        List<string> sortedDatFiles = files
+            .Select(filePath => new FileInfo(filePath))
+            .OrderByDescending(fileInfo => fileInfo.LastWriteTime)
+            .Select(fileInfo => fileInfo.FullName)
             .ToList();
-        foreach (string file in orderedSaveFiles)
-            Debug.Log($"Save file: {file}");
-        return orderedSaveFiles;
+        /*foreach (string file in sortedDatFiles)
+            Debug.Log($"Save file: {file}");*/
+        return sortedDatFiles;
     }
     public void DisplaySaveFiles()
     {
         foreach (Transform child in content)
-            Destroy(child.gameObject);
+        {
+            NewSave dontDestroySave = child.GetComponent<NewSave>();
+            if (dontDestroySave == null) Destroy(child.gameObject);
+        }
         List<string> saveFiles = GetSaveFiles();
         foreach (string saveFilePath in saveFiles)
             CreateSavePrefab(saveFilePath);
@@ -45,24 +35,18 @@ public class LoadMenu : MonoBehaviour
     {
         string json = File.ReadAllText(saveFilePath);
         GameData gameData = JsonUtility.FromJson<GameData>(json);
-        SavePrefab saveObject = Instantiate(savePrefab, content);
-        savePrefab.saveName.text = $"Save {Path.GetFileName(saveFilePath)}";
-        savePrefab.timeDate.text = gameData.timestamp;
-        savePrefab.gameData = gameData;
-    }
-    public int GetSaveCount()
-    {
-        return GetSaveFiles().Count;
-    }
-    public void DebugLogSaveFiles()
-    {
-        int saveCount = GetSaveCount();
-        List<string> saveFiles = GetSaveFiles();
-
-        Debug.Log($"Total saves: {saveCount}");
-        foreach (string file in saveFiles)
+        LoadPrefab saveObject = Instantiate(loadPrefab, content);
+        saveObject.saveName.text = $"{Path.GetFileName(saveFilePath)}";
+        saveObject.timeDate.text = gameData.timestamp;
+        saveObject.filePath = saveFilePath;
+        saveObject.gameData = gameData;
+        string imagePath = Path.Combine(Path.GetDirectoryName(saveFilePath), Path.GetFileNameWithoutExtension(saveFilePath) + ".png");
+        if (File.Exists(imagePath))
         {
-            Debug.Log($"Save file path: {file}");
+            byte[] imageData = File.ReadAllBytes(imagePath);
+            Texture2D texture = new Texture2D(2, 2);
+            if (texture.LoadImage(imageData)) loadPrefab.saveImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+            loadPrefab.saveImage.preserveAspect = true;
         }
     }
 }

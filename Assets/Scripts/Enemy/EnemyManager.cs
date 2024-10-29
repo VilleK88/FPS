@@ -27,7 +27,7 @@ public class EnemyManager : MonoBehaviour
     {
         player = PlayerManager.instance.GetPlayer().GetComponent<Player>();
         enemies = FindObjectsOfType<StatePatternEnemy>();
-        if (GameManager.instance.loadPlayerPosition)
+        if (GameManager.instance.loadEnemiesData)
             LoadEnemiesData();
     }
     public void SaveEnemiesData()
@@ -83,6 +83,7 @@ public class EnemyManager : MonoBehaviour
                 }
             }
         }
+        GameManager.instance.loadEnemiesData = false;
     }
     public RagdollData SaveRagdollTransforms(Transform rootBone)
     {

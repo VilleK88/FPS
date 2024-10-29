@@ -27,8 +27,8 @@ public class SaveMenu : MonoBehaviour
             .OrderByDescending(fileInfo => fileInfo.LastWriteTime)
             .Select(fileInfo => fileInfo.FullName)
             .ToList();
-        foreach (string file in sortedDatFiles)
-            Debug.Log($"Save file: {file}");
+        /*foreach (string file in sortedDatFiles)
+            Debug.Log($"Save file: {file}");*/
         return sortedDatFiles;
     }
     public void DisplaySaveFiles()
@@ -49,7 +49,7 @@ public class SaveMenu : MonoBehaviour
         SavePrefab saveObject = Instantiate(savePrefab, content);
         saveObject.saveName.text = $"{Path.GetFileName(saveFilePath)}";
         saveObject.timeDate.text = gameData.timestamp;
-        saveObject.gameData = gameData;
+        //saveObject.gameData = gameData;
         string imagePath = Path.Combine(Path.GetDirectoryName(saveFilePath), Path.GetFileNameWithoutExtension(saveFilePath) + ".png");
         if(File.Exists(imagePath))
         {
@@ -65,7 +65,7 @@ public class SaveMenu : MonoBehaviour
         inputField.text = "";
         inputField.Select();
     }
-    public int GetSaveCount()
+    /*public int GetSaveCount()
     {
         return GetSaveFiles().Count;
     }
@@ -79,7 +79,7 @@ public class SaveMenu : MonoBehaviour
         {
             Debug.Log($"Save file path: {file}");
         }
-    }
+    }*/
     public void CheckInputField()
     {
         string fileName = inputField.text;

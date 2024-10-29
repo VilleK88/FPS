@@ -6,5 +6,5 @@ public class SavePrefab : MonoBehaviour
     public Image saveImage;
     public TextMeshProUGUI saveName;
     public TextMeshProUGUI timeDate;
-    public GameData gameData;
+    //public GameData gameData;
 }
