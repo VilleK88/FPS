@@ -50,7 +50,7 @@ public class InGameMenuControls : MonoBehaviour
             if(!settingsMenuOpen && !saveMenuOpen && !loadMenuOpen && InventoryManager.instance.tempInventoryItem == null)
             {
                 if (!InventoryManager.instance.closed)
-                    InventoryManager.instance.CloseInventory();
+                    InventoryManager.instance.CloseInventory(true);
                 OnToggleMenu?.Invoke();
                 OnToggleMenuStatic?.Invoke(menuButtons.activeSelf);
                 ToggleInGameMenu();

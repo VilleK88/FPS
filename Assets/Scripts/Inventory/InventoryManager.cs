@@ -43,6 +43,7 @@ public class InventoryManager : MonoBehaviour
     public Button selectSlot; // for keyboard use
     public InventoryItem tempInventoryItem; // for keyboard use
     public bool isPaused;
+    public Image closeButton;
     private void Start()
     {
         inventorySlotsUI = new InventorySlot[20];
@@ -65,6 +66,7 @@ public class InventoryManager : MonoBehaviour
             ClearInventory();
         selectSlot = inventorySlotsUI[0].GetComponent<Button>();
         selectSlot.Select();
+        OnOffExitButton(false);
     }
     private void Update()
     {
@@ -77,7 +79,7 @@ public class InventoryManager : MonoBehaviour
             }
             else
             {
-                CloseInventory();
+                CloseInventory(true);
                 StopPause();
             }
         }
@@ -331,8 +333,9 @@ public class InventoryManager : MonoBehaviour
         InGameMenuControls.instance.CloseLoadMenu();
         InGameMenuControls.instance.CloseSaveMenu();
         InGameMenuControls.instance.menuButtons.SetActive(false);
+        OnOffExitButton(true);
     }
-    public void CloseInventory()
+    public void CloseInventory(bool esc)
     {
         inventoryAnim.GetComponent<Animator>().SetBool("InventoryOn", false);
         equipmentAnim.GetComponent<Animator>().SetBool("EquipmentScreenOn", false);
@@ -350,6 +353,26 @@ public class InventoryManager : MonoBehaviour
         {
             tempInventoryItem.GetComponentInParent<InventorySlot>().CloseTransparentBG(tempInventoryItem);
             tempInventoryItem = null;
+        }
+        OnOffExitButton(false);
+        if (!esc)
+            StopPause();
+    }
+    public void ExitButton()
+    {
+        CloseInventory(false);
+    }
+    void OnOffExitButton(bool on)
+    {
+        if(on)
+        {
+            closeButton.enabled = true;
+            closeButton.raycastTarget = true;
+        }
+        else
+        {
+            closeButton.enabled = false;
+            closeButton.raycastTarget = false;
         }
     }
     void CloseInventoryItemMenus() // when closing inventory
