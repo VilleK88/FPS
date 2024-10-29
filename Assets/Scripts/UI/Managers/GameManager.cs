@@ -5,6 +5,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine.UI;
+using System.Collections;
+using System.Globalization;
 
 public class GameManager : MonoBehaviour
 {
@@ -67,8 +69,9 @@ public class GameManager : MonoBehaviour
     public string timestamp;
     public void Save(bool quickSave, string newFilePath)
     {
-        Debug.Log("Game Saved!");
-        string json = JsonConvert.SerializeObject(new GameData
+        //Debug.Log("Game Saved!");
+        StartCoroutine(SaveGameWithScreenshot(quickSave, newFilePath));
+        /*string json = JsonConvert.SerializeObject(new GameData
         {
             health = this.health,
             currentHealth = this.currentHealth,
@@ -106,28 +109,90 @@ public class GameManager : MonoBehaviour
             File.WriteAllText(Application.persistentDataPath + "/gameInfo.dat", json);
         else
         {
-            //string directory = Application.persistentDataPath;
-            //string filePrefix = "gameInfo";
-            //string fileExtension = ".dat";
-            //string[] existingFiles = Directory.GetFiles(directory, filePrefix + "*" + fileExtension);
-            //int maxSaveNumber = 0;
-            //Regex regex = new Regex(@"gameInfo(\d+)\.dat");
-            /*foreach (string filePath in existingFiles)
-            {
-                Match match = regex.Match(Path.GetFileName(filePath));
-                if (match.Success && int.TryParse(match.Groups[1].Value, out int fileNumber))
-                {
-                    if (fileNumber > maxSaveNumber)
-                        maxSaveNumber = fileNumber;
-                }
-            }*/
-            //int nextSaveNumber = maxSaveNumber + 1;
-            //string newFilePath = Path.Combine(directory, $"{filePrefix}{nextSaveNumber}{fileExtension}");
             File.WriteAllText(newFilePath, json);
         }
         SaveMenu saveMenu = InGameMenuControls.instance.saveMenu.GetComponent<SaveMenu>();
         saveMenu.GetSaveFiles();
         saveMenu.DisplaySaveFiles();
+        InGameMenuControls.instance.screenshotCamera.gameObject.SetActive(false);*/
+    }
+    private IEnumerator SaveGameWithScreenshot(bool quicksave, string newFilePath)
+    {
+        Debug.Log("Saving game with screenshot....");
+        Texture2D screenshotTexture = null;
+        yield return StartCoroutine(TakeScreenshot(texture => screenshotTexture = texture));
+        string json = JsonConvert.SerializeObject(new GameData
+        {
+            health = this.health,
+            currentHealth = this.currentHealth,
+            maxHealth = this.maxHealth,
+            stamina = this.stamina,
+            armor = this.armor,
+            x = this.x,
+            y = this.y,
+            z = this.z,
+            xRotation = this.xRotation,
+            yRotation = this.yRotation,
+            zRotation = this.zRotation,
+            savedSceneID = this.savedSceneID,
+            inventorySlotsData = this.inventorySlotsData,
+            equipmentSlotsData = this.equipmentSlotsData,
+            inventoryData = this.inventoryData,
+            bulletsLeft = this.bulletsLeft,
+            cash = this.cash,
+            cashIDs = this.cashIDs,
+            itemPickUpIDs = this.itemPickUpIDs,
+            nearbyEnemies = this.nearbyEnemies,
+            enemyDataID = this.enemyDataID,
+            enemyPositionX = this.enemyPositionX,
+            enemyPositionY = this.enemyPositionY,
+            enemyPositionZ = this.enemyPositionZ,
+            enemyRotationX = this.enemyRotationX,
+            enemyRotationY = this.enemyRotationY,
+            enemyRotationZ = this.enemyRotationZ,
+            patrolWaypointIndex = this.patrolWaypointIndex,
+            enemyDead = this.enemyDead,
+            enemyFoundDead = this.enemyFoundDead,
+            timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+        }, Formatting.Indented);
+        if (quicksave)
+        {
+            File.WriteAllText(Application.persistentDataPath + "/gameInfo.dat", json);
+            string screenshotPath = Path.Combine(Application.persistentDataPath, "quicksave_screenshot.png");
+            File.WriteAllBytes(screenshotPath, screenshotTexture.EncodeToPNG());
+        }
+        else
+        {
+            File.WriteAllText(newFilePath, json);
+            string screenshotPath = Path.ChangeExtension(newFilePath, ".png");
+            File.WriteAllBytes(screenshotPath, screenshotTexture.EncodeToPNG());
+        }
+        SaveMenu saveMenu = InGameMenuControls.instance.saveMenu.GetComponent<SaveMenu>();
+        saveMenu.GetSaveFiles();
+        saveMenu.DisplaySaveFiles();
+        Debug.Log("Game and screenshot saved!");
+    }
+    public IEnumerator TakeScreenshot(System.Action<Texture2D> callback)
+    {
+        yield return new WaitForEndOfFrame();
+        RenderTexture renderTexture = new RenderTexture(Screen.width, Screen.height, 24);
+        Camera mainCamera = InGameMenuControls.instance.mainCamera;
+        Camera weaponCamera = InGameMenuControls.instance.weaponRenderCamera;
+        //InGameMenuControls.instance.mainCamera.targetTexture = renderTexture;
+        // InGameMenuControls.instance.mainCamera.Render();
+        mainCamera.targetTexture = renderTexture;
+        weaponCamera.targetTexture = renderTexture;
+        mainCamera.Render();
+        weaponCamera.Render();
+        RenderTexture.active = renderTexture;
+        Texture2D screenshotTexture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
+        screenshotTexture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+        screenshotTexture.Apply();
+        mainCamera.targetTexture = null;
+        weaponCamera.targetTexture = null;
+        RenderTexture.active = null;
+        Destroy(renderTexture);
+        callback?.Invoke(screenshotTexture);
     }
     public void Load(bool quickLoad)
     {

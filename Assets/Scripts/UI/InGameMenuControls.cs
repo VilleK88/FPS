@@ -32,6 +32,8 @@ public class InGameMenuControls : MonoBehaviour
     public bool loadMenuOpen;
     public GameObject newSaveInputMenu;
     public bool newSaveInputMenuOpen;
+    public Camera mainCamera;
+    public Camera weaponRenderCamera;
     private void Start()
     {
         if (settingsMenu != null)

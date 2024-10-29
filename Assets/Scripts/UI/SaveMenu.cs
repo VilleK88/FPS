@@ -51,6 +51,7 @@ public class SaveMenu : MonoBehaviour
         savePrefab.saveName.text = $"Save {Path.GetFileName(saveFilePath)}";
         savePrefab.timeDate.text = gameData.timestamp;
         savePrefab.gameData = gameData;
+        //savePrefab.saveImage =
     }
     public void InitializeInputField()
     {
