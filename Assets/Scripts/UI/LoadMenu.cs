@@ -45,8 +45,8 @@ public class LoadMenu : MonoBehaviour
         {
             byte[] imageData = File.ReadAllBytes(imagePath);
             Texture2D texture = new Texture2D(2, 2);
-            if (texture.LoadImage(imageData)) loadPrefab.saveImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-            loadPrefab.saveImage.preserveAspect = true;
+            if (texture.LoadImage(imageData)) saveObject.saveImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+            saveObject.saveImage.preserveAspect = true;
         }
     }
 }

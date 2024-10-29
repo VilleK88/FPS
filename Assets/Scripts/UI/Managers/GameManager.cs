@@ -151,14 +151,15 @@ public class GameManager : MonoBehaviour
     }
     public void Load(bool quickLoad, string newFilePath)
     {
-        if(quickLoad)
+        loadPlayerPosition = true;
+        loadInventory = true;
+        loadEnemiesData = true;
+        if (quickLoad)
         {
             string filePath = Application.persistentDataPath + "/quicksave.dat";
             if (File.Exists(filePath))
             {
                 Debug.Log("Quick save loaded");
-                loadPlayerPosition = true;
-                loadInventory = true;
                 string json = File.ReadAllText(filePath);
                 GameData data = JsonConvert.DeserializeObject<GameData>(json);
                 health = data.health;
@@ -174,8 +175,6 @@ public class GameManager : MonoBehaviour
                 zRotation = data.zRotation;
                 savedSceneID = data.savedSceneID;
                 ifSneaking = data.ifSneaking;
-                //loadPlayerPosition = true;
-                //loadInventory = true;
                 inventorySlotsData = data.inventorySlotsData;
                 equipmentSlotsData = data.equipmentSlotsData;
                 inventoryData = data.inventoryData;
@@ -201,8 +200,6 @@ public class GameManager : MonoBehaviour
             if (File.Exists(newFilePath))
             {
                 Debug.Log("Save loaded");
-                loadPlayerPosition = true;
-                loadInventory = true;
                 string json = File.ReadAllText(newFilePath);
                 GameData data = JsonConvert.DeserializeObject<GameData>(json);
                 health = data.health;
@@ -218,8 +215,6 @@ public class GameManager : MonoBehaviour
                 zRotation = data.zRotation;
                 savedSceneID = data.savedSceneID;
                 ifSneaking = data.ifSneaking;
-                //loadPlayerPosition = true;
-                //loadInventory = true;
                 inventorySlotsData = data.inventorySlotsData;
                 equipmentSlotsData = data.equipmentSlotsData;
                 inventoryData = data.inventoryData;

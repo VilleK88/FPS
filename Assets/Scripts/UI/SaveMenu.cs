@@ -27,8 +27,6 @@ public class SaveMenu : MonoBehaviour
             .OrderByDescending(fileInfo => fileInfo.LastWriteTime)
             .Select(fileInfo => fileInfo.FullName)
             .ToList();
-        /*foreach (string file in sortedDatFiles)
-            Debug.Log($"Save file: {file}");*/
         return sortedDatFiles;
     }
     public void DisplaySaveFiles()
@@ -49,14 +47,13 @@ public class SaveMenu : MonoBehaviour
         SavePrefab saveObject = Instantiate(savePrefab, content);
         saveObject.saveName.text = $"{Path.GetFileName(saveFilePath)}";
         saveObject.timeDate.text = gameData.timestamp;
-        //saveObject.gameData = gameData;
         string imagePath = Path.Combine(Path.GetDirectoryName(saveFilePath), Path.GetFileNameWithoutExtension(saveFilePath) + ".png");
-        if(File.Exists(imagePath))
+        if (File.Exists(imagePath))
         {
             byte[] imageData = File.ReadAllBytes(imagePath);
             Texture2D texture = new Texture2D(2, 2);
-            if (texture.LoadImage(imageData)) savePrefab.saveImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-            savePrefab.saveImage.preserveAspect = true;
+            if (texture.LoadImage(imageData)) saveObject.saveImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+            saveObject.saveImage.preserveAspect = true;
         }
     }
     public void InitializeInputField()
