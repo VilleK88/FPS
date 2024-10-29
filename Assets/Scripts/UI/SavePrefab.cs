@@ -1,4 +1,4 @@
-using System.Globalization;
+using System.Collections;
 using System.IO;
 using TMPro;
 using UnityEngine;
@@ -11,12 +11,18 @@ public class SavePrefab : MonoBehaviour, IPointerClickHandler
     public TextMeshProUGUI saveName;
     public TextMeshProUGUI timeDate;
     public GameObject removeBG;
+    public GameObject saveOverBG;
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             Debug.Log("Oikeaa hiiren näppäintä painettu");
             removeBG.SetActive(true);
+        }
+        if(eventData.button == PointerEventData.InputButton.Left)
+        {
+            Debug.Log("Vasenta hiiren näppäintä painettu");
+            saveOverBG.SetActive(true);
         }
     }
     public void RemoveSave()
@@ -37,8 +43,16 @@ public class SavePrefab : MonoBehaviour, IPointerClickHandler
             Debug.Log("Tiedostoa ei löytynyt");
         Destroy(gameObject);
     }
+    public void SaveOver()
+    {
+
+    }
     public void CloseRemoveMenu()
     {
         removeBG.SetActive(false);
+    }
+    public void CloseSaveOverMenu()
+    {
+        saveOverBG.SetActive(false);
     }
 }
