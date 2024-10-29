@@ -22,27 +22,15 @@ public class SaveMenu : MonoBehaviour
     public List<string> GetSaveFiles()
     {
         string directory = Application.persistentDataPath;
-        string filePrefix = "gameInfo";
-        string fileExtension = ".dat";
-        string[] files = Directory.GetFiles(directory, filePrefix + "*" + fileExtension);
-        Dictionary<int, string> sortedFiles = new Dictionary<int, string>();
-        Regex regex = new Regex(@"gameInfo(\d+)\.dat");
-        foreach(string filePath in files)
-        {
-            string fileName = Path.GetFileName(filePath);
-            Match match = regex.Match(fileName);
-            if(match.Success && int.TryParse(match.Groups[1].Value, out int saveNumber))
-            {
-                sortedFiles[saveNumber] = filePath;
-            }
-        }
-        List<string> orderedSaveFiles = sortedFiles
-            .OrderBy(pair => pair.Key)
-            .Select(pair => pair.Value)
+        string[] files = Directory.GetFiles(directory, "*.dat");
+        List<string> sortedDatFiles = files
+            .Select(filePath => new FileInfo(filePath))
+            .OrderByDescending(fileInfo => fileInfo.LastWriteTime)
+            .Select(fileInfo => fileInfo.FullName)
             .ToList();
-        foreach(string file in orderedSaveFiles)
+        foreach (string file in sortedDatFiles)
             Debug.Log($"Save file: {file}");
-        return orderedSaveFiles;
+        return sortedDatFiles;
     }
     public void DisplaySaveFiles()
     {
@@ -108,6 +96,7 @@ public class SaveMenu : MonoBehaviour
         else
         {
             Debug.Log("File name is free to be saved.");
+            GameManager.instance.Save(false, filePath);
             inputFieldOn = false;
         }
     }

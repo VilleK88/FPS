@@ -103,7 +103,7 @@ public class InGameMenuControls : MonoBehaviour
             InventoryManager.instance.SaveInventory();
             InventoryManager.instance.SaveHowManyBulletsLeftInMagazine();
             EnemyManager.Instance.SaveEnemiesData();
-            GameManager.instance.Save(false);
+            GameManager.instance.Save(false, "yes"); // muista lisätä filename
         }
     }
     public void OpenSaveMenu()
@@ -133,7 +133,7 @@ public class InGameMenuControls : MonoBehaviour
             InventoryManager.instance.SaveInventory();
             InventoryManager.instance.SaveHowManyBulletsLeftInMagazine();
             EnemyManager.Instance.SaveEnemiesData();
-            GameManager.instance.Save(true);
+            GameManager.instance.Save(true, "no");
         }
     }
     public void LoadGame()

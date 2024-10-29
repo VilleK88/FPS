@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
     public Image saveImage;
     public string saveName;
     public string timestamp;
-    public void Save(bool quickSave)
+    public void Save(bool quickSave, string newFilePath)
     {
         Debug.Log("Game Saved!");
         string json = JsonConvert.SerializeObject(new GameData
@@ -106,13 +106,13 @@ public class GameManager : MonoBehaviour
             File.WriteAllText(Application.persistentDataPath + "/gameInfo.dat", json);
         else
         {
-            string directory = Application.persistentDataPath;
-            string filePrefix = "gameInfo";
-            string fileExtension = ".dat";
-            string[] existingFiles = Directory.GetFiles(directory, filePrefix + "*" + fileExtension);
-            int maxSaveNumber = 0;
-            Regex regex = new Regex(@"gameInfo(\d+)\.dat");
-            foreach (string filePath in existingFiles)
+            //string directory = Application.persistentDataPath;
+            //string filePrefix = "gameInfo";
+            //string fileExtension = ".dat";
+            //string[] existingFiles = Directory.GetFiles(directory, filePrefix + "*" + fileExtension);
+            //int maxSaveNumber = 0;
+            //Regex regex = new Regex(@"gameInfo(\d+)\.dat");
+            /*foreach (string filePath in existingFiles)
             {
                 Match match = regex.Match(Path.GetFileName(filePath));
                 if (match.Success && int.TryParse(match.Groups[1].Value, out int fileNumber))
@@ -120,11 +120,14 @@ public class GameManager : MonoBehaviour
                     if (fileNumber > maxSaveNumber)
                         maxSaveNumber = fileNumber;
                 }
-            }
-            int nextSaveNumber = maxSaveNumber + 1;
-            string newFilePath = Path.Combine(directory, $"{filePrefix}{nextSaveNumber}{fileExtension}");
+            }*/
+            //int nextSaveNumber = maxSaveNumber + 1;
+            //string newFilePath = Path.Combine(directory, $"{filePrefix}{nextSaveNumber}{fileExtension}");
             File.WriteAllText(newFilePath, json);
         }
+        SaveMenu saveMenu = InGameMenuControls.instance.saveMenu.GetComponent<SaveMenu>();
+        saveMenu.GetSaveFiles();
+        saveMenu.DisplaySaveFiles();
     }
     public void Load(bool quickLoad)
     {
