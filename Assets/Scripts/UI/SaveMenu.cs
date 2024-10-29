@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -48,15 +47,16 @@ public class SaveMenu : MonoBehaviour
         string json = File.ReadAllText(saveFilePath);
         GameData gameData = JsonUtility.FromJson<GameData>(json);
         SavePrefab saveObject = Instantiate(savePrefab, content);
-        savePrefab.saveName.text = $"Save {Path.GetFileName(saveFilePath)}";
-        savePrefab.timeDate.text = gameData.timestamp;
-        savePrefab.gameData = gameData;
+        saveObject.saveName.text = $"{Path.GetFileName(saveFilePath)}";
+        saveObject.timeDate.text = gameData.timestamp;
+        saveObject.gameData = gameData;
         string imagePath = Path.Combine(Path.GetDirectoryName(saveFilePath), Path.GetFileNameWithoutExtension(saveFilePath) + ".png");
         if(File.Exists(imagePath))
         {
             byte[] imageData = File.ReadAllBytes(imagePath);
             Texture2D texture = new Texture2D(2, 2);
             if (texture.LoadImage(imageData)) savePrefab.saveImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+            savePrefab.saveImage.preserveAspect = true;
         }
     }
     public void InitializeInputField()
@@ -103,7 +103,7 @@ public class SaveMenu : MonoBehaviour
         else
         {
             Debug.Log("File name is free to be saved.");
-            GameManager.instance.Save(false, filePath);
+            InGameMenuControls.instance.SaveGame(false, filePath);
             InGameMenuControls.instance.CloseNewSaveInputMenu();
         }
     }

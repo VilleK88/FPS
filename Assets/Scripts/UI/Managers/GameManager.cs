@@ -3,11 +3,8 @@ using System;
 using System.IO;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using UnityEngine.UI;
 using System.Collections;
-using System.Globalization;
-
 public class GameManager : MonoBehaviour
 {
     #region Singleton
@@ -69,52 +66,7 @@ public class GameManager : MonoBehaviour
     public string timestamp;
     public void Save(bool quickSave, string newFilePath)
     {
-        //Debug.Log("Game Saved!");
         StartCoroutine(SaveGameWithScreenshot(quickSave, newFilePath));
-        /*string json = JsonConvert.SerializeObject(new GameData
-        {
-            health = this.health,
-            currentHealth = this.currentHealth,
-            maxHealth = this.maxHealth,
-            stamina = this.stamina,
-            armor = this.armor,
-            x = this.x,
-            y = this.y,
-            z = this.z,
-            xRotation = this.xRotation,
-            yRotation = this.yRotation,
-            zRotation = this.zRotation,
-            savedSceneID = this.savedSceneID,
-            inventorySlotsData = this.inventorySlotsData,
-            equipmentSlotsData = this.equipmentSlotsData,
-            inventoryData = this.inventoryData,
-            bulletsLeft = this.bulletsLeft,
-            cash = this.cash,
-            cashIDs = this.cashIDs,
-            itemPickUpIDs = this.itemPickUpIDs,
-            nearbyEnemies = this.nearbyEnemies,
-            enemyDataID = this.enemyDataID,
-            enemyPositionX = this.enemyPositionX,
-            enemyPositionY = this.enemyPositionY,
-            enemyPositionZ = this.enemyPositionZ,
-            enemyRotationX = this.enemyRotationX,
-            enemyRotationY = this.enemyRotationY,
-            enemyRotationZ = this.enemyRotationZ,
-            patrolWaypointIndex = this.patrolWaypointIndex,
-            enemyDead = this.enemyDead,
-            enemyFoundDead = this.enemyFoundDead,
-            timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
-        }, Formatting.Indented);
-        if(quickSave)
-            File.WriteAllText(Application.persistentDataPath + "/gameInfo.dat", json);
-        else
-        {
-            File.WriteAllText(newFilePath, json);
-        }
-        SaveMenu saveMenu = InGameMenuControls.instance.saveMenu.GetComponent<SaveMenu>();
-        saveMenu.GetSaveFiles();
-        saveMenu.DisplaySaveFiles();
-        InGameMenuControls.instance.screenshotCamera.gameObject.SetActive(false);*/
     }
     private IEnumerator SaveGameWithScreenshot(bool quicksave, string newFilePath)
     {
@@ -166,10 +118,9 @@ public class GameManager : MonoBehaviour
             File.WriteAllText(newFilePath, json);
             string screenshotPath = Path.ChangeExtension(newFilePath, ".png");
             File.WriteAllBytes(screenshotPath, screenshotTexture.EncodeToPNG());
+            SaveMenu saveMenu = InGameMenuControls.instance.saveMenu.GetComponent<SaveMenu>();
+            saveMenu.DisplaySaveFiles();
         }
-        SaveMenu saveMenu = InGameMenuControls.instance.saveMenu.GetComponent<SaveMenu>();
-        saveMenu.GetSaveFiles();
-        saveMenu.DisplaySaveFiles();
         Debug.Log("Game and screenshot saved!");
     }
     public IEnumerator TakeScreenshot(System.Action<Texture2D> callback)
@@ -178,8 +129,6 @@ public class GameManager : MonoBehaviour
         RenderTexture renderTexture = new RenderTexture(Screen.width, Screen.height, 24);
         Camera mainCamera = InGameMenuControls.instance.mainCamera;
         Camera weaponCamera = InGameMenuControls.instance.weaponRenderCamera;
-        //InGameMenuControls.instance.mainCamera.targetTexture = renderTexture;
-        // InGameMenuControls.instance.mainCamera.Render();
         mainCamera.targetTexture = renderTexture;
         weaponCamera.targetTexture = renderTexture;
         mainCamera.Render();
@@ -198,7 +147,7 @@ public class GameManager : MonoBehaviour
     {
         if(quickLoad)
         {
-            string filePath = Application.persistentDataPath + "/gameInfo.dat";
+            string filePath = Application.persistentDataPath + "/quicksave.dat";
             if (File.Exists(filePath))
             {
                 Debug.Log("Game loaded");

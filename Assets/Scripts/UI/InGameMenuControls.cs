@@ -72,11 +72,6 @@ public class InGameMenuControls : MonoBehaviour
             QuickSave();
         if (Input.GetKeyDown(KeyCode.F8))
             LoadGame();
-        if (Input.GetKeyDown(KeyCode.F9))
-        {
-            saveMenu.GetComponent<SaveMenu>().GetSaveFiles();
-            //saveMenu.GetComponent<SaveMenu>().DebugLogSaveFiles();
-        }
     }
     void ToggleInGameMenu()
     {
@@ -96,7 +91,7 @@ public class InGameMenuControls : MonoBehaviour
             }
         }
     }
-    public void SaveGame()
+    public void SaveGame(bool quicksave, string filePath)
     {
         if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
         {
@@ -105,24 +100,20 @@ public class InGameMenuControls : MonoBehaviour
             InventoryManager.instance.SaveInventory();
             InventoryManager.instance.SaveHowManyBulletsLeftInMagazine();
             EnemyManager.Instance.SaveEnemiesData();
-            GameManager.instance.Save(false, "yes"); // muista lisätä filename
+            GameManager.instance.Save(quicksave, filePath); // muista lisätä filename
         }
     }
     public void OpenSaveMenu()
     {
         saveMenu.SetActive(true);
-        Debug.Log("Open save menu");
         SaveMenu saveMenuScript = saveMenu.GetComponent<SaveMenu>();
-        saveMenuScript.GetSaveFiles();
         saveMenuScript.DisplaySaveFiles();
         saveMenuOpen = true;
     }
     public void OpenLoadMenu()
     {
         loadMenu.SetActive(true);
-        Debug.Log("Open load menu");
         LoadMenu loadMenuScript = loadMenu.GetComponent<LoadMenu>();
-        loadMenuScript.GetSaveFiles();
         loadMenuScript.DisplaySaveFiles();
         loadMenuOpen = true;
     }
