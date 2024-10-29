@@ -157,8 +157,8 @@ public class GameManager : MonoBehaviour
         }, Formatting.Indented);
         if (quicksave)
         {
-            File.WriteAllText(Application.persistentDataPath + "/gameInfo.dat", json);
-            string screenshotPath = Path.Combine(Application.persistentDataPath, "quicksave_screenshot.png");
+            File.WriteAllText(Application.persistentDataPath + "/quicksave.dat", json);
+            string screenshotPath = Path.Combine(Application.persistentDataPath, "quicksave.png");
             File.WriteAllBytes(screenshotPath, screenshotTexture.EncodeToPNG());
         }
         else
