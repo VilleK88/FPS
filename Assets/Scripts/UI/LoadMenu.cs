@@ -34,7 +34,7 @@ public class LoadMenu : MonoBehaviour
         string json = File.ReadAllText(saveFilePath);
         GameData gameData = JsonUtility.FromJson<GameData>(json);
         LoadPrefab saveObject = Instantiate(loadPrefab, content);
-        saveObject.saveName.text = $"{Path.GetFileName(saveFilePath)}";
+        saveObject.saveName.text = $"{Path.GetFileNameWithoutExtension(saveFilePath)}";
         saveObject.timeDate.text = gameData.timestamp;
         saveObject.filePath = saveFilePath;
         saveObject.gameData = gameData;

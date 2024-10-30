@@ -45,7 +45,7 @@ public class SaveMenu : MonoBehaviour
         string json = File.ReadAllText(saveFilePath);
         GameData gameData = JsonUtility.FromJson<GameData>(json);
         SavePrefab saveObject = Instantiate(savePrefab, content);
-        saveObject.saveName.text = $"{Path.GetFileName(saveFilePath)}";
+        saveObject.saveName.text = $"{Path.GetFileNameWithoutExtension(saveFilePath)}";
         saveObject.timeDate.text = gameData.timestamp;
         string imagePath = Path.Combine(Path.GetDirectoryName(saveFilePath), Path.GetFileNameWithoutExtension(saveFilePath) + ".png");
         if (File.Exists(imagePath))
