@@ -16,8 +16,6 @@ public class LoadMenu : MonoBehaviour
             .OrderByDescending(fileInfo => fileInfo.LastWriteTime)
             .Select(fileInfo => fileInfo.FullName)
             .ToList();
-        /*foreach (string file in sortedDatFiles)
-            Debug.Log($"Save file: {file}");*/
         return sortedDatFiles;
     }
     public void DisplaySaveFiles()

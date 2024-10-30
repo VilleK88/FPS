@@ -14,16 +14,8 @@ public class SavePrefab : MonoBehaviour, IPointerClickHandler
     public GameObject saveOverBG;
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Right)
-        {
-            Debug.Log("Oikeaa hiiren näppäintä painettu");
-            removeBG.SetActive(true);
-        }
-        if(eventData.button == PointerEventData.InputButton.Left)
-        {
-            Debug.Log("Vasenta hiiren näppäintä painettu");
-            saveOverBG.SetActive(true);
-        }
+        if (eventData.button == PointerEventData.InputButton.Right) removeBG.SetActive(true);
+        if (eventData.button == PointerEventData.InputButton.Left) saveOverBG.SetActive(true);
     }
     public void RemoveSave()
     {

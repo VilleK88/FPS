@@ -5,7 +5,17 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class MenuControls : MonoBehaviour
 {
+    #region Singleton
+    public static MenuControls Instance;
+    private void Awake()
+    {
+        if (Instance != null && Instance != this) Destroy(this);
+        else Instance = this;
+    }
+    #endregion
     public GameObject SettingsMenu;
+    public GameObject loadMenu;
+    public bool loadMenuOpen = false;
     private void Start()
     {
         GameObject inventoryCanvas = GameObject.Find("InventoryCanvas");
@@ -33,12 +43,23 @@ public class MenuControls : MonoBehaviour
         GameManager.instance.itemPickUpIDs = new string[0]; // clear colleted item IDs
         GameManager.instance.bulletsLeft = new int[0]; // clear saved bullets left in magazines
     }
-    public void LoadGame()
+    public void LoadGame(string filePath)
     {
-        GameManager.instance.loadPlayerPosition = true;
-        GameManager.instance.Load(false, "no");
+        GameManager.instance.Load(false, filePath);
         LoadSceneID();
         Time.timeScale = 1f;
+    }
+    public void OpenLoadMenu()
+    {
+        loadMenu.SetActive(true);
+        LoadMenu loadMenuScript = loadMenu.GetComponent<LoadMenu>();
+        loadMenuScript.DisplaySaveFiles();
+        loadMenuOpen = true;
+    }
+    public void CloseLoadMenu()
+    {
+        loadMenu.SetActive(false);
+        loadMenuOpen = false;
     }
     public void LoadSceneID()
     {
