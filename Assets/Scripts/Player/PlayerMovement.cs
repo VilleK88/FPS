@@ -19,7 +19,9 @@ public class PlayerMovement : MonoBehaviour
     Vector3 velocity;
     float gravity = -19.62f;
     [SerializeField] Transform groundCheck;
-    float groundDistance = 0.4f;
+    float groundDistance = 0.4f; // 0.4f original groundDistance
+    float sneakGroundDistance = 0.9f;
+    float originalGroundDistance = 0.4f;
     public LayerMask groundMask;
     float jumpHeight = 3;
     private void Start()
@@ -84,6 +86,7 @@ public class PlayerMovement : MonoBehaviour
         PlayerManager.instance.sneakIndicatorText.text = "Sneaking";
         controller.height = characterControllerSneakingHeight;
         capsuleCollider.height = characterControllerSneakingHeight;
+        groundDistance = sneakGroundDistance;
     }
     void StopSneaking()
     {
@@ -92,6 +95,7 @@ public class PlayerMovement : MonoBehaviour
         PlayerManager.instance.sneakIndicatorText.text = "";
         controller.height = characterControllerOriginalHeight;
         capsuleCollider.height = characterControllerOriginalHeight;
+        groundDistance = originalGroundDistance;
     }
     bool IsGrounded()
     {

@@ -152,7 +152,6 @@ public class GameManager : MonoBehaviour
     public void Load(bool quickLoad, string newFilePath)
     {
         loadPlayerPosition = true;
-        loadInventory = true;
         loadEnemiesData = true;
         if (quickLoad)
         {
@@ -175,6 +174,7 @@ public class GameManager : MonoBehaviour
                 zRotation = data.zRotation;
                 savedSceneID = data.savedSceneID;
                 ifSneaking = data.ifSneaking;
+                loadInventory = true;
                 inventorySlotsData = data.inventorySlotsData;
                 equipmentSlotsData = data.equipmentSlotsData;
                 inventoryData = data.inventoryData;
@@ -215,6 +215,7 @@ public class GameManager : MonoBehaviour
                 zRotation = data.zRotation;
                 savedSceneID = data.savedSceneID;
                 ifSneaking = data.ifSneaking;
+                loadInventory = true;
                 inventorySlotsData = data.inventorySlotsData;
                 equipmentSlotsData = data.equipmentSlotsData;
                 inventoryData = data.inventoryData;

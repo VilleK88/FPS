@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 [Serializable]
 public class InventoryManagerData
@@ -100,6 +101,7 @@ public class InventoryManager : MonoBehaviour
         isPaused = false;
         PlayerManager.instance.MiddlePointTurnOnOff(true);
         PlayerManager.instance.TurnOnOrOffInteractable(true);
+        EventSystem.current.SetSelectedGameObject(null);
     }
     public void CancelKeyboardItemTransfer()
     {
@@ -212,9 +214,10 @@ public class InventoryManager : MonoBehaviour
                             inventoryData.activeWeapon = index;
                             Weapon currentlyEquipedWeapon = weaponSlots[i].GetComponent<Weapon>();
                             currentlyEquipedWeapon.UpdateTotalAmmoStatus();
-                            currentlyEquipedWeapon.anim.SetTrigger("Equip");
+                            //currentlyEquipedWeapon.anim.SetTrigger("Equip");
                             if(currentlyEquipedWeapon.thisWeaponModel == WeaponModel.Knife)
                             {
+                                currentlyEquipedWeapon.anim.SetTrigger("Equip");
                                 currentlyEquipedWeapon.secondKnifeAttack = false;
                                 currentlyEquipedWeapon.thirdKnifeAttack = false;
                                 currentlyEquipedWeapon.nextAttackCooldown = 0;

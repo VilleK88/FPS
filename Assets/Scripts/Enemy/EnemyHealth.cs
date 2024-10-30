@@ -96,8 +96,6 @@ public class EnemyHealth : MonoBehaviour
         enemy.canSeePlayer = false;
         enemy.enabled = false;
         enemy.GetComponentInChildren<Animator>().enabled = false;
-        //if(rigidBodies == null) rigidBodies = GetComponentsInChildren<Rigidbody>();
-        //ActivateRagdoll();
         if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
         {
             PlayerManager.instance.sneakIndicatorImage.color = new Color(0f, 0f, 0f, 0f);
@@ -112,7 +110,8 @@ public class EnemyHealth : MonoBehaviour
     {
         yield return new WaitForSeconds(30f);
         body.SetActive(false);
-        collider.enabled = false;
+        if(collider != null)
+            collider.enabled = false;
     }
     void DeactivateRagdoll()
     {

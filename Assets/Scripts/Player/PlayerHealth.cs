@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
-
 public class PlayerHealth : MonoBehaviour
 {
     public GameObject postProcessGO;
@@ -25,8 +24,6 @@ public class PlayerHealth : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
-            TakeDamage(10);
         if (Input.GetKeyDown(KeyCode.Q))
             CheckHealthItemStatus();
     }

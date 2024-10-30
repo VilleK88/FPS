@@ -1081,6 +1081,7 @@ MonoBehaviour:
   tempInventoryItem: {fileID: 0}
   isPaused: 0
   closeButton: {fileID: 6171863173534563491}
+  eventSystem: {fileID: 8219488189111054409}
 --- !u!1001 &932605963
 PrefabInstance:
   m_ObjectHideFlags: 0

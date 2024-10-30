@@ -62,21 +62,6 @@ public class SaveMenu : MonoBehaviour
         inputField.text = "";
         inputField.Select();
     }
-    /*public int GetSaveCount()
-    {
-        return GetSaveFiles().Count;
-    }
-    public void DebugLogSaveFiles()
-    {
-        int saveCount = GetSaveCount();
-        List<string> saveFiles = GetSaveFiles();
-
-        Debug.Log($"Total saves: {saveCount}");
-        foreach (string file in saveFiles)
-        {
-            Debug.Log($"Save file path: {file}");
-        }
-    }*/
     public void CheckInputField()
     {
         string fileName = inputField.text;
