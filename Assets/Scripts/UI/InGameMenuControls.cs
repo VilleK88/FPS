@@ -95,7 +95,7 @@ public class InGameMenuControls : MonoBehaviour
             }
         }
     }
-    public void SaveGame(bool quicksave, string filePath)
+    public void SaveGame(int saveType, string filePath)
     {
         if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
         {
@@ -104,7 +104,7 @@ public class InGameMenuControls : MonoBehaviour
             InventoryManager.instance.SaveInventory();
             InventoryManager.instance.SaveHowManyBulletsLeftInMagazine();
             EnemyManager.Instance.SaveEnemiesData();
-            GameManager.instance.Save(quicksave, filePath); // muista lisätä filename
+            GameManager.instance.Save(saveType, filePath); // muista lisätä filename
         }
     }
     public void OpenSaveMenu()
@@ -130,7 +130,7 @@ public class InGameMenuControls : MonoBehaviour
             InventoryManager.instance.SaveInventory();
             InventoryManager.instance.SaveHowManyBulletsLeftInMagazine();
             EnemyManager.Instance.SaveEnemiesData();
-            GameManager.instance.Save(true, "no");
+            GameManager.instance.Save(1, "no");
         }
     }
     public void LoadGame(string filePath)

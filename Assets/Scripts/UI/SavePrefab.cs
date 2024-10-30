@@ -45,7 +45,11 @@ public class SavePrefab : MonoBehaviour, IPointerClickHandler
     }
     public void SaveOver()
     {
-
+        string filename = saveName.text;
+        if (!filename.EndsWith(".dat"))
+            filename += ".dat";
+        string saveFilePath = Path.Combine(Application.persistentDataPath, filename);
+        InGameMenuControls.instance.SaveGame(3, saveFilePath);
     }
     public void CloseRemoveMenu()
     {

@@ -66,11 +66,11 @@ public class GameManager : MonoBehaviour
     public Image saveImage;
     public string saveName;
     public string timestamp;
-    public void Save(bool quickSave, string newFilePath)
+    public void Save(int saveType, string newFilePath)
     {
-        StartCoroutine(SaveGameWithScreenshot(quickSave, newFilePath));
+        StartCoroutine(SaveGameWithScreenshot(saveType, newFilePath));
     }
-    private IEnumerator SaveGameWithScreenshot(bool quicksave, string newFilePath)
+    private IEnumerator SaveGameWithScreenshot(int saveType, string newFilePath)
     {
         Debug.Log("Saving game with screenshot....");
         GameObject playerObject = PlayerManager.instance.GetPlayer();
@@ -112,13 +112,21 @@ public class GameManager : MonoBehaviour
             enemyFoundDead = this.enemyFoundDead,
             timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
         }, Formatting.Indented);
-        if (quicksave)
+        if (saveType == 1) // quicksave
         {
             File.WriteAllText(Application.persistentDataPath + "/quicksave.dat", json);
             string screenshotPath = Path.Combine(Application.persistentDataPath, "quicksave.png");
             File.WriteAllBytes(screenshotPath, screenshotTexture.EncodeToPNG());
         }
-        else
+        else if(saveType == 2) // manual save
+        {
+            File.WriteAllText(newFilePath, json);
+            string screenshotPath = Path.ChangeExtension(newFilePath, ".png");
+            File.WriteAllBytes(screenshotPath, screenshotTexture.EncodeToPNG());
+            SaveMenu saveMenu = InGameMenuControls.instance.saveMenu.GetComponent<SaveMenu>();
+            saveMenu.DisplaySaveFiles();
+        }
+        else if(saveType == 3) // save over
         {
             File.WriteAllText(newFilePath, json);
             string screenshotPath = Path.ChangeExtension(newFilePath, ".png");

@@ -1,0 +1,42 @@
+{
+  "health": 0.0,
+  "currentHealth": 100.0,
+  "maxHealth": 100.0,
+  "stamina": 0.0,
+  "armor": 0.0,
+  "x": 0.0,
+  "y": 0.0,
+  "z": 0.0,
+  "xRotation": 0.0,
+  "yRotation": 0.0,
+  "zRotation": 0.0,
+  "savedSceneID": 0,
+  "loadPlayerPosition": false,
+  "ifSneaking": true,
+  "inventorySlotsData": [],
+  "equipmentSlotsData": [],
+  "inventoryData": null,
+  "bulletsLeft": [],
+  "cash": 5,
+  "cashIDs": [
+    "f66b63d1-9b31-4d6b-89df-944343a4f628"
+  ],
+  "itemPickUpIDs": [
+    "27af6a4c-9451-4c8a-b314-11f6b39cde96",
+    "1538686453",
+    "d7fbb257-cc9e-4d5d-8797-4e80c6823614"
+  ],
+  "nearbyEnemies": [],
+  "enemyDataID": "",
+  "enemyPositionX": [],
+  "enemyPositionY": [],
+  "enemyPositionZ": [],
+  "enemyRotationX": [],
+  "enemyRotationY": [],
+  "enemyRotationZ": [],
+  "patrolWaypointIndex": [],
+  "enemyDead": false,
+  "enemyFoundDead": false,
+  "saveImage": null,
+  "timestamp": "2024-10-30 11.03.25"
+}

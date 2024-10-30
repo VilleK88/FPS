@@ -85,7 +85,7 @@ public class SaveMenu : MonoBehaviour
         else
         {
             Debug.Log("File name is free to be saved.");
-            InGameMenuControls.instance.SaveGame(false, filePath);
+            InGameMenuControls.instance.SaveGame(2, filePath);
             InGameMenuControls.instance.CloseNewSaveInputMenu();
         }
     }
