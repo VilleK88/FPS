@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class MenuControls : MonoBehaviour
@@ -27,13 +24,15 @@ public class MenuControls : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
-            SettingsMenu.SetActive(false);
+        {
+            if (SettingsMenu.activeSelf) SettingsMenu.SetActive(false);
+            else if (loadMenu.activeSelf) CloseLoadMenu();
+        }
     }
     public void StartGame()
     {
         ClearTablesInGameManager();
         GameManager.instance.loadPlayerPosition = false;
-        //GameManager.instance.loadInventory = false;
         SceneManager.LoadScene("2 - Prison");
         Time.timeScale = 1f;
     }
@@ -63,10 +62,8 @@ public class MenuControls : MonoBehaviour
     }
     public void LoadSceneID()
     {
-        if (GameManager.instance.savedSceneID == 0)
-            SceneManager.LoadScene("2 - Prison");
-        if (GameManager.instance.savedSceneID == 1)
-            SceneManager.LoadScene("TestScene2");
+        if (GameManager.instance.savedSceneID == 0) SceneManager.LoadScene("2 - Prison");
+        else if (GameManager.instance.savedSceneID == 1) SceneManager.LoadScene("TestScene2");
     }
     public void Settings()
     {
