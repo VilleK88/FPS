@@ -34,6 +34,8 @@ public class InGameMenuControls : MonoBehaviour
     public bool newSaveInputMenuOpen;
     public Camera mainCamera;
     public Camera weaponRenderCamera;
+    [SerializeField] private Scrollbar saveMenuScrollBar;
+    [SerializeField] private Scrollbar loadMenuScrollBar;
     private void Start()
     {
         if (settingsMenu != null)
@@ -113,6 +115,7 @@ public class InGameMenuControls : MonoBehaviour
         SaveMenu saveMenuScript = saveMenu.GetComponent<SaveMenu>();
         saveMenuScript.DisplaySaveFiles();
         saveMenuOpen = true;
+        if (saveMenuScrollBar != null) saveMenuScrollBar.value = 1f;
     }
     public void OpenLoadMenu()
     {
@@ -120,6 +123,7 @@ public class InGameMenuControls : MonoBehaviour
         LoadMenu loadMenuScript = loadMenu.GetComponent<LoadMenu>();
         loadMenuScript.DisplaySaveFiles();
         loadMenuOpen = true;
+        if (loadMenuScrollBar != null) loadMenuScrollBar.value = 1f;
     }
     public void QuickSave()
     {

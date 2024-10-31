@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 public class MenuControls : MonoBehaviour
 {
     #region Singleton
@@ -13,6 +15,7 @@ public class MenuControls : MonoBehaviour
     public GameObject SettingsMenu;
     public GameObject loadMenu;
     public bool loadMenuOpen = false;
+    [SerializeField] private Scrollbar loadMenuScrollbar;
     private void Start()
     {
         GameObject inventoryCanvas = GameObject.Find("InventoryCanvas");
@@ -54,6 +57,7 @@ public class MenuControls : MonoBehaviour
         LoadMenu loadMenuScript = loadMenu.GetComponent<LoadMenu>();
         loadMenuScript.DisplaySaveFiles();
         loadMenuOpen = true;
+        loadMenuScrollbar.value = 1f;
     }
     public void CloseLoadMenu()
     {

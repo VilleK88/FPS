@@ -2196,6 +2196,7 @@ MonoBehaviour:
   SettingsMenu: {fileID: 2062051428}
   loadMenu: {fileID: 430224916}
   loadMenuOpen: 0
+  loadMenuScrollbar: {fileID: 1523055005}
 --- !u!114 &775049601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2592,7 +2593,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.00001251517}
+  m_AnchoredPosition: {x: 0, y: 0.000023065002}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1202594065
@@ -3825,6 +3826,17 @@ PrefabInstance:
       objectReference: {fileID: 775049600}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bfdd880d266bcda4bbf3dc0cd160dc86, type: 3}
+--- !u!114 &1523055005 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1574130761634555011, guid: bfdd880d266bcda4bbf3dc0cd160dc86, type: 3}
+  m_PrefabInstance: {fileID: 1523055004}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a4db7a114972834c8e4117be1d82ba3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1543963920
 GameObject:
   m_ObjectHideFlags: 0
@@ -6481,7 +6493,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1609222263}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.999997
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
