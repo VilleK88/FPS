@@ -6,6 +6,8 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
+
 public class SaveMenu : MonoBehaviour
 {
     [SerializeField] public Transform content;
@@ -13,10 +15,38 @@ public class SaveMenu : MonoBehaviour
     [SerializeField] private NewSave newSave;
     [SerializeField] private TMP_InputField inputField;
     public bool inputFieldOn;
+    public List<GameObject> saveObjects = new List<GameObject>();
+    public int saveObjectsIndex = 0;
+    [SerializeField] private Scrollbar scrollbar;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))
             CheckInputField();
+        if(Input.GetKeyDown(KeyCode.S))
+        {
+            if (saveObjectsIndex + 1 < saveObjects.Count)
+            {
+                saveObjectsIndex += 1;
+                saveObjects[saveObjectsIndex].GetComponent<Button>().Select();
+                ScrollToSelected();
+            }
+            else saveObjects[saveObjectsIndex].GetComponent<Button>().Select();
+        }
+        if(Input.GetKeyDown(KeyCode.W))
+        {
+            if (saveObjectsIndex - 1 >= 0)
+            {
+                saveObjectsIndex -= 1;
+                saveObjects[saveObjectsIndex].GetComponent<Button>().Select();
+                ScrollToSelected();
+            }
+            else saveObjects[saveObjectsIndex].GetComponent<Button>().Select();
+        }
+    }
+    void ScrollToSelected()
+    {
+        float scrollbarPosition = 1 - (float)saveObjectsIndex / (saveObjects.Count - 1);
+        scrollbar.value = Mathf.Clamp01(scrollbarPosition);
     }
     public List<string> GetSaveFiles()
     {
@@ -31,6 +61,8 @@ public class SaveMenu : MonoBehaviour
     }
     public void DisplaySaveFiles()
     {
+        saveObjects.Clear();
+        saveObjects.Add(newSave.gameObject);
         foreach (Transform child in content)
         {
             NewSave dontDestroySave = child.GetComponent<NewSave>();
@@ -39,6 +71,7 @@ public class SaveMenu : MonoBehaviour
         List<string> saveFiles = GetSaveFiles();
         foreach (string saveFilePath in saveFiles)
             CreateSavePrefab(saveFilePath);
+        saveObjects[0].GetComponent<Button>().Select();
     }
     void CreateSavePrefab(string saveFilePath)
     {
@@ -55,6 +88,7 @@ public class SaveMenu : MonoBehaviour
             if (texture.LoadImage(imageData)) saveObject.saveImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
             saveObject.saveImage.preserveAspect = true;
         }
+        saveObjects.Add(saveObject.gameObject);
     }
     public void InitializeInputField()
     {
