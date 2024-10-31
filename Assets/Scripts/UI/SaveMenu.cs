@@ -22,7 +22,11 @@ public class SaveMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
             CheckInputField();
-        if(Input.GetKeyDown(KeyCode.S))
+        SaveMenuNavigation();
+    }
+    void SaveMenuNavigation()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
         {
             if (saveObjectsIndex + 1 < saveObjects.Count)
             {
@@ -32,7 +36,7 @@ public class SaveMenu : MonoBehaviour
             }
             else saveObjects[saveObjectsIndex].GetComponent<Button>().Select();
         }
-        if(Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W))
         {
             if (saveObjectsIndex - 1 >= 0)
             {

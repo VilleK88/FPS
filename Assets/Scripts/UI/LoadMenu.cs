@@ -13,6 +13,10 @@ public class LoadMenu : MonoBehaviour
     [SerializeField] private Scrollbar scrollbar;
     private void Update()
     {
+        LoadMenuNavigation();
+    }
+    void LoadMenuNavigation()
+    {
         if (Input.GetKeyDown(KeyCode.S))
         {
             if (saveObjectsIndex + 1 < saveObjects.Count)
