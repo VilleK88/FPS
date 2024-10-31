@@ -271,6 +271,7 @@ public class InventoryManager : MonoBehaviour
         currentlyEquipedWeapon.nextAttackCooldown = 0;
         currentlyEquipedWeapon.knifeScript.boxCollider.enabled = false;
         currentlyEquipedWeapon.knifeScript.damage = currentlyEquipedWeapon.bulletDamage;
+        currentlyEquipedWeapon.GetComponentInChildren<KnifeHitbox>(true).damage = currentlyEquipedWeapon.bulletDamage;
     }
     public void DrawActiveWeapon() // after closing inventory or loading game
     {

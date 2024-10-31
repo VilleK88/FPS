@@ -318,16 +318,3 @@ public class Weapon : MonoBehaviour
         return direction + new Vector3(x, y, 0); // returning the shooting direction and spread
     }
 }
-/*public enum ShootingMode
-{
-    Single,
-    Burst,
-    Auto
-}*/
-/*public enum WeaponModel
-{
-    Pistol,
-    AssaultRifle,
-    Shotgun,
-    Knife
-}*/
