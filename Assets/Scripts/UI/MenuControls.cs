@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,6 +17,7 @@ public class MenuControls : MonoBehaviour
     public GameObject loadMenu;
     public bool loadMenuOpen = false;
     [SerializeField] private Scrollbar loadMenuScrollbar;
+    [SerializeField] Button[] uiButtons;
     private void Start()
     {
         GameObject inventoryCanvas = GameObject.Find("InventoryCanvas");
@@ -28,7 +30,11 @@ public class MenuControls : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (SettingsMenu.activeSelf) SettingsMenu.SetActive(false);
+            if (SettingsMenu.activeSelf)
+            {
+                SettingsMenu.SetActive(false);
+                uiButtons[2].Select();
+            }
             else if (loadMenu.activeSelf) CloseLoadMenu();
         }
     }
@@ -63,6 +69,7 @@ public class MenuControls : MonoBehaviour
     {
         loadMenu.SetActive(false);
         loadMenuOpen = false;
+        uiButtons[1].Select();
     }
     public void LoadSceneID()
     {
