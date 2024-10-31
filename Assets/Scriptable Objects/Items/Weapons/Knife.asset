@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 368d9be3487582f4483c92a65c1ce4d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 602511c99a120b540ad7705651a11480, type: 3}
   m_Name: Knife
   m_EditorClassIdentifier: 
   name: Knife
@@ -19,4 +19,15 @@ MonoBehaviour:
   stackable: 0
   stackMax: 1
   icon: {fileID: 21300038, guid: 6674e8c43c63e4f4184cbd009379498d, type: 3}
-  description: Knife
+  description: 
+  weaponModel: 3
+  shootingMode: 0
+  ammoType: 0
+  weaponID: 3
+  shootingDelay: 0.3
+  bulletsPerBurst: 1
+  spreadIntensity: 0
+  bulletVelocity: 300
+  damage: 10
+  reloadTime: 1.5
+  magazineSize: 7

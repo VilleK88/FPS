@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 368d9be3487582f4483c92a65c1ce4d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 602511c99a120b540ad7705651a11480, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
   name: Pistol
@@ -19,4 +19,15 @@ MonoBehaviour:
   stackable: 0
   stackMax: 1
   icon: {fileID: 21300000, guid: 46a02ae0efe7b5e4bbecf901fc9c67e6, type: 3}
-  description: Pistol
+  description: 
+  weaponType: 0
+  shootingMode: 0
+  ammoType: 1
+  weaponID: 4
+  shootingDelay: 0.3
+  bulletsPerBurst: 1
+  spreadIntensity: 0.06
+  bulletVelocity: 300
+  damage: 9
+  reloadTime: 1.5
+  magazineSize: 7

@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 368d9be3487582f4483c92a65c1ce4d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 602511c99a120b540ad7705651a11480, type: 3}
   m_Name: Shotgun
   m_EditorClassIdentifier: 
   name: Shotgun
@@ -20,3 +20,14 @@ MonoBehaviour:
   stackMax: 1
   icon: {fileID: 21300000, guid: 4c9ffeda13c133e4ab0fccdc14633410, type: 3}
   description: 
+  weaponModel: 2
+  shootingMode: 0
+  ammoType: 3
+  weaponID: 5
+  shootingDelay: 0.5
+  bulletsPerBurst: 1
+  spreadIntensity: 0.3
+  bulletVelocity: 300
+  damage: 5.1
+  reloadTime: 2.2
+  magazineSize: 7

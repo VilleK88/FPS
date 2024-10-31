@@ -45,6 +45,7 @@ public class Weapon : MonoBehaviour
     [HideInInspector] public bool secondKnifeAttack = false;
     [HideInInspector] public bool thirdKnifeAttack = false;
     public KnifeHitbox knifeScript;
+    public GameObject weaponObject;
     private void Awake()
     {
         readyToShoot = true;
@@ -93,19 +94,19 @@ public class Weapon : MonoBehaviour
         {
             if (!secondKnifeAttack && !thirdKnifeAttack)
             {
-                anim.SetTrigger("Attack1");
+                anim.SetTrigger("KnifeAttack1");
                 secondKnifeAttack = true;
                 nextAttackCooldown = 1.2f;
             }
             else if(secondKnifeAttack && !thirdKnifeAttack)
             {
-                anim.SetTrigger("Attack2");
+                anim.SetTrigger("KnifeAttack2");
                 thirdKnifeAttack = true;
                 nextAttackCooldown = 1.2f;
             }
             else if(secondKnifeAttack && thirdKnifeAttack)
             {
-                anim.SetTrigger("Attack3");
+                anim.SetTrigger("KnifeAttack3");
                 nextAttackCooldown = 1.2f;
                 secondKnifeAttack = false;
                 thirdKnifeAttack = false;
@@ -317,16 +318,16 @@ public class Weapon : MonoBehaviour
         return direction + new Vector3(x, y, 0); // returning the shooting direction and spread
     }
 }
-public enum ShootingMode
+/*public enum ShootingMode
 {
     Single,
     Burst,
     Auto
-}
-public enum WeaponModel
+}*/
+/*public enum WeaponModel
 {
     Pistol,
     AssaultRifle,
     Shotgun,
     Knife
-}
+}*/

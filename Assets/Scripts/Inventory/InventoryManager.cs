@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -214,19 +216,20 @@ public class InventoryManager : MonoBehaviour
                             inventoryData.activeWeapon = index;
                             Weapon currentlyEquipedWeapon = weaponSlots[i].GetComponent<Weapon>();
                             currentlyEquipedWeapon.UpdateTotalAmmoStatus();
-                            //currentlyEquipedWeapon.anim.SetTrigger("Equip");
+                            InitializeWeaponValues(currentlyEquipedWeapon, equipmentSlotsUI[index]);
                             if(currentlyEquipedWeapon.thisWeaponModel == WeaponModel.Knife)
                             {
+                                currentlyEquipedWeapon.anim.SetLayerWeight(0, 1);
                                 currentlyEquipedWeapon.anim.SetTrigger("Equip");
-                                currentlyEquipedWeapon.secondKnifeAttack = false;
-                                currentlyEquipedWeapon.thirdKnifeAttack = false;
-                                currentlyEquipedWeapon.nextAttackCooldown = 0;
-                                currentlyEquipedWeapon.knifeScript.boxCollider.enabled = false;
-                                currentlyEquipedWeapon.knifeScript.damage = currentlyEquipedWeapon.bulletDamage;
+                                StartCoroutine(EquipWeaponDelay(currentlyEquipedWeapon));
+                                InitializeKnifeForEquip(currentlyEquipedWeapon);
                             }
                         }
                         else
                         {
+                            //weaponSlots[i].GetComponent<Weapon>().anim.SetLayerWeight(i, 0);
+                            Weapon unequipedWeapon = weaponSlots[i].GetComponent<Weapon>();
+                            if(unequipedWeapon.weaponObject != null) unequipedWeapon.weaponObject.SetActive(false);
                             weaponSlots[i].SetActive(!weaponSlots[i].activeSelf);
                             inventoryData.activeWeapon = 99;
                         }
@@ -237,6 +240,37 @@ public class InventoryManager : MonoBehaviour
             }
         }
         EnemyManager.Instance.CloseEnemyHealthbars();
+    }
+    void InitializeWeaponValues(Weapon currentlyEquipedWeapon, EquipmentSlot currentlyEquipedWeaponSlot)
+    {
+        InventoryItem currentInventoryItem = currentlyEquipedWeaponSlot.GetComponentInChildren<InventoryItem>();
+        Item currentItem = currentInventoryItem.item;
+        WeaponSO weaponSO = currentItem as WeaponSO;
+        currentlyEquipedWeapon.name = weaponSO.name;
+        currentlyEquipedWeapon.weaponId = weaponSO.weaponID;
+        currentlyEquipedWeapon.thisWeaponModel = weaponSO.weaponModel;
+        currentlyEquipedWeapon.currentShootingMode = weaponSO.shootingMode;
+        currentlyEquipedWeapon.ammoType = weaponSO.ammoType;
+        currentlyEquipedWeapon.shootingDelay = weaponSO.shootingDelay;
+        currentlyEquipedWeapon.bulletsPerBurst = weaponSO.bulletsPerBurst;
+        currentlyEquipedWeapon.spreadIntensity = weaponSO.spreadIntensity;
+        currentlyEquipedWeapon.bulletVelocity = weaponSO.bulletVelocity;
+        currentlyEquipedWeapon.bulletDamage = weaponSO.damage;
+        currentlyEquipedWeapon.reloadTime = weaponSO.reloadTime;
+        currentlyEquipedWeapon.magazineSize = weaponSO.magazineSize;
+    }
+    IEnumerator EquipWeaponDelay(Weapon currentlyEquipedWeapon)
+    {
+        yield return new WaitForSeconds(0.2f);
+        currentlyEquipedWeapon.weaponObject.SetActive(true);
+    }
+    void InitializeKnifeForEquip(Weapon currentlyEquipedWeapon)
+    {
+        currentlyEquipedWeapon.secondKnifeAttack = false;
+        currentlyEquipedWeapon.thirdKnifeAttack = false;
+        currentlyEquipedWeapon.nextAttackCooldown = 0;
+        currentlyEquipedWeapon.knifeScript.boxCollider.enabled = false;
+        currentlyEquipedWeapon.knifeScript.damage = currentlyEquipedWeapon.bulletDamage;
     }
     public void DrawActiveWeapon() // after closing inventory or loading game
     {
