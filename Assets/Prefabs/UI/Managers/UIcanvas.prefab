@@ -3904,7 +3904,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e54b7e5feada25446a2b32b7d352795f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuButtons: {fileID: 3068284386082703867}
+  menuButtonsParentObject: {fileID: 3068284386082703867}
+  menuButtons:
+  - {fileID: 7962997397502250135}
+  - {fileID: 3068284388099582920}
+  - {fileID: 3068284388018084518}
+  - {fileID: 3068284387534581656}
+  - {fileID: 3068284386197632569}
   OnToggleMenu:
     m_PersistentCalls:
       m_Calls: []

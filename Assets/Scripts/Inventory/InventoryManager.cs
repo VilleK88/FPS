@@ -86,7 +86,7 @@ public class InventoryManager : MonoBehaviour
                 StopPause();
             }
         }
-        if (!closed || InGameMenuControls.instance.menuButtons.activeSelf)
+        if (!closed || InGameMenuControls.instance.menuButtonsParentObject.activeSelf)
             return;
         EquipWeapon();
     }
@@ -370,7 +370,7 @@ public class InventoryManager : MonoBehaviour
         InGameMenuControls.instance.CloseSettings();
         InGameMenuControls.instance.CloseLoadMenu();
         InGameMenuControls.instance.CloseSaveMenu();
-        InGameMenuControls.instance.menuButtons.SetActive(false);
+        InGameMenuControls.instance.menuButtonsParentObject.SetActive(false);
         OnOffExitButton(true);
     }
     public void CloseInventory(bool esc)

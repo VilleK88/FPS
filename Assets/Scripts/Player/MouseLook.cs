@@ -12,7 +12,7 @@ public class MouseLook : MonoBehaviour
     }
     private void Update()
     {
-        if (!InventoryManager.instance.closed || InGameMenuControls.instance.menuButtons.activeSelf)
+        if (!InventoryManager.instance.closed || InGameMenuControls.instance.menuButtonsParentObject.activeSelf)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

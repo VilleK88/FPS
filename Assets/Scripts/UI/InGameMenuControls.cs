@@ -17,7 +17,8 @@ public class InGameMenuControls : MonoBehaviour
             instance = this;
     }
     #endregion
-    [SerializeField] public GameObject menuButtons;
+    [SerializeField] public GameObject menuButtonsParentObject;
+    [SerializeField] private Button[] menuButtons;
     public UnityEvent OnToggleMenu;
     public delegate void ToggleMenuDelegate(bool isActive);
     public static event ToggleMenuDelegate OnToggleMenuStatic;
@@ -40,8 +41,8 @@ public class InGameMenuControls : MonoBehaviour
     {
         if (settingsMenu != null)
             settingsMenu.SetActive(false);
-        if (menuButtons != null)
-            menuButtons.SetActive(false);
+        if (menuButtonsParentObject != null)
+            menuButtonsParentObject.SetActive(false);
         player.GetComponent<Player>();
         currentScene = SceneManager.GetActiveScene();
         if (AccountManager.Instance != null)
@@ -60,7 +61,7 @@ public class InGameMenuControls : MonoBehaviour
                 if (!InventoryManager.instance.closed)
                     InventoryManager.instance.CloseInventory(true);
                 OnToggleMenu?.Invoke();
-                OnToggleMenuStatic?.Invoke(menuButtons.activeSelf);
+                OnToggleMenuStatic?.Invoke(menuButtonsParentObject.activeSelf);
                 ToggleInGameMenu();
             }
             else if (settingsMenuOpen && !saveMenuOpen && !loadMenuOpen && !newSaveInputMenuOpen)
@@ -81,13 +82,13 @@ public class InGameMenuControls : MonoBehaviour
     }
     void ToggleInGameMenu()
     {
-        if (menuButtons != null)
+        if (menuButtonsParentObject != null)
         {
             InventoryManager.instance.HolsterWeapons();
-            menuButtons.SetActive(!menuButtons.activeSelf);
-            if (menuButtons.activeSelf)
+            menuButtonsParentObject.SetActive(!menuButtonsParentObject.activeSelf);
+            if (menuButtonsParentObject.activeSelf)
             {
-                saveButton.Select();
+                menuButtons[0].Select();
                 InventoryManager.instance.PauseGame();
             }
             else
@@ -186,16 +187,19 @@ public class InGameMenuControls : MonoBehaviour
     {
         settingsMenu.SetActive(false);
         settingsMenuOpen = false;
+        menuButtons[3].Select();
     }
     public void CloseSaveMenu()
     {
         saveMenu.SetActive(false);
         saveMenuOpen = false;
+        menuButtons[1].Select();
     }
     public void CloseLoadMenu()
     {
         loadMenu.SetActive(false);
         loadMenuOpen = false;
+        menuButtons[2].Select();
     }
     public void QuitGame()
     {

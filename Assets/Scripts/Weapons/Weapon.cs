@@ -54,7 +54,7 @@ public class Weapon : MonoBehaviour
     }
     private void Update()
     {
-        if (!InventoryManager.instance.closed || InGameMenuControls.instance.menuButtons.activeSelf)
+        if (!InventoryManager.instance.closed || InGameMenuControls.instance.menuButtonsParentObject.activeSelf)
             return;
         if (thisWeaponModel != WeaponModel.Knife)
             RangedWeapon();
