@@ -5074,6 +5074,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: InGameMenuControls, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 3289581233938445168, guid: 5e00707a0994a2343a80b9a306f62e8c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3610533478183140099, guid: 5e00707a0994a2343a80b9a306f62e8c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5238,6 +5242,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.23137255
       objectReference: {fileID: 0}
+    - target: {fileID: 7656788412691737638, guid: 5e00707a0994a2343a80b9a306f62e8c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1836367649964557058}
     - target: {fileID: 7656788412691737638, guid: 5e00707a0994a2343a80b9a306f62e8c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: CheckInputField

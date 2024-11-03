@@ -7,7 +7,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
-
 public class SaveMenu : MonoBehaviour
 {
     [SerializeField] public Transform content;
@@ -79,6 +78,11 @@ public class SaveMenu : MonoBehaviour
     }
     void CreateSavePrefab(string saveFilePath)
     {
+        if (!File.Exists(saveFilePath) || new FileInfo(saveFilePath).Length == 0)
+        {
+            Debug.LogWarning("Tallennustiedosto no tyhjä tai sitä ei löydy: " + saveFilePath);
+            return;
+        }
         string json = File.ReadAllText(saveFilePath);
         GameData gameData = JsonUtility.FromJson<GameData>(json);
         SavePrefab saveObject = Instantiate(savePrefab, content);
@@ -89,10 +93,13 @@ public class SaveMenu : MonoBehaviour
         {
             byte[] imageData = File.ReadAllBytes(imagePath);
             Texture2D texture = new Texture2D(2, 2);
-            if (texture.LoadImage(imageData)) saveObject.saveImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-            saveObject.saveImage.preserveAspect = true;
+            if (texture.LoadImage(imageData))
+            {
+                saveObject.saveImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+                saveObject.saveImage.preserveAspect = true;
+            }
+            saveObjects.Add(saveObject.gameObject);
         }
-        saveObjects.Add(saveObject.gameObject);
     }
     public void InitializeInputField()
     {
