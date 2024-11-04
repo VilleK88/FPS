@@ -366,12 +366,12 @@ public class InventoryManager : MonoBehaviour
             if (AccountManager.Instance.loggedIn)
                 Score.Instance.killsText.enabled = false;
         }
-        selectSlot.Select();
         InGameMenuControls.instance.CloseSettings();
         InGameMenuControls.instance.CloseLoadMenu();
         InGameMenuControls.instance.CloseSaveMenu();
         InGameMenuControls.instance.menuButtonsParentObject.SetActive(false);
         OnOffExitButton(true);
+        selectSlot.Select();
     }
     public void CloseInventory(bool esc)
     {
