@@ -177,6 +177,7 @@ public class InGameMenuControls : MonoBehaviour
         newSaveInputMenu.SetActive(false);
         newSaveInputMenuOpen = false;
         saveMenu.GetComponent<SaveMenu>().inputFieldOn = false;
+        saveMenu.GetComponent<SaveMenu>().saveObjects[0].GetComponent<Button>().Select();
     }
     public void Settings()
     {
