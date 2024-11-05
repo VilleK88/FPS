@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.InputSystem.Android;
 public class SaveMenu : MonoBehaviour
 {
     [SerializeField] public Transform content;
@@ -14,28 +15,48 @@ public class SaveMenu : MonoBehaviour
     [SerializeField] private NewSave newSave;
     [SerializeField] private TMP_InputField inputField;
     public bool inputFieldOn;
+    public bool savePrefabMenuOpen;
+    [SerializeField] private Button[] savePrefabMenuButtons;
     public List<GameObject> saveObjects = new List<GameObject>();
     public int saveObjectsIndex = 0;
     [SerializeField] private Scrollbar scrollbar;
+    public float closingSavePrefabMenuCountdown = 0.5f;
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) && saveObjectsIndex == 0)
             CheckInputField();
         SaveMenuNavigation();
     }
     void SaveMenuNavigation()
     {
-        if(!inputFieldOn)
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Return))
         {
-            if (Input.GetKeyDown(KeyCode.W))
+            if (!inputFieldOn && !savePrefabMenuOpen)
             {
-                NavigateUp();
-            }
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                NavigateDown();
+                if (closingSavePrefabMenuCountdown > 0) closingSavePrefabMenuCountdown -= Time.deltaTime;
+                else OpenSaveOverMenu();
             }
         }
+        if (Input.GetKeyDown(KeyCode.W))
+            if (!inputFieldOn && !savePrefabMenuOpen) NavigateUp();
+        if (Input.GetKeyDown(KeyCode.S))
+            if (!inputFieldOn && !savePrefabMenuOpen) NavigateDown();
+        if (Input.GetKeyDown(KeyCode.D))
+            if (!inputFieldOn && savePrefabMenuOpen) NavigateRight();
+        if (Input.GetKeyDown(KeyCode.A))
+            if (!inputFieldOn && savePrefabMenuOpen) NavigateLeft();
+    }
+    void PressButton()
+    {
+
+    }
+    void NavigateRight()
+    {
+        savePrefabMenuButtons[1].Select();
+    }
+    void NavigateLeft()
+    {
+        savePrefabMenuButtons[0].Select();
     }
     void NavigateUp() // keyboard navigation
     {
@@ -57,9 +78,26 @@ public class SaveMenu : MonoBehaviour
         }
         else SelectButton();
     }
-    void SelectButton() // keyboard navigation
+    public void SelectButton() // keyboard navigation
     {
         saveObjects[saveObjectsIndex].GetComponent<Button>().Select();
+    }
+    public void OpenSaveOverMenu()
+    {
+        savePrefabMenuOpen = true;
+        SavePrefab savePrefabScript = saveObjects[saveObjectsIndex].GetComponent<SavePrefab>();
+        savePrefabMenuButtons = savePrefabScript.saveOverButtons;
+        savePrefabScript.saveOverBG.SetActive(true);
+        savePrefabMenuButtons[0].Select();
+        Debug.Log("Open SaveOver Menu");
+    }
+    public void CloseSaveOverMenu()
+    {
+        savePrefabMenuOpen = false;
+    }
+    public void OpenRemoveSaveMenu()
+    {
+
     }
     void ScrollToSelected()
     {
@@ -124,6 +162,7 @@ public class SaveMenu : MonoBehaviour
     }
     public void CheckInputField()
     {
+        if (saveObjectsIndex != 0) return;
         string fileName = inputField.text;
         if(string.IsNullOrEmpty(fileName))
         {

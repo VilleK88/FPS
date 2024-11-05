@@ -12,6 +12,8 @@ public class SavePrefab : MonoBehaviour, IPointerClickHandler
     public TextMeshProUGUI timeDate;
     public GameObject removeBG;
     public GameObject saveOverBG;
+    public Button[] removeButtons;
+    public Button[] saveOverButtons;
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right) removeBG.SetActive(true);
@@ -49,6 +51,10 @@ public class SavePrefab : MonoBehaviour, IPointerClickHandler
     }
     public void CloseSaveOverMenu()
     {
+        SaveMenu saveMenuScript = InGameMenuControls.instance.saveMenu.gameObject.GetComponent<SaveMenu>();
+        saveMenuScript.closingSavePrefabMenuCountdown = 0.5f;
+        saveMenuScript.savePrefabMenuOpen = false;
+        saveMenuScript.SelectButton();
         saveOverBG.SetActive(false);
     }
 }
