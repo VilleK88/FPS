@@ -16,26 +16,24 @@ public class SaveMenu : MonoBehaviour
     [SerializeField] private TMP_InputField inputField;
     public bool inputFieldOn;
     public bool savePrefabMenuOpen;
-    [SerializeField] private Button[] savePrefabMenuButtons;
+    public Button[] savePrefabMenuButtons;
     public List<GameObject> saveObjects = new List<GameObject>();
     public int saveObjectsIndex = 0;
     [SerializeField] private Scrollbar scrollbar;
-    public float closingSavePrefabMenuCountdown = 0.5f;
+    public float closingSavePrefabMenuCountdown;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return) && saveObjectsIndex == 0)
             CheckInputField();
         SaveMenuNavigation();
+        if (closingSavePrefabMenuCountdown > 0) closingSavePrefabMenuCountdown -= Time.unscaledDeltaTime;
     }
     void SaveMenuNavigation()
     {
         if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Return))
         {
             if (!inputFieldOn && !savePrefabMenuOpen)
-            {
-                if (closingSavePrefabMenuCountdown > 0) closingSavePrefabMenuCountdown -= Time.deltaTime;
-                else OpenSaveOverMenu();
-            }
+                if (closingSavePrefabMenuCountdown <= 0) OpenSaveOverMenu();
         }
         if (Input.GetKeyDown(KeyCode.W))
             if (!inputFieldOn && !savePrefabMenuOpen) NavigateUp();
@@ -99,7 +97,7 @@ public class SaveMenu : MonoBehaviour
     {
 
     }
-    void ScrollToSelected()
+    public void ScrollToSelected()
     {
         float scrollbarPosition = 1 - (float)saveObjectsIndex / (saveObjects.Count - 1);
         scrollbar.value = Mathf.Clamp01(scrollbarPosition);

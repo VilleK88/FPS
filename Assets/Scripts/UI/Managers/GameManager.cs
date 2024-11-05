@@ -133,6 +133,11 @@ public class GameManager : MonoBehaviour
             File.WriteAllBytes(screenshotPath, screenshotTexture.EncodeToPNG());
             SaveMenu saveMenu = InGameMenuControls.instance.saveMenu.GetComponent<SaveMenu>();
             saveMenu.DisplaySaveFiles();
+            saveMenu.saveObjectsIndex = 0;
+            saveMenu.SelectButton();
+            saveMenu.ScrollToSelected();
+            saveMenu.savePrefabMenuOpen = false;
+            saveMenu.closingSavePrefabMenuCountdown = 0;
         }
         loadEnemiesData = true;
         Debug.Log("Game and screenshot saved!");

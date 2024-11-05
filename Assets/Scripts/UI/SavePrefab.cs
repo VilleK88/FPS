@@ -54,7 +54,9 @@ public class SavePrefab : MonoBehaviour, IPointerClickHandler
         SaveMenu saveMenuScript = InGameMenuControls.instance.saveMenu.gameObject.GetComponent<SaveMenu>();
         saveMenuScript.closingSavePrefabMenuCountdown = 0.5f;
         saveMenuScript.savePrefabMenuOpen = false;
+        saveMenuScript.savePrefabMenuButtons = null;
         saveMenuScript.SelectButton();
+        Debug.Log("Close save over menu");
         saveOverBG.SetActive(false);
     }
 }
