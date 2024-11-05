@@ -27,27 +27,39 @@ public class SaveMenu : MonoBehaviour
     {
         if(!inputFieldOn)
         {
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                if (saveObjectsIndex + 1 < saveObjects.Count)
-                {
-                    saveObjectsIndex += 1;
-                    saveObjects[saveObjectsIndex].GetComponent<Button>().Select();
-                    ScrollToSelected();
-                }
-                else saveObjects[saveObjectsIndex].GetComponent<Button>().Select();
-            }
             if (Input.GetKeyDown(KeyCode.W))
             {
-                if (saveObjectsIndex - 1 >= 0)
-                {
-                    saveObjectsIndex -= 1;
-                    saveObjects[saveObjectsIndex].GetComponent<Button>().Select();
-                    ScrollToSelected();
-                }
-                else saveObjects[saveObjectsIndex].GetComponent<Button>().Select();
+                NavigateUp();
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                NavigateDown();
             }
         }
+    }
+    void NavigateUp() // keyboard navigation
+    {
+        if (saveObjectsIndex - 1 >= 0)
+        {
+            saveObjectsIndex -= 1;
+            SelectButton();
+            ScrollToSelected();
+        }
+        else SelectButton();
+    }
+    void NavigateDown() // keyboard navigation
+    {
+        if (saveObjectsIndex + 1 < saveObjects.Count)
+        {
+            saveObjectsIndex += 1;
+            SelectButton();
+            ScrollToSelected();
+        }
+        else SelectButton();
+    }
+    void SelectButton() // keyboard navigation
+    {
+        saveObjects[saveObjectsIndex].GetComponent<Button>().Select();
     }
     void ScrollToSelected()
     {
