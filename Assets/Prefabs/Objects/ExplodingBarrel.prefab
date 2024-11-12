@@ -99,6 +99,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionEffect: {fileID: 0}
   boxCollider: {fileID: 5909699408812180010}
+  obstructionLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!65 &5909699408812180010
 BoxCollider:
   m_ObjectHideFlags: 0

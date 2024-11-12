@@ -10,6 +10,7 @@ public class GlobalReferences : MonoBehaviour
     public GameObject bulletImpactMetalEffect;
     public GameObject bulletImpactFleshSmallEffect;
     public GameObject bloodSplatterEffectPrefab;
+    public GameObject ignitionFlame;
 
     private void Awake()
     {

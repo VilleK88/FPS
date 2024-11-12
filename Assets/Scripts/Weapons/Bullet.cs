@@ -26,6 +26,7 @@ public class Bullet : MonoBehaviour
         if (objectWeHit.gameObject.CompareTag("ExplodingBarrel"))
         {
             CreateBulletImpactMetalEffect(objectWeHit);
+            CreateBulletImpactIgnitionFlameEffect(objectWeHit);
             ExplodingBarrel explodingBarrelScript = objectWeHit.gameObject.GetComponent<ExplodingBarrel>();
             if (explodingBarrelScript != null) explodingBarrelScript.BarrelHit();
         }
@@ -44,6 +45,28 @@ public class Bullet : MonoBehaviour
         GameObject hole = Instantiate(GlobalReferences.Instance.bulletImpactMetalEffect,
             contact.point, Quaternion.LookRotation(contact.normal));
         hole.transform.SetParent(objectWeHit.gameObject.transform);
+    }
+    void CreateBulletImpactIgnitionFlameEffect(Collision objectWeHit)
+    {
+        ContactPoint contact = objectWeHit.contacts[0];
+        GameObject hole = Instantiate(GlobalReferences.Instance.ignitionFlame,
+            contact.point, Quaternion.LookRotation(contact.normal));
+        hole.transform.SetParent(objectWeHit.gameObject.transform);
+        ParticleSystem ps = hole.GetComponent<ParticleSystem>();
+        if (ps != null)
+        {
+            ps.Play();
+            Debug.Log("Particle System löytyi");
+        }
+        else
+        {
+            ParticleSystem childPS = hole.GetComponentInChildren<ParticleSystem>();
+            if (childPS != null)
+            {
+                childPS.Play();
+                Debug.Log("Child Particle System löytyi");
+            }
+        }
     }
     void CreateBulletImpactFleshSmallEffect(Collision objectWeHit)
     {
