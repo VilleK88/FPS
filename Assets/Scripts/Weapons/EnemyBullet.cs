@@ -25,7 +25,7 @@ public class EnemyBullet : MonoBehaviour
     void CreateBulletImpactEffect(Collision objectWeHit) // and destroy gameobject
     {
         ContactPoint contact = objectWeHit.contacts[0];
-        GameObject hole = Instantiate(GlobalReferences.Instance.bulletImpactEffectPrefab,
+        GameObject hole = Instantiate(GlobalReferences.Instance.bulletImpactStoneEffect,
             contact.point, Quaternion.LookRotation(contact.normal));
         hole.transform.SetParent(objectWeHit.gameObject.transform);
     }

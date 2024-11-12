@@ -12,31 +12,43 @@ public class Bullet : MonoBehaviour
         if (objectWeHit.gameObject.CompareTag("Enemy") && enemyHealth != null)
         {
             enemyHealth.TakeDamage(damage);
+            CreateBulletImpactFleshSmallEffect(objectWeHit);
             //CreateBlootSplatterEffect(objectWeHit);
         }
+        if(objectWeHit.gameObject.CompareTag("EnemyHead"))
+            CreateBulletImpactFleshSmallEffect(objectWeHit);
         if (objectWeHit.gameObject.CompareTag("Target"))
-        {
-            CreateBulletImpactEffect(objectWeHit);
-        }
+            CreateBulletImpactStoneEffect(objectWeHit);
         if (objectWeHit.gameObject.CompareTag("Wall"))
-        {
-            CreateBulletImpactEffect(objectWeHit);
-        }
+            CreateBulletImpactStoneEffect(objectWeHit);
         if (objectWeHit.gameObject.CompareTag("Ground"))
+            CreateBulletImpactStoneEffect(objectWeHit);
+        if (objectWeHit.gameObject.CompareTag("ExplodingBarrel"))
         {
-            CreateBulletImpactEffect(objectWeHit);
-        }
-        if(objectWeHit.gameObject.CompareTag("ExplodingBarrel"))
-        {
+            CreateBulletImpactMetalEffect(objectWeHit);
             ExplodingBarrel explodingBarrelScript = objectWeHit.gameObject.GetComponent<ExplodingBarrel>();
             if (explodingBarrelScript != null) explodingBarrelScript.BarrelHit();
         }
         Destroy(gameObject);
     }
-    void CreateBulletImpactEffect(Collision objectWeHit)
+    void CreateBulletImpactStoneEffect(Collision objectWeHit)
     {
         ContactPoint contact = objectWeHit.contacts[0];
-        GameObject hole = Instantiate(GlobalReferences.Instance.bulletImpactEffectPrefab,
+        GameObject hole = Instantiate(GlobalReferences.Instance.bulletImpactStoneEffect,
+            contact.point, Quaternion.LookRotation(contact.normal));
+        hole.transform.SetParent(objectWeHit.gameObject.transform);
+    }
+    void CreateBulletImpactMetalEffect(Collision objectWeHit)
+    {
+        ContactPoint contact = objectWeHit.contacts[0];
+        GameObject hole = Instantiate(GlobalReferences.Instance.bulletImpactMetalEffect,
+            contact.point, Quaternion.LookRotation(contact.normal));
+        hole.transform.SetParent(objectWeHit.gameObject.transform);
+    }
+    void CreateBulletImpactFleshSmallEffect(Collision objectWeHit)
+    {
+        ContactPoint contact = objectWeHit.contacts[0];
+        GameObject hole = Instantiate(GlobalReferences.Instance.bulletImpactFleshSmallEffect,
             contact.point, Quaternion.LookRotation(contact.normal));
         hole.transform.SetParent(objectWeHit.gameObject.transform);
     }

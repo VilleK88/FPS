@@ -5,7 +5,10 @@ using UnityEngine;
 public class GlobalReferences : MonoBehaviour
 {
     public static GlobalReferences Instance { get; set; }
-    public GameObject bulletImpactEffectPrefab;
+    public GameObject bulletImpactStoneEffect;
+    public GameObject bulletImpactSandEffect;
+    public GameObject bulletImpactMetalEffect;
+    public GameObject bulletImpactFleshSmallEffect;
     public GameObject bloodSplatterEffectPrefab;
 
     private void Awake()
