@@ -11,6 +11,7 @@ TagManager:
   - EnemyHead
   - Bullet
   - Door
+  - ExplodingBarrel
   layers:
   - Default
   - TransparentFX

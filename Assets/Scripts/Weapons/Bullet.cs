@@ -13,23 +13,25 @@ public class Bullet : MonoBehaviour
         {
             enemyHealth.TakeDamage(damage);
             //CreateBlootSplatterEffect(objectWeHit);
-            Destroy(gameObject);
         }
         if (objectWeHit.gameObject.CompareTag("Target"))
         {
             CreateBulletImpactEffect(objectWeHit);
-            Destroy(gameObject);
         }
         if (objectWeHit.gameObject.CompareTag("Wall"))
         {
             CreateBulletImpactEffect(objectWeHit);
-            Destroy(gameObject);
         }
         if (objectWeHit.gameObject.CompareTag("Ground"))
         {
             CreateBulletImpactEffect(objectWeHit);
-            Destroy(gameObject);
         }
+        if(objectWeHit.gameObject.CompareTag("ExplodingBarrel"))
+        {
+            ExplodingBarrel explodingBarrelScript = objectWeHit.gameObject.GetComponent<ExplodingBarrel>();
+            if (explodingBarrelScript != null) explodingBarrelScript.BarrelHit();
+        }
+        Destroy(gameObject);
     }
     void CreateBulletImpactEffect(Collision objectWeHit)
     {
