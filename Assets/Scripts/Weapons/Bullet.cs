@@ -13,10 +13,13 @@ public class Bullet : MonoBehaviour
         {
             enemyHealth.TakeDamage(damage);
             CreateBulletImpactFleshSmallEffect(objectWeHit);
-            //CreateBlootSplatterEffect(objectWeHit);
+            CreateBlootSplatterEffect(objectWeHit);
         }
         if(objectWeHit.gameObject.CompareTag("EnemyHead"))
+        {
             CreateBulletImpactFleshSmallEffect(objectWeHit);
+            CreateBlootSplatterEffect(objectWeHit);
+        }
         if (objectWeHit.gameObject.CompareTag("Target"))
             CreateBulletImpactStoneEffect(objectWeHit);
         if (objectWeHit.gameObject.CompareTag("Wall"))
