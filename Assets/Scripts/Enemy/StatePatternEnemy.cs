@@ -239,8 +239,8 @@ public class StatePatternEnemy : MonoBehaviour
         bullet.GetComponent<EnemyBullet>().target = bulletTarget;
         bullet.GetComponent<EnemyBullet>().damage = bulletDamage;
         muzzleFlash.GetComponent<ParticleSystem>().Play();
-        AudioManager.instance.audioSourceEnemySFX.transform.position = transform.position;
-        AudioManager.instance.PlayEnemySound(shootingSound);
+        //AudioManager.instance.audioSourceEnemySFX.transform.position = transform.position;
+        AudioManager.instance.PlayEnemySound(shootingSound, transform);
         Invoke("ResetShot", shootingDelay);
     }
     public void ResetShot()
