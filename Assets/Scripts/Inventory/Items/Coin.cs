@@ -10,7 +10,7 @@ public class Coin : MonoBehaviour
         {
             GameManager.instance.cash += value;
             AddToCashIDsArray(coinID);
-            AudioManager.instance.PlaySound(collectSound);
+            AudioManager.instance.PlayPlayerSound(collectSound);
             gameObject.SetActive(false);
         }
     }

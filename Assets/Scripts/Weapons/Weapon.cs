@@ -65,7 +65,7 @@ public class Weapon : MonoBehaviour
     void RangedWeapon()
     {
         if (bulletsLeft == 0 && Input.GetKeyDown(KeyCode.Mouse0))
-            AudioManager.instance.PlaySound(emptyMagazineSound);
+            AudioManager.instance.PlayPlayerSound(emptyMagazineSound);
         if (currentShootingMode == ShootingMode.Auto)
             isShooting = Input.GetKey(KeyCode.Mouse0); // holding down left mouse button
         else if (currentShootingMode == ShootingMode.Single || currentShootingMode == ShootingMode.Burst)
@@ -149,7 +149,7 @@ public class Weapon : MonoBehaviour
             anim.SetBool("Shoot", true);
         }
         //anim.SetTrigger("Shoot");
-        AudioManager.instance.PlaySound(shootingSound);
+        AudioManager.instance.PlayPlayerSound(shootingSound);
         readyToShoot = false;
         if (thisWeaponModel != WeaponModel.Shotgun)
         {
@@ -279,7 +279,7 @@ public class Weapon : MonoBehaviour
     void Reload()
     {
         UpdateTotalAmmoStatus();
-        AudioManager.instance.PlaySound(reloadingSound);
+        AudioManager.instance.PlayPlayerSound(reloadingSound);
         if (thisWeaponModel == WeaponModel.Shotgun)
             anim.SetTrigger("Reload");
         //anim.SetTrigger("Reload"); // reload animation not yet made

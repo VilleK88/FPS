@@ -19,14 +19,24 @@ public class AudioManager : MonoBehaviour
         }
     }
     #endregion
-    public AudioSource audioSourceSFX;
+    public AudioSource audioSourcePlayerSFX;
+    public AudioSource audioSourceEnemySFX;
+    public AudioSource audioSourceExplosionSFX;
     public float originalVolume;
     private void Start()
     {
-        originalVolume = audioSourceSFX.volume;
+        originalVolume = audioSourcePlayerSFX.volume;
     }
-    public void PlaySound(AudioClip clip)
+    public void PlayPlayerSound(AudioClip clip)
     {
-        audioSourceSFX.PlayOneShot(clip);
+        audioSourcePlayerSFX.PlayOneShot(clip);
+    }
+    public void PlayEnemySound(AudioClip clip)
+    {
+        audioSourceEnemySFX.PlayOneShot(clip);
+    }
+    public void PlayExplosionSound(AudioClip clip)
+    {
+        audioSourceExplosionSFX.PlayOneShot(clip);
     }
 }

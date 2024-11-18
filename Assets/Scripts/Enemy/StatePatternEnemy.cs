@@ -96,6 +96,7 @@ public class StatePatternEnemy : MonoBehaviour
     [HideInInspector] public NavMeshAgent agent;
     public string enemyID;
     public AudioClip shootingSound;
+    [SerializeField] private AudioSource audioSourceSFX;
     private void Awake()
     {
         patrolState = new PatrolState(this);
@@ -238,7 +239,8 @@ public class StatePatternEnemy : MonoBehaviour
         bullet.GetComponent<EnemyBullet>().target = bulletTarget;
         bullet.GetComponent<EnemyBullet>().damage = bulletDamage;
         muzzleFlash.GetComponent<ParticleSystem>().Play();
-        AudioManager.instance.PlaySound(shootingSound);
+        AudioManager.instance.audioSourceEnemySFX.transform.position = transform.position;
+        AudioManager.instance.PlayEnemySound(shootingSound);
         Invoke("ResetShot", shootingDelay);
     }
     public void ResetShot()

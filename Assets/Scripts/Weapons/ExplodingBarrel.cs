@@ -30,7 +30,7 @@ public class ExplodingBarrel : MonoBehaviour
     }
     private void Explode()
     {
-        AudioManager.instance.PlaySound(explosionSound);
+        AudioManager.instance.PlayExplosionSound(explosionSound);
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius);
         GameObject explosionEffect = GlobalReferences.Instance.explosionEffect;
         Instantiate(explosionEffect, transform.position, Quaternion.identity);
