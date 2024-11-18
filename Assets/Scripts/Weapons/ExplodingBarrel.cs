@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 public class ExplodingBarrel : MonoBehaviour
 {
-    public GameObject explosionEffect;
     public BoxCollider boxCollider;
     private float explosionRadius = 5f;
     private float explosionForce = 3000f;
@@ -11,6 +10,7 @@ public class ExplodingBarrel : MonoBehaviour
     private int hitCount = 0;
     private Coroutine explosionCoroutine;
     public LayerMask obstructionLayer;
+    public AudioClip explosionSound;
     public void BarrelHit()
     {
         hitCount++;
@@ -30,16 +30,14 @@ public class ExplodingBarrel : MonoBehaviour
     }
     private void Explode()
     {
+        AudioManager.instance.PlaySound(explosionSound);
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius);
+        GameObject explosionEffect = GlobalReferences.Instance.explosionEffect;
+        Instantiate(explosionEffect, transform.position, Quaternion.identity);
         foreach(Collider hitCollider in hitColliders)
         {
             if(hitCollider.CompareTag("Enemy"))
             {
-                //EnemyHealth enemyHealthScript = hitCollider.GetComponent<EnemyHealth>();
-                //if(enemyHealthScript != null)
-                //{
-                    //enemyHealthScript.TakeDamage(100);
-                //}
                 Vector3 directionToTarget = hitCollider.transform.position - transform.position;
                 if (!Physics.Raycast(transform.position, directionToTarget.normalized, explosionRadius, obstructionLayer))
                 {

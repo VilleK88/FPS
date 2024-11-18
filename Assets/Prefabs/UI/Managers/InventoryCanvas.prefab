@@ -1048,10 +1048,10 @@ MonoBehaviour:
   itemsDatabase:
   - {fileID: 11400000, guid: 446a2986bf96dd842a51f25aa4737cd3, type: 2}
   - {fileID: 11400000, guid: ef635ea7dc59070488bf5b6b672191d4, type: 2}
-  - {fileID: 11400000, guid: 1b375938d232505449e1484bd26c14e1, type: 2}
-  - {fileID: 11400000, guid: 4e5be8657546d6d43b539e0d80a2cd70, type: 2}
-  - {fileID: 11400000, guid: 1c4f718f6cc99f040ba871259288c675, type: 2}
-  - {fileID: 11400000, guid: 0d037110ef7ece747998b75166bd5a0e, type: 2}
+  - {fileID: 11400000, guid: 026642b040257d541bbcfb87eedddbe5, type: 2}
+  - {fileID: 11400000, guid: 1a3ca934967341940a5fcb733183c592, type: 2}
+  - {fileID: 11400000, guid: f823e187d0cf4b145b5caf42a1a6f830, type: 2}
+  - {fileID: 11400000, guid: 9864c455524fc654e9b10a07fee7902f, type: 2}
   - {fileID: 11400000, guid: 1b0130e3167ff194f9fa49f3c2912bc7, type: 2}
   - {fileID: 11400000, guid: 2749981cea30ec4499b66760fb944794, type: 2}
   - {fileID: 11400000, guid: 68e1794815be8f542a00bdad9ade0989, type: 2}
@@ -1081,7 +1081,6 @@ MonoBehaviour:
   tempInventoryItem: {fileID: 0}
   isPaused: 0
   closeButton: {fileID: 6171863173534563491}
-  eventSystem: {fileID: 8219488189111054409}
 --- !u!1001 &932605963
 PrefabInstance:
   m_ObjectHideFlags: 0

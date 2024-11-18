@@ -1786,8 +1786,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8841628e7fcd4084aba650303be92858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletImpactEffectPrefab: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
-  bloodSplatterEffectPrefab: {fileID: 4015569856126647747, guid: 98a931c6d2b5bd444bffcc80492ced86, type: 3}
+  bulletImpactStoneEffect: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
+  bulletImpactSandEffect: {fileID: 1000012142692022, guid: a475880e7da0e9548aa05cb7933752cd, type: 3}
+  bulletImpactMetalEffect: {fileID: 1000010355441670, guid: 02a509a7fa70ed740ba4197e20c5d32d, type: 3}
+  bulletImpactFleshSmallEffect: {fileID: 1000010191825552, guid: 83e55d3418297934fab882559d009285, type: 3}
+  bloodSplatterEffectPrefab: {fileID: 4670358184883159012, guid: f62616c7eddb1e340bcc35f28da7fd6b, type: 3}
+  ignitionFlame: {fileID: 3979797940479373498, guid: cf958668546d41d40b024e5a86a9d801, type: 3}
+  explosionEffect: {fileID: 1000011797152326, guid: acf39d9f4addf294d93fa56fa373961b, type: 3}
 --- !u!1 &2052148024
 GameObject:
   m_ObjectHideFlags: 0
@@ -2062,9 +2067,12 @@ MonoBehaviour:
   newSave: {fileID: 511056461116286005}
   inputField: {fileID: 6826584056736371020}
   inputFieldOn: 0
+  savePrefabMenuOpen: 0
+  savePrefabMenuButtons: []
   saveObjects: []
   saveObjectsIndex: 0
   scrollbar: {fileID: 1263426144986112057}
+  closingSavePrefabMenuCountdown: 0
 --- !u!1 &1852521547342143032
 GameObject:
   m_ObjectHideFlags: 0
