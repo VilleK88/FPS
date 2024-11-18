@@ -630,13 +630,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   randomPatrol: 1
   walkSpeed: 3.5
   runningSpeed: 6
@@ -653,6 +646,8 @@ MonoBehaviour:
   enemyHealth: {fileID: 1041474027577360227}
   player: {fileID: 0}
   agent: {fileID: 0}
+  enemyID: fd9ecc9c-7988-424c-8d24-a93284423b09
+  shootingSound: {fileID: 8300000, guid: edd9d760cb028f049b9d88f6fd61b0c2, type: 3}
 --- !u!114 &1041474027577360227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -670,6 +665,7 @@ MonoBehaviour:
   healthbar: {fileID: 526780415}
   healthBarFill: {fileID: 523350965}
   showHealthCounter: 2
+  rigidBodies: []
   takingHit: 0
   dead: 0
   alreadyFoundDead: 0
@@ -2254,7 +2250,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5465940246521907071, guid: 4f7b73753dca89f4385b3c5e3bcf5175, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0029420853
+      value: 0.0029411316
       objectReference: {fileID: 0}
     - target: {fileID: 5465940246521907071, guid: 4f7b73753dca89f4385b3c5e3bcf5175, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2262,7 +2258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5465940246521907071, guid: 4f7b73753dca89f4385b3c5e3bcf5175, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.010509491
+      value: 0.010509968
       objectReference: {fileID: 0}
     - target: {fileID: 5465940246521907071, guid: 4f7b73753dca89f4385b3c5e3bcf5175, type: 3}
       propertyPath: m_LocalRotation.w
