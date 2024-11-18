@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class AudioManager : MonoBehaviour
 {
     #region Singleton
@@ -20,11 +19,14 @@ public class AudioManager : MonoBehaviour
         }
     }
     #endregion
-
-    public AudioSource audioSource;
-
+    public AudioSource audioSourceSFX;
+    public float originalVolume;
+    private void Start()
+    {
+        originalVolume = audioSourceSFX.volume;
+    }
     public void PlaySound(AudioClip clip)
     {
-        audioSource.PlayOneShot(clip);
+        audioSourceSFX.PlayOneShot(clip);
     }
 }
