@@ -30,6 +30,7 @@ public class CombatState : IEnemyState
     }
     public void ToAlertState()
     {
+        enemy.shooting = false;
         enemy.agent.isStopped = true;
         enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
         enemy.GetComponentInChildren<Animator>().SetBool("RunAiming", false);
@@ -56,6 +57,7 @@ public class CombatState : IEnemyState
     }
     public void ToTrackingState()
     {
+        enemy.shooting = false;
         enemy.agent.isStopped = false;
         enemy.GetComponentInChildren<Animator>().SetBool("Running", false);
         enemy.GetComponentInChildren<Animator>().SetBool("Aiming", true);
@@ -88,10 +90,14 @@ public class CombatState : IEnemyState
                     if (enemy.readyToShoot && !enemy.enemyHealth.takingHit)
                         enemy.Shoot();
                     else if (enemy.enemyHealth.takingHit)
+                    {
+                        enemy.shooting = false;
                         enemy.Invoke("RecoverFromHit", 1);
+                    }
                 }
                 else
                 {
+                    enemy.shooting = false;
                     shootingDelay -= Time.deltaTime;
                     if (shootingDelay < 0)
                     {
@@ -107,6 +113,7 @@ public class CombatState : IEnemyState
             }
             else
             {
+                enemy.shooting = false;
                 enemy.agent.isStopped = false;
                 enemy.agent.speed = enemy.runningSpeed;
                 enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);
@@ -130,10 +137,14 @@ public class CombatState : IEnemyState
                 if (enemy.readyToShoot && !enemy.enemyHealth.takingHit)
                     enemy.Shoot();
                 else if (enemy.enemyHealth.takingHit)
+                {
+                    enemy.shooting = false;
                     enemy.Invoke("RecoverFromHit", 1);
+                }
             }
             else if(enemy.canSeePlayer)
             {
+                enemy.shooting = false;
                 ToCombatState();
                 shootingDelay -= Time.deltaTime;
                 if (shootingDelay < 0)
@@ -156,6 +167,7 @@ public class CombatState : IEnemyState
             }
             else
             {
+                enemy.shooting = false;
                 enemy.agent.isStopped = false;
                 enemy.agent.speed = enemy.runningSpeed;
                 enemy.GetComponentInChildren<Animator>().SetBool("Aiming", false);

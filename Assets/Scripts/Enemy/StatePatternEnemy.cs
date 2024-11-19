@@ -71,11 +71,12 @@ public class StatePatternEnemy : MonoBehaviour
     [Header("Patrol")]
     public Transform[] waypoints;
     public bool randomPatrol = false;
-    float callReinforcementsDistance = 60;
+    float callReinforcementsDistance = 50;
     [Header("Move Speed")]
     public float walkSpeed = 3.5f;
     public float runningSpeed = 6f;
     [Header("Shooting")]
+    public bool shooting;
     public Transform shootingPoint;
     public GameObject enemyBulletPrefab;
     public GameObject muzzleFlash;
@@ -232,6 +233,7 @@ public class StatePatternEnemy : MonoBehaviour
     public void Shoot()
     {
         readyToShoot = false;
+        shooting = true;
         Vector3 shootingDirection = CalculateDirectionAndSpread().normalized;
         GameObject bullet = Instantiate(enemyBulletPrefab, shootingPoint.position, shootingPoint.rotation);
         bullet.transform.forward = shootingDirection;
@@ -239,13 +241,38 @@ public class StatePatternEnemy : MonoBehaviour
         bullet.GetComponent<EnemyBullet>().target = bulletTarget;
         bullet.GetComponent<EnemyBullet>().damage = bulletDamage;
         muzzleFlash.GetComponent<ParticleSystem>().Play();
-        //AudioManager.instance.audioSourceEnemySFX.transform.position = transform.position;
-        AudioManager.instance.PlayEnemySound(shootingSound, transform);
+        //AudioManager.instance.PlayEnemySound(shootingSound, transform);
+        TryPlayShootSound();
         Invoke("ResetShot", shootingDelay);
+    }
+    public void TryPlayShootSound()
+    {
+        Collider[] hits = Physics.OverlapSphere(player.transform.position, 50f, enemyLayer);
+        Transform closestEnemy = null;
+        float closestDistance = Mathf.Infinity;
+        foreach(Collider hit in hits)
+        {
+            if (hit.CompareTag("Enemy"))
+            {
+                StatePatternEnemy enemy = hit.GetComponent<StatePatternEnemy>();
+                if (enemy != null && enemy.shooting)
+                {
+                    float distance = Vector3.Distance(player.transform.position, hit.transform.position);
+
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        closestEnemy = hit.transform;
+                    }
+                }
+            }
+        }
+        if (closestEnemy == transform) AudioManager.instance.PlayEnemySound(shootingSound, transform);
     }
     public void ResetShot()
     {
         readyToShoot = true;
+        shooting = false;
     }
     public void RecoverFromHit()
     {
