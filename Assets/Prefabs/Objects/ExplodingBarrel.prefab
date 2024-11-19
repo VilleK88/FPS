@@ -101,7 +101,7 @@ MonoBehaviour:
   obstructionLayer:
     serializedVersion: 2
     m_Bits: 1024
-  explosionSound: {fileID: 8300000, guid: ed9e9826bfc00eb449b6e7f7c3100877, type: 3}
+  explosionSound: {fileID: 8300000, guid: 01641641c8a0b2348bd8a8b8b6c6a95f, type: 3}
 --- !u!65 &2856358515020997431
 BoxCollider:
   m_ObjectHideFlags: 0
