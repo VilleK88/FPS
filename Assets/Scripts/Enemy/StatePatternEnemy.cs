@@ -235,13 +235,15 @@ public class StatePatternEnemy : MonoBehaviour
         readyToShoot = false;
         shooting = true;
         Vector3 shootingDirection = CalculateDirectionAndSpread().normalized;
-        GameObject bullet = Instantiate(enemyBulletPrefab, shootingPoint.position, shootingPoint.rotation);
-        bullet.transform.forward = shootingDirection;
-        bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse);
-        bullet.GetComponent<EnemyBullet>().target = bulletTarget;
-        bullet.GetComponent<EnemyBullet>().damage = bulletDamage;
+        if (Physics.Raycast(shootingPoint.position, shootingDirection, out RaycastHit hit, Mathf.Infinity))
+        {
+            if(hit.collider.CompareTag("Player"))
+            {
+                PlayerHealth playerHealth = hit.collider.GetComponent<PlayerHealth>();
+                if (playerHealth != null) playerHealth.TakeDamage(bulletDamage);
+            }
+        }
         muzzleFlash.GetComponent<ParticleSystem>().Play();
-        //AudioManager.instance.PlayEnemySound(shootingSound, transform);
         TryPlayShootSound();
         Invoke("ResetShot", shootingDelay);
     }
