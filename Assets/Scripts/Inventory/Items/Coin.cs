@@ -18,9 +18,7 @@ public class Coin : MonoBehaviour
     {
         string[] newCashIDs = new string[GameManager.instance.cashIDs.Length + 1];
         for(int i = 0; i < GameManager.instance.cashIDs.Length; i++)
-        {
             newCashIDs[i] = GameManager.instance.cashIDs[i];
-        }
         newCashIDs[GameManager.instance.cashIDs.Length] = newCoinID;
         GameManager.instance.cashIDs = newCashIDs;
     }

@@ -22,7 +22,7 @@ public class EnemyManager : MonoBehaviour
     public Sprite combatImage;
     Player player;
     public LayerMask enemyLayer;
-    public float enemyDataRadius = 100f;
+    public float enemyDataRadius = 300f;
     private void Start()
     {
         player = PlayerManager.instance.GetPlayer().GetComponent<Player>();

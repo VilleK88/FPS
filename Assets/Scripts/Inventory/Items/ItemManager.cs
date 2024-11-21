@@ -6,15 +6,12 @@ public class ItemManager : MonoBehaviour
     {
         Coin[] coinsInScene = FindObjectsOfType<Coin>();
         foreach(Coin coin in coinsInScene)
-        {
-            if(GameManager.instance.cashIDs.Contains(coin.coinID))
-                Destroy(coin.gameObject);
-        }
+            if (GameManager.instance.cashIDs.Contains(coin.coinID)) Destroy(coin.gameObject);
         ItemPickup[] itemPickupsInScene = FindObjectsOfType<ItemPickup>();
         foreach(ItemPickup itemPickup in itemPickupsInScene)
-        {
-            if (GameManager.instance.itemPickUpIDs.Contains(itemPickup.pickUpItemID))
-                Destroy(itemPickup.gameObject);
-        }
+            if (GameManager.instance.itemPickUpIDs.Contains(itemPickup.pickUpItemID)) Destroy(itemPickup.gameObject);
+        ExplodingBarrel[] explodingBarrelsInScene = FindObjectsOfType<ExplodingBarrel>();
+        foreach (ExplodingBarrel explodingBarrel in explodingBarrelsInScene)
+            if (GameManager.instance.explodingBarrelIDs.Contains(explodingBarrel.explodingBarrelID)) Destroy(explodingBarrel.gameObject);
     }
 }

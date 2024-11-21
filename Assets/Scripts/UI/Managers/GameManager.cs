@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
     public int cash;
     public string[] cashIDs;
     public string[] itemPickUpIDs;
+    public string[] explodingBarrelIDs;
     [Header("Save/load enemy parameters")]
     public List<EnemyData> nearbyEnemies = new List<EnemyData>();
     public string enemyDataID;
@@ -99,6 +100,7 @@ public class GameManager : MonoBehaviour
             cash = this.cash,
             cashIDs = this.cashIDs,
             itemPickUpIDs = this.itemPickUpIDs,
+            explodingBarrelIDs = this.explodingBarrelIDs,
             nearbyEnemies = this.nearbyEnemies,
             enemyDataID = this.enemyDataID,
             enemyPositionX = this.enemyPositionX,
@@ -195,6 +197,7 @@ public class GameManager : MonoBehaviour
                 cash = data.cash;
                 cashIDs = data.cashIDs;
                 itemPickUpIDs = data.itemPickUpIDs;
+                explodingBarrelIDs = data.explodingBarrelIDs;
                 nearbyEnemies = data.nearbyEnemies;
                 enemyDataID = data.enemyDataID;
                 enemyPositionX = data.enemyPositionX;
@@ -236,6 +239,7 @@ public class GameManager : MonoBehaviour
                 cash = data.cash;
                 cashIDs = data.cashIDs;
                 itemPickUpIDs = data.itemPickUpIDs;
+                explodingBarrelIDs = data.explodingBarrelIDs;
                 nearbyEnemies = data.nearbyEnemies;
                 enemyDataID = data.enemyDataID;
                 enemyPositionX = data.enemyPositionX;
@@ -275,6 +279,7 @@ public class GameData
     public int cash;
     public string[] cashIDs;
     public string[] itemPickUpIDs;
+    public string[] explodingBarrelIDs;
     public List<EnemyData> nearbyEnemies = new List<EnemyData>();
     public string enemyDataID;
     public float[] enemyPositionX;

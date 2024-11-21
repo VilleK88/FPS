@@ -65,7 +65,7 @@ public class LoadMenu : MonoBehaviour
         List<string> saveFiles = GetSaveFiles();
         foreach (string saveFilePath in saveFiles)
             CreateSavePrefab(saveFilePath);
-        saveObjects[0].GetComponent<Button>().Select();
+        if(saveObjects.Count > 0) saveObjects[0].GetComponent<Button>().Select();
     }
     void CreateSavePrefab(string saveFilePath)
     {

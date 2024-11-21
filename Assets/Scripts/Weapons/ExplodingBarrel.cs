@@ -11,6 +11,7 @@ public class ExplodingBarrel : MonoBehaviour
     private Coroutine explosionCoroutine;
     public LayerMask obstructionLayer;
     public AudioClip explosionSound;
+    public string explodingBarrelID;
     public void BarrelHit()
     {
         hitCount++;
@@ -50,6 +51,7 @@ public class ExplodingBarrel : MonoBehaviour
                 }
             }
         }
+        AddToExplodingBarrelIDsArray(explodingBarrelID);
         Destroy(gameObject);
     }
     private void DamageEnemy(GameObject enemy)
@@ -61,5 +63,21 @@ public class ExplodingBarrel : MonoBehaviour
             Vector3 explosionDirection = (enemy.transform.position - transform.position).normalized;
             rb.AddForce(explosionDirection * explosionForce);
         }
+    }
+    void AddToExplodingBarrelIDsArray(string newExplodingBarrelID)
+    {
+        string[] newExplodingBarrelIDs = new string[GameManager.instance.explodingBarrelIDs.Length + 1];
+        for(int i = 0; i < GameManager.instance.explodingBarrelIDs.Length; i++)
+        {
+            newExplodingBarrelIDs[i] = GameManager.instance.explodingBarrelIDs[i];
+        }
+        newExplodingBarrelIDs[GameManager.instance.explodingBarrelIDs.Length] = newExplodingBarrelID;
+        GameManager.instance.explodingBarrelIDs = newExplodingBarrelIDs;
+        Debug.Log("Add to array");
+    }
+    [ContextMenu("Generate GUID FOR ID")]
+    public void GenerateID()
+    {
+        explodingBarrelID = System.Guid.NewGuid().ToString();
     }
 }
