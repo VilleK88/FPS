@@ -107,7 +107,6 @@ public class EnemyHealth : MonoBehaviour
         healthbar.active = false;
         if (agent == null) agent = GetComponent<NavMeshAgent>();
         agent.isStopped = true;
-        ActivateRagdoll();
         //capsuleCollider = GetComponent<CapsuleCollider>();
         //capsuleCollider.enabled = false;
     }
