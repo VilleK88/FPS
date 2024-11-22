@@ -49,6 +49,7 @@ public class MenuControls : MonoBehaviour
     {
         GameManager.instance.cashIDs = new string[0]; // clear collected currency IDs
         GameManager.instance.itemPickUpIDs = new string[0]; // clear colleted item IDs
+        GameManager.instance.explodingBarrelIDs = new string[0]; // clear destroyed barrel IDs
         GameManager.instance.bulletsLeft = new int[0]; // clear saved bullets left in magazines
     }
     public void LoadGame(string filePath)
