@@ -1,7 +1,7 @@
 using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] CharacterController controller;
+    [SerializeField] public CharacterController controller;
     [SerializeField] CapsuleCollider capsuleCollider;
     [Header("Movement")]
     float x, z;

@@ -174,7 +174,7 @@ public class StatePatternEnemy : MonoBehaviour
         if(!Physics.Raycast(eyes.transform.position, directionToPlayer, distanceToPlayer, obstructionLayer))
         {
             playerMovementScript = player.GetComponent<PlayerMovement>();
-            if (playerMovementScript != null)
+            if (playerMovementScript != null && !PlayerManager.instance.dead)
             {
                 if (distanceToPlayer < radius && !playerMovementScript.sneaking)
                     canSeePlayer = true;

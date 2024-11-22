@@ -58,6 +58,7 @@ public class InGameMenuControls : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            if (PlayerManager.instance.dead) return;
             if(!settingsMenuOpen && !saveMenuOpen && !loadMenuOpen && InventoryManager.instance.tempInventoryItem == null)
             {
                 if (!InventoryManager.instance.closed)
@@ -130,6 +131,7 @@ public class InGameMenuControls : MonoBehaviour
     }
     public void QuickSave()
     {
+        if (PlayerManager.instance.dead) return;
         if (!EnemyManager.Instance.CanAnyoneSeeThePlayer())
         {
             SaveSceneID();
@@ -149,6 +151,7 @@ public class InGameMenuControls : MonoBehaviour
     }
     public void QuickLoadGame()
     {
+        if (PlayerManager.instance.dead) return;
         ClearAndDestroyInventory();
         GameManager.instance.Load(true, "no");
         LoadSceneID();

@@ -27,6 +27,7 @@ public class PlayerManager : MonoBehaviour
     private Image interactableIconImg;
     [SerializeField] private TextMeshProUGUI interactableText;
     public Image middlePoint;
+    public bool dead;
     private void Start()
     {
         interactableIconImg = interactableIconObject.GetComponent<Image>();

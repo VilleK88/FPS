@@ -74,6 +74,7 @@ public class InventoryManager : MonoBehaviour
     {
         if ((Input.GetKeyDown(KeyCode.I) && !InGameMenuControls.instance.saveMenu.GetComponent<SaveMenu>().inputFieldOn) || Input.GetKeyDown(KeyCode.Tab))
         {
+            if (PlayerManager.instance.dead) return;
             if (closed)
             {
                 OpenInventory();
@@ -189,13 +190,21 @@ public class InventoryManager : MonoBehaviour
     void EquipWeapon()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            DrawWeapon(1);
+        {
+            if(!PlayerManager.instance.dead) DrawWeapon(1);
+        }
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            DrawWeapon(2);
+        {
+            if (!PlayerManager.instance.dead) DrawWeapon(2);
+        }
         if (Input.GetKeyDown(KeyCode.Alpha3))
-            DrawWeapon(3);
+        {
+            if (!PlayerManager.instance.dead) DrawWeapon(3);
+        }
         if (Input.GetKeyDown(KeyCode.Alpha4))
-            DrawWeapon(4);
+        {
+            if (!PlayerManager.instance.dead) DrawWeapon(4);
+        }
     }
     void DrawWeapon(int index)
     {

@@ -10,8 +10,10 @@ public class PlayerHealth : MonoBehaviour
     Vignette vignette;
     public float intensity = 0;
     public float armorMultiplier;
+    [HideInInspector] Rigidbody rb;
     private void Start()
     {
+        rb = GetComponent<Rigidbody>();
         if(!GameManager.instance.loadPlayerPosition)
             GameManager.instance.currentHealth = GameManager.instance.maxHealth;
         HealthUIManager.Instance.UpdateHealthBar();
@@ -24,7 +26,7 @@ public class PlayerHealth : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && !PlayerManager.instance.dead)
             CheckHealthItemStatus();
     }
     public void TakeDamage(float damage)
@@ -34,8 +36,8 @@ public class PlayerHealth : MonoBehaviour
             GameManager.instance.currentHealth -= damage - armorMultiplier;
             HealthUIManager.Instance.UpdateHealthBar();
             StartCoroutine(DamageEffect());
-            //if (GameManager.instance.currentHealth <= 0)
-                //StartCoroutine(Die());
+            if (GameManager.instance.currentHealth <= 0)
+                Die();
         }
     }
     public bool HealPlayer(float health)
@@ -106,9 +108,15 @@ public class PlayerHealth : MonoBehaviour
     {
         vignette.smoothness.Override(smoothness);
     }
-    IEnumerator Die()
+    void Die()
     {
-        yield return new WaitForSeconds(0.2f);
-        SceneManager.LoadScene("1 - Menu");
+        PlayerManager.instance.dead = true;
+        PlayerMovement playerMovementScript = GetComponent<PlayerMovement>();
+        playerMovementScript.controller.Move(Vector3.zero);
+        playerMovementScript.enabled = false;
+        MouseLook mouseLookScript = GetComponentInChildren<MouseLook>();
+        if(mouseLookScript != null) mouseLookScript.enabled = false;
+        rb.isKinematic = true;
+        GameOverScreen.instance.StartCoroutine(GameOverScreen.instance.GameOver());
     }
 }
