@@ -12,13 +12,14 @@ public class EnemyHealth : MonoBehaviour
     float targetFillAmount;
     public float showHealthCounter = 2f;
     [HideInInspector] public Rigidbody[] rigidBodies;
+    [SerializeField] private Rigidbody rb;
     public bool takingHit; // from the players bullets
     public bool dead;
     public bool alreadyFoundDead;
     StatePatternEnemy enemy;
     NavMeshAgent agent;
     [SerializeField] private GameObject body;
-    private CapsuleCollider collider;
+    private CapsuleCollider capsuleCollider;
     private void Start()
     {
         if(!dead)
@@ -31,7 +32,7 @@ public class EnemyHealth : MonoBehaviour
             DeactivateRagdoll();
             enemy = GetComponent<StatePatternEnemy>();
             agent = GetComponent<NavMeshAgent>();
-            collider = GetComponent<CapsuleCollider>();
+            capsuleCollider = GetComponent<CapsuleCollider>();
         }
     }
     public void ShowHealth()
@@ -88,6 +89,7 @@ public class EnemyHealth : MonoBehaviour
         healthbar.active = false;
         agent.isStopped = true;
         //StartCoroutine(Vanish());
+        //capsuleCollider.enabled = false;
     }
     public void DieData()
     {
@@ -105,13 +107,16 @@ public class EnemyHealth : MonoBehaviour
         healthbar.active = false;
         if (agent == null) agent = GetComponent<NavMeshAgent>();
         agent.isStopped = true;
+        ActivateRagdoll();
+        //capsuleCollider = GetComponent<CapsuleCollider>();
+        //capsuleCollider.enabled = false;
     }
     public IEnumerator Vanish()
     {
         yield return new WaitForSeconds(30f);
         body.SetActive(false);
-        if(collider != null)
-            collider.enabled = false;
+        if(capsuleCollider != null)
+            capsuleCollider.enabled = false;
     }
     void DeactivateRagdoll()
     {

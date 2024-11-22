@@ -81,8 +81,9 @@ public class EnemyManager : MonoBehaviour
                     {
                         if (enemyHealth.rigidBodies == null) enemyHealth.rigidBodies = enemyHealth.GetComponentsInChildren<Rigidbody>();
                         enemyHealth.ActivateRagdoll();
-                        enemyHealth.DieData();
+                        //enemyHealth.DieData();
                         LoadRagdollTransforms(enemy.transform, enemyData.ragdollData);
+                        enemyHealth.DieData();
                     }
                 }
             }
@@ -120,6 +121,11 @@ public class EnemyManager : MonoBehaviour
             {
                 bone.localPosition = new Vector3(boneData.bonePositionX, boneData.bonePositionY, boneData.bonePositionZ);
                 bone.localEulerAngles = new Vector3(boneData.boneRotationX, boneData.boneRotationY, boneData.boneRotationZ);
+                Rigidbody rb = bone.GetComponent<Rigidbody>();
+                if(rb !=  null)
+                {
+                    rb.isKinematic = true;
+                }
             }
         }
     }

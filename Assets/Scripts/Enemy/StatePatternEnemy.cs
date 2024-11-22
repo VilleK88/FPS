@@ -97,7 +97,6 @@ public class StatePatternEnemy : MonoBehaviour
     [HideInInspector] public NavMeshAgent agent;
     public string enemyID;
     public AudioClip shootingSound;
-    [SerializeField] private AudioSource audioSourceSFX;
     private void Awake()
     {
         patrolState = new PatrolState(this);
@@ -189,6 +188,7 @@ public class StatePatternEnemy : MonoBehaviour
     }
     public bool IsDeadEnemyInSight(GameObject obj)
     {
+        if (obj == null) return false;
         Vector3 origin = sensor.transform.position;
         Vector3 dest = obj.transform.position;
         Vector3 direction = dest - origin;
@@ -208,7 +208,8 @@ public class StatePatternEnemy : MonoBehaviour
         if (!Physics.Raycast(eyes.transform.position, direction, distanceToEnemy, obstructionLayer))
         {
             EnemyHealth enemyHealthScript = obj.GetComponent<EnemyHealth>();
-            if(enemyHealthScript != null)
+            //EnemyHealth enemyHealthScript = FindEnemyHealthInParent(hitInfo.collider.transform);
+            if (enemyHealthScript != null)
             {
                 if(distanceToEnemy < 30 && !enemyHealthScript.alreadyFoundDead && enemyHealthScript.dead)
                 {
@@ -229,6 +230,16 @@ public class StatePatternEnemy : MonoBehaviour
             }
         }
         return false;
+    }
+    EnemyHealth FindEnemyHealthInParent(Transform current)
+    {
+        while(current != null)
+        {
+            EnemyHealth health = current.GetComponent<EnemyHealth>();
+            if (health != null) return health;
+            current = current.parent;
+        }
+        return null;
     }
     public void Shoot()
     {
