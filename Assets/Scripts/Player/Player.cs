@@ -99,6 +99,21 @@ public class Player : MonoBehaviour
                     }
                 }
             }
+            if(hit.collider.CompareTag("Gate"))
+            {
+                if (!InventoryManager.instance.isPaused && !PlayerManager.instance.dead)
+                    PlayerManager.instance.TurnOnOrOffInteractable(true);
+                PlayerManager.instance.middlePoint.enabled = false;
+                if (Input.GetKeyDown(KeyCode.E) && pressingCooldown <= 0)
+                {
+                    Gate gate = hit.collider.GetComponentInParent<Gate>();
+                    if (gate != null)
+                    {
+                        gate.GameWon();
+                        pressingCooldown = 1;
+                    }
+                }
+            }
             if (interactable != null)
             {
                 SetFocus(interactable);

@@ -12,6 +12,7 @@ TagManager:
   - Bullet
   - Door
   - ExplodingBarrel
+  - Gate
   layers:
   - Default
   - TransparentFX

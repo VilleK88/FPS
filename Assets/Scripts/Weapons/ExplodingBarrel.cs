@@ -56,7 +56,6 @@ public class ExplodingBarrel : MonoBehaviour
     }
     private void DamageEnemy(GameObject enemy)
     {
-        Debug.Log("Enemy damaged: " + enemy.name);
         Rigidbody rb = enemy.GetComponent<Rigidbody>();
         if(rb != null)
         {
@@ -73,7 +72,6 @@ public class ExplodingBarrel : MonoBehaviour
         }
         newExplodingBarrelIDs[GameManager.instance.explodingBarrelIDs.Length] = newExplodingBarrelID;
         GameManager.instance.explodingBarrelIDs = newExplodingBarrelIDs;
-        Debug.Log("Add to array");
     }
     [ContextMenu("Generate GUID FOR ID")]
     public void GenerateID()

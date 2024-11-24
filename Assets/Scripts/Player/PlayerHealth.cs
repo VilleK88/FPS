@@ -10,7 +10,7 @@ public class PlayerHealth : MonoBehaviour
     Vignette vignette;
     public float intensity = 0;
     public float armorMultiplier;
-    [HideInInspector] Rigidbody rb;
+    [HideInInspector] public Rigidbody rb;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();

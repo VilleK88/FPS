@@ -23,4 +23,10 @@ public class GameOverScreen : MonoBehaviour
         yield return new WaitForSeconds(5);
         SceneManager.LoadScene("1 - Menu");
     }
+    public IEnumerator GameWon()
+    {
+        anim.SetTrigger("GameWon");
+        yield return new WaitForSeconds(5);
+        SceneManager.LoadScene("1 - Menu");
+    }
 }
