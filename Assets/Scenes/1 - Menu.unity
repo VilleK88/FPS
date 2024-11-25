@@ -2659,9 +2659,9 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
+    m_Top: 5
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 1
   m_Spacing: 5
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
@@ -3431,8 +3431,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 193054988}
   m_HandleRect: {fileID: 193054987}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6614,7 +6614,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1609222264}
   m_HandleRect: {fileID: 1609222263}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
