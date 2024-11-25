@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5471049523122858399}
   - component: {fileID: 5471049523122858395}
   - component: {fileID: 5471049523122858388}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Nazi_Gold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 5
-  coinID: e1f450cd-26ae-4ee7-9cbd-e796c784d680
+  coinID: f66b63d1-9b31-4d6b-89df-944343a4f628
   collectSound: {fileID: 8300000, guid: 4be2487d51606df44a45889a21e78974, type: 3}
 --- !u!135 &5471049523122858388
 SphereCollider:
