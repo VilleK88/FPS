@@ -94,19 +94,19 @@ public class Weapon : MonoBehaviour
         {
             if (!secondKnifeAttack && !thirdKnifeAttack)
             {
-                anim.SetTrigger("KnifeAttack1");
+                anim.SetTrigger("KnifeAttack3");
                 secondKnifeAttack = true;
                 nextAttackCooldown = 1.2f;
             }
             else if(secondKnifeAttack && !thirdKnifeAttack)
             {
-                anim.SetTrigger("KnifeAttack2");
+                anim.SetTrigger("KnifeAttack1");
                 thirdKnifeAttack = true;
                 nextAttackCooldown = 1.2f;
             }
             else if(secondKnifeAttack && thirdKnifeAttack)
             {
-                anim.SetTrigger("KnifeAttack3");
+                anim.SetTrigger("KnifeAttack2");
                 nextAttackCooldown = 1.2f;
                 secondKnifeAttack = false;
                 thirdKnifeAttack = false;
