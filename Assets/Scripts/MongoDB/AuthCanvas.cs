@@ -1,7 +1,7 @@
 using UnityEngine;
 public class AuthCanvas : MonoBehaviour
 {
-    #region
+    #region Singleton
     public static AuthCanvas Instance;
     private void Awake()
     {
