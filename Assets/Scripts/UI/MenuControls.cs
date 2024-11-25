@@ -25,6 +25,8 @@ public class MenuControls : MonoBehaviour
             Destroy(inventoryCanvas);
         if (AccountManager.Instance != null)
             AccountManager.Instance.ShowContainer();
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
     private void Update()
     {

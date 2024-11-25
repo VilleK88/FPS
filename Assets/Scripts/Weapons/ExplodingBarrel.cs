@@ -50,6 +50,18 @@ public class ExplodingBarrel : MonoBehaviour
                     DamageEnemy(hitCollider.gameObject);
                 }
             }
+            if (hitCollider.CompareTag("Player"))
+            {
+                Vector3 directionToTarget = hitCollider.transform.position - transform.position;
+                if (!Physics.Raycast(transform.position, directionToTarget.normalized, explosionRadius, obstructionLayer))
+                {
+                    PlayerHealth playerHealthScript = hitCollider.GetComponent<PlayerHealth>();
+                    if (playerHealthScript != null)
+                    {
+                        playerHealthScript.TakeDamage(50);
+                    }
+                }
+            }
         }
         AddToExplodingBarrelIDsArray(explodingBarrelID);
         Destroy(gameObject);
