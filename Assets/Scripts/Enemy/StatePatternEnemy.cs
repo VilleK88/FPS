@@ -208,17 +208,15 @@ public class StatePatternEnemy : MonoBehaviour
         if (!Physics.Raycast(eyes.transform.position, direction, distanceToEnemy, obstructionLayer))
         {
             EnemyHealth enemyHealthScript = obj.GetComponent<EnemyHealth>();
-            //EnemyHealth enemyHealthScript = FindEnemyHealthInParent(hitInfo.collider.transform);
             if (enemyHealthScript != null)
             {
                 if(distanceToEnemy < 30 && !enemyHealthScript.alreadyFoundDead && enemyHealthScript.dead)
                 {
                     enemyHealthScript.alreadyFoundDead = true;
-                    enemyHealthScript.StartCoroutine(enemyHealthScript.Vanish());
+                    //enemyHealthScript.StartCoroutine(enemyHealthScript.Vanish());
                     if(currentState != combatState && !canSeePlayer)
                     {
                         lastKnownPlayerPosition = enemyHealthScript.transform.position;
-                        Debug.Log("Dead enemy found");
                         if (currentState == patrolState)
                             patrolState.ToTrackingState();
                         else if (currentState == alertState)
