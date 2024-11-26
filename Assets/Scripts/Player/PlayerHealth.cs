@@ -11,6 +11,7 @@ public class PlayerHealth : MonoBehaviour
     public float intensity = 0;
     public float armorMultiplier;
     [HideInInspector] public Rigidbody rb;
+    public bool godMode;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -28,9 +29,25 @@ public class PlayerHealth : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q) && !PlayerManager.instance.dead)
             CheckHealthItemStatus();
+        if (Input.GetKeyDown(KeyCode.G))
+            GodModeOnOff();
+    }
+    public void GodModeOnOff()
+    {
+        if (!godMode)
+        {
+            godMode = true;
+            GodModeUI.Instance.GodModeOn();
+        }
+        else
+        {
+            godMode = false;
+            GodModeUI.Instance.GodModeOff();
+        }
     }
     public void TakeDamage(float damage)
     {
+        if (godMode) return;
         if (GameManager.instance.currentHealth > 0)
         {
             GameManager.instance.currentHealth -= damage - armorMultiplier;
