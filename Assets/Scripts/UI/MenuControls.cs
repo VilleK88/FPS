@@ -27,6 +27,7 @@ public class MenuControls : MonoBehaviour
             AccountManager.Instance.ShowContainer();
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        ClearTablesInGameManager();
     }
     private void Update()
     {
@@ -53,6 +54,7 @@ public class MenuControls : MonoBehaviour
         GameManager.instance.itemPickUpIDs = new string[0]; // clear colleted item IDs
         GameManager.instance.explodingBarrelIDs = new string[0]; // clear destroyed barrel IDs
         GameManager.instance.bulletsLeft = new int[0]; // clear saved bullets left in magazines
+        GameManager.instance.nearbyEnemies.Clear();
     }
     public void LoadGame(string filePath)
     {

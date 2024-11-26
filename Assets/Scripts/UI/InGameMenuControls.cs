@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using Unity.VisualScripting;
 using System;
 public class InGameMenuControls : MonoBehaviour
 {
@@ -144,6 +143,7 @@ public class InGameMenuControls : MonoBehaviour
     }
     public void LoadGame(string filePath)
     {
+        GameManager.instance.nearbyEnemies.Clear();
         ClearAndDestroyInventory();
         GameManager.instance.Load(false, filePath);
         LoadSceneID();
@@ -151,6 +151,7 @@ public class InGameMenuControls : MonoBehaviour
     }
     public void QuickLoadGame()
     {
+        GameManager.instance.nearbyEnemies.Clear();
         if (PlayerManager.instance.dead) return;
         ClearAndDestroyInventory();
         GameManager.instance.Load(true, "no");
