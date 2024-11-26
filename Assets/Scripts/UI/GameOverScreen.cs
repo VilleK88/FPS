@@ -13,6 +13,7 @@ public class GameOverScreen : MonoBehaviour
     }
     #endregion
     [SerializeField] private Animator anim;
+    public GameObject textObject;
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -25,6 +26,7 @@ public class GameOverScreen : MonoBehaviour
     }
     public IEnumerator GameWon()
     {
+        textObject.SetActive(true);
         anim.SetTrigger("GameWon");
         yield return new WaitForSeconds(5);
         SceneManager.LoadScene("1 - Menu");
