@@ -1,9 +1,19 @@
-# First-Person Shooter Game Project
+# Prison Escape FPS
 
-Wolfenstein-inspired 3D first-person shooter using C#, Unity, and MongoDB. The game combines fast-paced combat with stealth mechanics and strategic inventory management, offering an immersive gameplay experience.
+3D Unity first-person shooter with stealth elements set in a prison environment.
 
-Key Features:
+## Overview
+The player escapes from a heavily guarded prison using both combat and stealth mechanics.
 
-- High-speed, action-oriented shooting mechanics
-- Integrated stealth and sneaking elements
-- Dynamic inventory system for resource management
+## Features
+- FPS combat system
+- Enemy AI with field-of-view detection
+- Stealth mechanics
+- Drag-and-drop inventory system
+
+## Technologies
+- Unity
+- C#
+
+## Notes
+I worked as the sole programmer, implementing core systems including AI behavior, inventory mechanics, and player controls.
